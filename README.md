@@ -91,8 +91,5 @@ usertwo
 * Windows 7 or later
 * .NET Framework 4.7.2
 
-### It looks like this
-
-![Wiki-Up](https://aspallar.github.com/Images/Upload.PNG)
 
 
