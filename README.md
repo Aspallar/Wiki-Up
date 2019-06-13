@@ -41,7 +41,7 @@ keys.
 
 You can save and load upload lists using the "Save" and "Load" buttons.
 
-When you are ready to upload clock the "Upload" button.
+When you are ready to upload click the "Upload" button.
 
 ### Upload Summary and Initial Page Content
 
