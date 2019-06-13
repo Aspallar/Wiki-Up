@@ -13,9 +13,9 @@ The current release is a **beta** release.
 
 ### Installation
 
-* Click on the releases link above.
+* Go to [releases](https://github.com/Aspallar/Wiki-Up/releases).
 * Click on the latest release. 
-* Download the zip file.
+* Download the zip file in the assets section.
 * Extract the contents of the zip to a folder of your choice.
 * Run WikiUp.exe to start it up.
 
