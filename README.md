@@ -93,6 +93,6 @@ usertwo
 
 ### It looks like this
 
-![Wiki-Up](https://aspallar.github.com/images/Upload.png)
+![Wiki-Up](https://aspallar.github.com/Images/Upload.png)
 
 
