@@ -14,7 +14,7 @@ namespace WikiUpload
             Assembly assembly = Assembly.GetEntryAssembly();
             object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
             CopyrightText = ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
-            VersionText = $"Version {Utils.GetApplicationVersion(assembly)}-rc1";
+            VersionText = $"Version {Utils.GetApplicationVersion(assembly)}";
             CloseCommand = new RelayCommand(() => _window.Close());
         }
 
