@@ -84,7 +84,7 @@ namespace TestServer
                 else if (request.RawUrl.IndexOf("&prop=info&intoken=edit&titles=Foo") != -1)
                     reply = QueryReply("<pages><page edittoken=\"666+\\\"></page></pages>");
 
-                else if (request.RawUrl.IndexOf("MediaWiki:Custom-WikiUploadUsers") != -1)
+                else if (request.RawUrl.IndexOf("MediaWiki:Custom-WikiUpUsers") != -1)
                     reply = QueryReply("<pages><page><revisions><rev xml:space=\"preserve\">a\nb\nc\naspallar\nfoo\nbar\n</rev></revisions></page></pages>");
 
                 else if (request.RawUrl.IndexOf("meta=siteinfo&siprop=fileextensions") != -1)
