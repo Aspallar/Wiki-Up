@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,6 +16,8 @@ namespace WikiUpload
 
         public string WikiUrl { get; set; } = Properties.Settings.Default.WikiUrl;
 
+        public ObservableCollection<string> PreviousSites { get; set; }
+
         public bool IsLoginError { get; set; }
 
         public string LoginErrorMessage { get; set; }
@@ -21,9 +26,11 @@ namespace WikiUpload
 
         public ICommand LoginCommand { get; set; }
 
+
         public LoginViewModel()
         {
             LoginCommand = new RelayParameterizedCommand(async (securePassword) => await Login(securePassword));
+            PreviousSites = Properties.Settings.Default.RecentlyUsedSites;
         }
 
         public async Task Login(object securePassword)
@@ -45,9 +52,11 @@ namespace WikiUpload
 
                 if (loggedIn)
                 {
-                    Properties.Settings.Default.Username = Username;
-                    Properties.Settings.Default.WikiUrl = WikiUrl;
-                    Properties.Settings.Default.Save();
+                    var settings = Properties.Settings.Default;
+                    settings.Username = Username;
+                    settings.WikiUrl = WikiUrl;
+                    settings.AddMostRecentlyUsedSite(WikiUrl);
+                    settings.Save();
                     Navigator.NavigationService.Navigate(new UploadPage());
                 }
                 else

@@ -43,9 +43,13 @@
                                        Margin="0 14 0 10"/>
 
                             <TextBox x:Name="WikiSite" Tag="Wiki Url" Style="{StaticResource LineTextBox}"
-                                     Text="{Binding WikiUrl, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding WikiUrl, UpdateSourceTrigger=PropertyChanged}"
+                                     local:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding PreviousSites}" 
+                                     />
+                            
                             <TextBox Tag="Username" Style="{StaticResource LineTextBox}"
                                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+                            
                             <PasswordBox x:Name="PasswordText" Tag="Password"/>
 
                             <Button Content="Login"  HorizontalAlignment="Center"  Margin="0 30 0 0" 

@@ -68,9 +68,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AttachedProperties\DragTargetAttachedProperty.cs" />
+    <Compile Include="Behaviours\AutoCompleteBehavior.cs" />
     <Compile Include="DataModels\UploadList.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Exceptions\LoginException.cs" />
+    <Compile Include="Properties\Settings.Extended.cs" />
     <Compile Include="Utilities\DialogManager.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />

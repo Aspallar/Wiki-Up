@@ -55,5 +55,16 @@ namespace WikiUpload.Properties {
                 return ((int)(this["UploadDelay"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection PreviousSites {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["PreviousSites"]));
+            }
+            set {
+                this["PreviousSites"] = value;
+            }
+        }
     }
 }
