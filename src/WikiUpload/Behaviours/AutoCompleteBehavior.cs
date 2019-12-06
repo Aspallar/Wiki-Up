@@ -22,6 +22,8 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+
+ * Modified by Aspallar 2019
 */
 
 using System;
@@ -49,6 +51,7 @@ namespace WikiUpload
                 typeof(AutoCompleteBehavior),
                 new UIPropertyMetadata(null, OnAutoCompleteItemsSource)
             );
+
 		/// <summary>
 		/// Whether or not to ignore case when searching for matches.
 		/// </summary>
@@ -161,11 +164,7 @@ namespace WikiUpload
 		/// <param name="e"></param>
         static void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if
-            (
-                (from change in e.Changes where change.RemovedLength > 0 select change).Any() &&
-                (from change in e.Changes where change.AddedLength > 0 select change).Any() == false
-            )
+            if (e.Changes.Any(x => x.RemovedLength > 0) && !e.Changes.Any(x => x.AddedLength > 0))
                 return;
 
             TextBox tb = e.OriginalSource as TextBox;
@@ -201,30 +200,20 @@ namespace WikiUpload
             if (String.IsNullOrEmpty(matchingString))
                 return;
 
-            Int32 textLength = matchingString.Length;
+            int textLength = matchingString.Length;
 
-			StringComparison comparer = GetAutoCompleteStringComparison(tb);
+			StringComparison compareType = GetAutoCompleteStringComparison(tb);
+
             //Do search and changes here.
-			String match =
-			(
-				from
-					value
-				in
-				(
-					from subvalue
-					in values
-					where subvalue != null && subvalue.Length >= textLength
-					select subvalue
-				)
-				where value.Substring(0, textLength).Equals(matchingString, comparer)
-				select value.Substring(textLength, value.Length - textLength)/*Only select the last part of the suggestion*/
-			).FirstOrDefault();
+            var match = values.Where(x => x.StartsWith(matchingString, compareType))
+                .Select(x => x.Substring(textLength, x.Length - textLength))
+                .FirstOrDefault();
 
             //Nothing.  Leave 'em alone
-			if (String.IsNullOrEmpty(match))
+            if (string.IsNullOrEmpty(match))
 				return;
 
-            int matchStart = (startIndex + matchingString.Length);
+            int matchStart = (startIndex + textLength);
             tb.TextChanged -= onTextChanged;
             tb.Text += match;
             tb.CaretIndex = matchStart;
