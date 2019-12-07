@@ -113,6 +113,8 @@ namespace WikiUpload
                 cancelToken.ThrowIfCancellationRequested();
 
                 file.SetUploading();
+                ViewedFile = file;
+
                 var response = await UploadService.Uploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload);
                 await Task.Delay(Properties.Settings.Default.UploadDelay, cancelToken);
 
@@ -282,5 +284,7 @@ namespace WikiUpload
         public bool UploadIsRunning { get; set; }
 
         public UploadList UploadFiles { get; set; } = new UploadList();
+
+        public UploadFile ViewedFile { get; set; }
     }
 }

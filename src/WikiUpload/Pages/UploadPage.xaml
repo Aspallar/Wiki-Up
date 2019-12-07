@@ -38,6 +38,7 @@
                                  ItemsSource="{Binding UploadFiles}"
                                  local:IsDropFileEnabledProperty.Value="True"
                                  local:DropFileTargetProperty.Value="{Binding}"
+                                 local:ViewedItemProperty.Value="{Binding ViewedFile}"
                                  Style="{StaticResource UploadFilesListBox}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
