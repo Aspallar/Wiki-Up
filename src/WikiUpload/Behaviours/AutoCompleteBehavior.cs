@@ -80,11 +80,7 @@ namespace WikiUpload
         #region Items Source
         public static IEnumerable<String> GetAutoCompleteItemsSource(DependencyObject obj)
         {
-            object objRtn = obj.GetValue(AutoCompleteItemsSource);
-            if (objRtn is IEnumerable<String>)
-                return (objRtn as IEnumerable<String>);
-
-            return null;
+            return obj.GetValue(AutoCompleteItemsSource) as IEnumerable<String>;
         }
 
         public static void SetAutoCompleteItemsSource(DependencyObject obj, IEnumerable<String> value)
@@ -94,8 +90,7 @@ namespace WikiUpload
 
         private static void OnAutoCompleteItemsSource(object sender, DependencyPropertyChangedEventArgs e)
         {
-            TextBox tb = sender as TextBox;
-            if (sender == null)
+            if (!(sender is TextBox tb))
                 return;
 
             //If we're being removed, remove the callbacks
@@ -145,8 +140,7 @@ namespace WikiUpload
             if (e.Key != Key.Enter)
                 return;
 
-            TextBox tb = e.OriginalSource as TextBox;
-            if (tb == null)
+            if (!(e.OriginalSource is TextBox tb))
                 return;
 
             //If we pressed enter and if the selected text goes all the way to the end, move our caret position to the end
@@ -167,25 +161,22 @@ namespace WikiUpload
             if (e.Changes.Any(x => x.RemovedLength > 0) && !e.Changes.Any(x => x.AddedLength > 0))
                 return;
 
-            TextBox tb = e.OriginalSource as TextBox;
-            if (sender == null)
+            if (!(e.OriginalSource is TextBox tb))
                 return;
 
             IEnumerable<String> values = GetAutoCompleteItemsSource(tb);
-            //No reason to search if we don't have any values.
-            if (values == null)
-                return;
+            string searchTarget = tb.Text;
 
-            //No reason to search if there's nothing there.
-            if (String.IsNullOrEmpty(tb.Text))
+            //No reason to search if we don't have any values or there's nothing to search for.
+            if (values == null || string.IsNullOrEmpty(searchTarget))
                 return;
 
             string indicator = GetAutoCompleteIndicator(tb);
-            int startIndex = 0; //Start from the beginning of the line.
-            string matchingString = tb.Text;
+            int startIndex = 0; 
+
             //If we have a trigger string, make sure that it has been typed before
             //giving auto-completion suggestions.
-            if(!String.IsNullOrEmpty(indicator))
+            if (!string.IsNullOrEmpty(indicator))
             {
                 startIndex = tb.Text.LastIndexOf(indicator);
                 //If we haven't typed the trigger string, then don't do anything.
@@ -193,32 +184,30 @@ namespace WikiUpload
                     return;
 
                 startIndex += indicator.Length;
-                matchingString = tb.Text.Substring(startIndex, (tb.Text.Length - startIndex));
+                searchTarget = searchTarget.Substring(startIndex, searchTarget.Length - startIndex);
             }
 
             //If we don't have anything after the trigger string, return.
-            if (String.IsNullOrEmpty(matchingString))
+            if (string.IsNullOrEmpty(searchTarget))
                 return;
 
-            int textLength = matchingString.Length;
+            int searchTargetLength = searchTarget.Length;
 
 			StringComparison compareType = GetAutoCompleteStringComparison(tb);
 
-            //Do search and changes here.
-            var match = values.Where(x => x.StartsWith(matchingString, compareType))
-                .Select(x => x.Substring(textLength, x.Length - textLength))
+            var match = values.Where(x => x.StartsWith(searchTarget, compareType))
+                .Select(x => x.Substring(searchTargetLength, x.Length - searchTargetLength))
                 .FirstOrDefault();
 
-            //Nothing.  Leave 'em alone
             if (string.IsNullOrEmpty(match))
 				return;
 
-            int matchStart = (startIndex + textLength);
+            int matchStart = startIndex + searchTargetLength;
             tb.TextChanged -= onTextChanged;
             tb.Text += match;
             tb.CaretIndex = matchStart;
             tb.SelectionStart = matchStart;
-            tb.SelectionLength = (tb.Text.Length - startIndex);
+            tb.SelectionLength = tb.Text.Length - startIndex;
             tb.TextChanged += onTextChanged;
         }
     }
