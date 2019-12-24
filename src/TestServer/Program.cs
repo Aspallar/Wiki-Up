@@ -1,13 +1,18 @@
 ﻿using CommandLine;
 using System;
+using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web;
 
 namespace TestServer
 {
     class Program
     {
+        const string loginToken = "123456+\\";
+
         static readonly object randLock = new object();
         static readonly Random rand = new Random();
 
@@ -39,62 +44,34 @@ namespace TestServer
 
         private static void HandleRequest(HttpListenerContext context, Options options)
         {
-            string reply = ApiReply("");
+            string reply; ;
             var request = context.Request;
             var response = context.Response;
 
-            //Console.WriteLine($"RawUrl: {request.RawUrl}");
             if (request.HasEntityBody)
             {
                 if (request.ContentType == "application/x-www-form-urlencoded")
                 {
                     if (options.LoginTimeout)
                         return;
-                    if (options.InvalidLoginXml)
-                        reply = "Howdy = I'm not xml";
-                    else
-                        reply = ApiReply("<login result=\"Success\" />");
+                    reply = LoginReply(options, request);
                 }
                 else if (request.ContentType.StartsWith("multipart/form-data"))
                 {
                     if (options.UploadTimeout)
                         return;
-                    //Console.WriteLine("Type: Image upload");
-                    if (options.MaxLag == -1)
-                        reply = MaxLagReply(response);
-                    else if (options.Exists > 0 && GetRandom(100) < options.Exists)
-                        reply = ApiReply("<upload result=\"Warning\"><warnings exists=\"\"></warnings></upload>");
-                    else if (options.InvalidXml > 0 && GetRandom(100) < options.InvalidXml)
-                        reply = "Hey this is not xml";
-                    else if (options.MaxLag > 0 && GetRandom(100) < options.MaxLag)
-                        reply = MaxLagReply(response);
-                    else
-                        reply = ApiReply("<upload result=\"Success\"></upload>");
-
-                    if (options.Delay > 0)
-                        Thread.Sleep(options.Delay);
+                    reply = UploadReply(options, response);
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: Unknown content type");
+                    reply = ApiReply("");
                 }
                 request.InputStream.Close();
             }
             else
             {
-                if (request.RawUrl.IndexOf("list=users&usprop=groups&ususers") != -1)
-                    reply = QueryReply("<users><user><groups><g>autoconfirmed</g></groups></user></users>");
-
-                else if (request.RawUrl.IndexOf("&prop=info&intoken=edit&titles=Foo") != -1)
-                    reply = QueryReply("<pages><page edittoken=\"666+\\\"></page></pages>");
-
-                else if (request.RawUrl.IndexOf("MediaWiki:Custom-WikiUpUsers") != -1)
-                    reply = QueryReply("<pages><page><revisions><rev xml:space=\"preserve\">a\nb\nc\naspallar\nfoo\nbar\n</rev></revisions></page></pages>");
-
-                else if (request.RawUrl.IndexOf("meta=siteinfo&siprop=fileextensions") != -1)
-                    reply = QueryReply("<fileextensions><fe ext=\"png\" /><fe ext=\"jpg\" /></fileextensions>");
-
-                else if (request.RawUrl.IndexOf("meta=tokens&type=login") != -1)
-                    reply = QueryReply("<tokens logintoken=\"666+\\\" />");
-
-                else if (request.RawUrl.IndexOf("meta=tokens&type=csrf") != -1)
-                    reply = QueryReply("<tokens csrftoken=\"666+\\\" />");
+                reply = NoRequestBodyReply(options, request);
             }
 
             response.StatusCode = 200;
@@ -104,6 +81,94 @@ namespace TestServer
             response.OutputStream.Close();
             if (options.ShowReply)
                 Console.WriteLine($"\nResponse Sent:\n{reply}\n");
+        }
+
+        private static string NoRequestBodyReply(Options options, HttpListenerRequest request)
+        {
+            string reply;
+            if (request.RawUrl.IndexOf("list=users&usprop=groups&ususers") != -1)
+                reply = QueryReply("<users><user><groups><g>autoconfirmed</g></groups></user></users>");
+
+            else if (request.RawUrl.IndexOf("6EA4096B-EBD2-4B9D-9025-2BA38D336E43") != -1)
+                reply = QueryReply("<pages><page edittoken=\"666+\\\"></page></pages>");
+
+            else if (HttpUtility.UrlDecode(request.RawUrl).IndexOf("MediaWiki:Custom-WikiUpUsers") != -1)
+                reply = QueryReply("<pages><page><revisions><rev xml:space=\"preserve\">a\nb\nc\naspallar\nfoo\nbar\n</rev></revisions></page></pages>");
+
+            else if (request.RawUrl.IndexOf("meta=siteinfo&siprop=fileextensions") != -1)
+                reply = QueryReply("<fileextensions><fe ext=\"png\" /><fe ext=\"jpg\" /></fileextensions>");
+
+            else if (request.RawUrl.IndexOf("meta=tokens&type=login") != -1)
+                reply = options.OldLogin
+                    ? QueryReply("<warnings><query xml:space=\"preserve\">Unrecognized value for parameter 'meta': tokens</query></warnings>")
+                    : QueryReply($"<tokens logintoken=\"{loginToken}\" />");
+
+            else if (request.RawUrl.IndexOf("meta=tokens&type=csrf") != -1)
+                reply = QueryReply("<tokens csrftoken=\"666+\\\" />");
+            else
+                reply = ApiReply("");
+            return reply;
+        }
+
+        private static string UploadReply(Options options, HttpListenerResponse response)
+        {
+            string reply;
+            if (options.MaxLag == -1)
+                reply = MaxLagReply(response);
+            else if (options.Exists > 0 && GetRandom(100) < options.Exists)
+                reply = ApiReply("<upload result=\"Warning\"><warnings exists=\"\"></warnings></upload>");
+            else if (options.InvalidXml > 0 && GetRandom(100) < options.InvalidXml)
+                reply = "Hey this is not xml";
+            else if (options.MaxLag > 0 && GetRandom(100) < options.MaxLag)
+                reply = MaxLagReply(response);
+            else
+                reply = ApiReply("<upload result=\"Success\"></upload>");
+
+            if (options.Delay > 0)
+                Thread.Sleep(options.Delay);
+            return reply;
+        }
+
+        private static string LoginReply(Options options, HttpListenerRequest request)
+        {
+            string reply;
+            if (options.InvalidLoginXml)
+                reply = "Howdy = I'm not xml";
+            else
+            {
+                string content;
+                using (var sr = new StreamReader(request.InputStream, request.ContentEncoding))
+                    content = sr.ReadToEnd();
+                if (content.IndexOf("lgpassword=") != -1)
+                {
+                    CheckLoginToken(loginToken, content);
+                    var password = Regex.Match(content, @"lgpassword=([^&$]*)").Groups[1].Value;
+                    if (password == "" | password == "a")
+                        reply = ApiReply("<login result=\"Success\" />");
+                    else
+                        reply = ApiReply("<login result=\"WrongPass\" />");
+                }
+                else
+                {
+                    reply = ApiReply($"<login result=\"NeedToken\" token=\"{loginToken}\" />");
+                }
+            }
+
+            return reply;
+        }
+
+        private static void CheckLoginToken(string loginToken, string content)
+        {
+            var tokenMatch = Regex.Match(content, "lgtoken=([^&$]*)");
+            if (tokenMatch.Success)
+            {
+                if (tokenMatch.Groups[1].Value != loginToken)
+                    Console.WriteLine($"ERROR: Wrong login token = {tokenMatch.Groups[1].Value}");
+            }
+            else
+            {
+                Console.WriteLine("ERROR: No login token supplied");
+            }
         }
 
         private static string MaxLagReply(HttpListenerResponse response)

@@ -29,5 +29,7 @@ namespace TestServer
         public bool ShowReply { get; set; }
 
 
+        [Option]
+        public bool OldLogin { get; set; }
     }
 }
