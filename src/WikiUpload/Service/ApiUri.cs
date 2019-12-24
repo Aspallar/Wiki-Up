@@ -7,12 +7,11 @@ namespace WikiUpload
     {
         public ApiUri(string wikiSite) : base(wikiSite + "/api.php")  { }
 
-        public Uri ApiQuery(string parameters)
+        public Uri ApiQuery(RequestParameters parameters)
         {
-            var url = new StringBuilder("?action=query&format=xml&cb=");
+            var url = new StringBuilder(parameters.ToString());
+            url.Append("&action=query&format=xml&cb=");
             url.Append(DateTime.Now.Ticks.ToString());
-            url.Append('&');
-            url.Append(parameters);
             return new Uri(this, url.ToString());
         }
     }

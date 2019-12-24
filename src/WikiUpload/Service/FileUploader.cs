@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Security;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -15,8 +14,6 @@ namespace WikiUpload
 {
     public sealed class FileUploader : IDisposable
     {
-        //private static ILog log = LogManager.GetLogger(typeof(FileUploader));
-
         private ApiUri _api;
         private string _editToken;
         private HttpClient _client;
@@ -172,43 +169,64 @@ namespace WikiUpload
                 if (response.Headers.TryGetValues("Retry-After", out IEnumerable<string> retryValues))
                     retryAfter = retryValues.ElementAt(0);
                 string responseContent = await response.Content.ReadAsStringAsync();
-                //log.Debug(responseContent);
                 return new UploadResponse(responseContent, retryAfter);
             }
         }
 
         private async Task<bool> IsUserConfirmedAsync(string username)
         {
-            Uri uri = _api.ApiQuery("list=users&usprop=groups&ususers=" + username);
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "list", "users" },
+                { "usprop", "groups" },
+                { "ususers", username },
+            });
             XmlNode node = await GetSingleNode(uri, "/api/query/users/user/groups/g[.=\"autoconfirmed\"]");
             return node != null;
         }
 
         private async Task<string> GetEditTokenViaIntokenAsync()
         {
-            Uri uri = _api.ApiQuery("prop=info&intoken=edit&titles=Foo&indexpageids=1");
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "prop", "info" },
+                { "intoken", "edit" },
+                { "titles", "6EA4096B-EBD2-4B9D-9025-2BA38D336E43" },
+                { "indexpageids", "1" },
+            });
             XmlNode node = await GetSingleNode(uri, "/api/query/pages/page");
             return node?.Attributes["edittoken"]?.Value;
         }
 
         private async Task<string> GetEditTokenAsync()
         {
-            Uri uri = _api.ApiQuery("meta=tokens&type=csrf");
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "meta","tokens" },
+                { "type","csrf" },
+            });
             XmlNode node = await GetSingleNode(uri, "/api/query/tokens");
             return node?.Attributes["csrftoken"]?.Value;
         }
 
         private async Task<string> GetLoginTokenAsync()
         {
-            Uri uri = _api.ApiQuery("meta=tokens&type=login");
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "meta", "tokens" },
+                { "type", "login" },
+            });
             XmlNode node = await GetSingleNode(uri, "/api/query/tokens");
             return node?.Attributes["logintoken"]?.Value;
         }
 
-
         private async Task GetPermittedTypes()
         {
-            Uri uri = _api.ApiQuery("meta=siteinfo&siprop=fileextensions");
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "meta", "siteinfo" },
+                { "siprop", "fileextensions" },
+            });
             XmlNodeList fileExtensions = await GetNodes(uri, "/api/query/fileextensions/fe");
             if (fileExtensions.Count > 0)
             {
@@ -223,7 +241,13 @@ namespace WikiUpload
             const char comment = '$';
             Regex tagRegex = new Regex(@"<.*>");
 
-            Uri uri = _api.ApiQuery("prop=revisions&titles=MediaWiki:Custom-WikiUpUsers&rvprop=content&rvlimit=1");
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "prop", "revisions" },
+                { "titles", "MediaWiki:Custom-WikiUpUsers" },
+                { "rvprop", "content" },
+                { "rvlimit", "1" },
+            });
             XmlNode revision = await GetSingleNode(uri, "/api/query/pages/page/revisions/rev");
 
             return revision == null ||
@@ -265,7 +289,6 @@ namespace WikiUpload
         private async Task<XmlDocument> GetXmlResponse(Uri uri)
         {
             string response = await _client.GetStringAsync(uri);
-            //log.Debug(response);
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(response);
             return xml;
@@ -274,7 +297,6 @@ namespace WikiUpload
         private static async Task<XmlDocument> GetXml(HttpContent content)
         {
             string response = await content.ReadAsStringAsync();
-            //log.Debug(response);
             var doc = new XmlDocument();
             doc.LoadXml(response);
             return doc;
