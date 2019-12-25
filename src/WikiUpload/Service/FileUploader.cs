@@ -141,8 +141,11 @@ namespace WikiUpload
 
         public async Task<UploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false)
         {
-
             string fileName = Path.GetFileName(fullPath);
+
+            // Open file 1st before we allocate any disposable resources to avoid leaks if
+            // the file has be come inaccesible and an exception is thrown
+            FileStream file = File.OpenRead(fullPath);
 
             // we don't need to dispose any of these or close the stream
             // as _client.PostAsync will do it
@@ -161,7 +164,7 @@ namespace WikiUpload
             if (ignoreWarnings)
                 uploadFormData.Add(new StringContent("1"), "ignorewarnings");
 
-            uploadFormData.Add(new StreamContent(File.OpenRead(fullPath)), "file", fileName);
+            uploadFormData.Add(new StreamContent(file), "file", fileName);
 
             using (HttpResponseMessage response = await _client.PostAsync(_api, uploadFormData, cancelToken))
             {
