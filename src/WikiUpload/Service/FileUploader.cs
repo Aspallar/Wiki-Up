@@ -17,7 +17,7 @@ namespace WikiUpload
         private ApiUri _api;
         private string _editToken;
         private HttpClient _client;
-        private List<string> _permittedTypes;
+        private PermittedFiles _permittedFiles;
 
         public string PageContent { get; set; }
 
@@ -25,10 +25,14 @@ namespace WikiUpload
 
         public string Site { get; set; }
 
+        public IReadOnlyPermittedFiles PermittedFiles
+            => (IReadOnlyPermittedFiles)_permittedFiles;
+
         public FileUploader(string userAgent, int timeoutSeconds = 0)
         {
             PageContent = "";
             Summary = "";
+            _permittedFiles = new PermittedFiles();
             HttpClientHandler handler = new HttpClientHandler();
             handler.CookieContainer = new CookieContainer();
             _client = new HttpClient(handler);
@@ -131,14 +135,6 @@ namespace WikiUpload
             }
         }
 
-        public bool IsPermittedFile(string filePath)
-        {
-            if (_permittedTypes == null)
-                return true;
-            string extension = Path.GetExtension(filePath).ToLowerInvariant();
-            return _permittedTypes.Contains(extension);
-        }
-
         public async Task<UploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false)
         {
             string fileName = Path.GetFileName(fullPath);
@@ -231,12 +227,8 @@ namespace WikiUpload
                 { "siprop", "fileextensions" },
             });
             XmlNodeList fileExtensions = await GetNodes(uri, "/api/query/fileextensions/fe");
-            if (fileExtensions.Count > 0)
-            {
-                _permittedTypes = new List<string>();
-                foreach (XmlNode fe in fileExtensions)
-                    _permittedTypes.Add("." + fe.Attributes["ext"].Value);
-            }
+            foreach (XmlNode fe in fileExtensions)
+                _permittedFiles.Add(fe.Attributes["ext"].Value);
         }
 
         private async Task<bool> IsAuthorizedForUploadFilesAsync(string username)

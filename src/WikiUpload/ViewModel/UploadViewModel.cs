@@ -48,7 +48,7 @@ namespace WikiUpload
                     UploadService.Uploader.PageContent = PageContent;
                     foreach (var file in filesToUpload)
                     {
-                        if (!UploadService.Uploader.IsPermittedFile(file.FileName))
+                        if (!UploadService.Uploader.PermittedFiles.IsPermitted(file.FileName))
                         {
                             file.SetError($"Files of type \"{Path.GetExtension(file.FileName)}\" are not permitted.");
                         }
@@ -162,7 +162,7 @@ namespace WikiUpload
 
         private void AddFiles()
         {
-            if (_dialogs.AddFilesDialog(out IList<string> fileNames))
+            if (_dialogs.AddFilesDialog(UploadService.Uploader.PermittedFiles.GetExtensions(), out IList<string> fileNames))
                 UploadFiles.AddNewRange(fileNames);
         }
 

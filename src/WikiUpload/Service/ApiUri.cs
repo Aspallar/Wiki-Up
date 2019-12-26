@@ -5,7 +5,8 @@ namespace WikiUpload
 {
     internal class ApiUri : Uri
     {
-        public ApiUri(string wikiSite) : base(wikiSite + "/api.php")  { }
+        public ApiUri(string wikiSite)
+            : base(wikiSite.EndsWith("/") ? wikiSite + "api.php" : wikiSite + "/api.php")  { }
 
         public Uri ApiQuery(RequestParameters parameters)
         {

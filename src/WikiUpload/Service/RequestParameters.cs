@@ -9,9 +9,7 @@ namespace WikiUpload
         public RequestParameters() : base() { }
 
         public void Add(string name, string value)
-        {
-            base.Add(new KeyValuePair<string, string>(name, value));
-        }
+            => base.Add(new KeyValuePair<string, string>(name, value));
 
         public override string ToString()
         {
