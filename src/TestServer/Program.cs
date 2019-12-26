@@ -96,7 +96,9 @@ namespace TestServer
                 reply = QueryReply("<pages><page><revisions><rev xml:space=\"preserve\">a\nb\nc\naspallar\nfoo\nbar\n</rev></revisions></page></pages>");
 
             else if (request.RawUrl.IndexOf("meta=siteinfo&siprop=fileextensions") != -1)
-                reply = QueryReply("<fileextensions><fe ext=\"png\" /><fe ext=\"jpg\" /></fileextensions>");
+                reply = options.NoPermittedFiles
+                    ? ApiReply("")
+                    : QueryReply("<fileextensions><fe ext=\"png\" /><fe ext=\"jpg\" /><fe ext=\"foo\" /></fileextensions>");
 
             else if (request.RawUrl.IndexOf("meta=tokens&type=login") != -1)
                 reply = options.OldLogin
@@ -105,8 +107,10 @@ namespace TestServer
 
             else if (request.RawUrl.IndexOf("meta=tokens&type=csrf") != -1)
                 reply = QueryReply("<tokens csrftoken=\"666+\\\" />");
+
             else
                 reply = ApiReply("");
+
             return reply;
         }
 
@@ -162,7 +166,7 @@ namespace TestServer
             var tokenMatch = Regex.Match(content, "lgtoken=([^&$]*)");
             if (tokenMatch.Success)
             {
-                if (tokenMatch.Groups[1].Value != loginToken)
+                if (HttpUtility.UrlDecode(tokenMatch.Groups[1].Value) != loginToken)
                     Console.WriteLine($"ERROR: Wrong login token = {tokenMatch.Groups[1].Value}");
             }
             else

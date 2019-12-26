@@ -31,5 +31,8 @@ namespace TestServer
 
         [Option]
         public bool OldLogin { get; set; }
+
+        [Option("noperm", HelpText = "Don'treturn a permitted file types list")]
+        public bool NoPermittedFiles { get; set; }
     }
 }
