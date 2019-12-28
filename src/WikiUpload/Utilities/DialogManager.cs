@@ -7,7 +7,7 @@ namespace WikiUpload
 {
     public class DialogManager
     {
-        public bool AddFilesDialog(string[] permittedExtensions, out IList<string> fileNames)
+        public bool AddFilesDialog(string[] permittedExtensions, string imageExtensions, out IList<string> fileNames)
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -15,19 +15,19 @@ namespace WikiUpload
                 Multiselect = true,
                 CheckPathExists = true,
                 CheckFileExists = true,
-                Filter = AddFilesFilter(permittedExtensions),
+                Filter = AddFilesFilter(permittedExtensions, imageExtensions),
             };
             bool result = (bool)openFileDialog.ShowDialog();
             fileNames = openFileDialog.FileNames.ToList();
             return result;
         }
 
-        private string AddFilesFilter(string[] permittedExtensions)
+        private string AddFilesFilter(string[] permittedExtensions, string imageExtensionsString)
         {
             const string othersPrefix = "|Other Files|*";
             const string imagesPrefix = "|Image Files|*";
 
-            var imageExtensions = new List<string> { ".png", ".jpg", ".jpeg", ".gif", ".ico", ".svg", ".webp" };
+            var imageExtensions = imageExtensionsString.Split(';').Select(x => '.' + x).ToList();
             string images, others;
 
             if (permittedExtensions.Length == 0)

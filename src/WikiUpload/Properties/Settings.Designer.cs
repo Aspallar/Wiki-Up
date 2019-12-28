@@ -66,5 +66,14 @@ namespace WikiUpload.Properties {
                 this["PreviousSites"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("png;jpg;jpeg;gif;ico;svg;webp;bmp;tif;tiff")]
+        public string ImageExtensions {
+            get {
+                return ((string)(this["ImageExtensions"]));
+            }
+        }
     }
 }

@@ -162,8 +162,12 @@ namespace WikiUpload
 
         private void AddFiles()
         {
-            if (_dialogs.AddFilesDialog(UploadService.Uploader.PermittedFiles.GetExtensions(), out IList<string> fileNames))
+            if (_dialogs.AddFilesDialog(UploadService.Uploader.PermittedFiles.GetExtensions(),
+                Properties.Settings.Default.ImageExtensions,
+                out IList<string> fileNames))
+            {
                 UploadFiles.AddNewRange(fileNames);
+            }
         }
 
         private void ShowImage(string fullPath)
