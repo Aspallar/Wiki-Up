@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -100,7 +101,7 @@ namespace TestServer
                     ? ApiReply("")
                     : QueryReply("<fileextensions><fe ext=\"png\" /><fe ext=\"jpg\" /><fe ext=\"foo\" /></fileextensions>");
 
-            else if (request.RawUrl.IndexOf("meta=tokens&type=login") != -1)
+            else if (request.RawUrl.ContainsAll(new List<string> { "meta=tokens", "type=login" }))
                 reply = options.OldLogin
                     ? QueryReply("<warnings><query xml:space=\"preserve\">Unrecognized value for parameter 'meta': tokens</query></warnings>")
                     : QueryReply($"<tokens logintoken=\"{loginToken}\" />");
