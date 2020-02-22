@@ -8,7 +8,7 @@
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        Title="About Wiki-Up" Height="200" Width="320">
+        Title="About Wiki-Up" Height="200" Width="380">
     
     <Grid Background="{StaticResource BackGroundColorBrush}">
         <Grid.RowDefinitions>
