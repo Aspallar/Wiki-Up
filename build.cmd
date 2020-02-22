@@ -2,6 +2,7 @@
 if not exist .git\ goto :wrongfolder 
 if not exist src\ goto :wrongfolder 
 cd src
+if "%1" == "clean" devenv WikiUpload.sln /Clean Release
 msbuild /m /v:m /p:Configuration=Release
 cd ..
 call deploy.cmd
