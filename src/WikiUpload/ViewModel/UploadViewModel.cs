@@ -99,6 +99,11 @@ namespace WikiUpload
                                 file.SetError("Server is too busy. Uploads cancelled. Try again later.");
                                 break; // foreach
                             }
+                            catch (NoEditTokenException)
+                            {
+                                file.SetError("Unable to obtain valid edit token. Uploads cancelled. You may have to restart Wiki-Up to resolve this error.");
+                                break; // foreach
+                            }
                         }
                     }
                 }
@@ -108,6 +113,7 @@ namespace WikiUpload
         private async Task UploadFile(UploadFile file, CancellationToken cancelToken)
         {
             int maxLagRetries = 3;
+            bool tokenRefreshed = false;
             while (true)
             {
                 cancelToken.ThrowIfCancellationRequested();
@@ -135,7 +141,23 @@ namespace WikiUpload
                 }
                 else if (response.IsError)
                 {
-                    file.SetError(response.ErrorsText);
+                    if (response.IsTokenError)
+                    {
+                        if (tokenRefreshed)
+                        {
+                            throw new NoEditTokenException();
+                        }
+                        else
+                        {
+                            await UploadService.Uploader.RefreshTokenAsync();
+                            tokenRefreshed = true;
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        file.SetError(response.ErrorsText);
+                    }
                 }
                 else
                 {

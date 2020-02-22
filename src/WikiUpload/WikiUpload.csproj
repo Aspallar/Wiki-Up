@@ -81,6 +81,7 @@
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="Exceptions\ServerIsBusyException.cs" />
+    <Compile Include="Exceptions\NoEditTokenException.cs" />
     <Compile Include="Window\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>

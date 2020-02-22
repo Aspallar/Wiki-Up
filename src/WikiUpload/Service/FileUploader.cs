@@ -18,6 +18,7 @@ namespace WikiUpload
         private string _editToken;
         private HttpClient _client;
         private PermittedFiles _permittedFiles;
+        private bool _useDeprecatedLogin;
 
         public string PageContent { get; set; }
 
@@ -59,8 +60,8 @@ namespace WikiUpload
                 };
 
                 string loginToken = await GetLoginTokenAsync().ConfigureAwait(false);
-                bool useDeprecatedLogin = (loginToken == null);
-                if (useDeprecatedLogin)
+                _useDeprecatedLogin = (loginToken == null);
+                if (_useDeprecatedLogin)
                 {
                     // use old method to fetch login token by loging in without password, required for fandom
                     var tokenResponse = await AttemptLoginAsync(loginParams).ConfigureAwait(false);
@@ -81,7 +82,7 @@ namespace WikiUpload
                 if (response.Result != ResponseCodes.Success)
                     return false;
 
-                Task<string> editTokenTask = useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
+                Task<string> editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
                 Task<bool> userConfirmedTask = IsUserConfirmedAsync(username);
                 Task<bool> authorizedTask = IsAuthorizedForUploadFilesAsync(username);
 
@@ -170,6 +171,12 @@ namespace WikiUpload
                 string responseContent = await response.Content.ReadAsStringAsync();
                 return new UploadResponse(responseContent, retryAfter);
             }
+        }
+
+        public async Task RefreshTokenAsync()
+        {
+            Task<string> editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
+            _editToken = await editTokenTask;
         }
 
         private async Task<bool> IsUserConfirmedAsync(string username)

@@ -142,5 +142,7 @@ namespace WikiUpload
                 return text.ToString();
             }
         }
+
+        public bool IsTokenError => _errors.Count == 1 && _errors[0].Code == "badtoken";
     }
 }
