@@ -14,10 +14,11 @@ The current release is a **beta** release.
 ### Installation
 
 * Go to [releases](https://github.com/Aspallar/Wiki-Up/releases).
-* Click on the latest release. 
-* Download the zip file in the assets section.
-* Extract the contents of the zip to a folder of your choice.
-* Run WikiUp.exe to start it up.
+* Click on the latest release.
+* Download the **WikiUpInstaller.msi** file in the assets section.
+* Run the downloaded installer by double clicking on it or right click and choose install.
+
+Alternatively you can install Wiki-Up manually by downloading the WikiUp zip file and extracting its contents.
 
 ### Logging In
 
@@ -88,7 +89,7 @@ usertwo
 
 ### System Requirements
 
-* Windows 7 or later
+* Windows 7 SP1 or later
 * .NET Framework 4.7.2
 
 
