@@ -9,8 +9,6 @@ and [Gamepedia](https://www.gamepedia.com/) wikis, but should work with many oth
 
 Initially written for use on the fandom [Magic Arena](https://magicarena.fandom.com) wiki.
 
-The current release is a **beta** release.
-
 ### Installation
 
 * Go to [releases](https://github.com/Aspallar/Wiki-Up/releases).
