@@ -48,7 +48,9 @@
       <HintPath>..\packages\PropertyChanged.Fody.3.0.1\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +73,7 @@
     <Compile Include="AttachedProperties\DragTargetAttachedProperty.cs" />
     <Compile Include="AttachedProperties\ListBoxAttachedProperties.cs" />
     <Compile Include="Behaviours\AutoCompleteBehavior.cs" />
+    <Compile Include="Behaviours\SavedPasswordBehavior.cs" />
     <Compile Include="DataModels\UploadList.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Exceptions\LoginException.cs" />
@@ -78,6 +81,10 @@
     <Compile Include="Properties\Settings.Extended.cs" />
     <Compile Include="Service\IReadOnlyPermittedFiles.cs" />
     <Compile Include="Utilities\DialogManager.cs" />
+    <Compile Include="Utilities\Encryption.cs" />
+    <Compile Include="Utilities\IPasswordManager.cs" />
+    <Compile Include="Utilities\PasswordManager.cs" />
+    <Compile Include="Utilities\PasswordDictionary.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="Exceptions\ServerIsBusyException.cs" />

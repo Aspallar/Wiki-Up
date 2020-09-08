@@ -11,12 +11,17 @@ namespace WikiUpload
     public class LoginViewModel : BaseViewModel
     {
         private DialogManager _dialogs = new DialogManager();
+        private IPasswordManager _passwordManager = new PasswordManager();
 
         public string Username { get; set; } = Properties.Settings.Default.Username;
 
         public string WikiUrl { get; set; } = Properties.Settings.Default.WikiUrl;
 
+        public bool RememberPassword { get; set; } = true;
+
         public ObservableCollection<string> PreviousSites { get; set; }
+
+        public IPasswordManager PasswordManager => _passwordManager;
 
         public bool IsLoginError { get; set; }
 
@@ -52,11 +57,8 @@ namespace WikiUpload
 
                 if (loggedIn)
                 {
-                    var settings = Properties.Settings.Default;
-                    settings.Username = Username;
-                    settings.WikiUrl = WikiUrl;
-                    settings.AddMostRecentlyUsedSite(WikiUrl);
-                    settings.Save();
+                    UpdateSettings();
+                    UpdateSavedPassword(password);
                     Navigator.NavigationService.Navigate(new UploadPage());
                 }
                 else
@@ -71,6 +73,23 @@ namespace WikiUpload
                 else
                     LoginError(ex.InnerException.Message);
             }
+        }
+
+        private void UpdateSavedPassword(SecureString password)
+        {
+            if (RememberPassword)
+                _passwordManager.SavePassword(WikiUrl, Username, password);
+            else
+                _passwordManager.RemovePassword(WikiUrl, Username);
+        }
+
+        private void UpdateSettings()
+        {
+            var settings = Properties.Settings.Default;
+            settings.Username = Username;
+            settings.WikiUrl = WikiUrl;
+            settings.AddMostRecentlyUsedSite(WikiUrl);
+            settings.Save();
         }
 
         private async Task<string> Validate()

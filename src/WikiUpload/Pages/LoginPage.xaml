@@ -50,7 +50,12 @@
                             <TextBox Tag="Username" Style="{StaticResource LineTextBox}"
                                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
                             
-                            <PasswordBox x:Name="PasswordText" Tag="Password"/>
+                            <PasswordBox x:Name="PasswordText" Tag="Password" 
+                                         local:SavedPasswordBehavior.SavedPasswordUsername="{Binding Username}"
+                                         local:SavedPasswordBehavior.SavedPasswordSite="{Binding WikiUrl}"
+                                         local:SavedPasswordBehavior.SavedPasswordManager="{Binding PasswordManager, Mode=OneWay}"/>
+
+                            <CheckBox Content="Remember password" HorizontalAlignment="Center" IsChecked="{Binding RememberPassword}"/>
 
                             <Button Content="Login"  HorizontalAlignment="Center"  Margin="0 30 0 0" 
                                     local:IsBusyProperty.Value="{Binding LoginIsRunning}"
