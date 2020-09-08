@@ -27,13 +27,18 @@ namespace WikiUpload
                 reader.Read();
                 while (reader.NodeType != XmlNodeType.EndElement)
                 {
-                    var key = reader.GetAttribute(keyAttributeName);
-                    var value = reader.GetAttribute(valueAttributeName);
-                    this.Add(key, value);
+                    if (reader.Name == entryElementName)
+                    {
+                        var key = reader.GetAttribute(keyAttributeName);
+                        var value = reader.GetAttribute(valueAttributeName);
+                        if (key != null && value != null)
+                            Add(key, value);
+                    }
                     reader.Read();
                 }
             }
         }
+
         public void WriteXml(XmlWriter writer)
         {
             foreach (var key in this.Keys)

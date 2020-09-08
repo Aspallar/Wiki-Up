@@ -31,7 +31,6 @@ namespace WikiUpload
 
         public ICommand LoginCommand { get; set; }
 
-
         public LoginViewModel()
         {
             LoginCommand = new RelayParameterizedCommand(async (securePassword) => await Login(securePassword));

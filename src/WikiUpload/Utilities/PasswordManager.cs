@@ -1,6 +1,8 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Security;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace WikiUpload
@@ -10,7 +12,6 @@ namespace WikiUpload
         private PasswordDictionary _passwords;
         private string _fileName;
 
-        //MessageBox.Show(config.FilePath);
         public PasswordManager()
         {
             _fileName = DetermineFileName();
@@ -26,9 +27,17 @@ namespace WikiUpload
 
         private void Load()
         {
-            var serializer = new XmlSerializer(typeof(PasswordDictionary));
-            using (var sr = new StreamReader(_fileName))
-                _passwords = (PasswordDictionary)serializer.Deserialize(sr);
+            try
+            {
+                var serializer = new XmlSerializer(typeof(PasswordDictionary));
+                using (var sr = new StreamReader(_fileName))
+                    _passwords = (PasswordDictionary)serializer.Deserialize(sr);
+            }
+            catch (InvalidOperationException ex) when (ex.InnerException is XmlException)
+            {
+                // Fail silently as the worst case is just some remembered passwords are lost
+                // the xml file will be regenerated the next time a password is saved.
+            }
        }
 
         private void Save()
