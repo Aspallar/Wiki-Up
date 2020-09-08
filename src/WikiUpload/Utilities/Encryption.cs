@@ -5,9 +5,18 @@ using System.Security.Cryptography;
 
 namespace WikiUpload
 {
-    public static class Encryption
+    public static partial class Encryption
     {
-        private static readonly byte[] entropy = { 12, 222, 41, 108, 99, 63, 11, 12, 244, 201, 63 };
+        // If you get a build error here you need to create Utilities\Entropy.cs containing something
+        // like the following, with your own set of entropy data because the actual data is a secret.
+        //
+        //namespace WikiUpload
+        //{
+        //    public partial class Encryption
+        //    {
+        //        private static readonly byte[] entropy = { 12, 222, 41, 108, 99, 63, 11, 12, 244, 201, 63 };
+        //    }
+        //}
 
         public static string Decrypt(string text)
         {
@@ -32,7 +41,5 @@ namespace WikiUpload
         {
             return Encoding.UTF8.GetString(data);
         }
-
-
     }
 }
