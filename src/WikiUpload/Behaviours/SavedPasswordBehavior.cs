@@ -107,6 +107,30 @@ namespace WikiUpload
 
         #endregion
 
+        #region SavedPasswordAutoDisposePasswords Property
+
+        public static readonly DependencyProperty SavedPasswordAutoDisposePasswords =
+            DependencyProperty.RegisterAttached
+            (
+                "SavedPasswordAutoDisposePasswords",
+                typeof(bool),
+                typeof(SavedPasswordBehavior),
+                new UIPropertyMetadata(false)
+            );
+
+        public static bool GetSavedPasswordAutoDisposePasswords(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(SavedPasswordAutoDisposePasswords);
+        }
+
+        public static void SetSavedPasswordAutoDisposePasswords(DependencyObject obj, bool value)
+        {
+            obj.SetValue(SavedPasswordAutoDisposePasswords, value);
+        }
+
+        #endregion
+
+
         #region SavedPasswordSecurePassword Property
 
         public static readonly DependencyProperty SavedPasswordSecurePassword =
@@ -161,17 +185,12 @@ namespace WikiUpload
         {
             if (e.OriginalSource is PasswordBox passwordBox)
             {
-                // we know for sure that we are finished with the secure passwords as an
-                // unload will only happen when log in is done with, or app is closing.
-
-                passwordBox.SecurePassword.Dispose();
-
-                // the saved passwoird dependancy property is disposed of here rather than in the
-                // view model as when the page is unloaded we get an extra PasswordChanged event
-                // which causes an exception if it's already been disposed by the view model.
-
-                var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
-                savedPassword.Dispose();
+                if (GetSavedPasswordAutoDisposePasswords(passwordBox))
+                {
+                    passwordBox.SecurePassword.Dispose();
+                    var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+                    savedPassword.Dispose();
+                }
             }
         }
 
