@@ -180,12 +180,15 @@ namespace WikiUpload
                 var passwordManager = GetSavedPasswordManager(passwordBox);
                 if (passwordManager.HasPassword(site, username))
                 {
-                    var password = passwordManager.GetPassword(site, username);
                     savedPassword.Clear();
-                    foreach (var c in password)
-                        savedPassword.AppendChar(c);
-                    Array.Clear(password, 0, password.Length);
-                    passwordBox.Password = new string('-', password.Length);
+                    int length;
+                    using (var password = passwordManager.GetPassword(site, username))
+                    {
+                        foreach (var c in password.Data)
+                            savedPassword.AppendChar(c);
+                        length = password.Data.Length;
+                    }
+                    passwordBox.Password = new string('-', length);
                 }
                 else
                 {

@@ -1,4 +1,5 @@
 ﻿using System.Security;
+using WikiUpload.Utilities;
 
 namespace WikiUpload
 {
@@ -6,7 +7,7 @@ namespace WikiUpload
     {
         void SavePassword(string site, string username, SecureString password);
 
-        char[] GetPassword(string site, string username);
+        SecureCharArray GetPassword(string site, string username);
 
         void RemovePassword(string site, string username);
         

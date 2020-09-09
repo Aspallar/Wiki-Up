@@ -88,6 +88,7 @@
     <Compile Include="Utilities\IPasswordManager.cs" />
     <Compile Include="Utilities\PasswordManager.cs" />
     <Compile Include="Utilities\PasswordDictionary.cs" />
+    <Compile Include="Utilities\SecureCharArray.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="Exceptions\ServerIsBusyException.cs" />

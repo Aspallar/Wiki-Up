@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Security.Cryptography;
-
+using WikiUpload.Utilities;
 
 namespace WikiUpload
 {
@@ -18,11 +18,11 @@ namespace WikiUpload
         //    }
         //}
 
-        public static char[] Decrypt(string text)
+        public static SecureCharArray Decrypt(string text)
         {
             byte[] data = Convert.FromBase64String(text);
             byte[] unencrypted = ProtectedData.Unprotect(data, entropy, DataProtectionScope.CurrentUser);
-            return DecodeAndClear(unencrypted);
+            return new SecureCharArray(DecodeAndClear(unencrypted));
         }
 
         public static string Encrypt(string text)

@@ -5,6 +5,7 @@ using System.Security;
 using System.Xml;
 using System.Xml.Serialization;
 using WikiUpload.Extensions;
+using WikiUpload.Utilities;
 
 namespace WikiUpload
 {
@@ -55,7 +56,7 @@ namespace WikiUpload
             return folder + @"\0ED8B7F4-7A81-4DC1-812F-9F120F60E8E2.xml";
         }
 
-        public char[] GetPassword(string site, string username)
+        public SecureCharArray GetPassword(string site, string username)
         {
             string key = MakeKey(site, username);
             var password = GetPasswordFromKey(key);
@@ -65,9 +66,9 @@ namespace WikiUpload
         public bool HasPassword(string site, string username)
             => _passwords.ContainsKey(MakeKey(site, username));
 
-        private char[] GetPasswordFromKey(string key)
+        private SecureCharArray GetPasswordFromKey(string key)
         {
-            char[] password = null;
+            SecureCharArray password = null;
             if (_passwords.TryGetValue(key, out string encryptedPassword))
                 password = Encryption.Decrypt(encryptedPassword);
             return password;
@@ -75,19 +76,18 @@ namespace WikiUpload
 
         public void SavePassword(string site, string username, SecureString passsword)
         {
+            string encryptedPassword;
             string key = MakeKey(site, username);
-            var currentPassword = GetPasswordFromKey(key);
-  
-            string encryptedPassword = passsword.UseUnsecuredString<string>(unsecuredPassword =>
+            using (var currentPassword = GetPasswordFromKey(key))
             {
-                if (currentPassword == null || !unsecuredPassword.IsEquivalentTo(currentPassword))
-                    return Encryption.Encrypt(unsecuredPassword);
-                else
-                    return null;
-            });
-
-            if (currentPassword != null)
-                Array.Clear(currentPassword, 0, currentPassword.Length);
+                encryptedPassword = passsword.UseUnsecuredString<string>(unsecuredPassword =>
+                {
+                    if (currentPassword == null || !unsecuredPassword.IsEquivalentTo(currentPassword.Data))
+                        return Encryption.Encrypt(unsecuredPassword);
+                    else
+                        return null;
+                });
+            }
 
             if (encryptedPassword != null)
             {
