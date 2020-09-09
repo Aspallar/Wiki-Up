@@ -7,188 +7,187 @@ namespace WikiUpload
 {
     public static class SavedPasswordBehavior
     {
-        #region SavedPasswordUsername Property
+        #region Username Property
 
-        public static readonly DependencyProperty SavedPasswordUsername =
+        public static readonly DependencyProperty UsernameProperty =
             DependencyProperty.RegisterAttached
             (
-                "SavedPasswordUsername",
+                "Username",
                 typeof(string),
                 typeof(SavedPasswordBehavior),
-                new UIPropertyMetadata(null, SavedPasswordUsernameChanged)
+                new UIPropertyMetadata(null, OnUsernameChanged)
             );
 
-        public static String GetSavedPasswordUsername(DependencyObject obj)
+        public static String GetUsername(DependencyObject obj)
         {
-            return obj.GetValue(SavedPasswordUsername) as String;
+            return obj.GetValue(UsernameProperty) as String;
         }
 
-        public static void SetSavedPasswordUsername(DependencyObject obj, string value)
+        public static void SetUsername(DependencyObject obj, string value)
         {
-            obj.SetValue(SavedPasswordUsername, value);
+            obj.SetValue(UsernameProperty, value);
         }
 
-        private static void SavedPasswordUsernameChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private static void OnUsernameChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (!(sender is PasswordBox passwordBox))
                 return;
 
             if (e.OldValue == null)
             {
-                passwordBox.Loaded -= Loaded;
-                passwordBox.Unloaded -= Unloaded;
-                passwordBox.GotFocus -= GotFocus;
+                passwordBox.Loaded -= PasswordBox_Loaded;
+                passwordBox.Unloaded -= PasswordBox_Unloaded;
+                passwordBox.GotFocus -= PasswordBox_GotFocus;
                 if (e.NewValue != null)
                 {
-                    passwordBox.Loaded += Loaded;
-                    passwordBox.Unloaded += Unloaded;
-                    passwordBox.GotFocus += GotFocus;
+                    passwordBox.Loaded += PasswordBox_Loaded;
+                    passwordBox.Unloaded += PasswordBox_Unloaded;
+                    passwordBox.GotFocus += PasswordBox_GotFocus;
                 }
             }
             else
             {
-                UpdatePassword(passwordBox, GetSavedPasswordSite(passwordBox), (string)e.NewValue);
+                UpdatePassword(passwordBox, GetSite(passwordBox), (string)e.NewValue);
             }
         }
 
         #endregion
 
-        #region SavedPasswordSite Property
+        #region Site Property
 
-        public static readonly DependencyProperty SavedPasswordSite =
+        public static readonly DependencyProperty SiteProperty =
             DependencyProperty.RegisterAttached
             (
-                "SavedPasswordSite",
+                "Site",
                 typeof(String),
                 typeof(SavedPasswordBehavior),
-                new UIPropertyMetadata(null, SavedPasswordSiteChanged)
+                new UIPropertyMetadata(null, OnSiteChanged)
             );
 
-        private static void SavedPasswordSiteChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private static void OnSiteChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (!(sender is PasswordBox passwordBox))
                 return;
 
             if (e.OldValue != null)
-                UpdatePassword(passwordBox, (string)e.NewValue, GetSavedPasswordUsername(passwordBox));
+                UpdatePassword(passwordBox, (string)e.NewValue, GetUsername(passwordBox));
         }
 
-        public static String GetSavedPasswordSite(DependencyObject obj)
+        public static String GetSite(DependencyObject obj)
         {
-            return (String)obj.GetValue(SavedPasswordSite);
+            return (String)obj.GetValue(SiteProperty);
         }
 
-        public static void SetSavedPasswordSite(DependencyObject obj, String value)
+        public static void SetSite(DependencyObject obj, String value)
         {
-            obj.SetValue(SavedPasswordSite, value);
+            obj.SetValue(SiteProperty, value);
         }
         #endregion 
 
-        #region SavedPasswordManager Property
+        #region PasswordManager Property
 
-        public static readonly DependencyProperty SavedPasswordManager =
+        public static readonly DependencyProperty PasswordManagerProperty =
             DependencyProperty.RegisterAttached
             (
-                "SavedPasswordManager",
+                "PasswordManager",
                 typeof(IPasswordManager),
                 typeof(SavedPasswordBehavior),
                 new UIPropertyMetadata(null)
             );
 
-        public static IPasswordManager GetSavedPasswordManager(DependencyObject obj)
+        public static IPasswordManager GetPasswordManager(DependencyObject obj)
         {
-            return (IPasswordManager)obj.GetValue(SavedPasswordManager);
+            return (IPasswordManager)obj.GetValue(PasswordManagerProperty);
         }
 
-        public static void SetSavedPasswordManager(DependencyObject obj, String value)
+        public static void SetPasswordManager(DependencyObject obj, String value)
         {
-            obj.SetValue(SavedPasswordManager, value);
+            obj.SetValue(PasswordManagerProperty, value);
         }
 
         #endregion
 
-        #region SavedPasswordAutoDisposePasswords Property
+        #region AutoDisposePasswords Property
 
-        public static readonly DependencyProperty SavedPasswordAutoDisposePasswords =
+        public static readonly DependencyProperty AutoDisposePasswordsProperty =
             DependencyProperty.RegisterAttached
             (
-                "SavedPasswordAutoDisposePasswords",
+                "AutoDisposePasswords",
                 typeof(bool),
                 typeof(SavedPasswordBehavior),
                 new UIPropertyMetadata(false)
             );
 
-        public static bool GetSavedPasswordAutoDisposePasswords(DependencyObject obj)
+        public static bool GetAutoDisposePasswords(DependencyObject obj)
         {
-            return (bool)obj.GetValue(SavedPasswordAutoDisposePasswords);
+            return (bool)obj.GetValue(AutoDisposePasswordsProperty);
         }
 
-        public static void SetSavedPasswordAutoDisposePasswords(DependencyObject obj, bool value)
+        public static void SetAutoDisposePasswords(DependencyObject obj, bool value)
         {
-            obj.SetValue(SavedPasswordAutoDisposePasswords, value);
+            obj.SetValue(AutoDisposePasswordsProperty, value);
         }
 
         #endregion
 
-
         #region SavedPasswordSecurePassword Property
 
-        public static readonly DependencyProperty SavedPasswordSecurePassword =
+        public static readonly DependencyProperty SavedPasswordProperty =
             DependencyProperty.RegisterAttached
             (
-                "SavedPasswordSecurePassword",
+                "SavedPassword",
                 typeof(SecureString),
                 typeof(SavedPasswordBehavior),
                 new UIPropertyMetadata(null)
             );
 
-        public static SecureString GetSavedPasswordSecurePassword(DependencyObject obj)
+        public static SecureString GetSavedPassword(DependencyObject obj)
         {
-            return (SecureString)obj.GetValue(SavedPasswordSecurePassword);
+            return (SecureString)obj.GetValue(SavedPasswordProperty);
         }
 
-        public static void SetSavedPasswordSecurePassword(DependencyObject obj, String value)
+        public static void SetSavedPassword(DependencyObject obj, String value)
         {
-            obj.SetValue(SavedPasswordSecurePassword, value);
+            obj.SetValue(SavedPasswordProperty, value);
         }
 
         #endregion
 
         #region PasswordBox event handlers
 
-        private static void Loaded(object sender, RoutedEventArgs e)
+        private static void PasswordBox_Loaded(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource is PasswordBox passwordBox)
-                UpdatePassword(passwordBox, GetSavedPasswordSite(passwordBox), GetSavedPasswordUsername(passwordBox));
+                UpdatePassword(passwordBox, GetSite(passwordBox), GetUsername(passwordBox));
         }
 
-        private static void PasswordChanged(object sender, RoutedEventArgs e)
+        private static void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource is PasswordBox passwordBox)
             {
-                var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+                var savedPassword = GetSavedPassword(passwordBox);
                 savedPassword.Clear();
             }
         }
 
-        private static void GotFocus(object sender, RoutedEventArgs e)
+        private static void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource is PasswordBox passwordBox)
             {
-                var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+                var savedPassword = GetSavedPassword(passwordBox);
                 if (savedPassword.Length != 0)
                     passwordBox.SelectAll();
             }
         }
 
-        private static void Unloaded(object sender, RoutedEventArgs e)
+        private static void PasswordBox_Unloaded(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource is PasswordBox passwordBox)
             {
-                if (GetSavedPasswordAutoDisposePasswords(passwordBox))
+                if (GetAutoDisposePasswords(passwordBox))
                 {
                     passwordBox.SecurePassword.Dispose();
-                    var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+                    var savedPassword = GetSavedPassword(passwordBox);
                     savedPassword.Dispose();
                 }
             }
@@ -200,15 +199,15 @@ namespace WikiUpload
 
         private static void UpdatePassword(PasswordBox passwordBox, string site, string username)
         {
-            passwordBox.PasswordChanged -= PasswordChanged;
-            var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+            passwordBox.PasswordChanged -= PasswordBox_PasswordChanged;
+            var savedPassword = GetSavedPassword(passwordBox);
             if (string.IsNullOrEmpty(site) || string.IsNullOrEmpty(username))
             {
                 ResetPasword(passwordBox, savedPassword);
             }
             else
             {
-                var passwordManager = GetSavedPasswordManager(passwordBox);
+                var passwordManager = GetPasswordManager(passwordBox);
                 if (passwordManager.HasPassword(site, username))
                 {
                     savedPassword.Clear();
@@ -226,7 +225,7 @@ namespace WikiUpload
                     ResetPasword(passwordBox, savedPassword);
                 }
             }
-            passwordBox.PasswordChanged += PasswordChanged;
+            passwordBox.PasswordChanged += PasswordBox_PasswordChanged;
         }
 
         private static void ResetPasword(PasswordBox passwordBox, SecureString savedPassword)
