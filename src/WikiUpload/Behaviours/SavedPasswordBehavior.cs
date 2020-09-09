@@ -37,10 +37,12 @@ namespace WikiUpload
             {
                 passwordBox.Loaded -= Loaded;
                 passwordBox.Unloaded -= Unloaded;
+                passwordBox.GotFocus -= GotFocus;
                 if (e.NewValue != null)
                 {
                     passwordBox.Loaded += Loaded;
                     passwordBox.Unloaded += Unloaded;
+                    passwordBox.GotFocus += GotFocus;
                 }
             }
             else
@@ -49,7 +51,7 @@ namespace WikiUpload
             }
         }
 
-        #endregion 
+        #endregion
 
         #region SavedPasswordSite Property
 
@@ -142,6 +144,16 @@ namespace WikiUpload
             {
                 var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
                 savedPassword.Clear();
+            }
+        }
+
+        private static void GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource is PasswordBox passwordBox)
+            {
+                var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+                if (savedPassword.Length != 0)
+                    passwordBox.SelectAll();
             }
         }
 
