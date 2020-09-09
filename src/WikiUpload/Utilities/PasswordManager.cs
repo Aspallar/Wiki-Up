@@ -4,6 +4,7 @@ using System.IO;
 using System.Security;
 using System.Xml;
 using System.Xml.Serialization;
+using WikiUpload.Extensions;
 
 namespace WikiUpload
 {
@@ -54,33 +55,44 @@ namespace WikiUpload
             return folder + @"\0ED8B7F4-7A81-4DC1-812F-9F120F60E8E2.xml";
         }
 
-        public string GetPassword(string site, string username)
+        public char[] GetPassword(string site, string username)
         {
             string key = MakeKey(site, username);
             var password = GetPasswordFromKey(key);
             return password;
         }
 
-        private string GetPasswordFromKey(string key)
+        private char[] GetPasswordFromKey(string key)
         {
-            string password = null;
+            char[] password = null;
             if (_passwords.TryGetValue(key, out string encryptedPassword))
                 password = Encryption.Decrypt(encryptedPassword);
             return password;
         }
 
-        public void SavePassword(string site, string username, SecureString securePassword)
+        public void SavePassword(string site, string username, SecureString passsword)
         {
             string key = MakeKey(site, username);
             var currentPassword = GetPasswordFromKey(key);
-            var password = securePassword.Unsecure();
-            if (password != currentPassword)
+  
+            string encryptedPassword = passsword.UseUnsecuredString<string>(unsecuredPassword =>
             {
-                var encryptedPassword = Encryption.Encrypt(password);
+                if (currentPassword == null || !unsecuredPassword.IsEquivalentTo(currentPassword))
+                    return Encryption.Encrypt(unsecuredPassword);
+                else
+                    return null;
+            });
+
+            if (currentPassword != null)
+                Array.Clear(currentPassword, 0, currentPassword.Length);
+
+            if (encryptedPassword != null)
+            {
                 _passwords[key] = encryptedPassword;
                 Save();
             }
         }
+
         public void RemovePassword(string site, string username)
         {
             var key = MakeKey(site, username);

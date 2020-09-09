@@ -71,10 +71,18 @@ namespace WikiUpload
                 }
 
                 loginParams.Add("lgtoken", loginToken);
-                // at this point we have no option other than to move password into managed memory
-                loginParams.Add("lgpassword", password.Unsecure());
 
-                var response = await AttemptLoginAsync(loginParams).ConfigureAwait(false);
+                var response = password.UseUnsecuredString<LoginResponse>(unsecuredPassword =>
+                {
+                    // I can;t help feeling that all this effort to keep the password out of
+                    // managed memory is pointless, HttpClient probably needs toplace it in
+                    // managed memory anyway when it builds the request  <sigh>
+                    loginParams.Add("lgpassword", unsecuredPassword);
+                    var result = AttemptLoginAsync(loginParams).GetAwaiter().GetResult();
+                    loginParams.Clear();
+                    loginParams = null;
+                    return result;
+                });
 
                 if (response.Result == ResponseCodes.Aborted)
                     throw new LoginException("You must use a bot password (username@password).");

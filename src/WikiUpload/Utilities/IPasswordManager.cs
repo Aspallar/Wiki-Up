@@ -6,7 +6,7 @@ namespace WikiUpload
     {
         void SavePassword(string site, string username, SecureString password);
 
-        string GetPassword(string site, string username);
+        char[] GetPassword(string site, string username);
 
         void RemovePassword(string site, string username);
     }

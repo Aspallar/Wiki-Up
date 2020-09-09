@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace WikiUpload
@@ -31,6 +32,8 @@ namespace WikiUpload
 
         public ICommand LoginCommand { get; set; }
 
+        public SecureString SavedPassword { get; } = new SecureString();
+
         public LoginViewModel()
         {
             LoginCommand = new RelayParameterizedCommand(async (securePassword) => await Login(securePassword));
@@ -44,7 +47,11 @@ namespace WikiUpload
             {
                 string url;
                 if ((url = await Validate()) != null)
-                    await DoLogin(((IHavePassword)securePassword).SecurePassword, url);
+                {
+                    SecureString password = SavedPassword.Length > 0 ?
+                        SavedPassword : ((IHavePassword)securePassword).SecurePassword;
+                    await DoLogin(password, url);
+                }
             });
         }
 
@@ -58,6 +65,7 @@ namespace WikiUpload
                 {
                     UpdateSettings();
                     UpdateSavedPassword(password);
+                    //SavedPassword.Dispose();
                     Navigator.NavigationService.Navigate(new UploadPage());
                 }
                 else
@@ -77,9 +85,14 @@ namespace WikiUpload
         private void UpdateSavedPassword(SecureString password)
         {
             if (RememberPassword)
-                _passwordManager.SavePassword(WikiUrl, Username, password);
+            {
+                if (SavedPassword.Length == 0)
+                    _passwordManager.SavePassword(WikiUrl, Username, password);
+            }
             else
+            {
                 _passwordManager.RemovePassword(WikiUrl, Username);
+            }
         }
 
         private void UpdateSettings()

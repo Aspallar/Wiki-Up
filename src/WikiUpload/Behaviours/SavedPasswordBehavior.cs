@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,8 +10,10 @@ namespace WikiUpload
 {
     public static class SavedPasswordBehavior
     {
-        //private static readonly TextChangedEventHandler onTextChanged = new TextChangedEventHandler(OnTextChanged);
-        private static readonly RoutedEventHandler onGotFocus = new RoutedEventHandler(OnGotFocus);
+        private static readonly RoutedEventHandler initializePassword = new RoutedEventHandler(InitializePassword);
+        private static readonly RoutedEventHandler passwordChanged = new RoutedEventHandler(OnPasswordChanged);
+        private static readonly RoutedEventHandler unloaded = new RoutedEventHandler(OnUnloaded);
+
 
         #region SavedPasswordUsername
 
@@ -40,9 +43,15 @@ namespace WikiUpload
 
             if (e.OldValue == null)
             {
-                passwordBox.GotFocus -= onGotFocus;
+                passwordBox.GotFocus -= initializePassword;
+                passwordBox.Loaded -= initializePassword;
+                passwordBox.Unloaded -= unloaded;
                 if (e.NewValue != null)
-                    passwordBox.GotFocus += onGotFocus;
+                {
+                    passwordBox.GotFocus += initializePassword;
+                    passwordBox.Loaded += initializePassword;
+                    passwordBox.Unloaded += unloaded;
+                }
             }
         }
 
@@ -93,23 +102,82 @@ namespace WikiUpload
 
         #endregion
 
-        private static void OnGotFocus(object sender, RoutedEventArgs e)
+        #region SavedPasswordSecurePassword
+
+        public static readonly DependencyProperty SavedPasswordSecurePassword =
+            DependencyProperty.RegisterAttached
+            (
+                "SavedPasswordSecurePassword",
+                typeof(SecureString),
+                typeof(SavedPasswordBehavior),
+                new UIPropertyMetadata(null)
+            );
+
+        public static SecureString GetSavedPasswordSecurePassword(DependencyObject obj)
         {
-            if (!(e.OriginalSource is PasswordBox passwordBox))
-                return;
+            return (SecureString)obj.GetValue(SavedPasswordSecurePassword);
+        }
 
-            string username = GetSavedPasswordUsername(passwordBox);
-            string site = GetSavedPasswordSite(passwordBox);
+        public static void SetSavedPasswordSecurePassword(DependencyObject obj, String value)
+        {
+            obj.SetValue(SavedPasswordSecurePassword, value);
+        }
 
-            if (passwordBox.SecurePassword.Length == 0 &&
-                !string.IsNullOrEmpty(username) &&
-                !string.IsNullOrEmpty(site))
+        #endregion
+
+        private static void InitializePassword(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource is PasswordBox passwordBox &&
+                passwordBox.SecurePassword.Length == 0)
             {
-                var passwordManager = GetSavedPasswordManager(passwordBox);
-                var password = passwordManager.GetPassword(site, username);
-                if (password != null)
-                    passwordBox.Password = password;
+                string username = GetSavedPasswordUsername(passwordBox);
+                string site = GetSavedPasswordSite(passwordBox);
+
+                if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(site))
+                {
+                    var passwordManager = GetSavedPasswordManager(passwordBox);
+                    var password = passwordManager.GetPassword(site, username);
+                    if (password != null)
+                    {
+                        SecureString savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+                        savedPassword.Clear();
+                        foreach (var c in password)
+                            savedPassword.AppendChar(c);
+                        Array.Clear(password, 0, password.Length);
+                        passwordBox.Password = new string('x', password.Length);
+                        passwordBox.PasswordChanged += passwordChanged;
+                    }
+                }
             }
         }
+
+        private static void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource is PasswordBox passwordBox)
+            {
+                var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+                savedPassword.Clear();
+                passwordBox.PasswordChanged -= passwordChanged;
+            }
+        }
+
+        private static void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource is PasswordBox passwordBox)
+            {
+                // we know for sure that we are finished with the secure passwords as an
+                // unload will only happen when log in is done with, or app is closing.
+
+                passwordBox.SecurePassword.Dispose();
+
+                // the saved passwoird dependancy property is disposed of here rather than in the
+                // view model as when the page is unloaded we get an extra PasswordChanged event
+                // which causes an exception if it's already been disposed by the view model.
+
+                var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+                savedPassword.Dispose();
+            }
+        }
+
     }
 }

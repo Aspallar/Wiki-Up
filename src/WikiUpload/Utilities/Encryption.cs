@@ -18,17 +18,18 @@ namespace WikiUpload
         //    }
         //}
 
-        public static string Decrypt(string text)
+        public static char[] Decrypt(string text)
         {
             byte[] data = Convert.FromBase64String(text);
             byte[] unencrypted = ProtectedData.Unprotect(data, entropy, DataProtectionScope.CurrentUser);
-            return Decode(unencrypted);
+            return DecodeAndClear(unencrypted);
         }
 
         public static string Encrypt(string text)
         {
             byte[] data = Encode(text);
             byte[] encrypted = ProtectedData.Protect(data, entropy, DataProtectionScope.CurrentUser);
+            Array.Clear(data, 0, data.Length);
             return Convert.ToBase64String(encrypted);
         }
 
@@ -37,9 +38,11 @@ namespace WikiUpload
             return Encoding.UTF8.GetBytes(data);
         }
 
-        private static string Decode(byte[] data)
+        private static char[] DecodeAndClear(byte[] data)
         {
-            return Encoding.UTF8.GetString(data);
+            char[] decoded = Encoding.UTF8.GetChars(data);
+            Array.Clear(data, 0, data.Length);
+            return decoded;
         }
     }
 }

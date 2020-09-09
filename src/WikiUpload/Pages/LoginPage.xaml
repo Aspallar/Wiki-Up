@@ -52,7 +52,8 @@
                             <PasswordBox x:Name="PasswordText" Tag="Password" 
                                          local:SavedPasswordBehavior.SavedPasswordUsername="{Binding Username, Mode=OneWay}"
                                          local:SavedPasswordBehavior.SavedPasswordSite="{Binding WikiUrl, Mode=OneWay}"
-                                         local:SavedPasswordBehavior.SavedPasswordManager="{Binding PasswordManager, Mode=OneTime}"/>
+                                         local:SavedPasswordBehavior.SavedPasswordManager="{Binding PasswordManager, Mode=OneTime}"
+                                         local:SavedPasswordBehavior.SavedPasswordSecurePassword="{Binding SavedPassword, Mode=OneTime}"/>
 
                             <CheckBox Content="Remember password" HorizontalAlignment="Center" IsChecked="{Binding RememberPassword}"/>
 

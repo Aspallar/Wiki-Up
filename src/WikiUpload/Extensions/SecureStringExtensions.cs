@@ -6,31 +6,79 @@ namespace WikiUpload
 {
     public static class SecureStringExtensions
     {
-        /// <summary>
-        /// Unsecures a <see cref="SecureString"/> to plain text
-        /// </summary>
-        /// <param name="secureString">The secure string</param>
-        /// <returns></returns>
-        public static string Unsecure(this SecureString secureString)
-        {
-            // Make sure we have a secure string
-            if (secureString == null)
-                return string.Empty;
+        #region Taken from https://stackoverflow.com/a/61285569
 
-            // Get a pointer for an unsecure string in memory
-            var unmanagedString = IntPtr.Zero;
+        /// <remarks>
+        /// This method creates an empty managed string and pins it so that the garbage collector
+        /// cannot move it around and create copies. An unmanaged copy of the the secure string is
+        /// then created and copied into the managed string. The action is then called using the
+        /// managed string. Both the managed and unmanaged strings are then zeroed to erase their
+        /// contents. The managed string is unpinned so that the garbage collector can resume normal
+        /// behaviour and the unmanaged string is freed.
+        /// </remarks>
+        public static T UseUnsecuredString<T>(this SecureString secureString, Func<string, T> action)
+        {
+            int length = secureString.Length;
+            IntPtr sourceStringPointer = IntPtr.Zero;
+
+            // Create an empty string of the correct size and pin it so that the GC can't move it around.
+            string insecureString = new string('\0', length);
+            var insecureStringHandler = GCHandle.Alloc(insecureString, GCHandleType.Pinned);
+
+            IntPtr insecureStringPointer = insecureStringHandler.AddrOfPinnedObject();
 
             try
             {
-                // Unsecures the password
-                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(secureString);
-                return Marshal.PtrToStringUni(unmanagedString);
+                // Create an unmanaged copy of the secure string.
+                sourceStringPointer = Marshal.SecureStringToBSTR(secureString);
+
+                // Use the pointers to copy from the unmanaged to managed string.
+                for (int i = 0; i < secureString.Length; i++)
+                {
+                    short unicodeChar = Marshal.ReadInt16(sourceStringPointer, i * 2);
+                    Marshal.WriteInt16(insecureStringPointer, i * 2, unicodeChar);
+                }
+
+                return action(insecureString);
             }
             finally
             {
-                // Clean up any memory allocation
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
+                // Zero the managed string so that the string is erased. Then unpin it to allow the
+                // GC to take over.
+                Marshal.Copy(new byte[length * 2], 0, insecureStringPointer, length * 2);
+                insecureStringHandler.Free();
+
+                // Zero and free the unmanaged string.
+                Marshal.ZeroFreeBSTR(sourceStringPointer);
             }
         }
+
+        /// <summary>
+        /// Allows a decrypted secure string to be used whilst minimising the exposure of the
+        /// unencrypted string.
+        /// </summary>
+        /// <param name="secureString">The string to decrypt.</param>
+        /// <param name="action">
+        /// Func delegate which will receive the decrypted password as a string object
+        /// </param>
+        /// <returns>Result of Func delegate</returns>
+        /// <remarks>
+        /// This method creates an empty managed string and pins it so that the garbage collector
+        /// cannot move it around and create copies. An unmanaged copy of the the secure string is
+        /// then created and copied into the managed string. The action is then called using the
+        /// managed string. Both the managed and unmanaged strings are then zeroed to erase their
+        /// contents. The managed string is unpinned so that the garbage collector can resume normal
+        /// behaviour and the unmanaged string is freed.
+        /// </remarks>
+        public static void UseUnsecuredString(this SecureString secureString, Action<string> action)
+        {
+            UseUnsecuredString(secureString, (s) =>
+            {
+                action(s);
+                return 0;
+            });
+        }
+
+        #endregion
     }
 }
