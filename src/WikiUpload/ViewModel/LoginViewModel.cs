@@ -85,14 +85,9 @@ namespace WikiUpload
         private void UpdateSavedPassword(SecureString password)
         {
             if (RememberPassword)
-            {
-                if (SavedPassword.Length == 0)
-                    _passwordManager.SavePassword(WikiUrl, Username, password);
-            }
+                _passwordManager.SavePassword(WikiUrl, Username, password);
             else
-            {
                 _passwordManager.RemovePassword(WikiUrl, Username);
-            }
         }
 
         private void UpdateSettings()
