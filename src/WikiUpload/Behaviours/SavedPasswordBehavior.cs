@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace WikiUpload
 {
     public static class SavedPasswordBehavior
     {
-        private static readonly RoutedEventHandler initializePassword = new RoutedEventHandler(InitializePassword);
-        private static readonly RoutedEventHandler passwordChanged = new RoutedEventHandler(OnPasswordChanged);
-        private static readonly RoutedEventHandler unloaded = new RoutedEventHandler(OnUnloaded);
-
-
-        #region SavedPasswordUsername
+        #region SavedPasswordUsername Property
 
         public static readonly DependencyProperty SavedPasswordUsername =
             DependencyProperty.RegisterAttached
@@ -23,7 +15,7 @@ namespace WikiUpload
                 "SavedPasswordUsername",
                 typeof(string),
                 typeof(SavedPasswordBehavior),
-                new UIPropertyMetadata(null, OnSavedPasswordUsername)
+                new UIPropertyMetadata(null, SavedPasswordUsernameChanged)
             );
 
         public static String GetSavedPasswordUsername(DependencyObject obj)
@@ -36,28 +28,30 @@ namespace WikiUpload
             obj.SetValue(SavedPasswordUsername, value);
         }
 
-        private static void OnSavedPasswordUsername(object sender, DependencyPropertyChangedEventArgs e)
+        private static void SavedPasswordUsernameChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (!(sender is PasswordBox passwordBox))
                 return;
 
             if (e.OldValue == null)
             {
-                passwordBox.GotFocus -= initializePassword;
-                passwordBox.Loaded -= initializePassword;
-                passwordBox.Unloaded -= unloaded;
+                passwordBox.Loaded -= Loaded;
+                passwordBox.Unloaded -= Unloaded;
                 if (e.NewValue != null)
                 {
-                    passwordBox.GotFocus += initializePassword;
-                    passwordBox.Loaded += initializePassword;
-                    passwordBox.Unloaded += unloaded;
+                    passwordBox.Loaded += Loaded;
+                    passwordBox.Unloaded += Unloaded;
                 }
+            }
+            else
+            {
+                UpdatePassword(passwordBox, GetSavedPasswordSite(passwordBox), (string)e.NewValue);
             }
         }
 
-        #endregion
+        #endregion 
 
-        #region SavedPasswordSite
+        #region SavedPasswordSite Property
 
         public static readonly DependencyProperty SavedPasswordSite =
             DependencyProperty.RegisterAttached
@@ -65,8 +59,17 @@ namespace WikiUpload
                 "SavedPasswordSite",
                 typeof(String),
                 typeof(SavedPasswordBehavior),
-                new UIPropertyMetadata(String.Empty)
+                new UIPropertyMetadata(null, SavedPasswordSiteChanged)
             );
+
+        private static void SavedPasswordSiteChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(sender is PasswordBox passwordBox))
+                return;
+
+            if (e.OldValue != null)
+                UpdatePassword(passwordBox, (string)e.NewValue, GetSavedPasswordUsername(passwordBox));
+        }
 
         public static String GetSavedPasswordSite(DependencyObject obj)
         {
@@ -77,9 +80,9 @@ namespace WikiUpload
         {
             obj.SetValue(SavedPasswordSite, value);
         }
-        #endregion
+        #endregion 
 
-        #region SavedPasswordManager
+        #region SavedPasswordManager Property
 
         public static readonly DependencyProperty SavedPasswordManager =
             DependencyProperty.RegisterAttached
@@ -102,7 +105,7 @@ namespace WikiUpload
 
         #endregion
 
-        #region SavedPasswordSecurePassword
+        #region SavedPasswordSecurePassword Property
 
         public static readonly DependencyProperty SavedPasswordSecurePassword =
             DependencyProperty.RegisterAttached
@@ -125,43 +128,24 @@ namespace WikiUpload
 
         #endregion
 
-        private static void InitializePassword(object sender, RoutedEventArgs e)
-        {
-            if (e.OriginalSource is PasswordBox passwordBox &&
-                passwordBox.SecurePassword.Length == 0)
-            {
-                string username = GetSavedPasswordUsername(passwordBox);
-                string site = GetSavedPasswordSite(passwordBox);
+        #region PasswordBox event handlers
 
-                if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(site))
-                {
-                    var passwordManager = GetSavedPasswordManager(passwordBox);
-                    var password = passwordManager.GetPassword(site, username);
-                    if (password != null)
-                    {
-                        SecureString savedPassword = GetSavedPasswordSecurePassword(passwordBox);
-                        savedPassword.Clear();
-                        foreach (var c in password)
-                            savedPassword.AppendChar(c);
-                        Array.Clear(password, 0, password.Length);
-                        passwordBox.Password = new string('x', password.Length);
-                        passwordBox.PasswordChanged += passwordChanged;
-                    }
-                }
-            }
+        private static void Loaded(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource is PasswordBox passwordBox)
+                UpdatePassword(passwordBox, GetSavedPasswordSite(passwordBox), GetSavedPasswordUsername(passwordBox));
         }
 
-        private static void OnPasswordChanged(object sender, RoutedEventArgs e)
+        private static void PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource is PasswordBox passwordBox)
             {
                 var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
                 savedPassword.Clear();
-                passwordBox.PasswordChanged -= passwordChanged;
             }
         }
 
-        private static void OnUnloaded(object sender, RoutedEventArgs e)
+        private static void Unloaded(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource is PasswordBox passwordBox)
             {
@@ -179,5 +163,48 @@ namespace WikiUpload
             }
         }
 
+        #endregion
+
+        #region Private Methods
+
+        private static void UpdatePassword(PasswordBox passwordBox, string site, string username)
+        {
+            passwordBox.PasswordChanged -= PasswordChanged;
+            var savedPassword = GetSavedPasswordSecurePassword(passwordBox);
+            if (string.IsNullOrEmpty(site) || string.IsNullOrEmpty(username))
+            {
+                ResetPasword(passwordBox, savedPassword);
+            }
+            else
+            {
+                var passwordManager = GetSavedPasswordManager(passwordBox);
+                if (passwordManager.HasPassword(site, username))
+                {
+                    var password = passwordManager.GetPassword(site, username);
+                    savedPassword.Clear();
+                    foreach (var c in password)
+                        savedPassword.AppendChar(c);
+                    Array.Clear(password, 0, password.Length);
+                    passwordBox.Password = new string('-', password.Length);
+                }
+                else
+                {
+                    ResetPasword(passwordBox, savedPassword);
+                }
+            }
+            passwordBox.PasswordChanged += PasswordChanged;
+        }
+
+        private static void ResetPasword(PasswordBox passwordBox, SecureString savedPassword)
+        {
+            if (savedPassword.Length != 0)
+            {
+                savedPassword.Clear();
+                passwordBox.Password = "";
+            }
+        }
+
+        #endregion
     }
+
 }

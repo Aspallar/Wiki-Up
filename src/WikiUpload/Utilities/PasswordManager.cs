@@ -62,6 +62,9 @@ namespace WikiUpload
             return password;
         }
 
+        public bool HasPassword(string site, string username)
+            => _passwords.ContainsKey(MakeKey(site, username));
+
         private char[] GetPasswordFromKey(string key)
         {
             char[] password = null;
@@ -104,6 +107,5 @@ namespace WikiUpload
         }
 
         private static string MakeKey(string site, string username) => site + username;
-
     }
 }
