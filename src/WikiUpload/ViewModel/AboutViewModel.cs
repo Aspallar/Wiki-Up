@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 
@@ -16,6 +17,7 @@ namespace WikiUpload
             CopyrightText = ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             VersionText = $"Version {Utils.GetApplicationVersion(assembly)}";
             CloseCommand = new RelayCommand(() => _window.Close());
+            LaunchWebSiteCommand = new RelayCommand(() => Process.Start("https://github.com/Aspallar/Wiki-Up"));
         }
 
         public string CopyrightText { get; }
@@ -23,6 +25,8 @@ namespace WikiUpload
         public string VersionText { get; }
 
         public ICommand CloseCommand { get; set; }
+
+        public ICommand LaunchWebSiteCommand { get; set; }
     }
 
 }
