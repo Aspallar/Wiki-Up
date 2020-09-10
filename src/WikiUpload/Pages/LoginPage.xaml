@@ -35,7 +35,7 @@
                             BorderThickness="1"
                             BorderBrush="Blue">
                         <StackPanel>
-                            <TextBlock Text="Login" 
+                            <TextBlock Text="LOGIN" 
                                        FontSize="{StaticResource FontSizeLarge}"
                                        FontFamily="{StaticResource MainFont}"
                                        FontWeight="ExtraBold"
