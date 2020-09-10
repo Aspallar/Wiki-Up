@@ -44,17 +44,17 @@
 
                             <TextBox x:Name="WikiSite" Tag="Wiki Url" Style="{StaticResource LineTextBox}"
                                      Text="{Binding WikiUrl, UpdateSourceTrigger=PropertyChanged}"
-                                     local:AutoCompleteBehavior.ItemsSource="{Binding PreviousSites, Mode=OneTime}"/>
+                                     local:AutoComplete.ItemsSource="{Binding PreviousSites, Mode=OneTime}"/>
 
                             <TextBox Tag="Username" Style="{StaticResource LineTextBox}"
                                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
                             
                             <PasswordBox x:Name="PasswordText" Tag="Password" 
-                                         local:SavedPasswordBehavior.Username="{Binding Username, Mode=OneWay}"
-                                         local:SavedPasswordBehavior.Site="{Binding WikiUrl, Mode=OneWay}"
-                                         local:SavedPasswordBehavior.PasswordManager="{Binding PasswordManager, Mode=OneTime}"
-                                         local:SavedPasswordBehavior.SavedPassword="{Binding SavedPassword, Mode=OneTime}"
-                                         local:SavedPasswordBehavior.AutoDisposePasswords="True"/>
+                                         local:SavedPassword.Username="{Binding Username, Mode=OneWay}"
+                                         local:SavedPassword.Site="{Binding WikiUrl, Mode=OneWay}"
+                                         local:SavedPassword.PasswordManager="{Binding PasswordManager, Mode=OneTime}"
+                                         local:SavedPassword.SavedPassword="{Binding SavedPassword, Mode=OneTime}"
+                                         local:SavedPassword.AutoDisposePasswords="True"/>
 
                             <CheckBox Content="Remember password" HorizontalAlignment="Center" IsChecked="{Binding RememberPassword}"/>
 

@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace WikiUpload
 {
-    public static class SavedPasswordBehavior
+    public static class SavedPassword
     {
         #region Username Property
 
@@ -14,7 +14,7 @@ namespace WikiUpload
             (
                 "Username",
                 typeof(string),
-                typeof(SavedPasswordBehavior),
+                typeof(SavedPassword),
                 new UIPropertyMetadata(null, OnUsernameChanged)
             );
 
@@ -60,7 +60,7 @@ namespace WikiUpload
             (
                 "Site",
                 typeof(String),
-                typeof(SavedPasswordBehavior),
+                typeof(SavedPassword),
                 new UIPropertyMetadata(null, OnSiteChanged)
             );
 
@@ -91,7 +91,7 @@ namespace WikiUpload
             (
                 "PasswordManager",
                 typeof(IPasswordManager),
-                typeof(SavedPasswordBehavior),
+                typeof(SavedPassword),
                 new UIPropertyMetadata(null)
             );
 
@@ -114,7 +114,7 @@ namespace WikiUpload
             (
                 "AutoDisposePasswords",
                 typeof(bool),
-                typeof(SavedPasswordBehavior),
+                typeof(SavedPassword),
                 new UIPropertyMetadata(false)
             );
 
@@ -137,7 +137,7 @@ namespace WikiUpload
             (
                 "SavedPassword",
                 typeof(SecureString),
-                typeof(SavedPasswordBehavior),
+                typeof(SavedPassword),
                 new UIPropertyMetadata(null)
             );
 

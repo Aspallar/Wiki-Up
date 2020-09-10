@@ -35,7 +35,7 @@ using System.Windows.Input;
 
 namespace WikiUpload
 {
-    public static class AutoCompleteBehavior
+    public static class AutoComplete
     {
         #region ItemsSource Property
         /// <summary>
@@ -46,7 +46,7 @@ namespace WikiUpload
             (
                 "ItemsSource",
                 typeof(IEnumerable<string>),
-                typeof(AutoCompleteBehavior),
+                typeof(AutoComplete),
                 new UIPropertyMetadata(null, OnItemsSourceChanged)
             );
 
@@ -87,7 +87,7 @@ namespace WikiUpload
 			(
 				"StringComparison",
 				typeof(StringComparison),
-				typeof(AutoCompleteBehavior),
+				typeof(AutoComplete),
 				new UIPropertyMetadata(StringComparison.Ordinal)
 			);
 
@@ -113,7 +113,7 @@ namespace WikiUpload
             (
                 "Indicator",
                 typeof(string),
-                typeof(AutoCompleteBehavior),
+                typeof(AutoComplete),
                 new UIPropertyMetadata(string.Empty)
             );
 

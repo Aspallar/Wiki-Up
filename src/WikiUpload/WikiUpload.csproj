@@ -73,8 +73,8 @@
     </ApplicationDefinition>
     <Compile Include="AttachedProperties\DragTargetAttachedProperty.cs" />
     <Compile Include="AttachedProperties\ListBoxAttachedProperties.cs" />
-    <Compile Include="Behaviours\AutoCompleteBehavior.cs" />
-    <Compile Include="Behaviours\SavedPasswordBehavior.cs" />
+    <Compile Include="Behaviours\AutoComplete.cs" />
+    <Compile Include="Behaviours\SavedPassword.cs" />
     <Compile Include="DataModels\UploadList.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Native\NativeMethods.cs" />
