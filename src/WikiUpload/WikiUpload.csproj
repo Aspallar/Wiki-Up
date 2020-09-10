@@ -205,7 +205,24 @@
     </EmbeddedResource>
     <Resource Include="Fonts\SaucerBB.ttf" />
     <Resource Include="Fonts\fontawesome-webfont.ttf" />
-    <Resource Include="Fonts\Roboto-Regular.ttf" />
+    <Resource Include="Fonts\Exo-Black.ttf" />
+    <Resource Include="Fonts\Exo-BlackItalic.ttf" />
+    <Resource Include="Fonts\Exo-Bold.ttf" />
+    <Resource Include="Fonts\Exo-BoldItalic.ttf" />
+    <Resource Include="Fonts\Exo-ExtraBold.ttf" />
+    <Resource Include="Fonts\Exo-ExtraBoldItalic.ttf" />
+    <Resource Include="Fonts\Exo-ExtraLight.ttf" />
+    <Resource Include="Fonts\Exo-ExtraLightItalic.ttf" />
+    <Resource Include="Fonts\Exo-Italic.ttf" />
+    <Resource Include="Fonts\Exo-Light.ttf" />
+    <Resource Include="Fonts\Exo-LightItalic.ttf" />
+    <Resource Include="Fonts\Exo-Medium.ttf" />
+    <Resource Include="Fonts\Exo-MediumItalic.ttf" />
+    <Resource Include="Fonts\Exo-Regular.ttf" />
+    <Resource Include="Fonts\Exo-SemiBold.ttf" />
+    <Resource Include="Fonts\Exo-SemiBoldItalic.ttf" />
+    <Resource Include="Fonts\Exo-Thin.ttf" />
+    <Resource Include="Fonts\Exo-ThinItalic.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
