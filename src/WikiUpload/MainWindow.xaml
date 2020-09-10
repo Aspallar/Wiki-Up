@@ -79,7 +79,7 @@
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Style="{StaticResource HeaderText}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Wiki-Up'}" />
                                                 <TextBlock Text="by Aspallar"
-                                                           FontFamily="{StaticResource LatoThin}"
+                                                           FontFamily="{StaticResource MainFont}"
                                                            FontSize="{StaticResource FontSizeSmall}"
                                                            VerticalAlignment="Bottom"
                                                            Foreground="{StaticResource ForegroundVeryDarkBrush}"

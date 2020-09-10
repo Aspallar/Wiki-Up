@@ -16,7 +16,7 @@
     <Style x:Key="LineTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0 5 0 5" />
         <Setter Property="BorderBrush" Value="{StaticResource ButtonColorBrush}" />
@@ -39,11 +39,10 @@
                         <TextBlock IsHitTestVisible="False"
                                    Text="{TemplateBinding Tag}"
                                    x:Name="placeholder"
-                                   FontFamily="{StaticResource LatoThin}"
                                    Padding="{TemplateBinding Padding}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                   Foreground="LightGray"
+                                   Foreground="{StaticResource PlaceholdeBrush}"
                                    >
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
@@ -80,7 +79,7 @@
     <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0 5 0 5" />
         <Setter Property="BorderBrush" Value="{StaticResource ButtonColorBrush}" />
@@ -104,11 +103,10 @@
                         <TextBlock IsHitTestVisible="False"
                                    Text="{TemplateBinding Tag}"
                                    x:Name="placeholder"
-                                   FontFamily="{StaticResource LatoThin}"
                                    Padding="{TemplateBinding Padding}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                   Foreground="LightGray"
+                                   Foreground="{StaticResource PlaceholdeBrush}"
                                    Visibility="{TemplateBinding local:HasTextProperty.Value, Converter={local:BooleanToVisiblityConverter}}">
                             
                             <TextBlock.Style>

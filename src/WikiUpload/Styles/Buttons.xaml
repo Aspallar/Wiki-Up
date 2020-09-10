@@ -84,7 +84,7 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundLightBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
         <Setter Property="Padding" Value="20 6" />
         <Setter Property="Margin" Value="0 10" />
         <Setter Property="local:IsBusyProperty.Value" Value="False" />
@@ -133,7 +133,7 @@
         <Setter Property="Foreground" Value="{StaticResource ButtonColorBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
         <Setter Property="Cursor" Value="Hand"/>
         <!--<Setter Property="Padding" Value="50 10" />
         <Setter Property="Margin" Value="0 10" />-->
@@ -176,7 +176,7 @@
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Cursor" Value="Hand"/>
         <!--<Setter Property="Padding" Value="50 10" />

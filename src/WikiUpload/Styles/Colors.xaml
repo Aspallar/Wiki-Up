@@ -45,5 +45,8 @@
     <Color x:Key="UploadStatusErrorColor">#cc0000</Color>
     <SolidColorBrush x:Key="UploadStatusErrorBrush" Color="{StaticResource UploadStatusErrorColor}"/>
 
+    <Color x:Key="PlaceholderColor">Gray</Color>
+    <SolidColorBrush x:Key="PlaceholdeBrush" Color="{StaticResource PlaceholderColor}"/>
+
 </ResourceDictionary>
 

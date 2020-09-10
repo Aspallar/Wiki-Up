@@ -35,21 +35,21 @@
                             BorderThickness="1"
                             BorderBrush="Blue">
                         <StackPanel>
-                            <TextBlock Text="Login to Wiki" 
+                            <TextBlock Text="Login" 
                                        FontSize="{StaticResource FontSizeLarge}"
-                                       FontFamily="{StaticResource LatoRegular}"
+                                       FontFamily="{StaticResource MainFont}"
                                        FontWeight="ExtraBold"
                                        Foreground="{StaticResource ButtonColorBrush}"
                                        Margin="0 14 0 10"/>
 
-                            <TextBox x:Name="WikiSite" Tag="Wiki Url" Style="{StaticResource LineTextBox}"
+                            <TextBox x:Name="WikiSite" Tag="wiki url" Style="{StaticResource LineTextBox}"
                                      Text="{Binding WikiUrl, UpdateSourceTrigger=PropertyChanged}"
                                      local:AutoComplete.ItemsSource="{Binding PreviousSites, Mode=OneTime}"/>
 
-                            <TextBox Tag="Username" Style="{StaticResource LineTextBox}"
+                            <TextBox Tag="username" Style="{StaticResource LineTextBox}"
                                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
                             
-                            <PasswordBox x:Name="PasswordText" Tag="Password" 
+                            <PasswordBox x:Name="PasswordText" Tag="password" 
                                          local:SavedPassword.Username="{Binding Username, Mode=OneWay}"
                                          local:SavedPassword.Site="{Binding WikiUrl, Mode=OneWay}"
                                          local:SavedPassword.PasswordManager="{Binding PasswordManager, Mode=OneTime}"
@@ -64,13 +64,12 @@
 
                             <StackPanel Visibility="{Binding IsLoginError, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
                                 <TextBlock Foreground="{StaticResource ErrorColorBrush}"
-                                           FontFamily="{StaticResource LatoRegular}"
+                                           FontFamily="{StaticResource MainFont}"
                                            FontSize="{StaticResource FontSizeRegular}"
                                            FontWeight="Bold"
                                            Margin="0 5 0 0"
                                            Text="Login Failed" />
                                 <TextBlock Foreground="{StaticResource ErrorColorBrush}"
-                                           FontFamily="{StaticResource LatoThin}"
                                            FontSize="{StaticResource FontSizeSmall}"
                                            Margin="0"
                                            TextWrapping="Wrap"
