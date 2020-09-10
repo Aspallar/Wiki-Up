@@ -18,7 +18,7 @@ namespace WikiUpload
 
         public string WikiUrl { get; set; } = Properties.Settings.Default.WikiUrl;
 
-        public bool RememberPassword { get; set; } = true;
+        public bool RememberPassword { get; set; } = Properties.Settings.Default.RememberPassword;
 
         public ObservableCollection<string> PreviousSites { get; set; }
 
@@ -95,6 +95,7 @@ namespace WikiUpload
             var settings = Properties.Settings.Default;
             settings.Username = Username;
             settings.WikiUrl = WikiUrl;
+            settings.RememberPassword = RememberPassword;
             settings.AddMostRecentlyUsedSite(WikiUrl);
             settings.Save();
         }

@@ -75,5 +75,17 @@ namespace WikiUpload.Properties {
                 return ((string)(this["ImageExtensions"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RememberPassword {
+            get {
+                return ((bool)(this["RememberPassword"]));
+            }
+            set {
+                this["RememberPassword"] = value;
+            }
+        }
     }
 }
