@@ -23,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
 
- * Modified by Aspallar 2019
+ * Modified by Aspallar 2019-2020
 */
 
 using System;
@@ -37,105 +37,104 @@ namespace WikiUpload
 {
     public static class AutoCompleteBehavior
     {
-        private static readonly TextChangedEventHandler onTextChanged = new TextChangedEventHandler(OnTextChanged);
-        private static readonly KeyEventHandler onKeyDown = new KeyEventHandler(OnPreviewKeyDown);
-        
-		/// <summary>
-		/// The collection to search for matches from.
-		/// </summary>
-        public static readonly DependencyProperty AutoCompleteItemsSource =
-            DependencyProperty.RegisterAttached
-            (
-                "AutoCompleteItemsSource",
-                typeof(IEnumerable<String>),
-                typeof(AutoCompleteBehavior),
-                new UIPropertyMetadata(null, OnAutoCompleteItemsSource)
-            );
-
-		/// <summary>
-		/// Whether or not to ignore case when searching for matches.
-		/// </summary>
-		public static readonly DependencyProperty AutoCompleteStringComparison =
-			DependencyProperty.RegisterAttached
-			(
-				"AutoCompleteStringComparison",
-				typeof(StringComparison),
-				typeof(AutoCompleteBehavior),
-				new UIPropertyMetadata(StringComparison.Ordinal)
-			);
-
+        #region ItemsSource Property
         /// <summary>
-		/// What string should indicate that we should start giving auto-completion suggestions.  For example: @
-        /// If this is null or empty, auto-completion suggestions will begin at the beginning of the textbox's text.
-		/// </summary>
-		public static readonly DependencyProperty AutoCompleteIndicator =
+        /// The collection to search for matches from.
+        /// </summary>
+        public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.RegisterAttached
             (
-                "AutoCompleteIndicator",
-                typeof(String),
+                "ItemsSource",
+                typeof(IEnumerable<string>),
                 typeof(AutoCompleteBehavior),
-                new UIPropertyMetadata(String.Empty)
+                new UIPropertyMetadata(null, OnItemsSourceChanged)
             );
 
-        #region Items Source
-        public static IEnumerable<String> GetAutoCompleteItemsSource(DependencyObject obj)
+        public static IEnumerable<string> GetItemsSource(DependencyObject obj)
         {
-            return obj.GetValue(AutoCompleteItemsSource) as IEnumerable<String>;
+            return obj.GetValue(ItemsSourceProperty) as IEnumerable<string>;
         }
 
-        public static void SetAutoCompleteItemsSource(DependencyObject obj, IEnumerable<String> value)
+        public static void SetItemsSource(DependencyObject obj, IEnumerable<string> value)
         {
-            obj.SetValue(AutoCompleteItemsSource, value);
+            obj.SetValue(ItemsSourceProperty, value);
         }
 
-        private static void OnAutoCompleteItemsSource(object sender, DependencyPropertyChangedEventArgs e)
+        private static void OnItemsSourceChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (!(sender is TextBox tb))
                 return;
 
             //If we're being removed, remove the callbacks
             //Remove our old handler, regardless of if we have a new one.
-            tb.TextChanged -= onTextChanged;
-            tb.PreviewKeyDown -= onKeyDown;
+            tb.TextChanged -= TextBox_TextChanged;
+            tb.PreviewKeyDown -= TextBox_PreviewKeyDown;
             if (e.NewValue != null)
             {
                 //New source.  Add the callbacks
-                tb.TextChanged += onTextChanged;
-                tb.PreviewKeyDown += onKeyDown;
+                tb.TextChanged += TextBox_TextChanged;
+                tb.PreviewKeyDown += TextBox_PreviewKeyDown;
             }
         }
-		#endregion
-
-		#region String Comparison
-		public static StringComparison GetAutoCompleteStringComparison(DependencyObject obj) 
-		{
-			return (StringComparison)obj.GetValue(AutoCompleteStringComparison);
-		}
-
-		public static void SetAutoCompleteStringComparison(DependencyObject obj, StringComparison value) 
-		{
-			obj.SetValue(AutoCompleteStringComparison, value);
-		}
         #endregion
 
-        #region Indicator
-        public static String GetAutoCompleteIndicator(DependencyObject obj)
+        #region StringComparison Property
+        /// <summary>
+        /// Whether or not to ignore case when searching for matches.
+        /// </summary>
+        public static readonly DependencyProperty StringComparisonProperty =
+			DependencyProperty.RegisterAttached
+			(
+				"StringComparison",
+				typeof(StringComparison),
+				typeof(AutoCompleteBehavior),
+				new UIPropertyMetadata(StringComparison.Ordinal)
+			);
+
+        public static StringComparison GetStringComparison(DependencyObject obj)
         {
-            return (String)obj.GetValue(AutoCompleteIndicator);
+            return (StringComparison)obj.GetValue(StringComparisonProperty);
         }
 
-        public static void SetAutoCompleteIndicator(DependencyObject obj, String value)
+        public static void SetStringComparison(DependencyObject obj, StringComparison value)
         {
-            obj.SetValue(AutoCompleteIndicator, value);
+            obj.SetValue(StringComparisonProperty, value);
+        }
+
+        #endregion
+
+        #region Indicator Property
+        /// <summary>
+        /// What string should indicate that we should start giving auto-completion suggestions.  For example: @
+        /// If this is null or empty, auto-completion suggestions will begin at the beginning of the textbox's text.
+        /// </summary>
+        public static readonly DependencyProperty IndicatorProperty =
+            DependencyProperty.RegisterAttached
+            (
+                "Indicator",
+                typeof(string),
+                typeof(AutoCompleteBehavior),
+                new UIPropertyMetadata(string.Empty)
+            );
+
+        public static string GetIndicator(DependencyObject obj)
+        {
+            return (string)obj.GetValue(IndicatorProperty);
+        }
+
+        public static void SetIndicator(DependencyObject obj, string value)
+        {
+            obj.SetValue(IndicatorProperty, value);
         }
         #endregion
 
+        #region TextBox event handlers
         /// <summary>
         /// Used for moving the caret to the end of the suggested auto-completion text.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        static void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        static void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter)
                 return;
@@ -156,7 +155,7 @@ namespace WikiUpload
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-        static void OnTextChanged(object sender, TextChangedEventArgs e)
+        static void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (e.Changes.Any(x => x.RemovedLength > 0) && !e.Changes.Any(x => x.AddedLength > 0))
                 return;
@@ -164,14 +163,14 @@ namespace WikiUpload
             if (!(e.OriginalSource is TextBox tb))
                 return;
 
-            IEnumerable<String> values = GetAutoCompleteItemsSource(tb);
+            IEnumerable<string> values = GetItemsSource(tb);
             string searchTarget = tb.Text;
 
             //No reason to search if we don't have any values or there's nothing to search for.
             if (values == null || string.IsNullOrEmpty(searchTarget))
                 return;
 
-            string indicator = GetAutoCompleteIndicator(tb);
+            string indicator = GetIndicator(tb);
             int startIndex = 0; 
 
             //If we have a trigger string, make sure that it has been typed before
@@ -193,7 +192,7 @@ namespace WikiUpload
 
             int searchTargetLength = searchTarget.Length;
 
-			StringComparison compareType = GetAutoCompleteStringComparison(tb);
+			StringComparison compareType = GetStringComparison(tb);
 
             var match = values.Where(x => x.StartsWith(searchTarget, compareType))
                 .Select(x => x.Substring(searchTargetLength, x.Length - searchTargetLength))
@@ -203,12 +202,14 @@ namespace WikiUpload
 				return;
 
             int matchStart = startIndex + searchTargetLength;
-            tb.TextChanged -= onTextChanged;
+            tb.TextChanged -= TextBox_TextChanged;
             tb.Text += match;
             tb.CaretIndex = matchStart;
             tb.SelectionStart = matchStart;
             tb.SelectionLength = tb.Text.Length - startIndex;
-            tb.TextChanged += onTextChanged;
+            tb.TextChanged += TextBox_TextChanged;
         }
+
+        #endregion
     }
 }

@@ -44,8 +44,8 @@
 
                             <TextBox x:Name="WikiSite" Tag="Wiki Url" Style="{StaticResource LineTextBox}"
                                      Text="{Binding WikiUrl, UpdateSourceTrigger=PropertyChanged}"
-                                     local:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding PreviousSites, Mode=OneWay}"/>
-                            
+                                     local:AutoCompleteBehavior.ItemsSource="{Binding PreviousSites, Mode=OneTime}"/>
+
                             <TextBox Tag="Username" Style="{StaticResource LineTextBox}"
                                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
                             
