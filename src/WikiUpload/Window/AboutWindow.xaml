@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
-        Title="About Wiki-Up" Height="460" Width="530">
+        Title="About Wiki-Up" Height="400" Width="530">
     <StackPanel Margin="0">
         <Grid >
             <Grid.ColumnDefinitions>
