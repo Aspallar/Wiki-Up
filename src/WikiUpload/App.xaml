@@ -9,11 +9,11 @@
                 <ResourceDictionary Source="Styles/Images.xaml"/>
                 <ResourceDictionary Source="Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Styles/Fonts.xaml"/>
+                <ResourceDictionary Source="Styles/Icons.xaml"/>
                 <ResourceDictionary Source="Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="Styles/Texts.xaml"/>
                 <ResourceDictionary Source="Styles/Windows.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-         
     </Application.Resources>
 </Application>

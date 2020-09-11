@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:WikiUpload"
       mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="800"
@@ -44,13 +45,14 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                                         <Grid>
-                                            <TextBlock Text="&#xf111;"
+                                            <iconPacks:PackIconFontAwesome Kind="CircleSolid"
+                                                   Style="{StaticResource FontSizeIcon}"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
                                                    FontSize="{StaticResource FontSizeLarge}"
-                                                   FontFamily="{StaticResource FontAwesome}"
                                                    Foreground="{Binding Status, Converter={local:UploadFileStatusToColorConverter}}"/>
-                                            <TextBlock Style="{StaticResource SpinningText}"
+                                            <iconPacks:PackIconFontAwesome Kind="SpinnerSolid"
+                                                   Style="{StaticResource SpinningIcon}"
                                                    FontSize="{StaticResource FontSizeRegular}"
                                                    Foreground="{StaticResource ForegroundLightBrush}"
                                                    Visibility="{Binding Status, Converter={local:UploadFileStatusToVisiblityConverter}}"

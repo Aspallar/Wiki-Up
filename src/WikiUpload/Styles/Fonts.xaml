@@ -4,7 +4,6 @@
 
     <FontFamily x:Key="MainFont">pack://appliction;,,,/Fonts/#Exo</FontFamily>
     <FontFamily x:Key="SaucerBB">pack://appliction;,,,/Fonts/#Saucer BB</FontFamily>
-    <FontFamily x:Key="FontAwesome">pack://appliction;,,,/Fonts/#FontAwesome</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
