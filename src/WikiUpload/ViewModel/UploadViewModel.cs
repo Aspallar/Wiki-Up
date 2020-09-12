@@ -169,9 +169,12 @@ namespace WikiUpload
 
         private string AddAppName(string uploadSummary)
         {
+            var appName = UploadService.Uploader.Site.ToLowerInvariant().Contains(".fandom.")
+                ? "[[w:c:dev:Wiki-Up|Wiki-Up]]" : "Wiki-Up";
+
             return uploadSummary == ""
-                ? $"Uploaded via Wiki-Up {Utils.ApplicationVersion}"
-                : $"{uploadSummary} (via Wiki-Up {Utils.ApplicationVersion})";
+                ? $"Uploaded via {appName} {Utils.ApplicationVersion}"
+                : $"{uploadSummary} (via {appName} {Utils.ApplicationVersion})";
         }
 
         private void RemoveFiles(object selectedItems)
