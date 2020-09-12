@@ -27,7 +27,14 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TabControl Padding="0" Grid.Column="0" x:Name="tabControl">
-                <TabItem Header="Upload" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
+                <TabItem FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconFontAwesome Kind="UploadSolid" VerticalAlignment="Center"
+                                Foreground="{StaticResource ButtonColorBrush}"/>
+                            <TextBlock Text="Upload" Margin="6 0 0 0"/>
+                        </StackPanel>
+                    </TabItem.Header>
                     <Grid Background="{StaticResource BackGroundColorBrush}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="6*"/>
@@ -131,7 +138,15 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Content" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
+                <TabItem FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconFontAwesome Kind="FileAltSolid" VerticalAlignment="Center"
+                                Foreground="{StaticResource ButtonColorBrush}"/>
+                            <TextBlock Text="Content" Margin="6 0 0 0"/>
+                        </StackPanel>
+                    </TabItem.Header>
+
                     <Border Background="{StaticResource BackGroundColorBrush}" Padding="30 10 30 10">
                         <Grid>
                             <Grid.RowDefinitions>
