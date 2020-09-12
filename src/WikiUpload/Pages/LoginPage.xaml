@@ -56,7 +56,8 @@
                                          local:SavedPassword.SavedPassword="{Binding SavedPassword, Mode=OneTime}"
                                          local:SavedPassword.AutoDisposePasswords="True"/>
 
-                            <CheckBox Content="Remember password" HorizontalAlignment="Center" IsChecked="{Binding RememberPassword}"/>
+                            <CheckBox Content="Remember password" HorizontalAlignment="Center" FontSize="{StaticResource FontSizeRegular}"
+                                      IsChecked="{Binding RememberPassword}"/>
 
                             <Button Content="Login"  HorizontalAlignment="Center"  Margin="0 30 0 0" 
                                     local:IsBusyProperty.Value="{Binding LoginIsRunning}"

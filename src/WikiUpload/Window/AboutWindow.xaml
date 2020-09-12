@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
-        Title="About Wiki-Up" Height="400" Width="530">
+        Title="About Wiki-Up" Height="532" Width="726.8">
     <StackPanel Margin="0">
         <Grid >
             <Grid.ColumnDefinitions>
@@ -39,29 +39,29 @@
             </Image>
 
             <StackPanel Grid.Column="1" Margin="0 20 0 0">
-                <TextBlock Text="Wiki-Up" FontSize="18" FontWeight="Bold" />
-                <TextBlock Text="{Binding VersionText}"  />
-                <TextBlock>           
+                <TextBlock Text="Wiki-Up" FontSize="{StaticResource FontSizeLarge}" FontWeight="Bold" />
+                <TextBlock Text="{Binding VersionText}" FontSize="{StaticResource FontSizeRegular}"/>
+                <TextBlock FontSize="{StaticResource FontSizeRegular}">           
                     <Hyperlink Command="{Binding LaunchWebSiteCommand}">
                         Website
                     </Hyperlink>
                 </TextBlock>
-                <TextBlock Grid.Row="1" Text="{Binding CopyrightText}" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding CopyrightText}" FontSize="{StaticResource FontSizeRegular}" />
             </StackPanel>
 
         </Grid>
 
-        <TextBlock TextWrapping="Wrap" FontStyle="Italic" Margin="20 20 20 0">
+        <TextBlock FontSize="{StaticResource FontSizeRegular}" TextWrapping="Wrap" FontStyle="Italic" Margin="20 20 20 0">
             “That was a memorable day to me, for it made great changes in me. But it is the same with any life.
             Imagine one selected day struck out of it, and think how different its course would have been.
             Pause you who read this, and think for a moment of the long chain of iron or gold, of thorns or flowers,
             that would never have bound you, but for the formation of the first link on one memorable day.”
         </TextBlock>
-        <TextBlock Margin="50 0 0 0">- Charles Dickens</TextBlock>
-        <TextBlock FontStyle="Italic" Margin="20 20 20 0">
+        <TextBlock Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charles Dickens</TextBlock>
+        <TextBlock FontStyle="Italic" Margin="20 20 20 0" FontSize="{StaticResource FontSizeRegular}">
             “Allo my darlings”
         </TextBlock>
-        <TextBlock Margin="50 0 0 0">- Charlie Drake</TextBlock>
+        <TextBlock Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charlie Drake</TextBlock>
 
         <Button Content="OK" HorizontalAlignment="Right" Margin="20"
                 Command="{Binding CloseCommand}"/>
