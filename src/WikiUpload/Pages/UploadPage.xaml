@@ -51,11 +51,10 @@
                                                    HorizontalAlignment="Center"
                                                    FontSize="{StaticResource FontSizeLarge}"
                                                    Foreground="{Binding Status, Converter={local:UploadFileStatusToColorConverter}}"/>
-                                            <iconPacks:PackIconFontAwesome Kind="SpinnerSolid"
-                                                   Style="{StaticResource SpinningIcon}"
+                                            <iconPacks:PackIconFontAwesome Kind="{Binding Status, Converter={local:UploadFileStatusToKindConverter}}"
+                                                   Style="{Binding Status, Converter={local:UploadStatusToStyleConverter}}"
                                                    FontSize="{StaticResource FontSizeRegular}"
-                                                   Foreground="{StaticResource ForegroundLightBrush}"
-                                                   Visibility="{Binding Status, Converter={local:UploadFileStatusToVisiblityConverter}}"
+                                                   Foreground="{StaticResource ForegroundVeryDarkBrush}"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"/>
                                         </Grid>

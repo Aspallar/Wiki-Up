@@ -97,6 +97,8 @@
     <Compile Include="Utilities\PasswordDictionary.cs" />
     <Compile Include="Utilities\SecureCharArray.cs" />
     <Compile Include="Utilities\Utils.cs" />
+    <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
+    <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="Exceptions\ServerIsBusyException.cs" />
     <Compile Include="Exceptions\NoEditTokenException.cs" />
