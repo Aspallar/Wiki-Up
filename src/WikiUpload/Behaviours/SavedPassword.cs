@@ -130,26 +130,22 @@ namespace WikiUpload
 
         #endregion
 
-        #region SavedPasswordSecurePassword Property
+        #region Password Property
 
-        public static readonly DependencyProperty SavedPasswordProperty =
+        public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.RegisterAttached
             (
-                "SavedPassword",
+                "Password",
                 typeof(SecureString),
                 typeof(SavedPassword),
                 new UIPropertyMetadata(null)
             );
 
-        public static SecureString GetSavedPassword(DependencyObject obj)
-        {
-            return (SecureString)obj.GetValue(SavedPasswordProperty);
-        }
+        public static SecureString GetPassword(DependencyObject obj)
+            => (SecureString)obj.GetValue(PasswordProperty);
 
-        public static void SetSavedPassword(DependencyObject obj, String value)
-        {
-            obj.SetValue(SavedPasswordProperty, value);
-        }
+        public static void SetPassword(DependencyObject obj, String value)
+            => obj.SetValue(PasswordProperty, value);
 
         #endregion
 
@@ -165,7 +161,7 @@ namespace WikiUpload
         {
             if (e.OriginalSource is PasswordBox passwordBox)
             {
-                var savedPassword = GetSavedPassword(passwordBox);
+                var savedPassword = GetPassword(passwordBox);
                 savedPassword.Clear();
             }
         }
@@ -174,7 +170,7 @@ namespace WikiUpload
         {
             if (e.OriginalSource is PasswordBox passwordBox)
             {
-                var savedPassword = GetSavedPassword(passwordBox);
+                var savedPassword = GetPassword(passwordBox);
                 if (savedPassword.Length != 0)
                     passwordBox.SelectAll();
             }
@@ -187,7 +183,7 @@ namespace WikiUpload
                 if (GetAutoDisposePasswords(passwordBox))
                 {
                     passwordBox.SecurePassword.Dispose();
-                    var savedPassword = GetSavedPassword(passwordBox);
+                    var savedPassword = GetPassword(passwordBox);
                     savedPassword.Dispose();
                 }
             }
@@ -200,7 +196,7 @@ namespace WikiUpload
         private static void UpdatePassword(PasswordBox passwordBox, string site, string username)
         {
             passwordBox.PasswordChanged -= PasswordBox_PasswordChanged;
-            var savedPassword = GetSavedPassword(passwordBox);
+            var savedPassword = GetPassword(passwordBox);
             if (string.IsNullOrEmpty(site) || string.IsNullOrEmpty(username))
             {
                 ResetPasword(passwordBox, savedPassword);

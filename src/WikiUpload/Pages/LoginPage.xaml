@@ -60,7 +60,7 @@
                                          local:SavedPassword.Username="{Binding Username, Mode=OneWay}"
                                          local:SavedPassword.Site="{Binding WikiUrl, Mode=OneWay}"
                                          local:SavedPassword.PasswordManager="{Binding PasswordManager, Mode=OneTime}"
-                                         local:SavedPassword.SavedPassword="{Binding SavedPassword, Mode=OneTime}"
+                                         local:SavedPassword.Password="{Binding SavedPassword, Mode=OneTime}"
                                          local:SavedPassword.AutoDisposePasswords="True"/>
 
                             <CheckBox Content="Remember password" HorizontalAlignment="Center" FontSize="{StaticResource FontSizeRegular}"
