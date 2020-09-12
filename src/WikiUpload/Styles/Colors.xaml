@@ -39,7 +39,7 @@
     <Color x:Key="UploadStatusWaitingColor">Gray</Color>
     <SolidColorBrush x:Key="UploadStatusWaitingBrush" Color="{StaticResource UploadStatusWaitingColor}"/>
 
-    <Color x:Key="UploadStatusWarningColor">#FFEB3B</Color>
+    <Color x:Key="UploadStatusWarningColor">#ffbf00</Color>
     <SolidColorBrush x:Key="UploadStatusWarningBrush" Color="{StaticResource UploadStatusWarningColor}"/>
 
     <Color x:Key="UploadStatusUploadingColor">Green</Color>
