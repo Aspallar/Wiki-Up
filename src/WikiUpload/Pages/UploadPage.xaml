@@ -189,6 +189,7 @@
                                     FontSize="{StaticResource FontSizeRegular}"
                                     Background="{StaticResource ControlBackgroundBrush}"
                                     Text="{Binding PageContent}"
+                                    local:SelectAndFocus.Selection="{Binding PageContentSelection}"
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                     ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
@@ -197,7 +198,9 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" FontSize="{StaticResource FontSizeSmall}" Click="AddCategory_Click" Content="Add Category"/>
+                                    <Button Grid.Column="0" FontSize="{StaticResource FontSizeSmall}" 
+                                            Command="{Binding AddCategoryCommand}"
+                                            Content="Add Category"/>
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" MaxHeight="60">
                                         <Button Content="Save" Margin="0 10 10 0"
                                         Command="{Binding SaveContentCommand}"
