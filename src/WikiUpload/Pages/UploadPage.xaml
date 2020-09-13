@@ -66,7 +66,7 @@
                                                    HorizontalAlignment="Center"/>
                                         </Grid>
                                         <StackPanel Margin="5 0 0 0">
-                                            <Button Style="{StaticResource FilenameTextButton}"
+                                            <Button Style="{StaticResource FilenamePlainButton}"
                                                 Content="{Binding FileName}"
                                                 Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
                                                 CommandParameter="{Binding FullPath}"/>
@@ -99,9 +99,10 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Button Content="Load" Grid.Column="0" Margin="0 0 5 0"
-                                    ToolTip="Add files from a previously saved upload list."
-                                    Command="{Binding LoadListCommand}"
-                                    IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
+                                        ToolTip="Add files from a previously saved upload list."
+                                        Command="{Binding LoadListCommand}"
+                                        IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}">
+                                </Button>
                                 <Button Content="Save" Grid.Column="1" Margin="5 0 0 0"
                                     ToolTip="Save the upload list."
                                     Command="{Binding SaveListCommand}"
@@ -131,6 +132,7 @@
                                      Command="{Binding CancelCommand}"
                                      ToolTip="Cancel running upload."/>
                             <Button Content="Upload"
+                                    Style="{StaticResource BusyButton}"
                                     Command="{Binding UploadCommand}"
                                     local:IsBusyProperty.Value="{Binding UploadIsRunning}"
                                     ToolTip="Start uploading files."/>
@@ -203,11 +205,13 @@
                                             Content="Add Category"/>
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" MaxHeight="60">
                                         <Button Content="Save" Margin="0 10 10 0"
-                                        Command="{Binding SaveContentCommand}"
-                                        ToolTip="Save content to file."/>
+                                            FontSize="{StaticResource FontSizeRegular}"
+                                            Command="{Binding SaveContentCommand}"
+                                            ToolTip="Save content to file."/>
                                         <Button Content="Load" Margin="0 10 0 0"
-                                        Command="{Binding LoadContentCommand}"
-                                        ToolTip="Load content from file."/>
+                                            FontSize="{StaticResource FontSizeRegular}"
+                                            Command="{Binding LoadContentCommand}"
+                                            ToolTip="Load content from file."/>
                                     </StackPanel>
                                 </Grid>
                             </Grid>
@@ -220,7 +224,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
                 VerticalAlignment="Center" >
                     <Button VerticalAlignment="Center" Margin="0 5 16 0"
-                            Style="{StaticResource TextButton}"
+                            Style="{StaticResource PlainButton}"
                             Content="{Binding Site}"
                             Command="{Binding LaunchSiteCommand}"/>
                 </StackPanel>

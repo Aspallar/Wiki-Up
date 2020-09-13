@@ -66,6 +66,7 @@
                                       IsChecked="{Binding RememberPassword}"/>
 
                             <Button Content="Login"  HorizontalAlignment="Center"  Margin="0 30 0 0" 
+                                    Style="{StaticResource BusyButton}"
                                     local:IsBusyProperty.Value="{Binding LoginIsRunning}"
                                     Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=Page}"/>
 
