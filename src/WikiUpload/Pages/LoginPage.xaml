@@ -19,10 +19,9 @@
     
     <Border Background="{StaticResource BackGroundColorBrush}">
         <Grid>
-            <!--<Grid.Background>-->
-                <!--<ImageBrush Opacity="1" TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="/Images/Backgrounds/black-abstract-wallpapers.jpg" />-->
-                <!--<ImageBrush Opacity="0.4" Stretch="None" ImageSource="/Images/Backgrounds/black-abstract-wallpapers.jpg" />-->
-            <!--</Grid.Background>-->
+            <Grid.Background>
+                <ImageBrush Opacity="0.4" Stretch="Fill" ImageSource="/Images/Backgrounds/Background.jpg" />
+            </Grid.Background>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel
                     VerticalAlignment="Center"
