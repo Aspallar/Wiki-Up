@@ -43,6 +43,7 @@
                         <ListBox x:Name="FilesListBox" Background="{StaticResource ControlBackgroundBrush}"  Margin="10"
                                  AllowDrop="True"
                                  SelectionMode="Extended"
+                                 BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                                  ItemsSource="{Binding UploadFiles}"
                                  local:IsDropFileEnabledProperty.Value="True"
                                  local:DropFileTargetProperty.Value="{Binding}"
@@ -165,6 +166,7 @@
                                     </TextBlock>
                                 </StackPanel>
                                 <TextBox Text="{Binding UploadSummary}"
+                                     BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                                      FontSize="{StaticResource FontSizeRegular}"
                                      Background="{StaticResource ControlBackgroundBrush}"/>
                                 <TextBlock FontFamily="{StaticResource MainFont}"
@@ -190,6 +192,7 @@
                                     TextWrapping="Wrap"
                                     FontSize="{StaticResource FontSizeRegular}"
                                     Background="{StaticResource ControlBackgroundBrush}"
+                                    BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                                     Text="{Binding PageContent}"
                                     local:SelectAndFocus.Selection="{Binding PageContentSelection}"
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
