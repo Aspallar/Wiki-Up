@@ -4,6 +4,9 @@ WikiUp*.zip
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# secrets
+src/WikiUpload/Utilities/Entropy.cs
+
 # User-specific files
 *.suo
 *.user

@@ -15,7 +15,7 @@ namespace WikiUpload
         public UploadFileStatusToColorConverter()
         {
             _waitingBrush = (Brush)Application.Current.FindResource("UploadStatusWaitingBrush");
-            _uploadingBrush = (Brush)Application.Current.FindResource("ButtonColorBrush");
+            _uploadingBrush = (Brush)Application.Current.FindResource("UploadStatusUploadingBrush");
             _warningBrush = (Brush)Application.Current.FindResource("UploadStatusWarningBrush");
             _errorBrush = (Brush)Application.Current.FindResource("UploadStatusErrorBrush");
         }

@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:WikiUpload"
       mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="800"
@@ -26,7 +27,14 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TabControl Padding="0" Grid.Column="0" x:Name="tabControl">
-                <TabItem Header="Upload" FontFamily="{StaticResource LatoRegular}" FontSize="{StaticResource FontSizeRegular}">
+                <TabItem FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconFontAwesome Kind="UploadSolid" VerticalAlignment="Center"
+                                Foreground="{StaticResource ButtonColorBrush}"/>
+                            <TextBlock Text="Upload" Margin="6 0 0 0"/>
+                        </StackPanel>
+                    </TabItem.Header>
                     <Grid Background="{StaticResource BackGroundColorBrush}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="6*"/>
@@ -35,6 +43,7 @@
                         <ListBox x:Name="FilesListBox" Background="{StaticResource ControlBackgroundBrush}"  Margin="10"
                                  AllowDrop="True"
                                  SelectionMode="Extended"
+                                 BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                                  ItemsSource="{Binding UploadFiles}"
                                  local:IsDropFileEnabledProperty.Value="True"
                                  local:DropFileTargetProperty.Value="{Binding}"
@@ -44,21 +53,21 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                                         <Grid>
-                                            <TextBlock Text="&#xf111;"
+                                            <iconPacks:PackIconFontAwesome Kind="CircleSolid"
+                                                   Style="{StaticResource FontSizeIcon}"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
                                                    FontSize="{StaticResource FontSizeLarge}"
-                                                   FontFamily="{StaticResource FontAwesome}"
                                                    Foreground="{Binding Status, Converter={local:UploadFileStatusToColorConverter}}"/>
-                                            <TextBlock Style="{StaticResource SpinningText}"
+                                            <iconPacks:PackIconFontAwesome Kind="{Binding Status, Converter={local:UploadFileStatusToKindConverter}}"
+                                                   Style="{Binding Status, Converter={local:UploadStatusToStyleConverter}}"
                                                    FontSize="{StaticResource FontSizeRegular}"
-                                                   Foreground="{StaticResource ForegroundLightBrush}"
-                                                   Visibility="{Binding Status, Converter={local:UploadFileStatusToVisiblityConverter}}"
+                                                   Foreground="{StaticResource ForegroundVeryDarkBrush}"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"/>
                                         </Grid>
                                         <StackPanel Margin="5 0 0 0">
-                                            <Button Style="{StaticResource FilenameTextButton}"
+                                            <Button Style="{StaticResource FilenamePlainButton}"
                                                 Content="{Binding FileName}"
                                                 Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
                                                 CommandParameter="{Binding FullPath}"/>
@@ -91,17 +100,18 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Button Content="Load" Grid.Column="0" Margin="0 0 5 0"
-                                    ToolTip="Add files from a previously saved upload list."
-                                    Command="{Binding LoadListCommand}"
-                                    IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
+                                        ToolTip="Add files from a previously saved upload list."
+                                        Command="{Binding LoadListCommand}"
+                                        IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}">
+                                </Button>
                                 <Button Content="Save" Grid.Column="1" Margin="5 0 0 0"
                                     ToolTip="Save the upload list."
                                     Command="{Binding SaveListCommand}"
                                     IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
                             </Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5 0 0">
-                                <TextBlock Text="{Binding UploadFiles.Count}" FontFamily="{StaticResource LatoRegular}" FontSize="{StaticResource FontSizeRegular}"/>
-                                <TextBlock Text=" Files" FontFamily="{StaticResource LatoRegular}" FontSize="{StaticResource FontSizeRegular}"/>
+                                <TextBlock Text="{Binding UploadFiles.Count}" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}"/>
+                                <TextBlock Text=" Files" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Margin="10" Grid.Column="2" VerticalAlignment="Bottom">
@@ -113,7 +123,7 @@
                                 </CheckBox.LayoutTransform>
                             </CheckBox>
 
-                            <TextBlock FontFamily="{StaticResource LatoRegular}"
+                            <TextBlock FontFamily="{StaticResource MainFont}"
                                    FontSize="{StaticResource FontSizeSmall}"
                                    TextWrapping="Wrap" Margin="0 0 0 20">
                                 Tick to ignore warnings and force the upload even if the file already exists or is a duplicate.
@@ -123,6 +133,7 @@
                                      Command="{Binding CancelCommand}"
                                      ToolTip="Cancel running upload."/>
                             <Button Content="Upload"
+                                    Style="{StaticResource BusyButton}"
                                     Command="{Binding UploadCommand}"
                                     local:IsBusyProperty.Value="{Binding UploadIsRunning}"
                                     ToolTip="Start uploading files."/>
@@ -130,7 +141,15 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Content" FontFamily="{StaticResource LatoRegular}" FontSize="{StaticResource FontSizeRegular}">
+                <TabItem FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconFontAwesome Kind="FileAltSolid" VerticalAlignment="Center"
+                                Foreground="{StaticResource ButtonColorBrush}"/>
+                            <TextBlock Text="Content" Margin="6 0 0 0"/>
+                        </StackPanel>
+                    </TabItem.Header>
+
                     <Border Background="{StaticResource BackGroundColorBrush}" Padding="30 10 30 10">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -139,7 +158,7 @@
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontFamily="{StaticResource LatoRegular}"
+                                    <TextBlock FontFamily="{StaticResource MainFont}"
                                        FontSize="{StaticResource FontSizeRegular}"
                                        Text="Summary"/>
                                     <TextBlock Margin="5 0 0 0" VerticalAlignment="Bottom" FontSize="{StaticResource FontSizeSmall}">
@@ -147,43 +166,57 @@
                                     </TextBlock>
                                 </StackPanel>
                                 <TextBox Text="{Binding UploadSummary}"
-                                     FontFamily="{StaticResource LatoThin}"
+                                     BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                                      FontSize="{StaticResource FontSizeRegular}"
                                      Background="{StaticResource ControlBackgroundBrush}"/>
-                                <TextBlock FontFamily="{StaticResource LatoRegular}"
+                                <TextBlock FontFamily="{StaticResource MainFont}"
                                        FontSize="{StaticResource FontSizeRegular}"
                                        Text="Content"
                                        Margin="0 10 0 0"/>
                                 <TextBlock FontSize="{StaticResource FontSizeSmall}" TextWrapping="Wrap" Margin="0 0 0 3">
                                     Enter the wikitext to use as the initial page content for new images below.
                                     This will be used only for new images, it will not replace any existing
-                                    page content. Note: use [[Category:My Category]] to add categories.
+                                    page content.
                                 </TextBlock>
                             </StackPanel>
                             <Grid Grid.Row="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"/>
                                     <RowDefinition Height="*"/>
+                                    <RowDefinition Height="50"/>
                                 </Grid.RowDefinitions>
 
                                 <TextBox
-                                 VerticalAlignment="Stretch"
-                                 AcceptsReturn="True"
-                                 TextWrapping="Wrap"
-                                 FontFamily="{StaticResource LatoThin}"
-                                 FontSize="{StaticResource FontSizeRegular}"
-                                 Background="{StaticResource ControlBackgroundBrush}"
-                                 Text="{Binding PageContent}"/>
+                                    x:Name="ContentText"
+                                    VerticalAlignment="Stretch"
+                                    AcceptsReturn="True"
+                                    TextWrapping="Wrap"
+                                    FontSize="{StaticResource FontSizeRegular}"
+                                    Background="{StaticResource ControlBackgroundBrush}"
+                                    BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
+                                    Text="{Binding PageContent}"
+                                    local:SelectAndFocus.Selection="{Binding PageContentSelection}"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
-                                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" MaxHeight="60">
-                                    <Button Content="Save" Margin="0 10 10 10"
-                                        Command="{Binding SaveContentCommand}"
-                                        ToolTip="Save content to file."/>
-                                    <Button Content="Load" Margin="0 10 0 10"
-                                        Command="{Binding LoadContentCommand}"
-                                        ToolTip="Load content from file."/>
-
-                                </StackPanel>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" FontSize="{StaticResource FontSizeSmall}" 
+                                            Command="{Binding AddCategoryCommand}"
+                                            Content="Add Category"/>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" MaxHeight="60">
+                                        <Button Content="Save" Margin="0 10 10 0"
+                                            FontSize="{StaticResource FontSizeRegular}"
+                                            Command="{Binding SaveContentCommand}"
+                                            ToolTip="Save content to file."/>
+                                        <Button Content="Load" Margin="0 10 0 0"
+                                            FontSize="{StaticResource FontSizeRegular}"
+                                            Command="{Binding LoadContentCommand}"
+                                            ToolTip="Load content from file."/>
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -194,7 +227,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
                 VerticalAlignment="Center" >
                     <Button VerticalAlignment="Center" Margin="0 5 16 0"
-                            Style="{StaticResource TextButton}"
+                            Style="{StaticResource PlainButton}"
                             Content="{Binding Site}"
                             Command="{Binding LaunchSiteCommand}"/>
                 </StackPanel>

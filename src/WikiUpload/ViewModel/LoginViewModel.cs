@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace WikiUpload
@@ -11,12 +12,17 @@ namespace WikiUpload
     public class LoginViewModel : BaseViewModel
     {
         private DialogManager _dialogs = new DialogManager();
+        private IPasswordManager _passwordManager = new PasswordManager();
 
         public string Username { get; set; } = Properties.Settings.Default.Username;
 
         public string WikiUrl { get; set; } = Properties.Settings.Default.WikiUrl;
 
+        public bool RememberPassword { get; set; } = Properties.Settings.Default.RememberPassword;
+
         public ObservableCollection<string> PreviousSites { get; set; }
+
+        public IPasswordManager PasswordManager => _passwordManager;
 
         public bool IsLoginError { get; set; }
 
@@ -26,6 +32,7 @@ namespace WikiUpload
 
         public ICommand LoginCommand { get; set; }
 
+        public SecureString SavedPassword { get; } = new SecureString();
 
         public LoginViewModel()
         {
@@ -40,7 +47,11 @@ namespace WikiUpload
             {
                 string url;
                 if ((url = await Validate()) != null)
-                    await DoLogin(((IHavePassword)securePassword).SecurePassword, url);
+                {
+                    SecureString password = SavedPassword.Length > 0 ?
+                        SavedPassword : ((IHavePassword)securePassword).SecurePassword;
+                    await DoLogin(password, url);
+                }
             });
         }
 
@@ -52,11 +63,9 @@ namespace WikiUpload
 
                 if (loggedIn)
                 {
-                    var settings = Properties.Settings.Default;
-                    settings.Username = Username;
-                    settings.WikiUrl = WikiUrl;
-                    settings.AddMostRecentlyUsedSite(WikiUrl);
-                    settings.Save();
+                    UpdateSettings();
+                    UpdateSavedPassword(password);
+                    //SavedPassword.Dispose();
                     Navigator.NavigationService.Navigate(new UploadPage());
                 }
                 else
@@ -71,6 +80,24 @@ namespace WikiUpload
                 else
                     LoginError(ex.InnerException.Message);
             }
+        }
+
+        private void UpdateSavedPassword(SecureString password)
+        {
+            if (RememberPassword)
+                _passwordManager.SavePassword(WikiUrl, Username, password);
+            else
+                _passwordManager.RemovePassword(WikiUrl, Username);
+        }
+
+        private void UpdateSettings()
+        {
+            var settings = Properties.Settings.Default;
+            settings.Username = Username;
+            settings.WikiUrl = WikiUrl;
+            settings.RememberPassword = RememberPassword;
+            settings.AddMostRecentlyUsedSite(WikiUrl);
+            settings.Save();
         }
 
         private async Task<string> Validate()

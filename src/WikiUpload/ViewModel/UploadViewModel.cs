@@ -23,16 +23,17 @@ namespace WikiUpload
             _dialogs = new DialogManager();
             UploadSummary = "";
             PageContent = "";
-            AddFilesCommand = new RelayCommand(() => AddFiles());
-            RemoveFilesCommand = new RelayParameterizedCommand((selectedItems) => RemoveFiles(selectedItems));
+            AddFilesCommand = new RelayCommand(AddFiles);
+            RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
             UploadCommand = new RelayCommand(async () => await Upload());
-            CancelCommand = new RelayCommand(() => Cancel());
-            LoadContentCommand = new RelayCommand(() => LoadContent());
-            SaveContentCommand = new RelayCommand(() => SaveContent());
+            CancelCommand = new RelayCommand(Cancel);
+            LoadContentCommand = new RelayCommand(LoadContent);
+            SaveContentCommand = new RelayCommand(SaveContent);
             LaunchSiteCommand = new RelayCommand(() => Process.Start(Site));
-            LoadListCommand = new RelayCommand(() => LoadList());
-            SaveListCommand = new RelayCommand(() => SaveList());
+            LoadListCommand = new RelayCommand(LoadList);
+            SaveListCommand = new RelayCommand(SaveList);
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
+            AddCategoryCommand = new RelayCommand(AddCategory);
             Site = UploadService.Uploader.Site;
         }
 
@@ -169,9 +170,12 @@ namespace WikiUpload
 
         private string AddAppName(string uploadSummary)
         {
+            var appName = UploadService.Uploader.Site.ToLowerInvariant().Contains(".fandom.")
+                ? "[[w:c:dev:Wiki-Up|Wiki-Up]]" : "Wiki-Up";
+
             return uploadSummary == ""
-                ? $"Uploaded via Wiki-Up {Utils.ApplicationVersion}"
-                : $"{uploadSummary} (via Wiki-Up {Utils.ApplicationVersion})";
+                ? $"Uploaded via {appName} {Utils.ApplicationVersion}"
+                : $"{uploadSummary} (via {appName} {Utils.ApplicationVersion})";
         }
 
         private void RemoveFiles(object selectedItems)
@@ -273,6 +277,19 @@ namespace WikiUpload
             }
         }
 
+        private void AddCategory()
+        {
+            const string enterCategory = "Enter Category Name";
+            bool needNewline = PageContent != "" && !PageContent.EndsWith("\n");
+            string newLine = needNewline ? "\n" : "";
+            PageContent += $"{newLine}[[Category:{enterCategory}]]";
+            PageContentSelection = new SelectRange
+            {
+                Start = PageContent.Length - enterCategory.Length - 2,
+                Length = enterCategory.Length
+            };
+        }
+
         public void OnFileDrop(string[] filepaths)
         {
             if (!UploadIsRunning)
@@ -286,6 +303,8 @@ namespace WikiUpload
         public string UploadSummary { get; set; }
 
         public string PageContent { get; set; }
+
+        public SelectRange PageContentSelection { get; set; }
 
         public ICommand AddFilesCommand { get; set; }
 
@@ -306,6 +325,8 @@ namespace WikiUpload
         public ICommand SaveListCommand { get; set; }
 
         public ICommand ShowFileCommand { get; set; }
+
+        public ICommand AddCategoryCommand { get; set; }
 
         public bool UploadIsRunning { get; set; }
 

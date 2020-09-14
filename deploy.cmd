@@ -6,6 +6,8 @@ del Deploy\*.* /q
 copy src\WikiUpload\bin\release\WikiUp.exe Deploy\.
 copy src\WikiUpload\bin\release\WikiUp.exe.config Deploy\.
 copy src\WikiUpload\bin\release\Microsoft.Windows.Shell.dll Deploy\.
+copy src\WikiUpload\bin\release\MahApps.Metro.IconPacks.Core.dll Deploy\.
+copy src\WikiUpload\bin\release\MahApps.Metro.IconPacks.FontAwesome.dll Deploy\.
 
 goto :eof
 

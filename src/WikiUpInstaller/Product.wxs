@@ -3,10 +3,10 @@
   
   <?define WikiUpload_TargetDir=$(var.WikiUpload.TargetDir)?>
 	
-  <Product Id="{FA5BF3F7-2604-4C4D-ADE5-D12B568CC38C}"
+  <Product Id="{13822BD4-894E-41A8-8319-13FC4EA25D98}"
            Name="Wiki-Up"
            Language="1033"
-           Version="1.3.0.0"
+           Version="1.4.0.0"
            Manufacturer="Aspallar"
            UpgradeCode="{5DBEE1B6-4D18-4F36-BEA8-74C89ADD342B}">
     
@@ -26,20 +26,9 @@
     <UI>
       <UIRef Id="WixUI_InstallDir" />
       <!-- Skips the license dialog -->
-      <Publish Dialog="WelcomeDlg"
-               Control="Next"
-               Event="NewDialog"
-               Value="InstallDirDlg"
-               Order="2">1</Publish>
-      <Publish Dialog="InstallDirDlg"
-               Control="Back"
-               Event="NewDialog"
-               Value="WelcomeDlg"
-               Order="2">1</Publish>
-      <Publish Dialog="ExitDialog"
-               Control="Finish"
-               Event="DoAction"
-               Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+      <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
     </UI>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Wiki-Up" />
@@ -48,7 +37,7 @@
 
     <Feature Id="ProductFeature" Title="WikiUpInstaller" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
-      <ComponentGroupRef Id="ProductShortcut"/>
+      <ComponentGroupRef Id="ProductShortcut" />
     </Feature>
 	</Product>
 
@@ -57,31 +46,40 @@
 			<Directory Id="ProgramFilesFolder">
 				<Directory Id="INSTALLFOLDER" Name="WikiUp" />
 			</Directory>
-      <Directory Id="ProgramMenuFolder"/>
+      <Directory Id="ProgramMenuFolder" />
     </Directory>
 	</Fragment>
 
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      
+      <!-- application files -->
 			<Component Id="WikiUp.exe" Guid="5b498955-2daf-471c-9276-edee62761a81">
-			  <File Id="WikiUp.exe" Name="WikiUp.exe" Source="$(var.WikiUpload_TargetDir)WikiUp.exe" KeyPath="yes"/>
+			  <File Id="WikiUp.exe" Name="WikiUp.exe" Source="$(var.WikiUpload_TargetDir)WikiUp.exe" KeyPath="yes" />
 			</Component>
       <Component Id="WikiUp.exe.config" Guid="fd424b39-4f9e-4e60-af79-51559887592c">
-        <File Id="WikiUp.exe.config" Name="WikiUp.exe.config" Source="$(var.WikiUpload_TargetDir)WikiUp.exe.config" KeyPath="yes"/>
+        <File Id="WikiUp.exe.config" Name="WikiUp.exe.config" Source="$(var.WikiUpload_TargetDir)WikiUp.exe.config" KeyPath="yes" />
       </Component>
+
+      <!-- custom chrome dll -->
       <Component Id="Microsoft.Windows.Shell.dll" Guid="82564700-855B-4664-9A4F-2BC425189D24">
-        <File Id="Microsoft.Windows.Shell.dll" Name="Microsoft.Windows.Shell.dll" Source="$(var.WikiUpload_TargetDir)WikiUp.exe.config" KeyPath="yes"/>
+        <File Id="Microsoft.Windows.Shell.dll" Name="Microsoft.Windows.Shell.dll" Source="$(var.WikiUpload_TargetDir)WikiUp.exe.config" KeyPath="yes" />
       </Component>
+
+      <!-- Mahapps icon pack -->
+      <Component Id="MahApps.Metro.IconPacks.Core.dll" Guid="a16aa7ff-e6a3-4368-b4e3-855b1031e053">
+        <File Id="MahApps.Metro.IconPacks.Core.dll" Name="MahApps.Metro.IconPacks.Core.dll" Source="$(var.WikiUpload_TargetDir)MahApps.Metro.IconPacks.Core.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="MahApps.Metro.IconPacks.FontAwesome.dll" Guid="309d62ff-7718-4a1e-8c90-54bf10ad8771">
+        <File Id="MahApps.Metro.IconPacks.FontAwesome.dll" Name="MahApps.Metro.IconPacks.FontAwesome.dll" Source="$(var.WikiUpload_TargetDir)MahApps.Metro.IconPacks.FontAwesome.dll" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
 
     <ComponentGroup Id="ProductShortcut">
       <Component Id="ApplicationShortcut" Guid="AFA54F3D-5E4C-49A1-96DA-9DB274A15F14" Directory="ProgramMenuFolder">
-        <Shortcut Id="ApplicationStartMenuShortcut"
-                  Name="Wiki-Up"
-                  Description="MediaWiki Bulk File Uploader"
-                  Target="[#WikiUp.exe]"
-                  WorkingDirectory="INSTALLFOLDER"/>
-        <RegistryValue Root="HKCU" Key="Software\Aspallar\WikiUp" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="Wiki-Up" Description="MediaWiki Bulk File Uploader" Target="[#WikiUp.exe]" WorkingDirectory="INSTALLFOLDER" />
+        <RegistryValue Root="HKCU" Key="Software\Aspallar\WikiUp" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </ComponentGroup>
 

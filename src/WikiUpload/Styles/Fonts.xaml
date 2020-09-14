@@ -1,19 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:WikiUpload"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <FontFamily x:Key="LatoThin">pack://appliction;,,,/Fonts/#Lato Thin</FontFamily>
-    <FontFamily x:Key="LatoRegular">pack://appliction;,,,/Fonts/#Lato Regular</FontFamily>
+    <FontFamily x:Key="MainFont">pack://appliction;,,,/Fonts/#Exo</FontFamily>
     <FontFamily x:Key="SaucerBB">pack://appliction;,,,/Fonts/#Saucer BB</FontFamily>
-    <FontFamily x:Key="FontAwesome">pack://appliction;,,,/Fonts/#FontAwesome</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
-        <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
     </Style>
 
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
-        <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
     </Style>
 
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />

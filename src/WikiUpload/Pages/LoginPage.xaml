@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:WikiUpload"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -18,10 +19,9 @@
     
     <Border Background="{StaticResource BackGroundColorBrush}">
         <Grid>
-            <!--<Grid.Background>-->
-                <!--<ImageBrush Opacity="1" TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="/Images/Backgrounds/black-abstract-wallpapers.jpg" />-->
-                <!--<ImageBrush Opacity="0.4" Stretch="None" ImageSource="/Images/Backgrounds/black-abstract-wallpapers.jpg" />-->
-            <!--</Grid.Background>-->
+            <Grid.Background>
+                <ImageBrush Opacity="0.4" Stretch="Fill" ImageSource="/Images/Backgrounds/Background.jpg" />
+            </Grid.Background>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel
                     VerticalAlignment="Center"
@@ -35,36 +35,49 @@
                             BorderThickness="1"
                             BorderBrush="Blue">
                         <StackPanel>
-                            <TextBlock Text="Login to Wiki" 
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
+                                <iconPacks:PackIconFontAwesome Kind="SignInAltSolid"
+                                    FontSize="{StaticResource FontSizeLarge}"
+                                    Foreground="{StaticResource ButtonColorBrush}"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource FontSizeIcon}" Margin="0 0 10 0"/>
+                                <TextBlock Text="Sign In" 
                                        FontSize="{StaticResource FontSizeLarge}"
-                                       FontFamily="{StaticResource LatoRegular}"
+                                       FontFamily="{StaticResource MainFont}"
                                        FontWeight="ExtraBold"
-                                       Foreground="{StaticResource ButtonColorBrush}"
-                                       Margin="0 14 0 10"/>
+                                       Foreground="{StaticResource ButtonColorBrush}"/>
+                            </StackPanel>
 
-                            <TextBox x:Name="WikiSite" Tag="Wiki Url" Style="{StaticResource LineTextBox}"
+                            <TextBox x:Name="WikiSite" Tag="wiki url" Style="{StaticResource LineTextBox}"
                                      Text="{Binding WikiUrl, UpdateSourceTrigger=PropertyChanged}"
-                                     local:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding PreviousSites}" 
-                                     />
-                            
-                            <TextBox Tag="Username" Style="{StaticResource LineTextBox}"
+                                     local:AutoComplete.ItemsSource="{Binding PreviousSites, Mode=OneTime}"/>
+
+                            <TextBox Tag="username" Style="{StaticResource LineTextBox}"
                                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
                             
-                            <PasswordBox x:Name="PasswordText" Tag="Password"/>
+                            <PasswordBox x:Name="PasswordText" Tag="password" 
+                                         local:SavedPassword.Username="{Binding Username, Mode=OneWay}"
+                                         local:SavedPassword.Site="{Binding WikiUrl, Mode=OneWay}"
+                                         local:SavedPassword.PasswordManager="{Binding PasswordManager, Mode=OneTime}"
+                                         local:SavedPassword.Password="{Binding SavedPassword, Mode=OneTime}"
+                                         local:SavedPassword.AutoDisposePasswords="True"/>
+
+                            <CheckBox Content="Remember password" HorizontalAlignment="Center" FontSize="{StaticResource FontSizeRegular}"
+                                      IsChecked="{Binding RememberPassword}"/>
 
                             <Button Content="Login"  HorizontalAlignment="Center"  Margin="0 30 0 0" 
+                                    Style="{StaticResource BusyButton}"
                                     local:IsBusyProperty.Value="{Binding LoginIsRunning}"
                                     Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=Page}"/>
 
                             <StackPanel Visibility="{Binding IsLoginError, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
                                 <TextBlock Foreground="{StaticResource ErrorColorBrush}"
-                                           FontFamily="{StaticResource LatoRegular}"
+                                           FontFamily="{StaticResource MainFont}"
                                            FontSize="{StaticResource FontSizeRegular}"
                                            FontWeight="Bold"
                                            Margin="0 5 0 0"
                                            Text="Login Failed" />
                                 <TextBlock Foreground="{StaticResource ErrorColorBrush}"
-                                           FontFamily="{StaticResource LatoThin}"
                                            FontSize="{StaticResource FontSizeSmall}"
                                            Margin="0"
                                            TextWrapping="Wrap"
