@@ -85,6 +85,10 @@ usertwo
 </pre>
 </code>
 
+### Attribution
+Background image used on the login page created by [kjpargeter - www.freepik.com](https://www.freepik.com/vectors/background)
+
+
 ### System Requirements
 
 * Windows 7 SP1 or later
