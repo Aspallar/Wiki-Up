@@ -104,6 +104,9 @@
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="Exceptions\ServerIsBusyException.cs" />
     <Compile Include="Exceptions\NoEditTokenException.cs" />
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
     <Page Include="Styles\Images.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\AboutWindow.xaml">
       <SubType>Designer</SubType>
@@ -246,13 +253,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Backgrounds\bg.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Logo\navigate-up-icon.ico" />
     <Resource Include="Images\Logo\navigate-up-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Backgrounds\Background.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.5.0.6\build\Fody.targets" Condition="Exists('..\packages\Fody.5.0.6\build\Fody.targets')" />

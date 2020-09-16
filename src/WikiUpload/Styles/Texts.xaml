@@ -4,7 +4,7 @@
 
     <Style TargetType="{x:Type TextBlock}" x:Key="HeaderText" BasedOn="{StaticResource BaseTextBlockStyle}">
         <!--<Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />-->
-        <Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}" />
+        <!--<Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}" />-->
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Margin" Value="0 6 0 0" />
@@ -12,6 +12,9 @@
         <Setter Property="FontSize" Value="32"/>
     </Style>
 
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+    </Style>
 
     <Style x:Key="LineTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
 

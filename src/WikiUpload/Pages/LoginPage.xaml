@@ -20,7 +20,7 @@
     <Border Background="{StaticResource BackGroundColorBrush}">
         <Grid>
             <Grid.Background>
-                <ImageBrush Opacity="0.4" Stretch="Fill" ImageSource="/Images/Backgrounds/Background.jpg" />
+                <ImageBrush Opacity="0.6" Stretch="Fill" ImageSource="/Images/Backgrounds/bg.jpg" />
             </Grid.Background>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel
@@ -62,8 +62,10 @@
                                          local:SavedPassword.Password="{Binding SavedPassword, Mode=OneTime}"
                                          local:SavedPassword.AutoDisposePasswords="True"/>
 
-                            <CheckBox Content="Remember password" HorizontalAlignment="Center" FontSize="{StaticResource FontSizeRegular}"
-                                      IsChecked="{Binding RememberPassword}"/>
+                            <CheckBox HorizontalAlignment="Center" FontSize="{StaticResource FontSizeRegular}"
+                                      IsChecked="{Binding RememberPassword}">
+                                <TextBlock Text="Remember Password" Foreground="{StaticResource SecondaryTextBrush}"/>
+                            </CheckBox>
 
                             <Button Content="Login"  HorizontalAlignment="Center"  Margin="0 30 0 0" 
                                     Style="{StaticResource BusyButton}"

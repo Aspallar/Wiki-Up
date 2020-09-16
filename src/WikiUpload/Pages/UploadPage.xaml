@@ -14,14 +14,21 @@
             <Style.Resources>
                 <!-- Background of selected item when focussed -->
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                                 Color="{StaticResource ButtonColor}" />
+                                 Color="{StaticResource PrimaryColor}" />
+                <!-- Background of selected item when not focussed -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                 Color="{StaticResource PrimaryColor}" />
             </Style.Resources>
         </Style>
     </Page.Resources>
 
-    <Border Background="{StaticResource BackGroundColorBrush}">
+    <Border Background="{StaticResource BackGroundColorBrush}" BorderThickness="0">
 
         <Grid MinWidth="586" MinHeight="480">
+            <Grid.Background>
+                <ImageBrush Opacity="0.6" Stretch="Fill" ImageSource="/Images/Backgrounds/bg.jpg" />
+            </Grid.Background>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -32,7 +39,7 @@
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconFontAwesome Kind="UploadSolid" VerticalAlignment="Center"
                                 Foreground="{StaticResource ButtonColorBrush}"/>
-                            <TextBlock Text="Upload" Margin="6 0 0 0"/>
+                            <TextBlock Text="Upload" Margin="6 0 0 0" Foreground="{StaticResource SecondaryTextBrush}"/>
                         </StackPanel>
                     </TabItem.Header>
                     <Grid Background="{StaticResource BackGroundColorBrush}">
@@ -45,6 +52,7 @@
                                  SelectionMode="Extended"
                                  BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                                  ItemsSource="{Binding UploadFiles}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                  local:IsDropFileEnabledProperty.Value="True"
                                  local:DropFileTargetProperty.Value="{Binding}"
                                  local:ViewedItemProperty.Value="{Binding ViewedFile}"
@@ -146,7 +154,7 @@
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconFontAwesome Kind="FileAltSolid" VerticalAlignment="Center"
                                 Foreground="{StaticResource ButtonColorBrush}"/>
-                            <TextBlock Text="Content" Margin="6 0 0 0"/>
+                            <TextBlock Text="Content" Margin="6 0 0 0" Foreground="{StaticResource SecondaryTextBrush}"/>
                         </StackPanel>
                     </TabItem.Header>
 
