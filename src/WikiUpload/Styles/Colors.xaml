@@ -3,6 +3,7 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:WikiUpload">
 
+    <!-- base colors (from material desigb) -->
     <Color x:Key="PrimaryColor">#5e35b1</Color>
     <Color x:Key="PrimaryLightColor">#9162e4</Color>
     <Color x:Key="PrimaryDarkColor">#280680</Color>
@@ -10,8 +11,11 @@
 
     <Color x:Key="PrimaryTextColor">LightGray</Color>
     <Color x:Key="SecondaryTextColor">#000000</Color>
+
+    <!-- highlighted text color (not selection highlight) -->
     <Color x:Key="HighlightTextColor">White</Color>
 
+    <!-- brushes for base colors -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
     <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLightColor}" />
     <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}" />
@@ -19,52 +23,31 @@
     <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}" />
     <SolidColorBrush x:Key="HighlightTextCBrush" Color="{StaticResource HighlightTextColor}" />
 
+    <!-- Background colors -->
     <SolidColorBrush x:Key="BackGroundColorBrush" Color="{StaticResource PrimaryDarkColor}" />
     <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource PrimaryDarkColor}"/>
     <SolidColorBrush x:Key="ControlDisabledBackgroundBrush" Color="{StaticResource DisabledColor}"/>
-
-    <Color x:Key="ButtonColor">#294F6B</Color>
+    <SolidColorBrush x:Key="VeryLightNackgroundBrush" Color="White"/>
+    
+    <!-- button background color -->
     <SolidColorBrush x:Key="ButtonColorBrush" Color="{StaticResource PrimaryColor}" />
 
-
-    <Color x:Key="BackgroundLight">#efefef</Color>
-    <SolidColorBrush x:Key="BackgroundLightBrush" Color="{StaticResource BackgroundLight}" />
-
-    <Color x:Key="BackgroundVeryLight">#fafafa</Color>
-    <SolidColorBrush x:Key="BackgroundVeryLightBrush" Color="{StaticResource BackgroundVeryLight}" />
-
-    <Color x:Key="ForegroundMain">#686868</Color>
-    <SolidColorBrush x:Key="ForegroundMainBrush" Color="{StaticResource ForegroundMain}" />
-
-    <Color x:Key="ForegroundVeryDark">#000000</Color>
-    <SolidColorBrush x:Key="ForegroundVeryDarkBrush" Color="{StaticResource ForegroundVeryDark}" />
-
-    <Color x:Key="ForegroundLight">#ffffff</Color>
-    <SolidColorBrush x:Key="ForegroundLightBrush" Color="{StaticResource ForegroundLight}" />
-
-    <Color x:Key="ForegroundDark">#bdbdbd</Color>
-    <SolidColorBrush x:Key="ForegroundDarkBrush" Color="{StaticResource ForegroundDark}" />
-
-    <Color x:Key="WindowTitleBarBackground">#b5c4cf</Color>
-    <SolidColorBrush x:Key="WindowTitleBarBackgroundBrush" Color="{StaticResource WindowTitleBarBackground}" />
-
-
+    <!-- error message text color -->
     <Color x:Key="ErrorColor">Red</Color>
     <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
 
-
+    <!-- upload status icon colors -->
     <Color x:Key="UploadStatusWaitingColor">Gray</Color>
-    <SolidColorBrush x:Key="UploadStatusWaitingBrush" Color="{StaticResource UploadStatusWaitingColor}"/>
-
     <Color x:Key="UploadStatusWarningColor">#ffbf00</Color>
-    <SolidColorBrush x:Key="UploadStatusWarningBrush" Color="{StaticResource UploadStatusWarningColor}"/>
-
     <Color x:Key="UploadStatusUploadingColor">Green</Color>
-    <SolidColorBrush x:Key="UploadStatusUploadingBrush" Color="{StaticResource UploadStatusUploadingColor}"/>
-
     <Color x:Key="UploadStatusErrorColor">#cc0000</Color>
+
+    <SolidColorBrush x:Key="UploadStatusWaitingBrush" Color="{StaticResource UploadStatusWaitingColor}"/>
+    <SolidColorBrush x:Key="UploadStatusWarningBrush" Color="{StaticResource UploadStatusWarningColor}"/>
+    <SolidColorBrush x:Key="UploadStatusUploadingBrush" Color="{StaticResource UploadStatusUploadingColor}"/>
     <SolidColorBrush x:Key="UploadStatusErrorBrush" Color="{StaticResource UploadStatusErrorColor}"/>
 
+    <!-- placeholdesr color for LineTextBox -->
     <Color x:Key="PlaceholderColor">Gray</Color>
     <SolidColorBrush x:Key="PlaceholdeBrush" Color="{StaticResource PlaceholderColor}"/>
 

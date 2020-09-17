@@ -70,7 +70,7 @@
                                             <iconPacks:PackIconFontAwesome Kind="{Binding Status, Converter={local:UploadFileStatusToKindConverter}}"
                                                    Style="{Binding Status, Converter={local:UploadStatusToStyleConverter}}"
                                                    FontSize="{StaticResource FontSizeRegular}"
-                                                   Foreground="{StaticResource ForegroundVeryDarkBrush}"
+                                                   Foreground="{StaticResource SecondaryTextBrush}"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"/>
                                         </Grid>

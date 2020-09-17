@@ -128,7 +128,7 @@
             GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
 
-    <Grid Background="{StaticResource ForegroundLightBrush}">
+    <Grid>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/LoginPage.xaml"/>
     </Grid>
     
