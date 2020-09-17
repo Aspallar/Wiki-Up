@@ -50,6 +50,9 @@
     <!-- placeholdesr color for LineTextBox -->
     <Color x:Key="PlaceholderColor">Gray</Color>
     <SolidColorBrush x:Key="PlaceholdeBrush" Color="{StaticResource PlaceholderColor}"/>
+    
+    <!-- tab control -->
+    <Color x:Key="InactiveTabColor">Black</Color>
 
 </ResourceDictionary>
 

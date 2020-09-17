@@ -152,7 +152,7 @@
                             <Setter Property="Background" TargetName="border" Value="{StaticResource PrimaryLightBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource ForegroundDarkBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource ControlDisabledBackgroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -184,6 +184,12 @@
     <Style x:Key="FilenamePlainButton" TargetType="{x:Type Button}" BasedOn="{StaticResource PlainButton}">
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
         <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <!-- Tooltips -->
+    <Style TargetType="ToolTip" BasedOn="{StaticResource {x:Type ToolTip}}">
+        <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource HighlightTextCBrush}" />
     </Style>
 
 </ResourceDictionary>
