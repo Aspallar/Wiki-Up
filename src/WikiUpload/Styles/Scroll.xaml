@@ -3,13 +3,7 @@
                     xmlns:local="clr-namespace:WikiUpload"
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
-    <LinearGradientBrush x:Key="VerticalScrollBarBackground" EndPoint="1,0" StartPoint="0,0">
-        <GradientStop Color="#E1E1E1" Offset="0"/>
-        <GradientStop Color="#EDEDED" Offset="0.20"/>
-        <GradientStop Color="#EDEDED" Offset="0.80"/>
-        <GradientStop Color="#E3E3E3" Offset="1"/>
-    </LinearGradientBrush>
-    
+   
     <SolidColorBrush x:Key="ScrollBarDisabledBackground" Color="#F4F4F4"/>
     
     <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
@@ -62,13 +56,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <LinearGradientBrush x:Key="HorizontalScrollBarBackground" EndPoint="0,1" StartPoint="0,0">
-        <GradientStop Color="#E1E1E1" Offset="0"/>
-        <GradientStop Color="#EDEDED" Offset="0.20"/>
-        <GradientStop Color="#EDEDED" Offset="0.80"/>
-        <GradientStop Color="#E3E3E3" Offset="1"/>
-    </LinearGradientBrush>
     
     <Style x:Key="HorizontalScrollBarPageButton" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -129,7 +116,7 @@
                 <Setter Property="MinWidth" Value="0"/>
                 <Setter Property="Height" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}"/>
                 <Setter Property="MinHeight" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}"/>
-                <Setter Property="Background" Value="{StaticResource HorizontalScrollBarBackground}"/>
+                <Setter Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollBar}">
