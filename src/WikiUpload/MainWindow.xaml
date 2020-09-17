@@ -28,12 +28,12 @@
 
                                 <!-- Opacity mask for corners on grid -->
                                 <Border x:Name="Container"
-                                        Background="{StaticResource BackgroundLightBrush}"
+                                        Background="{StaticResource PrimaryDarkBrush}"
                                         CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
 
                                 <!-- Window border and dropshadown -->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
-                                    Background="{Binding ForegroundLightBrush, FallbackValue=White}">
+                                    Background="{Binding PrimaryBrush, FallbackValue={StaticResource PrimaryDarkBrush}}" >
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" Opacity="0.2" />
                                     </Border.Effect>
@@ -57,7 +57,7 @@
                                     </Grid.RowDefinitions>
 
                                     <!-- Title Bar -->
-                                    <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource WindowTitleBarBackgroundBrush}">
+                                    <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource PrimaryBrush}">
 
                                         <Grid.ColumnDefinitions>
                                             <!-- Icon -->
@@ -81,8 +81,8 @@
                                                 <TextBlock Text="by Aspallar"
                                                            FontFamily="{StaticResource MainFont}"
                                                            FontSize="{StaticResource FontSizeSmall}"
+                                                           Foreground="{StaticResource HighlightTextCBrush}"
                                                            VerticalAlignment="Bottom"
-                                                           Foreground="{StaticResource ForegroundVeryDarkBrush}"
                                                            TextAlignment="Right" />
                                             </StackPanel>
                                         </Viewbox>
@@ -128,7 +128,7 @@
             GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
 
-    <Grid Background="{StaticResource ForegroundLightBrush}">
+    <Grid>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/LoginPage.xaml"/>
     </Grid>
     
