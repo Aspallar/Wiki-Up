@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using WikiUpload.Service;
 
 namespace WikiUpload
 {
@@ -11,6 +12,9 @@ namespace WikiUpload
                 .InSingletonScope()
                 .WithConstructorArgument("userAgent", App.UserAgent)
                 .WithConstructorArgument("timeout", App.Timewout);
+
+            Bind<INavigatorService>()
+                .ToConstant(App.Navigator);
         }
     }
 }

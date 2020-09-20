@@ -6,6 +6,7 @@ using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WikiUpload.Service;
 
 namespace WikiUpload
 {
@@ -13,11 +14,16 @@ namespace WikiUpload
     {
         private DialogManager _dialogs = new DialogManager();
         private IPasswordManager _passwordManager = new PasswordManager();
-        private IFileUploader _fileUploader;
 
-        public LoginViewModel(IFileUploader fileUploader)
+        private IFileUploader _fileUploader;
+        private INavigatorService _navigator;
+
+        public LoginViewModel(IFileUploader fileUploader,
+            INavigatorService navigator)
         {
             _fileUploader = fileUploader;
+            _navigator = navigator;
+
             LoginCommand = new RelayParameterizedCommand(async (securePassword) => await Login(securePassword));
             PreviousSites = Properties.Settings.Default.RecentlyUsedSites;
         }
@@ -68,7 +74,7 @@ namespace WikiUpload
                     UpdateSettings();
                     UpdateSavedPassword(password);
                     //SavedPassword.Dispose();
-                    Navigator.NavigationService.Navigate(new UploadPage());
+                    _navigator.Navigate(new UploadPage());
                 }
                 else
                 {

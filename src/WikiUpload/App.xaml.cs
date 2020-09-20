@@ -2,6 +2,7 @@
 using System.Net;
 using System.Reflection;
 using System.Windows;
+using WikiUpload.Service;
 
 namespace WikiUpload
 {
@@ -56,5 +57,7 @@ namespace WikiUpload
         }
 
         public static int Timewout { get; private set; }
+
+        public static INavigatorService Navigator { get; set; }
     }
 }
