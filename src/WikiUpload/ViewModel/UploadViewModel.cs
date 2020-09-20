@@ -17,9 +17,11 @@ namespace WikiUpload
     {
         private readonly DialogManager _dialogs;
         private CancellationTokenSource _cancelSource;
+        private IFileUploader _fileUploader;
 
-        public UploadViewModel()
+        public UploadViewModel(IFileUploader fileUploader)
         {
+            _fileUploader = fileUploader;
             _dialogs = new DialogManager();
             UploadSummary = "";
             PageContent = "";
@@ -34,7 +36,7 @@ namespace WikiUpload
             SaveListCommand = new RelayCommand(SaveList);
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
             AddCategoryCommand = new RelayCommand(AddCategory);
-            Site = UploadService.Uploader.Site;
+            Site = _fileUploader.Site;
         }
 
         private async Task Upload()
@@ -45,11 +47,11 @@ namespace WikiUpload
                 {
                     CancellationToken cancelToken = _cancelSource.Token;
                     var filesToUpload = UploadFiles.Select(x => x).ToList();
-                    UploadService.Uploader.Summary = AddAppName(UploadSummary);
-                    UploadService.Uploader.PageContent = PageContent;
+                    _fileUploader.Summary = AddAppName(UploadSummary);
+                    _fileUploader.PageContent = PageContent;
                     foreach (var file in filesToUpload)
                     {
-                        if (!UploadService.Uploader.PermittedFiles.IsPermitted(file.FileName))
+                        if (!_fileUploader.PermittedFiles.IsPermitted(file.FileName))
                         {
                             file.SetError($"Files of type \"{Path.GetExtension(file.FileName)}\" are not permitted.");
                         }
@@ -122,7 +124,7 @@ namespace WikiUpload
                 file.SetUploading();
                 ViewedFile = file;
 
-                var response = await UploadService.Uploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload);
+                var response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload);
                 await Task.Delay(Properties.Settings.Default.UploadDelay, cancelToken);
 
                 if (response.Result == ResponseCodes.Success)
@@ -150,7 +152,7 @@ namespace WikiUpload
                         }
                         else
                         {
-                            await UploadService.Uploader.RefreshTokenAsync();
+                            await _fileUploader.RefreshTokenAsync();
                             tokenRefreshed = true;
                             continue;
                         }
@@ -170,7 +172,7 @@ namespace WikiUpload
 
         private string AddAppName(string uploadSummary)
         {
-            var appName = UploadService.Uploader.Site.ToLowerInvariant().Contains(".fandom.")
+            var appName = _fileUploader.Site.ToLowerInvariant().Contains(".fandom.")
                 ? "[[w:c:dev:Wiki-Up|Wiki-Up]]" : "Wiki-Up";
 
             return uploadSummary == ""
@@ -188,7 +190,7 @@ namespace WikiUpload
 
         private void AddFiles()
         {
-            if (_dialogs.AddFilesDialog(UploadService.Uploader.PermittedFiles.GetExtensions(),
+            if (_dialogs.AddFilesDialog(_fileUploader.PermittedFiles.GetExtensions(),
                 Properties.Settings.Default.ImageExtensions,
                 out IList<string> fileNames))
             {

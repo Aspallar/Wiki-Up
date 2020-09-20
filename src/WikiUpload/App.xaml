@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="Styles/Scroll.xaml"/>
                 <ResourceDictionary Source="Styles/Tabs.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <local:ServiceLocator x:Key="ServiceLocator" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

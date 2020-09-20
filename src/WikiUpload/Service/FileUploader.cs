@@ -12,7 +12,7 @@ using System.Xml;
 
 namespace WikiUpload
 {
-    public sealed class FileUploader : IDisposable
+    public sealed class FileUploader : IDisposable, IFileUploader
     {
         private ApiUri _api;
         private string _editToken;

@@ -13,6 +13,14 @@ namespace WikiUpload
     {
         private DialogManager _dialogs = new DialogManager();
         private IPasswordManager _passwordManager = new PasswordManager();
+        private IFileUploader _fileUploader;
+
+        public LoginViewModel(IFileUploader fileUploader)
+        {
+            _fileUploader = fileUploader;
+            LoginCommand = new RelayParameterizedCommand(async (securePassword) => await Login(securePassword));
+            PreviousSites = Properties.Settings.Default.RecentlyUsedSites;
+        }
 
         public string Username { get; set; } = Properties.Settings.Default.Username;
 
@@ -34,12 +42,6 @@ namespace WikiUpload
 
         public SecureString SavedPassword { get; } = new SecureString();
 
-        public LoginViewModel()
-        {
-            LoginCommand = new RelayParameterizedCommand(async (securePassword) => await Login(securePassword));
-            PreviousSites = Properties.Settings.Default.RecentlyUsedSites;
-        }
-
         public async Task Login(object securePassword)
         {
             IsLoginError = false;
@@ -59,7 +61,7 @@ namespace WikiUpload
         {
             try
             {
-                bool loggedIn = await UploadService.Uploader.LoginAsync(url, Username, password);
+                bool loggedIn = await _fileUploader.LoginAsync(url, Username, password);
 
                 if (loggedIn)
                 {

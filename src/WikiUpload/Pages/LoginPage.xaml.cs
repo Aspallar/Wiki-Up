@@ -1,11 +1,12 @@
 ﻿using System.Security;
+using System.Windows.Controls;
 
 namespace WikiUpload
 {
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginPage : BasePage<LoginViewModel>, IHavePassword
+    public partial class LoginPage : Page, IHavePassword
     {
         public LoginPage()
         {

@@ -17,7 +17,7 @@ namespace WikiUpload
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             GetCommandLineArguments(e.Args, out int timeout);
-            UploadService.Uploader = new FileUploader(UserAgent, timeout);
+            Timewout = timeout;
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -43,7 +43,7 @@ namespace WikiUpload
             }
         }
 
-        private string UserAgent
+        public static string UserAgent
         {
             get
             {
@@ -54,5 +54,7 @@ namespace WikiUpload
                 return userAgent;
             }
         }
+
+        public static int Timewout { get; private set; }
     }
 }
