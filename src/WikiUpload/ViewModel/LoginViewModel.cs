@@ -13,11 +13,13 @@ namespace WikiUpload
         private readonly IFileUploader _fileUploader;
         private readonly INavigatorService _navigator;
         private readonly Properties.IAppSettings _appSettings;
+        private readonly IDelay _delay;
 
         public LoginViewModel(IFileUploader fileUploader,
             INavigatorService navigator,
             IDialogManager dialogManager,
             IPasswordManager passwordManager,
+            IDelay delay,
             Properties.IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
@@ -25,6 +27,7 @@ namespace WikiUpload
             _appSettings = appSettings;
             _dialogs = dialogManager;
             _passwordManager = passwordManager;
+            _delay = delay;
 
             InitializeFromApplicationSettings();
 
@@ -70,14 +73,14 @@ namespace WikiUpload
         {
             try
             {
-                bool loggedIn = await _fileUploader.LoginAsync(url, Username, password);
+                bool loggedIn = await _fileUploader.LoginAsync(url, Username, password, false);
 
                 if (loggedIn)
                 {
                     UpdateApplicationSettings();
                     UpdateSavedPassword(password);
                     //SavedPassword.Dispose();
-                    _navigator.Navigate(new UploadPage());
+                    _navigator.NavigateToUploadPage();
                 }
                 else
                 {
@@ -123,7 +126,7 @@ namespace WikiUpload
         {
             if (string.IsNullOrWhiteSpace(WikiUrl) || string.IsNullOrWhiteSpace(Username))
             {
-                await Task.Delay(500);
+                await _delay.Wait(500);
                 LoginError("You must supply a wiki url and username.");
                 return null;
             }
@@ -134,7 +137,7 @@ namespace WikiUpload
 
             if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) || url.IndexOf('?') != -1)
             {
-                await Task.Delay(500);
+                await _delay.Wait(500); 
                 LoginError("Invalid wiki url");
                 return null;
             }

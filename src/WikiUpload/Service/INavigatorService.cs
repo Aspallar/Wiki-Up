@@ -2,6 +2,6 @@
 {
     public interface INavigatorService
     {
-        void Navigate(object dest);
+        void NavigateToUploadPage();
     }
 }

@@ -15,9 +15,6 @@ namespace WikiUpload
 
         public UploadViewModel UploadViewModel => _kernel.Get<UploadViewModel>();
 
-        //public AppViewModel AppViewModel
-        //{
-        //    get { return kernel.Get<AppViewModel>(); }
-        //}
+        public AboutViewModel AboutViewModel => _kernel.Get<AboutViewModel>();
     }
 }

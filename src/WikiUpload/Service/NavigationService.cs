@@ -9,9 +9,9 @@
             _navigator = navigator;
         }
 
-        public void Navigate(object dest)
+        public void NavigateToUploadPage()
         {
-            _navigator.Navigate(dest);
+            _navigator.Navigate(new UploadPage());
         }
     }
 }
