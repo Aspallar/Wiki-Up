@@ -8,6 +8,8 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Background="Wheat"
+        x:Name="AboutBox"
+        DataContext="{Binding Path=AboutViewModel, Source={StaticResource ServiceLocator}}"
         Title="About Wiki-Up" Height="532" Width="726.8">
     <StackPanel Margin="0">
         <Grid >
@@ -65,7 +67,7 @@
         <TextBlock Foreground="{StaticResource PrimaryBrush}" Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charlie Drake</TextBlock>
 
         <Button Content="OK" HorizontalAlignment="Center" Margin="20" Width="200"
-                Command="{Binding CloseCommand}"/>
+                Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=AboutBox}"/>
 
 
     </StackPanel>

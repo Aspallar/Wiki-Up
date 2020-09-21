@@ -10,7 +10,6 @@ namespace WikiUpload
         public AboutWindow()
         {
             InitializeComponent();
-            DataContext = new AboutViewModel(this);
         }
     }
 }

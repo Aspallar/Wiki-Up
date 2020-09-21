@@ -7,16 +7,13 @@ namespace WikiUpload
 {
     public class AboutViewModel : BaseViewModel
     {
-        private readonly Window _window;
-
-        public AboutViewModel(Window window)
+        public AboutViewModel()
         {
-            _window = window;
             Assembly assembly = Assembly.GetEntryAssembly();
             object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
             CopyrightText = ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             VersionText = $"Version {Utils.GetApplicationVersion(assembly)}";
-            CloseCommand = new RelayCommand(() => _window.Close());
+            CloseCommand = new RelayParameterizedCommand((window) => ((Window)window).Close());
             LaunchWebSiteCommand = new RelayCommand(() => Process.Start("https://github.com/Aspallar/Wiki-Up"));
         }
 
