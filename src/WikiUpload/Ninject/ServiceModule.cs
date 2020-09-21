@@ -27,6 +27,9 @@ namespace WikiUpload
 
             Bind<IDelay>()
                 .To<Delay>();
+
+            Bind<IPasswordStore>()
+                .To<PasswordStore>();
         }
     }
 }
