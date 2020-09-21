@@ -93,6 +93,8 @@
     <Compile Include="Exceptions\LoginException.cs" />
     <Compile Include="Ninject\ServiceLocator.cs" />
     <Compile Include="Ninject\ServiceModule.cs" />
+    <Compile Include="Properties\AppSettings.cs" />
+    <Compile Include="Properties\IAppSettings.cs" />
     <Compile Include="Service\IFileUploader.cs" />
     <Compile Include="Service\INavigatorService.cs" />
     <Compile Include="Service\NavigationService.cs" />

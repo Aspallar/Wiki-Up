@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
+using WikiUpload.Properties;
 
 namespace WikiUpload
 {
@@ -17,11 +18,15 @@ namespace WikiUpload
     {
         private readonly DialogManager _dialogs;
         private CancellationTokenSource _cancelSource;
-        private IFileUploader _fileUploader;
 
-        public UploadViewModel(IFileUploader fileUploader)
+        private readonly IFileUploader _fileUploader;
+        private readonly IAppSettings _appSettings;
+
+        public UploadViewModel(IFileUploader fileUploader, Properties.IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
+            _appSettings = appSettings;
+
             _dialogs = new DialogManager();
             UploadSummary = "";
             PageContent = "";
@@ -125,7 +130,7 @@ namespace WikiUpload
                 ViewedFile = file;
 
                 var response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload);
-                await Task.Delay(Properties.Settings.Default.UploadDelay, cancelToken);
+                await Task.Delay(_appSettings.UploadDelay, cancelToken);
 
                 if (response.Result == ResponseCodes.Success)
                 {
@@ -191,7 +196,7 @@ namespace WikiUpload
         private void AddFiles()
         {
             if (_dialogs.AddFilesDialog(_fileUploader.PermittedFiles.GetExtensions(),
-                Properties.Settings.Default.ImageExtensions,
+                _appSettings.ImageExtensions,
                 out IList<string> fileNames))
             {
                 UploadFiles.AddNewRange(fileNames);

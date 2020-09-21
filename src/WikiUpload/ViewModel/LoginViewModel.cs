@@ -17,22 +17,26 @@ namespace WikiUpload
 
         private IFileUploader _fileUploader;
         private INavigatorService _navigator;
+        private Properties.IAppSettings _appSettings;
 
         public LoginViewModel(IFileUploader fileUploader,
-            INavigatorService navigator)
+            INavigatorService navigator,
+            Properties.IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
             _navigator = navigator;
+            _appSettings = appSettings;
+
+            InitializeFromApplicationSettings();
 
             LoginCommand = new RelayParameterizedCommand(async (securePassword) => await Login(securePassword));
-            PreviousSites = Properties.Settings.Default.RecentlyUsedSites;
         }
 
-        public string Username { get; set; } = Properties.Settings.Default.Username;
+        public string Username { get; set; }
 
-        public string WikiUrl { get; set; } = Properties.Settings.Default.WikiUrl;
+        public string WikiUrl { get; set; }
 
-        public bool RememberPassword { get; set; } = Properties.Settings.Default.RememberPassword;
+        public bool RememberPassword { get; set; }
 
         public ObservableCollection<string> PreviousSites { get; set; }
 
@@ -71,7 +75,7 @@ namespace WikiUpload
 
                 if (loggedIn)
                 {
-                    UpdateSettings();
+                    UpdateApplicationSettings();
                     UpdateSavedPassword(password);
                     //SavedPassword.Dispose();
                     _navigator.Navigate(new UploadPage());
@@ -98,15 +102,23 @@ namespace WikiUpload
                 _passwordManager.RemovePassword(WikiUrl, Username);
         }
 
-        private void UpdateSettings()
+        private void UpdateApplicationSettings()
         {
-            var settings = Properties.Settings.Default;
-            settings.Username = Username;
-            settings.WikiUrl = WikiUrl;
-            settings.RememberPassword = RememberPassword;
-            settings.AddMostRecentlyUsedSite(WikiUrl);
-            settings.Save();
+            _appSettings.Username = Username;
+            _appSettings.WikiUrl = WikiUrl;
+            _appSettings.RememberPassword = RememberPassword;
+            _appSettings.AddMostRecentlyUsedSite(WikiUrl);
+            _appSettings.Save();
         }
+
+        private void InitializeFromApplicationSettings()
+        {
+            PreviousSites = _appSettings.RecentlyUsedSites;
+            Username = _appSettings.Username;
+            WikiUrl = _appSettings.WikiUrl;
+            RememberPassword = _appSettings.RememberPassword;
+        }
+
 
         private async Task<string> Validate()
         {

@@ -15,6 +15,10 @@ namespace WikiUpload
 
             Bind<INavigatorService>()
                 .ToConstant(App.Navigator);
+
+            Bind<Properties.IAppSettings>()
+                .To<Properties.AppSettings>()
+                .InSingletonScope();
         }
     }
 }
