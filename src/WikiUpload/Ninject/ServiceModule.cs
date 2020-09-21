@@ -23,6 +23,9 @@ namespace WikiUpload
             Bind<IDialogManager>()
                 .To<DialogManager>();
 
+            Bind<IPasswordManager>()
+                .To<PasswordManager>();
+
         }
     }
 }
