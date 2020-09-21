@@ -104,6 +104,7 @@
     <Compile Include="Utilities\DialogManager.cs" />
     <Compile Include="Utilities\Encryption.cs" />
     <Compile Include="Utilities\Entropy.cs" />
+    <Compile Include="Utilities\IDialogManager.cs" />
     <Compile Include="Utilities\IPasswordManager.cs" />
     <Compile Include="Utilities\PasswordManager.cs" />
     <Compile Include="Utilities\PasswordDictionary.cs" />

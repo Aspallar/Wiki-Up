@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace WikiUpload
 {
-    public class DialogManager
+    public class DialogManager : IDialogManager
     {
         public bool AddFilesDialog(string[] permittedExtensions, string imageExtensions, out IList<string> fileNames)
         {

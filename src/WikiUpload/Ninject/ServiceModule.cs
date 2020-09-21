@@ -19,6 +19,10 @@ namespace WikiUpload
             Bind<Properties.IAppSettings>()
                 .To<Properties.AppSettings>()
                 .InSingletonScope();
+
+            Bind<IDialogManager>()
+                .To<DialogManager>();
+
         }
     }
 }

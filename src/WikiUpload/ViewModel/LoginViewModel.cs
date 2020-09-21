@@ -12,20 +12,22 @@ namespace WikiUpload
 {
     public class LoginViewModel : BaseViewModel
     {
-        private DialogManager _dialogs = new DialogManager();
         private IPasswordManager _passwordManager = new PasswordManager();
 
+        private IDialogManager _dialogs;
         private IFileUploader _fileUploader;
         private INavigatorService _navigator;
         private Properties.IAppSettings _appSettings;
 
         public LoginViewModel(IFileUploader fileUploader,
             INavigatorService navigator,
+            IDialogManager dialogManager,
             Properties.IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
             _navigator = navigator;
             _appSettings = appSettings;
+            _dialogs = dialogManager;
 
             InitializeFromApplicationSettings();
 

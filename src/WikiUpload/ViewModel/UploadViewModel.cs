@@ -16,18 +16,20 @@ namespace WikiUpload
 {
     public class UploadViewModel : BaseViewModel, IFileDropTarget
     {
-        private readonly DialogManager _dialogs;
         private CancellationTokenSource _cancelSource;
 
+        private readonly IDialogManager _dialogs;
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;
 
-        public UploadViewModel(IFileUploader fileUploader, Properties.IAppSettings appSettings)
+        public UploadViewModel(IFileUploader fileUploader, 
+            IDialogManager dialogManager,
+            Properties.IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
             _appSettings = appSettings;
+            _dialogs = dialogManager;
 
-            _dialogs = new DialogManager();
             UploadSummary = "";
             PageContent = "";
             AddFilesCommand = new RelayCommand(AddFiles);
