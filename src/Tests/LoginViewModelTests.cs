@@ -251,5 +251,48 @@ namespace Tests
             A.CallTo(() => _passwordManager.RemovePassword(A<string>._, A<string>._))
                 .MustHaveHappened(1, Times.Exactly);
         }
+
+        [Test]
+        public void When_InsecureConnection_Then_WarningDialogIsShown()
+        {
+            _model.WikiUrl = "http://Foo";
+            _model.Username = "Bar";
+            _model.RememberPassword = false;
+
+            _model.LoginCommand.Execute(_password);
+
+            A.CallTo(() => _dialogs.ConfirmInsecureLoginDialog())
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_InsecureConnectionAndUserCancels_Then_LoginNotAttempted()
+        {
+            _model.WikiUrl = "http://Foo";
+            _model.Username = "Bar";
+            _model.RememberPassword = false;
+            A.CallTo(() => _dialogs.ConfirmInsecureLoginDialog()).Returns(false);
+
+            _model.LoginCommand.Execute(_password);
+
+            A.CallTo(() => _fileUploader.LoginAsync(A<string>._, A<string>._, A<SecureString>._, A<bool>._))
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_InsecureConnectionAndUserOks_Then_LoginProceeds()
+        {
+            _model.WikiUrl = "http://Foo";
+            _model.Username = "Bar";
+            _model.RememberPassword = false;
+            A.CallTo(() => _dialogs.ConfirmInsecureLoginDialog()).Returns(true);
+
+            _model.LoginCommand.Execute(_password);
+
+            A.CallTo(() => _fileUploader.LoginAsync(A<string>._, A<string>._, A<SecureString>._, A<bool>._))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+
     }
 }
