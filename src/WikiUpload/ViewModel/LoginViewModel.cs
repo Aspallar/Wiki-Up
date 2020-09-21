@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
-using WikiUpload.Service;
 
 namespace WikiUpload
 {
     public class LoginViewModel : BaseViewModel
     {
-        private IPasswordManager _passwordManager;
-        private IDialogManager _dialogs;
-        private IFileUploader _fileUploader;
-        private INavigatorService _navigator;
-        private Properties.IAppSettings _appSettings;
+        private readonly IPasswordManager _passwordManager;
+        private readonly IDialogManager _dialogs;
+        private readonly IFileUploader _fileUploader;
+        private readonly INavigatorService _navigator;
+        private readonly Properties.IAppSettings _appSettings;
 
         public LoginViewModel(IFileUploader fileUploader,
             INavigatorService navigator,
@@ -58,7 +54,7 @@ namespace WikiUpload
         public async Task Login(object securePassword)
         {
             IsLoginError = false;
-            await RunCommand(() => this.LoginIsRunning, async () =>
+            await RunCommand(() => LoginIsRunning, async () =>
             {
                 string url;
                 if ((url = await Validate()) != null)

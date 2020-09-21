@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Interop;
-using WikiUpload.Service;
 
 namespace WikiUpload
 {
@@ -13,9 +12,9 @@ namespace WikiUpload
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new WindowViewModel(this);
+            DataContext = new WindowViewModel(this);
             App.Navigator = new NavigationService(MainFrame.NavigationService);
-            this.Loaded += new RoutedEventHandler(Window_Loaded);
+            Loaded += new RoutedEventHandler(Window_Loaded);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿namespace WikiUpload.Service
+﻿namespace WikiUpload
 {
     public class NavigationService : INavigatorService
     {

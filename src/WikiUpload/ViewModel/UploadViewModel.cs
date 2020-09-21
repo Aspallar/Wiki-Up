@@ -48,7 +48,7 @@ namespace WikiUpload
 
         private async Task Upload()
         {
-            await RunCommand(() => this.UploadIsRunning, async () =>
+            await RunCommand(() => UploadIsRunning, async () =>
             {
                 using (_cancelSource = new CancellationTokenSource())
                 {

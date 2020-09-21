@@ -1,5 +1,4 @@
 ﻿using Ninject.Modules;
-using WikiUpload.Service;
 
 namespace WikiUpload
 {

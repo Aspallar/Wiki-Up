@@ -41,7 +41,7 @@ namespace WikiUpload
 
         public void WriteXml(XmlWriter writer)
         {
-            foreach (var key in this.Keys)
+            foreach (var key in Keys)
             {
                 writer.WriteStartElement(entryElementName);
                 writer.WriteAttributeString(keyAttributeName, key);

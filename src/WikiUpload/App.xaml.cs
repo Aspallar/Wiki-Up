@@ -2,7 +2,6 @@
 using System.Net;
 using System.Reflection;
 using System.Windows;
-using WikiUpload.Service;
 
 namespace WikiUpload
 {
