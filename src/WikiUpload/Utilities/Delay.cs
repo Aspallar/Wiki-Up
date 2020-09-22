@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace WikiUpload
 {
@@ -7,6 +8,11 @@ namespace WikiUpload
         public Task Wait(int ms)
         {
             return Task.Delay(ms);
+        }
+
+        public Task Wait(int ms, CancellationToken token)
+        {
+            return Task.Delay(ms, token);
         }
     }
 }

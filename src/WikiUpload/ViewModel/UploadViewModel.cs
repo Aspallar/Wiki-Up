@@ -19,16 +19,19 @@ namespace WikiUpload
         private CancellationTokenSource _cancelSource;
 
         private readonly IDialogManager _dialogs;
+        private readonly IDelay _delay;
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;
 
-        public UploadViewModel(IFileUploader fileUploader, 
+        public UploadViewModel(IFileUploader fileUploader,
             IDialogManager dialogManager,
+            IDelay delay,
             Properties.IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
             _appSettings = appSettings;
             _dialogs = dialogManager;
+            _delay = delay;
 
             UploadSummary = "";
             PageContent = "";
@@ -132,7 +135,7 @@ namespace WikiUpload
                 ViewedFile = file;
 
                 var response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload);
-                await Task.Delay(_appSettings.UploadDelay, cancelToken);
+                await _delay.Wait(_appSettings.UploadDelay, cancelToken);
 
                 if (response.Result == ResponseCodes.Success)
                 {
@@ -146,7 +149,7 @@ namespace WikiUpload
                 {
                     if (--maxLagRetries < 0)
                         throw new ServerIsBusyException();
-                    await Task.Delay(response.RetryDelay * 1000, cancelToken);
+                    await _delay.Wait(response.RetryDelay * 1000, cancelToken);
                     continue;
                 }
                 else if (response.IsError)
