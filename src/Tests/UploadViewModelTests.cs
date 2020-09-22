@@ -120,6 +120,65 @@ namespace Tests
         #endregion
 
         #region Page content Add Category
+        private const string ExpectedCategory = "[[Category:Enter Category Name]]";
+
+        [Test]
+        public void When_AddCategoryClickedWithEmptyContent_Then_NewCategoryAddedTWithoutNewline()
+        {
+            _model.PageContent = "";
+
+            _model.AddCategoryCommand.Execute(null);
+
+            Assert.That(_model.PageContent, Is.EqualTo(ExpectedCategory));
+        }
+
+        [Test]
+        public void When_AddCategoryClickedWithNewlinedContent_Then_NewCategoryAddedTWithoutNewline()
+        {
+            _model.PageContent = "Foobar\n";
+            var expected = _model.PageContent + ExpectedCategory;
+
+            _model.AddCategoryCommand.Execute(null);
+
+            Assert.That(_model.PageContent, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void When_AddCategoryClickedWithoutNewlinedContenbt_Then_NewCategoryAddedTWithNewline()
+        {
+            _model.PageContent = "Foobar";
+            var expected = _model.PageContent + "\n" + ExpectedCategory;
+
+            _model.AddCategoryCommand.Execute(null);
+
+            Assert.That(_model.PageContent, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void When_AddCategoryClicked_Then_CategpryNamePartIsSelected()
+        {
+            _model.PageContent = "";
+
+            _model.AddCategoryCommand.Execute(null);
+
+            Assert.That(_model.PageContentSelection.Start, Is.EqualTo(11));
+            Assert.That(_model.PageContentSelection.Length, Is.EqualTo(19));
+        }
+
+        [Test]
+        public void When_AddCategoryClicked_Then_PageContentSelectionAlwaysChanges()
+        {
+            _model.PageContent = "";
+
+            _model.AddCategoryCommand.Execute(null);
+            var firstSelection = _model.PageContentSelection;
+            _model.PageContent = "";
+            _model.AddCategoryCommand.Execute(null);
+
+            var isSameReference = Object.ReferenceEquals(_model.PageContentSelection, firstSelection);
+            Assert.That(isSameReference, Is.False);
+        }
+
         #endregion
 
         #region Upload files Load and Save
