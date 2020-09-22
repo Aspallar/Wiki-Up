@@ -110,11 +110,13 @@
     <Compile Include="Utilities\IDialogManager.cs" />
     <Compile Include="Utilities\IPasswordManager.cs" />
     <Compile Include="Utilities\IPasswordStore.cs" />
+    <Compile Include="Utilities\IProcessLauncher.cs" />
     <Compile Include="Utilities\ITextFile.cs" />
     <Compile Include="Utilities\IUploadListSerializer.cs" />
     <Compile Include="Utilities\PasswordManager.cs" />
     <Compile Include="Utilities\PasswordDictionary.cs" />
     <Compile Include="Utilities\PasswordStore.cs" />
+    <Compile Include="Utilities\ProcessLauncher.cs" />
     <Compile Include="Utilities\SecureCharArray.cs" />
     <Compile Include="Utilities\TextFile.cs" />
     <Compile Include="Utilities\UploadListSerializer.cs" />

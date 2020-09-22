@@ -22,6 +22,7 @@ namespace WikiUpload
         private readonly IDelay _delay;
         private readonly ITextFile _textFile;
         private readonly IUploadListSerializer _uploadFileSerializer;
+        private readonly IProcessLauncher _processLauncher;
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;
 
@@ -30,6 +31,7 @@ namespace WikiUpload
             IDelay delay,
             ITextFile textFile,
             IUploadListSerializer uploadFileSerializer,
+            IProcessLauncher processLauncher,
             IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
@@ -38,6 +40,7 @@ namespace WikiUpload
             _delay = delay;
             _textFile = textFile;
             _uploadFileSerializer = uploadFileSerializer;
+            _processLauncher = processLauncher;
 
             UploadSummary = "";
             PageContent = "";
@@ -47,7 +50,7 @@ namespace WikiUpload
             CancelCommand = new RelayCommand(Cancel);
             LoadContentCommand = new RelayCommand(LoadContent);
             SaveContentCommand = new RelayCommand(SaveContent);
-            LaunchSiteCommand = new RelayCommand(() => Process.Start(Site));
+            LaunchSiteCommand = new RelayCommand(() => _processLauncher.Launch(Site));
             LoadListCommand = new RelayCommand(LoadList);
             SaveListCommand = new RelayCommand(SaveList);
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
@@ -218,7 +221,7 @@ namespace WikiUpload
         {
             try
             {
-                Process.Start(fullPath);
+                _processLauncher.Launch(fullPath);
             }
             catch (Win32Exception ex)
             {

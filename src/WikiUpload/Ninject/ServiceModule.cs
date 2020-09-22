@@ -36,6 +36,9 @@ namespace WikiUpload
 
             Bind<IUploadListSerializer>()
                 .To<UploadListSerializer>();
+
+            Bind<IProcessLauncher>()
+                .To<ProcessLauncher>();
         }
     }
 }

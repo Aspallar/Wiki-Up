@@ -5,6 +5,7 @@ using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Threading.Tasks;
 using WikiUpload;
@@ -19,6 +20,8 @@ namespace Tests
         private IFileUploader _fileUploader;
         private ITextFile _textFile;
         private IUploadListSerializer _uploadListSerializer;
+        private IProcessLauncher _processLaunchar;
+        private IDelay _delay;
         private UploadViewModel _model;
 
         #region Setup
@@ -30,13 +33,15 @@ namespace Tests
             _fileUploader = A.Fake<IFileUploader>();
             _textFile = A.Fake<ITextFile>();
             _uploadListSerializer = A.Fake<IUploadListSerializer>();
-            var delay = A.Fake<IDelay>();
+            _processLaunchar = A.Fake<IProcessLauncher>();
+            _delay = A.Fake<IDelay>();
 
             _model = new UploadViewModel(_fileUploader,
                 _dialogs,
-                delay,
+                _delay,
                 _textFile,
                 _uploadListSerializer,
+                _processLaunchar,
                 _appSetttings);
         }
 
@@ -49,7 +54,7 @@ namespace Tests
 
         #region Page content Load and Save
         [Test]
-        public void When_LoadContentIsClickedAndFileIsChosen_Then_ContentIsLoadedFromFile()
+        public void When_LoadContentIsExecutedAndFileIsChosen_Then_ContentIsLoadedFromFile()
         {
             const string thePath = "foobar.txt";
             const string content = "Some Content";
@@ -67,7 +72,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_LoadContentIsClickedAndCancelled_Then_ContentIsUnchanged()
+        public void When_LoadContentIsExecutedAndCancelled_Then_ContentIsUnchanged()
         {
             const string newContent = "Some Content";
             const string originalContent = "Initial Content";
@@ -83,7 +88,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_SaveContentIsClickedAndFileIsChosen_Then_ContentIsUnchangedAndSavedToFile()
+        public void When_SaveContentIsExecutedAndFileIsChosen_Then_ContentIsUnchangedAndSavedToFile()
         {
             const string thePath = "foobar.txt";
             const string content = "Some Content";
@@ -102,7 +107,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_SaveContentIsClickedAndCancelled_Then_ContentIsUnchangedAndNotSaved()
+        public void When_SaveContentIsExecutedAndCancelled_Then_ContentIsUnchangedAndNotSaved()
         {
             const string content = "Some Content";
             string path;
@@ -123,7 +128,7 @@ namespace Tests
         private const string ExpectedCategory = "[[Category:Enter Category Name]]";
 
         [Test]
-        public void When_AddCategoryClickedWithEmptyContent_Then_NewCategoryAddedTWithoutNewline()
+        public void When_AddCategoryIsExecutedWithEmptyContent_Then_NewCategoryAddedTWithoutNewline()
         {
             _model.PageContent = "";
 
@@ -133,7 +138,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_AddCategoryClickedWithNewlinedContent_Then_NewCategoryAddedTWithoutNewline()
+        public void When_AddCategoryIsExecutedWithNewlinedContent_Then_NewCategoryAddedTWithoutNewline()
         {
             _model.PageContent = "Foobar\n";
             var expected = _model.PageContent + ExpectedCategory;
@@ -144,7 +149,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_AddCategoryClickedWithoutNewlinedContenbt_Then_NewCategoryAddedTWithNewline()
+        public void When_AddCategoryIsExecutedWithoutNewlinedContenbt_Then_NewCategoryAddedTWithNewline()
         {
             _model.PageContent = "Foobar";
             var expected = _model.PageContent + "\n" + ExpectedCategory;
@@ -155,18 +160,19 @@ namespace Tests
         }
 
         [Test]
-        public void When_AddCategoryClicked_Then_CategpryNamePartIsSelected()
+        public void When_AddCategoryIsExecuted_Then_CategpryNamePartIsSelected()
         {
             _model.PageContent = "";
 
             _model.AddCategoryCommand.Execute(null);
 
+            Assert.That(_model.PageContentSelection, Is.Not.Null);
             Assert.That(_model.PageContentSelection.Start, Is.EqualTo(11));
             Assert.That(_model.PageContentSelection.Length, Is.EqualTo(19));
         }
 
         [Test]
-        public void When_AddCategoryClicked_Then_PageContentSelectionAlwaysChanges()
+        public void When_AddCategoryIsExecuted_Then_PageContentSelectionAlwaysChanges()
         {
             _model.PageContent = "";
 
@@ -183,7 +189,7 @@ namespace Tests
 
         #region Upload files Load and Save
         [Test]
-        public void When_LoadUploadFilesIsClickedAndFileIsChosen_Then_UploadFilesIsAppenedFromFile()
+        public void When_LoadUploadFilesIsExecutedAndFileIsChosen_Then_UploadFilesIsAppenedFromFile()
         {
             string path;
             const string thePath = "foobar.wul";
@@ -199,7 +205,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_LoadUploadFilesIsClickedAndCancelled_Then_UploadFilesIsUnchanged()
+        public void When_LoadUploadFilesIsExecutedAndCancelled_Then_UploadFilesIsUnchanged()
         {
             string path;
 
@@ -214,7 +220,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_SaveUploadFilesIsClickedAndFileIsChosen_Then_UploadFilesIsSavedToFile()
+        public void When_SaveUploadFilesIsExecutedAndFileIsChosen_Then_UploadFilesIsSavedToFile()
         {
             string path;
             const string thePath = "foobar.wul";
@@ -230,7 +236,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_SaveUploadFilesIsClickedAndCancelled_Then_UploadFilesNotSaved()
+        public void When_SaveUploadFilesIsExecutedAndCancelled_Then_UploadFilesNotSaved()
         {
             string path;
 
@@ -248,7 +254,7 @@ namespace Tests
 
         #region Upload Files Add and Remove 
         [Test]
-        public void When_AddFilesClickedAndFilesChosen_Then_FilesAreAddedToUploadFiles()
+        public void When_AddFilesIsExecutedAndFilesChosen_Then_FilesAreAddedToUploadFiles()
         {
             IList<string> list;
             const string file1 = "foobar.jpg";
@@ -269,7 +275,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_AddFilesClickedAndCancelled_Then_UploadFilesIsUnchanged()
+        public void When_AddFilesIsExecutedAndCancelled_Then_UploadFilesIsUnchanged()
         {
             IList<string> list;
 
@@ -283,7 +289,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_RemoveFilesIsClicked_Then_FilesAreRemovedFromUploadFiles()
+        public void When_RemoveFilesIsExecuted_Then_FilesAreRemovedFromUploadFiles()
         {
             const string fileName = "foobar.jpg";
             var removeFiles = new List<UploadFile>
@@ -301,7 +307,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_RemoveFilesIsClickedAndUploadIsRunning_Then_FilesAreNotRemovedFromUploadFiles()
+        public void When_RemoveFilesIsExecutedAndUploadIsRunning_Then_FilesAreNotRemovedFromUploadFiles()
         {
             const string file1 = "foo.jpg";
             const string file2 = "bar.jpg";
@@ -319,6 +325,32 @@ namespace Tests
             Assert.That(_model.UploadFiles.Any(x => x.FullPath == file1), Is.True);
             Assert.That(_model.UploadFiles.Any(x => x.FullPath == file2), Is.True);
         }
+
+        #endregion
+
+        #region Process Launch
+        [Test]
+        public void When_SiteNameIsExecuted_Then_SiteIsLaunched()
+        {
+            const string siteUrl = "https://foobar.com";
+            _model.Site = siteUrl;
+
+            _model.LaunchSiteCommand.Execute(null);
+
+            A.CallTo(() => _processLaunchar.Launch(siteUrl))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        public void When_ShowFileIsExecuted_Then_FileIsLaunched()
+        {
+            const string filename = "foo.jpg";
+
+            _model.ShowFileCommand.Execute(filename);
+
+            A.CallTo(() => _processLaunchar.Launch(filename))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
 
         #endregion
     }
