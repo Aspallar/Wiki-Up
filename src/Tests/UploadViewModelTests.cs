@@ -1,9 +1,11 @@
-﻿using Castle.Core.Internal;
+﻿using Castle.Components.DictionaryAdapter.Xml;
+using Castle.Core.Internal;
 using FakeItEasy;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -108,6 +110,7 @@ namespace Tests
 
             A.CallTo(() => _dialogs.SaveContentDialog(out path))
                 .Returns(false);
+
             _model.PageContent = content;
 
             _model.SaveContentCommand.Execute(null);
@@ -115,6 +118,41 @@ namespace Tests
             Assert.That(_model.PageContent, Is.EqualTo(content));
             A.CallTo(() => _helpers.WriteAllText(A<string>._, A<string>._))
                 .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_PageContentReadError_Then_ErrorIsShown()
+        {
+            const string thePath = "foobar.txt";
+            string path;
+            A.CallTo(() => _helpers.ReadAllText(A<string>._))
+                .Throws(new IOException());
+            A.CallTo(() => _dialogs.LoadContentDialog(out path))
+                .Returns(true)
+                .AssignsOutAndRefParameters(thePath);
+
+            _model.LoadContentCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to read file.")))
+                .MustHaveHappened(1, Times.Exactly);
+
+        }
+
+        [Test]
+        public void When_PageContentWriteError_Then_ErrorIsShown()
+        {
+            const string thePath = "foobar.txt";
+            string path;
+            A.CallTo(() => _helpers.WriteAllText(A<string>._, A<string>._))
+                .Throws(new IOException());
+            A.CallTo(() => _dialogs.SaveContentDialog(out path))
+                .Returns(true)
+                .AssignsOutAndRefParameters(thePath);
+
+            _model.SaveContentCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to save file.")))
+                .MustHaveHappened(1, Times.Exactly);
         }
         #endregion
 
@@ -241,6 +279,60 @@ namespace Tests
 
             A.CallTo(() => _uploadListSerializer.Save(A<string>._, _model.UploadFiles))
                 .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_LoadUploadFilesReadError_Then_ErrorMessageIsShown()
+        {
+            string path;
+            const string thePath = "foobar.wul";
+
+            A.CallTo(() => _uploadListSerializer.Add(A<string>._, A<UploadList>._))
+                .Throws(new IOException());
+            A.CallTo(() => _dialogs.LoadUploadListDialog(out path))
+                .Returns(true)
+                .AssignsOutAndRefParameters(thePath);
+
+            _model.LoadListCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to read upload list.")))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_LoadUploadFilesFormatError_Then_ErrorMessageIsShown()
+        {
+            string path;
+            const string thePath = "foobar.wul";
+
+            A.CallTo(() => _uploadListSerializer.Add(A<string>._, A<UploadList>._))
+                .Throws(new InvalidOperationException());
+            A.CallTo(() => _dialogs.LoadUploadListDialog(out path))
+                .Returns(true)
+                .AssignsOutAndRefParameters(thePath);
+
+            _model.LoadListCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.ErrorMessage("Invalid file format."))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_SaveUploadFilesWriteError_Then_ErrorMessageIsShown()
+        {
+            string path;
+            const string thePath = "foobar.wul";
+
+            A.CallTo(() => _uploadListSerializer.Save(A<string>._, A<UploadList>._))
+                .Throws(new IOException());
+            A.CallTo(() => _dialogs.SaveUploadListDialog(out path))
+                .Returns(true)
+                .AssignsOutAndRefParameters(thePath);
+
+            _model.SaveListCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to save file.")))
+                .MustHaveHappened(1, Times.Exactly);
         }
 
 
