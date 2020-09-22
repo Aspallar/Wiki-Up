@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Xml.Serialization;
 
 namespace WikiUpload
 {
@@ -23,32 +21,6 @@ namespace WikiUpload
         {
             foreach (var item in items)
                 Add(item);
-        }
-
-        public void AddFromXml(TextReader textReader)
-        {
-            List<UploadFile> files;
-            var serializer = new XmlSerializer(typeof(List<UploadFile>));
-            files = (List<UploadFile>)serializer.Deserialize(textReader);
-            AddRange(files);
-        }
-
-        public void AddFromXml(string fileName)
-        {
-            using (var sr = new StreamReader(fileName))
-                AddFromXml(sr);
-        }
-
-        public void SaveToXml(TextWriter textWriter)
-        {
-            var serializer = new XmlSerializer(typeof(UploadList));
-            serializer.Serialize(textWriter, this);
-        }
-
-        public void SaveToXml(string fileName)
-        {
-            using (var sw = new StreamWriter(fileName))
-                SaveToXml(sw);
         }
     }
 }

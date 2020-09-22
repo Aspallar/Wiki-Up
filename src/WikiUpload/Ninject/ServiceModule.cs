@@ -30,6 +30,12 @@ namespace WikiUpload
 
             Bind<IPasswordStore>()
                 .To<PasswordStore>();
+
+            Bind<ITextFile>()
+                .To<TextFile>();
+
+            Bind<IUploadListSerializer>()
+                .To<UploadListSerializer>();
         }
     }
 }

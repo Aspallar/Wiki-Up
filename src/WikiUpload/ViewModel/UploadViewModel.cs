@@ -20,18 +20,24 @@ namespace WikiUpload
 
         private readonly IDialogManager _dialogs;
         private readonly IDelay _delay;
+        private readonly ITextFile _textFile;
+        private readonly IUploadListSerializer _uploadFileSerializer;
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;
 
         public UploadViewModel(IFileUploader fileUploader,
             IDialogManager dialogManager,
             IDelay delay,
-            Properties.IAppSettings appSettings)
+            ITextFile textFile,
+            IUploadListSerializer uploadFileSerializer,
+            IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
             _appSettings = appSettings;
             _dialogs = dialogManager;
             _delay = delay;
+            _textFile = textFile;
+            _uploadFileSerializer = uploadFileSerializer;
 
             UploadSummary = "";
             PageContent = "";
@@ -231,7 +237,7 @@ namespace WikiUpload
             {
                 try
                 {
-                    PageContent = File.ReadAllText(fileName);
+                    PageContent = _textFile.ReadAllText(fileName);
                 }
                 catch (IOException ex)
                 {
@@ -246,7 +252,7 @@ namespace WikiUpload
             {
                 try
                 {
-                    File.WriteAllText(fileName, PageContent);
+                    _textFile.WriteAllText(fileName, PageContent);
                 }
                 catch (IOException ex)
                 {
@@ -261,7 +267,7 @@ namespace WikiUpload
             {
                 try
                 {
-                    UploadFiles.AddFromXml(fileName);
+                    _uploadFileSerializer.Add(fileName, UploadFiles);
                 }
                 catch (IOException ex)
                 {
@@ -280,7 +286,7 @@ namespace WikiUpload
             {
                 try
                 {
-                    UploadFiles.SaveToXml(fileName);
+                    _uploadFileSerializer.Save(fileName, UploadFiles);
                 }
                 catch (IOException ex)
                 {
