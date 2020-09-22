@@ -18,10 +18,8 @@ namespace Tests
         private IDialogManager _dialogs;
         private WikiUpload.Properties.IAppSettings _appSetttings;
         private IFileUploader _fileUploader;
-        private ITextFile _textFile;
+        private IHelpers _helpers;
         private IUploadListSerializer _uploadListSerializer;
-        private IProcessLauncher _processLaunchar;
-        private IDelay _delay;
         private UploadViewModel _model;
 
         #region Setup
@@ -31,17 +29,13 @@ namespace Tests
             _dialogs = A.Fake<IDialogManager>();
             _appSetttings = A.Fake<WikiUpload.Properties.IAppSettings>();
             _fileUploader = A.Fake<IFileUploader>();
-            _textFile = A.Fake<ITextFile>();
             _uploadListSerializer = A.Fake<IUploadListSerializer>();
-            _processLaunchar = A.Fake<IProcessLauncher>();
-            _delay = A.Fake<IDelay>();
+            _helpers = A.Fake<IHelpers>();
 
             _model = new UploadViewModel(_fileUploader,
                 _dialogs,
-                _delay,
-                _textFile,
+                _helpers,
                 _uploadListSerializer,
-                _processLaunchar,
                 _appSetttings);
         }
 
@@ -63,7 +57,7 @@ namespace Tests
             A.CallTo(() => _dialogs.LoadContentDialog(out path))
                 .Returns(true)
                 .AssignsOutAndRefParameters(thePath);
-            A.CallTo(() => _textFile.ReadAllText(thePath)).Returns(content);
+            A.CallTo(() => _helpers.ReadAllText(thePath)).Returns(content);
             _model.PageContent = "";
 
             _model.LoadContentCommand.Execute(null);
@@ -79,7 +73,7 @@ namespace Tests
             string path;
 
             A.CallTo(() => _dialogs.LoadContentDialog(out path)).Returns(false);
-            A.CallTo(() => _textFile.ReadAllText(A<string>._)).Returns(newContent);
+            A.CallTo(() => _helpers.ReadAllText(A<string>._)).Returns(newContent);
             _model.PageContent = originalContent;
 
             _model.LoadContentCommand.Execute(null);
@@ -102,7 +96,7 @@ namespace Tests
             _model.SaveContentCommand.Execute(null);
 
             Assert.That(_model.PageContent, Is.EqualTo(content));
-            A.CallTo(() => _textFile.WriteAllText(thePath, content))
+            A.CallTo(() => _helpers.WriteAllText(thePath, content))
                 .MustHaveHappened(1, Times.Exactly);
         }
 
@@ -119,7 +113,7 @@ namespace Tests
             _model.SaveContentCommand.Execute(null);
 
             Assert.That(_model.PageContent, Is.EqualTo(content));
-            A.CallTo(() => _textFile.WriteAllText(A<string>._, A<string>._))
+            A.CallTo(() => _helpers.WriteAllText(A<string>._, A<string>._))
                 .MustNotHaveHappened();
         }
         #endregion
@@ -337,7 +331,7 @@ namespace Tests
 
             _model.LaunchSiteCommand.Execute(null);
 
-            A.CallTo(() => _processLaunchar.Launch(siteUrl))
+            A.CallTo(() => _helpers.LaunchProcess(siteUrl))
                 .MustHaveHappened(1, Times.Exactly);
         }
 
@@ -347,7 +341,7 @@ namespace Tests
 
             _model.ShowFileCommand.Execute(filename);
 
-            A.CallTo(() => _processLaunchar.Launch(filename))
+            A.CallTo(() => _helpers.LaunchProcess(filename))
                 .MustHaveHappened(1, Times.Exactly);
         }
 

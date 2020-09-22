@@ -25,20 +25,15 @@ namespace WikiUpload
             Bind<IPasswordManager>()
                 .To<PasswordManager>();
 
-            Bind<IDelay>()
-                .To<Delay>();
-
             Bind<IPasswordStore>()
                 .To<PasswordStore>();
-
-            Bind<ITextFile>()
-                .To<TextFile>();
 
             Bind<IUploadListSerializer>()
                 .To<UploadListSerializer>();
 
-            Bind<IProcessLauncher>()
-                .To<ProcessLauncher>();
+            Bind<IHelpers>()
+                .To<Helpers>();
+
         }
     }
 }

@@ -13,13 +13,13 @@ namespace WikiUpload
         private readonly IFileUploader _fileUploader;
         private readonly INavigatorService _navigator;
         private readonly Properties.IAppSettings _appSettings;
-        private readonly IDelay _delay;
+        private readonly IHelpers _helpers;
 
         public LoginViewModel(IFileUploader fileUploader,
             INavigatorService navigator,
             IDialogManager dialogManager,
             IPasswordManager passwordManager,
-            IDelay delay,
+            IHelpers helpers,
             Properties.IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
@@ -27,7 +27,7 @@ namespace WikiUpload
             _appSettings = appSettings;
             _dialogs = dialogManager;
             _passwordManager = passwordManager;
-            _delay = delay;
+            _helpers = helpers;
 
             InitializeFromApplicationSettings();
 
@@ -126,7 +126,7 @@ namespace WikiUpload
         {
             if (string.IsNullOrWhiteSpace(WikiUrl) || string.IsNullOrWhiteSpace(Username))
             {
-                await _delay.Wait(500);
+                await _helpers.Wait(500);
                 LoginError("You must supply a wiki url and username.");
                 return null;
             }
@@ -137,7 +137,7 @@ namespace WikiUpload
 
             if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) || url.IndexOf('?') != -1)
             {
-                await _delay.Wait(500); 
+                await _helpers.Wait(500); 
                 LoginError("Invalid wiki url");
                 return null;
             }

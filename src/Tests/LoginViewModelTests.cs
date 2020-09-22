@@ -10,12 +10,13 @@ namespace Tests
     [TestFixture]
     public class LoginViewModelTests
     {
-        INavigatorService _navigatorService;
-        IDialogManager _dialogs;
-        IPasswordManager _passwordManager;
-        WikiUpload.Properties.IAppSettings _appSetttings;
-        IHavePassword _password;
-        IFileUploader _fileUploader;
+        private INavigatorService _navigatorService;
+        private IDialogManager _dialogs;
+        private IPasswordManager _passwordManager;
+        private WikiUpload.Properties.IAppSettings _appSetttings;
+        private IHavePassword _password;
+        private IFileUploader _fileUploader;
+        private IHelpers _helpers;
         LoginViewModel _model;
 
         [SetUp]
@@ -27,13 +28,13 @@ namespace Tests
             _appSetttings = A.Fake<WikiUpload.Properties.IAppSettings>();
             _password = A.Fake<IHavePassword>();
             _fileUploader = A.Fake<IFileUploader>();
-            var delay = A.Fake<IDelay>();
+            _helpers = A.Fake<IHelpers>();
 
             _model = new LoginViewModel(_fileUploader,
                 _navigatorService,
                 _dialogs,
                 _passwordManager,
-                delay,
+                _helpers,
                 _appSetttings);
         }
 

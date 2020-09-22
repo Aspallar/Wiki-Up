@@ -19,28 +19,22 @@ namespace WikiUpload
         private CancellationTokenSource _cancelSource;
 
         private readonly IDialogManager _dialogs;
-        private readonly IDelay _delay;
-        private readonly ITextFile _textFile;
+        private readonly IHelpers _helpers;
         private readonly IUploadListSerializer _uploadFileSerializer;
-        private readonly IProcessLauncher _processLauncher;
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;
 
         public UploadViewModel(IFileUploader fileUploader,
             IDialogManager dialogManager,
-            IDelay delay,
-            ITextFile textFile,
+            IHelpers helpers,
             IUploadListSerializer uploadFileSerializer,
-            IProcessLauncher processLauncher,
             IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
             _appSettings = appSettings;
             _dialogs = dialogManager;
-            _delay = delay;
-            _textFile = textFile;
+            _helpers = helpers;
             _uploadFileSerializer = uploadFileSerializer;
-            _processLauncher = processLauncher;
 
             UploadSummary = "";
             PageContent = "";
@@ -50,7 +44,7 @@ namespace WikiUpload
             CancelCommand = new RelayCommand(Cancel);
             LoadContentCommand = new RelayCommand(LoadContent);
             SaveContentCommand = new RelayCommand(SaveContent);
-            LaunchSiteCommand = new RelayCommand(() => _processLauncher.Launch(Site));
+            LaunchSiteCommand = new RelayCommand(() => _helpers.LaunchProcess(Site));
             LoadListCommand = new RelayCommand(LoadList);
             SaveListCommand = new RelayCommand(SaveList);
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
@@ -144,7 +138,7 @@ namespace WikiUpload
                 ViewedFile = file;
 
                 var response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload);
-                await _delay.Wait(_appSettings.UploadDelay, cancelToken);
+                await _helpers.Wait(_appSettings.UploadDelay, cancelToken);
 
                 if (response.Result == ResponseCodes.Success)
                 {
@@ -158,7 +152,7 @@ namespace WikiUpload
                 {
                     if (--maxLagRetries < 0)
                         throw new ServerIsBusyException();
-                    await _delay.Wait(response.RetryDelay * 1000, cancelToken);
+                    await _helpers.Wait(response.RetryDelay * 1000, cancelToken);
                     continue;
                 }
                 else if (response.IsError)
@@ -221,7 +215,7 @@ namespace WikiUpload
         {
             try
             {
-                _processLauncher.Launch(fullPath);
+                _helpers.LaunchProcess(fullPath);
             }
             catch (Win32Exception ex)
             {
@@ -240,7 +234,7 @@ namespace WikiUpload
             {
                 try
                 {
-                    PageContent = _textFile.ReadAllText(fileName);
+                    PageContent = _helpers.ReadAllText(fileName);
                 }
                 catch (IOException ex)
                 {
@@ -255,7 +249,7 @@ namespace WikiUpload
             {
                 try
                 {
-                    _textFile.WriteAllText(fileName, PageContent);
+                    _helpers.WriteAllText(fileName, PageContent);
                 }
                 catch (IOException ex)
                 {
