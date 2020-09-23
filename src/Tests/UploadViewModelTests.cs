@@ -450,9 +450,13 @@ namespace Tests
 
         #region Upload
 
-        private void AddSingleUploadFile()
+        private void AddSingleUploadFile() 
+            => _model.UploadFiles.Add(new UploadFile { FullPath = "Foobar.jpg" });
+
+        private void AddThreeploadFiles()
         {
-            _model.UploadFiles.Add(new UploadFile { FullPath = "Foobar.jpg" });
+            for (int i = 0; i < 3; i++)
+                AddSingleUploadFile();
         }
 
         private void AlllFilesPermitted()
@@ -567,8 +571,7 @@ namespace Tests
         public void When_ForceUploadsIsOn_Then_UploadIsDoneWithIgnoreWarnings()
         {
             AlllFilesPermitted();
-            for (int i = 0; i < 3; i++)
-                AddSingleUploadFile();
+            AddThreeploadFiles();
             _model.ForceUpload = true;
 
             _model.UploadCommand.Execute(null);
@@ -583,8 +586,7 @@ namespace Tests
         public void When_ForceUploadsIsOff_Then_UploadIsDoneWithoutIgnoreWarnings()
         {
             AlllFilesPermitted();
-            for (int i = 0; i < 3; i++)
-                AddSingleUploadFile();
+            AddThreeploadFiles();
             _model.ForceUpload = false;
 
             _model.UploadCommand.Execute(null);
@@ -599,19 +601,30 @@ namespace Tests
 
         #region Upload - Exception Errors
 
-        private void ExceptionErrorTest(Exception errorEx, string expedtedMessage)
+        private void ExceptionErrorTest(Exception errorException, string expedtedMessage, bool stopsUpload = false)
         {
             AlllFilesPermitted();
-            AddSingleUploadFile();
+            AddThreeploadFiles();
             A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
-                .Throws(errorEx);
+                .Throws(errorException);
 
             _model.UploadCommand.Execute(null);
 
-            Assert.That(_model.UploadFiles.Count, Is.EqualTo(1));
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(3));
             var file = _model.UploadFiles[0];
             Assert.That(file.Status, Is.EqualTo(UploadFileStatus.Error));
             Assert.That(file.Message, Is.EqualTo(expedtedMessage));
+
+            if (stopsUpload)
+            {
+                Assert.That(_model.UploadFiles.Count(x => x.Status == UploadFileStatus.Error), Is.EqualTo(1),
+                    "Upload should have stopped after error but it continued.");
+            }
+            else
+            {
+                Assert.That(_model.UploadFiles.Count(x => x.Status == UploadFileStatus.Error), Is.EqualTo(3),
+                    "Upload should have continued after error but it stopped.");
+            }
         }
 
         [Test]
@@ -627,16 +640,16 @@ namespace Tests
             => ExceptionErrorTest(new IOException(), UploadMessages.ReadFail);
 
         [Test]
-        public void WhenUploadThrows_OperationCanceledException_Then_ErrorIsShown()
-            => ExceptionErrorTest(new OperationCanceledException(), UploadMessages.Cancelled);
+        public void WhenUploadThrows_OperationCanceledException_Then_ErrorIsShownAndUploadStopped()
+            => ExceptionErrorTest(new OperationCanceledException(), UploadMessages.Cancelled, true);
 
         [Test]
-        public void WhenUploadThrows_ServerIsBusyException_Then_ErrorIsShown()
-            => ExceptionErrorTest(new ServerIsBusyException(), UploadMessages.ServerBusy);
+        public void WhenUploadThrows_ServerIsBusyException_Then_ErrorIsShownAndUploadStopped()
+            => ExceptionErrorTest(new ServerIsBusyException(), UploadMessages.ServerBusy, true);
 
         [Test]
-        public void WhenUploadThrows_NoEditTokenException_Then_ErrorIsShown()
-            => ExceptionErrorTest(new NoEditTokenException(), UploadMessages.NoEditToken);
+        public void WhenUploadThrows_NoEditTokenException_Then_ErrorIsShownAndUploadStopped()
+            => ExceptionErrorTest(new NoEditTokenException(), UploadMessages.NoEditToken, true);
 
         [Test]
         public void WhenUploadThrows_HttpRequestException_Then_ErrorIsShown()
@@ -654,10 +667,10 @@ namespace Tests
         }
 
         [Test]
-        public void WhenUploadThrows_TaskCanceledException_DueToUserCancelling_Then_ErrorIsShown()
+        public void WhenUploadThrows_TaskCanceledException_DueToUserCancelling_Then_ErrorIsShownAnUploadStopped()
         {
             A.CallTo(() => _helpers.IsCancellationRequested(A<CancellationToken>._)).Returns(true);
-            ExceptionErrorTest(new TaskCanceledException(), UploadMessages.Cancelled);
+            ExceptionErrorTest(new TaskCanceledException(), UploadMessages.Cancelled, true);
         }
 
         #endregion
