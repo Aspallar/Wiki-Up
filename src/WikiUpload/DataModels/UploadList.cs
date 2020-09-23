@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace WikiUpload
 {
-    public class UploadList : ObservableCollection<UploadFile>
+    public class UploadList : ObservableCollection<IUploadFile>
     {
         public void RemoveRange(IList<UploadFile> itemsToRemove)
         {

@@ -5,7 +5,7 @@ using System.IO;
 namespace WikiUpload
 {
     [AddINotifyPropertyChangedInterface]
-    public class UploadFile
+    public class UploadFile : IUploadFile
     {
         public string FullPath { get; set; }
 

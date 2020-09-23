@@ -77,47 +77,47 @@ namespace WikiUpload
                             catch (HttpRequestException ex)
                             {
                                 if (ex.InnerException is IOException)
-                                    file.SetError("Error reading file during upload.");
+                                    file.SetError(UploadMessages.ReadFail);
                                 else
-                                    file.SetError("Network error. Unable to upload.");
+                                    file.SetError(UploadMessages.NetworkError);
                             }
                             catch (XmlException)
                             {
-                                file.SetError("Server returned an invalid XML response.");
+                                file.SetError(UploadMessages.InvalidXml);
                             }
                             catch (FileNotFoundException)
                             {
-                                file.SetError($"File not found.");
+                                file.SetError(UploadMessages.FileNotFound);
                             }
                             catch (IOException)
                             {
-                                file.SetError("Unable to read file.");
+                                file.SetError(UploadMessages.ReadFail);
                             }
                             catch (TaskCanceledException)
                             {
-                                if (cancelToken.IsCancellationRequested)
+                                if (_helpers.IsCancellationRequested(cancelToken))
                                 {
-                                    file.SetError("Upload cancelled.");
+                                    file.SetError(UploadMessages.Cancelled);
                                     break; // foreach
                                 }
                                 else
                                 {
-                                    file.SetError("The upload timed out.");
+                                    file.SetError(UploadMessages.TimedOut);
                                 }
                             }
                             catch (OperationCanceledException)
                             {
-                                file.SetError("Upload cancelled.");
+                                file.SetError(UploadMessages.Cancelled);
                                 break; // foreach
                             }
                             catch (ServerIsBusyException)
                             {
-                                file.SetError("Server is too busy. Uploads cancelled. Try again later.");
+                                file.SetError(UploadMessages.ServerBusy);
                                 break; // foreach
                             }
                             catch (NoEditTokenException)
                             {
-                                file.SetError("Unable to obtain valid edit token. Uploads cancelled. You may have to restart Wiki-Up to resolve this error.");
+                                file.SetError(UploadMessages.NoEditToken);
                                 break; // foreach
                             }
                         }
@@ -126,7 +126,7 @@ namespace WikiUpload
             });
         }
 
-        private async Task UploadFile(UploadFile file, CancellationToken cancelToken)
+        private async Task UploadFile(IUploadFile file, CancellationToken cancelToken)
         {
             int maxLagRetries = 3;
             bool tokenRefreshed = false;
@@ -347,6 +347,6 @@ namespace WikiUpload
 
         public UploadList UploadFiles { get; set; } = new UploadList();
 
-        public UploadFile ViewedFile { get; set; }
+        public IUploadFile ViewedFile { get; set; }
     }
 }

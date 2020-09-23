@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,6 +16,8 @@ namespace WikiUpload
         public Task Wait(int ms, CancellationToken token) => Task.Delay(ms, token);
 
         public Process LaunchProcess(string path) => Process.Start(path);
+
+        public bool IsCancellationRequested(CancellationToken token) => token.IsCancellationRequested;
 
         public string ApplicationVersion => Utils.ApplicationVersion;
     }

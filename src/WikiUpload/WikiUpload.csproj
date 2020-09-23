@@ -88,6 +88,7 @@
     <Compile Include="Behaviours\SelectRange.cs" />
     <Compile Include="Behaviours\SelectAndFocus.cs" />
     <Compile Include="Behaviours\SavedPassword.cs" />
+    <Compile Include="DataModels\IUploadFile.cs" />
     <Compile Include="DataModels\UploadList.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Native\NativeMethods.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Service\PermittedFiles.cs" />
     <Compile Include="Properties\Settings.Extended.cs" />
     <Compile Include="Service\IReadOnlyPermittedFiles.cs" />
+    <Compile Include="Service\UploadMessages.cs" />
     <Compile Include="Utilities\DialogManager.cs" />
     <Compile Include="Utilities\Encryption.cs" />
     <Compile Include="Utilities\Entropy.cs" />
