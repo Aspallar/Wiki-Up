@@ -563,6 +563,38 @@ namespace Tests
             Assert.That(wasSetToTrue, Is.True);
         }
 
+        [Test]
+        public void When_ForceUploadsIsOn_Then_UploadIsDoneWithIgnoreWarnings()
+        {
+            AlllFilesPermitted();
+            for (int i = 0; i < 3; i++)
+                AddSingleUploadFile();
+            _model.ForceUpload = true;
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, true))
+                .MustHaveHappened();
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, false))
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_ForceUploadsIsOff_Then_UploadIsDoneWithoutIgnoreWarnings()
+        {
+            AlllFilesPermitted();
+            for (int i = 0; i < 3; i++)
+                AddSingleUploadFile();
+            _model.ForceUpload = false;
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, false))
+                .MustHaveHappened();
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, true))
+                .MustNotHaveHappened();
+        }
+
         #endregion
 
         #region Upload - Exception Errors
