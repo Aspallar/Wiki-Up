@@ -450,8 +450,12 @@ namespace Tests
 
         #region Upload
 
-        private void AddSingleUploadFile() 
-            => _model.UploadFiles.Add(new UploadFile { FullPath = "Foobar.jpg" });
+        private UploadFile AddSingleUploadFile()
+        {
+            var file = new UploadFile { FullPath = "Foobar.jpg" };
+            _model.UploadFiles.Add(file);
+            return file;
+        }
 
         private void AddThreeploadFiles()
         {
@@ -541,13 +545,17 @@ namespace Tests
         public void When_Uploading_Then_StatusIsSetToUploadingWithMessage()
         {
             AlllFilesPermitted();
-            var file = A.Fake<IUploadFile>();
-            A.CallTo(() => file.FullPath).Returns("foobar.jpg");
-            _model.UploadFiles.Add(file);
+            var foo = AddSingleUploadFile();
+            bool wasSetToUnloading = false;
+            foo.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(foo.Status) && foo.Status == UploadFileStatus.Uploading)
+                    wasSetToUnloading = true; ;
+            };
 
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => file.SetUploading()).MustHaveHappened();
+            Assert.That(wasSetToUnloading, Is.True);
         }
 
         [Test]
@@ -558,7 +566,7 @@ namespace Tests
             var wasSetToTrue = false;
             _model.PropertyChanged += (s, e) =>
             {
-                if (e.PropertyName == "UploadIsRunning" && _model.UploadIsRunning)
+                if (e.PropertyName == nameof(_model.UploadIsRunning) && _model.UploadIsRunning)
                     wasSetToTrue = true;
             };
 
@@ -595,6 +603,29 @@ namespace Tests
                 .MustHaveHappened();
             A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, true))
                 .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_Uploading_Then_UploadingFileIsBroughtIntoView()
+        {
+            AlllFilesPermitted();
+            var files = new List<UploadFile>
+            {
+                new UploadFile { FullPath = "foo.jpg" },
+                new UploadFile { FullPath = "bar.jpg" },
+                new UploadFile { FullPath = "baz.jpg" },
+            };
+            _model.UploadFiles.AddRange(files);
+            var viewdFiles = new List<UploadFile>();
+            _model.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_model.ViewedFile) && _model.ViewedFile != null)
+                    viewdFiles.Add(_model.ViewedFile);
+            };
+
+            _model.UploadCommand.Execute(null);
+
+            Assert.That(viewdFiles, Is.EqualTo(files));
         }
 
         #endregion

@@ -1,11 +1,12 @@
 ﻿using PropertyChanged;
 using System;
+using System.ComponentModel;
 using System.IO;
 
 namespace WikiUpload
 {
     [AddINotifyPropertyChangedInterface]
-    public class UploadFile : IUploadFile
+    public class UploadFile : INotifyPropertyChanged
     {
         public string FullPath { get; set; }
 
@@ -45,5 +46,13 @@ namespace WikiUpload
             Status = UploadFileStatus.Uploading;
             Message = "Uploading to wiki...";
         }
+
+        public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+
     }
 }

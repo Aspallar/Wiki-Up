@@ -126,7 +126,7 @@ namespace WikiUpload
             });
         }
 
-        private async Task UploadFile(IUploadFile file, CancellationToken cancelToken)
+        private async Task UploadFile(UploadFile file, CancellationToken cancelToken)
         {
             int maxLagRetries = 3;
             bool tokenRefreshed = false;
@@ -347,6 +347,6 @@ namespace WikiUpload
 
         public UploadList UploadFiles { get; set; } = new UploadList();
 
-        public IUploadFile ViewedFile { get; set; }
+        public UploadFile ViewedFile { get; set; }
     }
 }
