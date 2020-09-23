@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,5 +18,7 @@ namespace WikiUpload
         public Task Wait(int ms, CancellationToken token) => Task.Delay(ms, token);
 
         public Process LaunchProcess(string path) => Process.Start(path);
+
+        public string ApplicationVersion => Utils.ApplicationVersion;
     }
 }

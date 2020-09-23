@@ -14,6 +14,6 @@ namespace WikiUpload
         void Dispose();
         Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted = false);
         Task RefreshTokenAsync();
-        Task<UploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false);
+        Task<IUploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false);
     }
 }

@@ -98,6 +98,7 @@
     <Compile Include="Properties\IAppSettings.cs" />
     <Compile Include="Service\IFileUploader.cs" />
     <Compile Include="Service\INavigatorService.cs" />
+    <Compile Include="Service\IUploadResponse.cs" />
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="Service\PermittedFiles.cs" />
     <Compile Include="Properties\Settings.Extended.cs" />

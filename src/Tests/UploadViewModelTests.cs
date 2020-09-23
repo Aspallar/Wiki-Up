@@ -7,8 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Threading;
 using System.Threading.Tasks;
 using WikiUpload;
 
@@ -21,18 +23,28 @@ namespace Tests
         private WikiUpload.Properties.IAppSettings _appSetttings;
         private IFileUploader _fileUploader;
         private IHelpers _helpers;
+        private IUploadResponse _uploadResponse;
         private IUploadListSerializer _uploadListSerializer;
+        private IReadOnlyPermittedFiles _permittedFiles;
         private UploadViewModel _model;
 
         #region Setup
         [SetUp]
         public void Setup()
         {
+            _permittedFiles = A.Fake<IReadOnlyPermittedFiles>();
             _dialogs = A.Fake<IDialogManager>();
             _appSetttings = A.Fake<WikiUpload.Properties.IAppSettings>();
             _fileUploader = A.Fake<IFileUploader>();
             _uploadListSerializer = A.Fake<IUploadListSerializer>();
             _helpers = A.Fake<IHelpers>();
+            _uploadResponse = A.Fake<IUploadResponse>();
+
+            A.CallTo(() => _fileUploader.PermittedFiles)
+                .Returns(_permittedFiles);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+                .Returns(_uploadResponse);
 
             _model = new UploadViewModel(_fileUploader,
                 _dialogs,
@@ -334,8 +346,6 @@ namespace Tests
             A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to save file.")))
                 .MustHaveHappened(1, Times.Exactly);
         }
-
-
         #endregion
 
         #region Upload Files Add and Remove 
@@ -437,6 +447,93 @@ namespace Tests
                 .MustHaveHappened(1, Times.Exactly);
         }
 
+
+        #endregion
+
+        #region Upload
+
+        private void AddSingleUploadFile()
+        {
+            _model.UploadFiles.Add(new UploadFile { FullPath = "Foobar.jpg" });
+        }
+
+        private void AlllFilesPermitted()
+        {
+            A.CallTo(() => _permittedFiles.IsPermitted(A<string>._)).Returns(true);
+        }
+
+        [Test]
+        public void When_UploadIsSucessfull_Then_FilesAreRemovedFromUploadList()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            A.CallTo(() => _uploadResponse.Result).Returns(ResponseCodes.Success);
+
+            _model.UploadCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles.Count, Is.Zero);
+        }
+
+        [Test]
+        public void When_UploadResultIsError_Then_FilesStatusIsSetToErrorWithMessaget()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+
+            A.CallTo(() => _uploadResponse.IsError).Returns(true);
+            A.CallTo(() => _uploadResponse.IsTokenError).Returns(false);
+            const string errorText = "foobar";
+            A.CallTo(() => _uploadResponse.ErrorsText).Returns(errorText);
+
+            _model.UploadCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(1));
+            var file = _model.UploadFiles[0];
+            Assert.That(file.Status, Is.EqualTo(UploadFileStatus.Error));
+            Assert.That(file.Message, Is.EqualTo(errorText));
+        }
+
+        [Test]
+        public void When_UploadResultIsWarning_Then_FilesStatusIsSetToWarningWithMessaget()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+
+            A.CallTo(() => _uploadResponse.Result).Returns(ResponseCodes.Warning);
+            const string warningText = "foobar";
+            A.CallTo(() => _uploadResponse.WarningsText).Returns(warningText);
+
+            _model.UploadCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(1));
+            var file = _model.UploadFiles[0];
+            Assert.That(file.Status, Is.EqualTo(UploadFileStatus.Warning));
+            Assert.That(file.Message, Is.EqualTo(warningText));
+        }
+
+        [Test]
+        public void When_FileIsNotPermitted_Then_NoUploadAttempted()
+        {
+            AddSingleUploadFile();
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_FileIsNotPermitted_Then_StatusIsSetToErrorWithMessaget()
+        {
+            AddSingleUploadFile();
+
+            _model.UploadCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(1));
+            var file = _model.UploadFiles[0];
+            Assert.That(file.Status, Is.EqualTo(UploadFileStatus.Error));
+            Assert.That(file.Message, Does.EndWith("are not permitted."));
+        }
 
         #endregion
     }
