@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UploadFileTests.cs" />
     <Compile Include="UploadListTests.cs" />
     <Compile Include="UploadViewModelTests.cs" />
     <Compile Include="PasswordManagerTests.cs" />
