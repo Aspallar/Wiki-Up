@@ -1,16 +1,10 @@
-﻿using Castle.Components.DictionaryAdapter.Xml;
-using Castle.Core.Internal;
-using FakeItEasy;
+﻿using FakeItEasy;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Runtime.InteropServices;
-using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -435,6 +429,7 @@ namespace Tests
                 .MustHaveHappened(1, Times.Exactly);
         }
 
+        [Test]
         public void When_ShowFileIsExecuted_Then_FileIsLaunched()
         {
             const string filename = "foo.jpg";
@@ -457,7 +452,7 @@ namespace Tests
             return file;
         }
 
-        private void AddThreeploadFiles()
+        private void AddThreeUploadFiles()
         {
             for (int i = 0; i < 3; i++)
                 AddSingleUploadFile();
@@ -467,6 +462,68 @@ namespace Tests
         {
             A.CallTo(() => _permittedFiles.IsPermitted(A<string>._)).Returns(true);
         }
+
+        [Test]
+        public void When_NothingToUploade_Then_NoUploadIsAttempted()
+        {
+            AlllFilesPermitted();
+            
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_UploadIsDone_Then_PageContentIsSet()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            A.CallTo(() => _uploadResponse.Result).Returns(ResponseCodes.Success);
+            const string content = "foobar";
+            _model.PageContent = content;
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallToSet(() => _fileUploader.PageContent).To(content)
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_UploadIsDone_Then_SummaryIsSetWithViaWikiUp()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            A.CallTo(() => _uploadResponse.Result).Returns(ResponseCodes.Success);
+            const string summary = "foobar";
+            _model.UploadSummary = summary;
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallToSet(() => _fileUploader.Summary).To(()=>A<string>.That.StartsWith(summary))
+                .MustHaveHappened(1, Times.Exactly);
+            A.CallToSet(() => _fileUploader.Summary).To(() => A<string>.That.Contains("via Wiki-Up"))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_UploadIsDoneToFandom_Then_SummaryIsSetWithLinkToDev()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            A.CallTo(() => _uploadResponse.Result).Returns(ResponseCodes.Success);
+            const string summary = "foobar";
+            _model.UploadSummary = summary;
+            _model.Site = ".fandom.";
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallToSet(() => _fileUploader.Summary).To(() => A<string>.That.StartsWith(summary))
+                .MustHaveHappened(1, Times.Exactly);
+            A.CallToSet(() => _fileUploader.Summary).To(() => A<string>.That.Contains("[[w:c:dev:Wiki-Up|Wiki-Up]]"))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
 
         [Test]
         public void When_UploadIsSucessfull_Then_FilesAreRemovedFromUploadList()
@@ -579,7 +636,7 @@ namespace Tests
         public void When_ForceUploadsIsOn_Then_UploadIsDoneWithIgnoreWarnings()
         {
             AlllFilesPermitted();
-            AddThreeploadFiles();
+            AddThreeUploadFiles();
             _model.ForceUpload = true;
 
             _model.UploadCommand.Execute(null);
@@ -594,7 +651,7 @@ namespace Tests
         public void When_ForceUploadsIsOff_Then_UploadIsDoneWithoutIgnoreWarnings()
         {
             AlllFilesPermitted();
-            AddThreeploadFiles();
+            AddThreeUploadFiles();
             _model.ForceUpload = false;
 
             _model.UploadCommand.Execute(null);
@@ -628,6 +685,53 @@ namespace Tests
             Assert.That(viewdFiles, Is.EqualTo(files));
         }
 
+        [Test]
+        public void When_InvalidTokenResponse_Then_OneAttemptIsMadeToRefreshToken()
+        {
+            AlllFilesPermitted();
+            AddThreeUploadFiles();
+            A.CallTo(() => _uploadResponse.IsError).Returns(true);
+            A.CallTo(() => _uploadResponse.IsTokenError).Returns(true);
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.RefreshTokenAsync())
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_RefreshTokenIsSuccessfull_Then_UploadContinues()
+        {
+            AlllFilesPermitted();
+            AddThreeUploadFiles();
+            A.CallTo(() => _uploadResponse.Result)
+                .Returns("").Once().Then.Returns(ResponseCodes.Success);
+            A.CallTo(() => _uploadResponse.IsError)
+                .Returns(true).Once().Then.Returns(false);
+            A.CallTo(() => _uploadResponse.IsTokenError)
+                .Returns(true).Once().Then.Returns(false);
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.RefreshTokenAsync())
+                .MustHaveHappened(1, Times.Exactly);
+            Assert.That(_model.UploadFiles.Count, Is.Zero);
+        }
+
+        [Test]
+        public void When_UnknownResponse_Then_ErrorIsShownAndUploadContinues()
+        {
+            AlllFilesPermitted();
+            AddThreeUploadFiles();
+            A.CallTo(() => _uploadResponse.Result).Returns("Foobar");
+            A.CallTo(() => _uploadResponse.IsError).Returns(false);
+            
+            _model.UploadCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles.Count(x => x.Status == UploadFileStatus.Error 
+                && x.Message == UploadMessages.UnkownServerResponse), Is.EqualTo(3));
+        }
+
         #endregion
 
         #region Upload - Exception Errors
@@ -635,7 +739,7 @@ namespace Tests
         private void ExceptionErrorTest(Exception errorException, string expedtedMessage, bool stopsUpload = false)
         {
             AlllFilesPermitted();
-            AddThreeploadFiles();
+            AddThreeUploadFiles();
             A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
                 .Throws(errorException);
 

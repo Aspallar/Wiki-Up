@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -177,7 +176,7 @@ namespace WikiUpload
                 }
                 else
                 {
-                    file.SetError("Unexpected server response");
+                    file.SetError(UploadMessages.UnkownServerResponse);
                 }
                 return;
             }

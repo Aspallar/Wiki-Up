@@ -10,5 +10,6 @@
         public const string NoEditToken = "Unable to obtain valid edit token. Uploads cancelled. You may have to restart Wiki-Up to resolve this error.";
         public const string NetworkError = "Network error. Unable to upload.";
         public const string TimedOut = "The upload timed out.";
+        public const string UnkownServerResponse = "Unexpected server response.";
     }
 }
