@@ -14,9 +14,10 @@ namespace WikiUpload
                 => ((Frame)sender).NavigationService.RemoveBackEntry();
         }
 
-        public void NavigateToUploadPage()
-        {
-            _navigator.Navigate(new UploadPage());
-        }
+        public void NavigateToLoginPage()
+            => _navigator.Navigate(new LoginPage());
+
+        public void NavigateToUploadPage() 
+            => _navigator.Navigate(new UploadPage());
     }
 }

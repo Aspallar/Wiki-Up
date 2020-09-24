@@ -19,6 +19,7 @@ namespace WikiUpload
 
         private readonly IDialogManager _dialogs;
         private readonly IHelpers _helpers;
+        private readonly INavigatorService _navigatorService;
         private readonly IUploadListSerializer _uploadFileSerializer;
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;
@@ -27,12 +28,14 @@ namespace WikiUpload
             IDialogManager dialogManager,
             IHelpers helpers,
             IUploadListSerializer uploadFileSerializer,
+            INavigatorService navigatorService,
             IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
             _appSettings = appSettings;
             _dialogs = dialogManager;
             _helpers = helpers;
+            _navigatorService = navigatorService;
             _uploadFileSerializer = uploadFileSerializer;
 
             UploadSummary = "";
@@ -48,7 +51,14 @@ namespace WikiUpload
             SaveListCommand = new RelayCommand(SaveList);
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
             AddCategoryCommand = new RelayCommand(AddCategory);
+            SignOutCommand = new RelayCommand(SignOut);
             Site = _fileUploader.Site;
+        }
+
+        private void SignOut()
+        {
+            _fileUploader.LogOff();
+            _navigatorService.NavigateToLoginPage();
         }
 
         private async Task Upload()
@@ -345,6 +355,8 @@ namespace WikiUpload
         public ICommand ShowFileCommand { get; set; }
 
         public ICommand AddCategoryCommand { get; set; }
+        
+        public ICommand SignOutCommand { get; set; }
 
         public bool UploadIsRunning { get; set; }
 

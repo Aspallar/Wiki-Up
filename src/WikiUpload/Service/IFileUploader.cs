@@ -11,6 +11,7 @@ namespace WikiUpload
         string Site { get; set; }
         string Summary { get; set; }
 
+        void LogOff();
         void Dispose();
         Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted = false);
         Task RefreshTokenAsync();

@@ -20,6 +20,7 @@ namespace Tests
         private IFileUploader _fileUploader;
         private IHelpers _helpers;
         private IUploadResponse _uploadResponse;
+        private INavigatorService _navigationService;
         private IUploadListSerializer _uploadListSerializer;
         private IReadOnlyPermittedFiles _permittedFiles;
         private UploadViewModel _model;
@@ -35,6 +36,7 @@ namespace Tests
             _uploadListSerializer = A.Fake<IUploadListSerializer>();
             _helpers = A.Fake<IHelpers>();
             _uploadResponse = A.Fake<IUploadResponse>();
+            _navigationService = A.Fake<INavigatorService>();
 
             A.CallTo(() => _fileUploader.PermittedFiles)
                 .Returns(_permittedFiles);
@@ -46,6 +48,7 @@ namespace Tests
                 _dialogs,
                 _helpers,
                 _uploadListSerializer,
+                _navigationService,
                 _appSetttings);
         }
 
@@ -905,6 +908,27 @@ namespace Tests
 
             A.CallTo(() => _helpers.Wait(backoffSeconds * 1000, A<CancellationToken>._))
                 .MustHaveHappened();
+        }
+
+        #endregion
+
+        #region Sign Out
+        [Test]
+        public void When_SignOutIsExecuted_Then_UserIsLoggedOff()
+        {
+            _model.SignOutCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.LogOff())
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_SignOutIsExecuted_Then_LoginPageIsNavigatedTo()
+        {
+            _model.SignOutCommand.Execute(null);
+
+            A.CallTo(() => _navigationService.NavigateToLoginPage())
+                .MustHaveHappened(1, Times.Exactly);
         }
 
         #endregion
