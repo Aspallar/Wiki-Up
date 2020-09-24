@@ -139,15 +139,19 @@ namespace WikiUpload
                 var response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload);
                 await _helpers.Wait(_appSettings.UploadDelay, cancelToken);
 
-                if (response.Result == ResponseCodes.Success)
+                // Note: Only access response.Result once, as thgis makes testing much easier
+                //       as a chain of responses can be faked. See maclag tests in UploadViewModelTests.cs
+                var result = response.Result;
+
+                if (result == ResponseCodes.Success)
                 {
                     UploadFiles.Remove(file);
                 }
-                else if (response.Result == ResponseCodes.Warning)
+                else if (result == ResponseCodes.Warning)
                 {
                     file.SetWarning(response.WarningsText);
                 }
-                else if (response.Result == ResponseCodes.MaxlagThrottle)
+                else if (result == ResponseCodes.MaxlagThrottle)
                 {
                     if (--maxLagRetries < 0)
                         throw new ServerIsBusyException();

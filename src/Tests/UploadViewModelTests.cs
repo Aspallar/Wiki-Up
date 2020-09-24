@@ -809,5 +809,69 @@ namespace Tests
         }
 
         #endregion
+
+        #region UpLoad - maxlag
+        [Test]
+        public void When_MaxlagResponse_Then_UpoloadIsRetried()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            A.CallTo(() => _uploadResponse.Result)
+                .Returns(ResponseCodes.MaxlagThrottle).Once()
+                .Then.Returns(ResponseCodes.Success);
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+                .MustHaveHappened(2, Times.Exactly);
+        }
+
+        [Test]
+        public void When_MaxlagResponse_Then_UpoloadIsRetriedAMaximumOfThreeTimes()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            A.CallTo(() => _uploadResponse.Result)
+                .Returns(ResponseCodes.MaxlagThrottle);
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+                .MustHaveHappened(4, Times.Exactly);
+        }
+
+        [Test]
+        public void When_MaxlagExceedsMaximumRetries_Then_ServerIsBusyError()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            A.CallTo(() => _uploadResponse.Result)
+                .Returns(ResponseCodes.MaxlagThrottle);
+
+            _model.UploadCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(1));
+            Assert.That(_model.UploadFiles[0].Message, Is.EqualTo(UploadMessages.ServerBusy));
+        }
+
+        [Test]
+        public void When_MaxlagResponse_Then_SuggestedBackoffIsHonoured()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+
+            A.CallTo(() => _uploadResponse.Result)
+                .Returns(ResponseCodes.MaxlagThrottle);
+            const int backoffSeconds = 666;
+            A.CallTo(() => _uploadResponse.RetryDelay)
+                .Returns(backoffSeconds);
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _helpers.Wait(backoffSeconds * 1000, A<CancellationToken>._))
+                .MustHaveHappened();
+        }
+
+        #endregion
     }
 }
