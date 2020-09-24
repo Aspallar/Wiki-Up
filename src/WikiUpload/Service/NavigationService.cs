@@ -1,4 +1,6 @@
-﻿namespace WikiUpload
+﻿using System.Windows.Controls;
+
+namespace WikiUpload
 {
     public class NavigationService : INavigatorService
     {
@@ -7,6 +9,9 @@
         public NavigationService(System.Windows.Navigation.NavigationService navigator)
         {
             _navigator = navigator;
+            // stop the service maintining a history
+            _navigator.Navigated += (sender, _)
+                => ((Frame)sender).NavigationService.RemoveBackEntry();
         }
 
         public void NavigateToUploadPage()
