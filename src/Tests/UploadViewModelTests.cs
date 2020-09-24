@@ -732,6 +732,41 @@ namespace Tests
                 && x.Message == UploadMessages.UnkownServerResponse), Is.EqualTo(3));
         }
 
+        [Test]
+        public void When_CancelExecuted_Then_CancelUploadIsRequested()
+        {
+            _model.CancelCommand.Execute(null);
+
+            A.CallTo(() => _helpers.SignalCancel(A<CancellationTokenSource>._))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_FilesAreDropped_Then_DroppedFilesAddedToUploadFiles()
+        {
+            AddSingleUploadFile();
+            const string file1 = "baz.jpg";
+            const string file2 = "foo.jpg";
+            var dropFiles = new string[] { file1, file2 };
+
+            _model.OnFileDrop(dropFiles);
+
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(dropFiles.Length + 1));
+            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file1), Is.True);
+            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file2), Is.True);
+        }
+
+        [Test]
+        public void When_FilesAreDroppedAndUploadRunning_Then_DroppedFilesNotAddedToUploadFiles()
+        {
+            var dropFiles = new string[] { "foo.jpg" };
+            _model.UploadIsRunning = true;
+
+            _model.OnFileDrop(dropFiles);
+
+            Assert.That(_model.UploadFiles.Count, Is.Zero);
+        }
+
         #endregion
 
         #region Upload - Exception Errors

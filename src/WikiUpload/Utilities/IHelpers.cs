@@ -14,5 +14,6 @@ namespace WikiUpload
         Task Wait(int ms, CancellationToken token);
         void WriteAllText(string path, string content);
         bool IsCancellationRequested(CancellationToken token);
+        void SignalCancel(CancellationTokenSource tokenSource);
     }
 }

@@ -228,7 +228,7 @@ namespace WikiUpload
 
         private void Cancel()
         {
-            _cancelSource.Cancel();
+            _helpers.SignalCancel(_cancelSource);
         }
 
         private void LoadContent()

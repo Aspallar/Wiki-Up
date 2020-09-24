@@ -19,6 +19,8 @@ namespace WikiUpload
 
         public bool IsCancellationRequested(CancellationToken token) => token.IsCancellationRequested;
 
+        public void SignalCancel(CancellationTokenSource tokenSource) => tokenSource.Cancel();
+
         public string ApplicationVersion => Utils.ApplicationVersion;
     }
 }
