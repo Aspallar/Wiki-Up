@@ -9,7 +9,32 @@ namespace Tests
     public class UploadListTests
     {
         [Test]
-        public void When_AddRange_Then_FilesAreAdded()
+        public void AddAddIfNotDuplicate_AddsFile()
+        {
+            var uploadList = new UploadList();
+            var file = new UploadFile { FullPath = "foo.jpg" };
+
+            uploadList.AddIfNotDuplicate(file);
+
+            Assert.That(uploadList.Count, Is.EqualTo(1));
+            Assert.That(uploadList[0], Is.EqualTo(file));
+        }
+
+        [Test]
+        public void Add_WithDuplicate_DoesNotAddFile()
+        {
+            var uploadList = new UploadList();
+            var file1 = new UploadFile { FullPath = "a" };
+            var file2 = new UploadFile { FullPath = "a" };
+
+            uploadList.AddIfNotDuplicate(file1);
+            uploadList.AddIfNotDuplicate(file2);
+
+            Assert.That(uploadList.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void AddRange_FilesAreAdded()
         {
             var uploadList = new UploadList();
             var addFiles = new List<UploadFile>
@@ -24,7 +49,31 @@ namespace Tests
         }
 
         [Test]
-        public void When_AddNewRange_Then_FilesAreAdded()
+        public void AddRange_WithDuplicate_DuplicatesAreNotAdded()
+        {
+            var uploadList = new UploadList();
+            const string duplicatePath = "a";
+            var duplicate = new UploadFile() { FullPath = duplicatePath };
+            var addFiles1 = new List<UploadFile>
+            {
+                new UploadFile() { FullPath = duplicatePath },
+                new UploadFile() { FullPath = "b"},
+            };
+            var addFiles2 = new List<UploadFile>
+            {
+                duplicate,
+                new UploadFile() { FullPath = "c" },
+            };
+
+            uploadList.AddRange(addFiles1);
+            uploadList.AddRange(addFiles2);
+
+            Assert.That(uploadList.Count, Is.EqualTo(3));
+            Assert.That(uploadList, Does.Not.Contain(duplicate));
+        }
+
+        [Test]
+        public void AddNewRange_FilesAreAdded()
         {
             var uploadList = new UploadList();
             var addFiles = new List<string> { "a", "b" };
@@ -32,6 +81,24 @@ namespace Tests
             uploadList.AddNewRange(addFiles);
 
             Assert.That(uploadList.Select(x => x.FullPath).ToList(), Is.EqualTo(addFiles));
+        }
+
+        [Test]
+        public void AddNewRange_WithDuplicates_DuplicatesAreNotAdded()
+        {
+            const string duplicatePath = "a";
+            var uploadList = new UploadList
+            {
+                new UploadFile { FullPath = duplicatePath },
+                new UploadFile { FullPath = "b" },
+            };
+            
+            var addFiles = new List<string> { duplicatePath, "c" };
+
+            uploadList.AddNewRange(addFiles);
+
+            Assert.That(uploadList.Count, Is.EqualTo(3));
+            Assert.That(uploadList.Count(x => x.FullPath == duplicatePath), Is.EqualTo(1));
         }
 
         [Test]

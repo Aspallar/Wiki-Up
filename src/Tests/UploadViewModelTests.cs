@@ -347,7 +347,7 @@ namespace Tests
         }
         #endregion
 
-        #region Upload Files Add and Remove 
+        #region Upload Files Add, Remove abd Drop
         [Test]
         public void When_AddFilesIsExecutedAndFilesChosen_Then_FilesAreAddedToUploadFiles()
         {
@@ -356,7 +356,7 @@ namespace Tests
             const string file2 = "foo.jpg";
             const string file3 = "bar.jpg";
 
-            _model.UploadFiles.Add(new UploadFile { FullPath = file1 });
+            _model.UploadFiles.AddIfNotDuplicate(new UploadFile { FullPath = file1 });
             A.CallTo(() => _dialogs.AddFilesDialog(A<string[]>._, A<string>._, out list))
                 .Returns(true)
                 .AssignsOutAndRefParameters(new List<string> { file2, file3 });
@@ -367,6 +367,25 @@ namespace Tests
             Assert.That(_model.UploadFiles.Any(x => x.FullPath == file1), Is.True);
             Assert.That(_model.UploadFiles.Any(x => x.FullPath == file2), Is.True);
             Assert.That(_model.UploadFiles.Any(x => x.FullPath == file3), Is.True);
+        }
+
+        [Test]
+        public void When_AddFilesIsExecutedAndFilesChosen_Then_DuplicateFilesAreANotddedToUploadFiles()
+        {
+            IList<string> list;
+            const string file1 = "foobar.jpg";
+            const string file2 = "foobar.jpg";
+            const string file3 = "bar.jpg";
+
+            _model.UploadFiles.AddIfNotDuplicate(new UploadFile { FullPath = file1 });
+            A.CallTo(() => _dialogs.AddFilesDialog(A<string[]>._, A<string>._, out list))
+                .Returns(true)
+                .AssignsOutAndRefParameters(new List<string> { file2, file3 });
+
+            _model.AddFilesCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles.Count(x => x.FullPath == file1), Is.EqualTo(1));
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -392,7 +411,7 @@ namespace Tests
                 new UploadFile { FullPath = "foo.jpg" },
                 new UploadFile { FullPath = "bar.jpg" },
             };
-            _model.UploadFiles.Add(new UploadFile { FullPath = fileName });
+            _model.UploadFiles.AddIfNotDuplicate(new UploadFile { FullPath = fileName });
             _model.UploadFiles.AddRange(removeFiles);
 
             _model.RemoveFilesCommand.Execute(removeFiles);
@@ -415,6 +434,46 @@ namespace Tests
             Assert.That(_model.UploadFiles.Count, Is.EqualTo(2));
             Assert.That(_model.UploadFiles, Does.Contain(file1));
             Assert.That(_model.UploadFiles, Does.Contain(file2));
+        }
+
+        [Test]
+        public void When_FilesAreDropped_Then_DroppedFilesAddedToUploadFiles()
+        {
+            AddSingleUploadFile();
+            const string file1 = "baz.jpg";
+            const string file2 = "foo.jpg";
+            var dropFiles = new string[] { file1, file2 };
+
+            _model.OnFileDrop(dropFiles);
+
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(dropFiles.Length + 1));
+            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file1), Is.True);
+            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file2), Is.True);
+        }
+
+        [Test]
+        public void When_FilesAreDropped_Then_DuplicateFilesAreNotAddedToUploadFiles()
+        {
+            var file = AddSingleUploadFile();
+            var file1 = file.FullPath;
+            const string file2 = "foo.jpg";
+            var dropFiles = new string[] { file1, file2 };
+
+            _model.OnFileDrop(dropFiles);
+
+            Assert.That(_model.UploadFiles.Count(x => x.FullPath == file1), Is.EqualTo(1));
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void When_FilesAreDroppedAndUploadRunning_Then_DroppedFilesNotAddedToUploadFiles()
+        {
+            var dropFiles = new string[] { "foo.jpg" };
+            _model.UploadIsRunning = true;
+
+            _model.OnFileDrop(dropFiles);
+
+            Assert.That(_model.UploadFiles.Count, Is.Zero);
         }
 
         #endregion
@@ -451,14 +510,14 @@ namespace Tests
         private UploadFile AddSingleUploadFile()
         {
             var file = new UploadFile { FullPath = "Foobar.jpg" };
-            _model.UploadFiles.Add(file);
+            _model.UploadFiles.AddIfNotDuplicate(file);
             return file;
         }
 
         private void AddThreeUploadFiles()
         {
             for (int i = 0; i < 3; i++)
-                AddSingleUploadFile();
+                _model.UploadFiles.AddIfNotDuplicate(new UploadFile() { FullPath = $"BazFoo{i}.jpg" });
         }
 
         private void AlllFilesPermitted()
@@ -742,32 +801,6 @@ namespace Tests
 
             A.CallTo(() => _helpers.SignalCancel(A<CancellationTokenSource>._))
                 .MustHaveHappened(1, Times.Exactly);
-        }
-
-        [Test]
-        public void When_FilesAreDropped_Then_DroppedFilesAddedToUploadFiles()
-        {
-            AddSingleUploadFile();
-            const string file1 = "baz.jpg";
-            const string file2 = "foo.jpg";
-            var dropFiles = new string[] { file1, file2 };
-
-            _model.OnFileDrop(dropFiles);
-
-            Assert.That(_model.UploadFiles.Count, Is.EqualTo(dropFiles.Length + 1));
-            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file1), Is.True);
-            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file2), Is.True);
-        }
-
-        [Test]
-        public void When_FilesAreDroppedAndUploadRunning_Then_DroppedFilesNotAddedToUploadFiles()
-        {
-            var dropFiles = new string[] { "foo.jpg" };
-            _model.UploadIsRunning = true;
-
-            _model.OnFileDrop(dropFiles);
-
-            Assert.That(_model.UploadFiles.Count, Is.Zero);
         }
 
         #endregion

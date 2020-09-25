@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace WikiUpload
 {
@@ -11,16 +12,33 @@ namespace WikiUpload
                 Remove(item);
         }
 
+        public void AddIfNotDuplicate(UploadFile file)
+        {
+            if (!this.Any(x => x.FullPath == file.FullPath))
+                base.Add(file);
+        }
+
         public void AddNewRange(IList<string> items)
         {
             foreach (var item in items)
-                Add(new UploadFile { FullPath = item });
+                AddIfNotDuplicate(new UploadFile { FullPath = item });
         }
 
         public void AddRange(IList<UploadFile> items)
         {
             foreach (var item in items)
-                Add(item);
+                AddIfNotDuplicate(item);
         }
+
+#if DEBUG
+        //public new void Add(UploadFile file) 
+        //    => throw new InvalidOperationException("Use AddIfNotDuplicate instead.");
+
+        //public new UploadFile this[int i]
+        //{
+        //    get => base[i];
+        //    set => throw new InvalidOperationException("Use AddIfNotDuplicate instead.");
+        //}
+#endif
     }
 }
