@@ -73,6 +73,11 @@
       <Component Id="MahApps.Metro.IconPacks.FontAwesome.dll" Guid="309d62ff-7718-4a1e-8c90-54bf10ad8771">
         <File Id="MahApps.Metro.IconPacks.FontAwesome.dll" Name="MahApps.Metro.IconPacks.FontAwesome.dll" Source="$(var.WikiUpload_TargetDir)MahApps.Metro.IconPacks.FontAwesome.dll" KeyPath="yes"/>
       </Component>
+      
+      <!-- Ninject DI Franework -->
+      <Component Id="Ninject.dll" Guid="1a52b4aa-eb8a-4d10-9fde-f919612b930a">
+        <File Id="Ninject.dll" Name="Ninject.dll" Source="$(var.WikiUpload_TargetDir)Ninject.dll" KeyPath="yes"/>
+      </Component>
 
     </ComponentGroup>
 
