@@ -59,7 +59,7 @@ namespace TestServer
                 }
                 else if (request.ContentType.StartsWith("multipart/form-data"))
                 {
-                    if (options.UploadTimeout)
+                    if (options.UploadTimeout > 0 && GetRandom(100) < options.UploadTimeout)
                         return;
                     reply = UploadReply(options, response);
                 }
