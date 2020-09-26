@@ -116,11 +116,8 @@ namespace WikiUpload
 
         public bool ConfirmInsecureLoginDialog()
         {
-            var result = MessageBox.Show(
-                "Login via an insecure connection (http) will result in your username and password being sent in unencrypted plain text.\n\nAre you sure you wish to continue?",
-                "Wiki-Up Warning",
-                MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            return result == MessageBoxResult.Yes;
+            var dlg = new InsecureWarningWindow();
+            return (bool)dlg.ShowDialog();
         }
     }
 }

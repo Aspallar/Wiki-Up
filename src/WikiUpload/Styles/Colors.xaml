@@ -8,6 +8,8 @@
     <Color x:Key="PrimaryLightColor">#9162e4</Color>
     <Color x:Key="PrimaryDarkColor">#280680</Color>
     <Color x:Key="DisabledColor">Gray</Color>
+    <Color x:Key="Amber">#ffbf00</Color>
+
 
     <Color x:Key="PrimaryTextColor">LightGray</Color>
     <Color x:Key="SecondaryTextColor">#000000</Color>
@@ -38,12 +40,11 @@
 
     <!-- upload status icon colors -->
     <Color x:Key="UploadStatusWaitingColor">Gray</Color>
-    <Color x:Key="UploadStatusWarningColor">#ffbf00</Color>
     <Color x:Key="UploadStatusUploadingColor">Green</Color>
     <Color x:Key="UploadStatusErrorColor">#cc0000</Color>
 
     <SolidColorBrush x:Key="UploadStatusWaitingBrush" Color="{StaticResource UploadStatusWaitingColor}"/>
-    <SolidColorBrush x:Key="UploadStatusWarningBrush" Color="{StaticResource UploadStatusWarningColor}"/>
+    <SolidColorBrush x:Key="UploadStatusWarningBrush" Color="{StaticResource Amber}"/>
     <SolidColorBrush x:Key="UploadStatusUploadingBrush" Color="{StaticResource UploadStatusUploadingColor}"/>
     <SolidColorBrush x:Key="UploadStatusErrorBrush" Color="{StaticResource UploadStatusErrorColor}"/>
 
@@ -53,6 +54,9 @@
     
     <!-- tab control -->
     <Color x:Key="InactiveTabColor">Black</Color>
+
+    <!-- misc -->
+    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource Amber}"/>
 
 </ResourceDictionary>
 

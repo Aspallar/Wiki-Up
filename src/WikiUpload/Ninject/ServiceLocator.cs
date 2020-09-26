@@ -19,5 +19,8 @@ namespace WikiUpload
 
         public AboutBoxViewModel AboutBoxViewModel(Window window) 
             => _kernel.Get<AboutBoxViewModel>(new ConstructorArgument("window", window));
+
+        public InsecureWarningViewModel InsecureWarningViewModel(Window window) 
+            => _kernel.Get<InsecureWarningViewModel>(new ConstructorArgument("window", window));
     }
 }
