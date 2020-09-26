@@ -18,7 +18,6 @@ namespace WikiUpload
         private string _editToken;
         private HttpClient _client;
         private PermittedFiles _permittedFiles;
-        private HttpClientHandler _handler;
         private bool _useDeprecatedLogin;
         private readonly string _userAgent;
         private readonly int _timeoutSeconds;
@@ -44,9 +43,9 @@ namespace WikiUpload
 
         private void CreateClient()
         {
-            _handler = new HttpClientHandler();
-            _handler.CookieContainer = new CookieContainer();
-            _client = new HttpClient(_handler);
+            var handler = new HttpClientHandler();
+            handler.CookieContainer = new CookieContainer();
+            _client = new HttpClient(handler);
             _client.DefaultRequestHeaders.Add("User-Agent", _userAgent);
             if (_timeoutSeconds > 0)
                 _client.Timeout = new TimeSpan(0, 0, _timeoutSeconds);
