@@ -49,7 +49,7 @@ namespace WikiUpload
 
         public ICommand MenuCommand { get; set; }
         
-        private Window _window;
+        protected Window _window;
 
         private int _outerMarginSize = 10;
 

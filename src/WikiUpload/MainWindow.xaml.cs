@@ -13,8 +13,14 @@ namespace WikiUpload
         {
             InitializeComponent();
             DataContext = new WindowViewModel(this);
+            CreateApplicationServices();
+            Loaded += Window_Loaded;
+        }
+
+        private void CreateApplicationServices()
+        {
             App.Navigator = new NavigationService(MainFrame.NavigationService);
-            Loaded += new RoutedEventHandler(Window_Loaded);
+            App.ServiceLocator = new ServiceLocator();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -30,7 +36,7 @@ namespace WikiUpload
             if (msg == NativeMethods.WM_SYSCOMMAND && wParam == NativeMethods.AboutSysMenuId)
             {
                 handled = true;
-                var about = new AboutWindow();
+                var about = new AboutBoxWindow();
                 WindowInteropHelper aboutHandle = new WindowInteropHelper(about);
                 aboutHandle.Owner = hwnd;
                 about.ShowDialog();

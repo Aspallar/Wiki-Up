@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,5 +16,6 @@ namespace WikiUpload
         void WriteAllText(string path, string content);
         bool IsCancellationRequested(CancellationToken token);
         void SignalCancel(CancellationTokenSource tokenSource);
+        (string copyright, string version) ApplicationInformation { get; }
     }
 }

@@ -121,7 +121,6 @@ namespace WikiUpload
             RememberPassword = _appSettings.RememberPassword;
         }
 
-
         private async Task<string> Validate()
         {
             if (string.IsNullOrWhiteSpace(WikiUrl) || string.IsNullOrWhiteSpace(Username))

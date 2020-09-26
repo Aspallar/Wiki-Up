@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,5 +23,20 @@ namespace WikiUpload
         public void SignalCancel(CancellationTokenSource tokenSource) => tokenSource.Cancel();
 
         public string ApplicationVersion => Utils.ApplicationVersion;
+
+        public (string copyright, string version) ApplicationInformation
+        {
+            get
+            {
+                Assembly assembly = Assembly.GetEntryAssembly();
+                object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                var copyright = ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+                var version = Utils.GetApplicationVersion(assembly);
+                return (copyright, version);
+            }
+        }
+
+        public string CopyrightText { get; private set; }
+        public string VersionText { get; private set; }
     }
 }
