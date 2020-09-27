@@ -57,6 +57,7 @@
 
     <!-- misc -->
     <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource Amber}"/>
+    <SolidColorBrush x:Key="FocusedBorderBrush" Color="White"/>
 
 </ResourceDictionary>
 

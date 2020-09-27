@@ -9,7 +9,8 @@
 
         <Setter Property="Background" Value="{StaticResource ButtonColorBrush}" />
         <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
         <Setter Property="Padding" Value="20 6" />
@@ -36,6 +37,9 @@
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource ControlDisabledBackgroundBrush}"/>
                         </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource FocusedBorderBrush}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -60,10 +64,9 @@
 
     <!-- System Icon Button -->
     <Style TargetType="{x:Type Button}" x:Key="SystemIconButton" BasedOn="{StaticResource Hoverless}">
-
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="Padding" Value="6" />
-
+        <Setter Property="Focusable" Value="False"/>
     </Style>
 
     <!-- Window Control Button -->
@@ -73,6 +76,7 @@
         <Setter Property="Padding" Value="8" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
+        <Setter Property="Focusable" Value="False"/>
 
         <Setter Property="LayoutTransform">
             <Setter.Value>
@@ -115,7 +119,8 @@
 
         <Setter Property="Background" Value="{StaticResource ButtonColorBrush}" />
         <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
         <Setter Property="Padding" Value="20 6" />
@@ -154,6 +159,9 @@
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource ControlDisabledBackgroundBrush}"/>
                         </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource FocusedBorderBrush}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -165,6 +173,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Focusable" Value="False"/>
 
         <Setter Property="Template">
             <Setter.Value>

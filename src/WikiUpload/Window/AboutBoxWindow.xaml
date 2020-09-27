@@ -8,6 +8,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         WindowStartupLocation="CenterOwner"
+        FocusManager.FocusedElement="{Binding ElementName=OkButton}"
         Icon="{StaticResource LogoImage}"
         ResizeMode="NoResize"
         Title="About Wiki-Up" Height="580" Width="680">
@@ -175,7 +176,7 @@
         </TextBlock>
         <TextBlock Foreground="{StaticResource PrimaryLightBrush}" Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charlie Drake</TextBlock>
 
-        <Button Content="OK" HorizontalAlignment="Center" Margin="20" Width="200"
+        <Button Content="OK" x:Name="OkButton" HorizontalAlignment="Center" Margin="20" Width="200"
                 Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=AboutBox}"/>
 
 
