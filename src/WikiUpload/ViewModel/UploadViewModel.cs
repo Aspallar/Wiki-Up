@@ -146,7 +146,7 @@ namespace WikiUpload
                 file.SetUploading();
                 ViewedFile = file;
 
-                var response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload);
+                var response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload, IncludeInWatchlist);
                 await _helpers.Wait(_appSettings.UploadDelay, cancelToken);
 
                 // Note: Only access response.Result once, as thgis makes testing much easier
@@ -359,5 +359,7 @@ namespace WikiUpload
         public UploadList UploadFiles { get; set; } = new UploadList();
 
         public UploadFile ViewedFile { get; set; }
+
+        public bool IncludeInWatchlist { get; set; }
     }
 }

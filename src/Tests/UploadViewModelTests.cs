@@ -41,7 +41,7 @@ namespace Tests
             A.CallTo(() => _fileUploader.PermittedFiles)
                 .Returns(_permittedFiles);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, A<bool>._))
                 .Returns(_uploadResponse);
 
             _model = new UploadViewModel(_fileUploader,
@@ -514,7 +514,7 @@ namespace Tests
             
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, A<bool>._))
                 .MustNotHaveHappened();
         }
 
@@ -625,7 +625,7 @@ namespace Tests
 
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, A<bool>._))
                 .MustNotHaveHappened();
         }
 
@@ -685,9 +685,9 @@ namespace Tests
 
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, true))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, true, A<bool>._))
                 .MustHaveHappened();
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, false))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, false, A<bool>._))
                 .MustNotHaveHappened();
         }
 
@@ -700,9 +700,39 @@ namespace Tests
 
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, false))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, false, A<bool>._))
                 .MustHaveHappened();
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, true))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, true, A<bool>._))
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_IncludeInWatchlistIsOn_Then_UploadIsDoneWithIncludeInWatchlist()
+        {
+            AlllFilesPermitted();
+            AddThreeUploadFiles();
+            _model.IncludeInWatchlist = true;
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, true))
+                .MustHaveHappened();
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, false))
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_IncludeInWatchlistIsOff_Then_UploadIsDoneWithoutIncludeInWatchlist()
+        {
+            AlllFilesPermitted();
+            AddThreeUploadFiles();
+            _model.IncludeInWatchlist = false;
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, false))
+                .MustHaveHappened();
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, true))
                 .MustNotHaveHappened();
         }
 
@@ -793,7 +823,7 @@ namespace Tests
         {
             AlllFilesPermitted();
             AddThreeUploadFiles();
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._,  A<bool>._))
                 .Throws(errorException);
 
             _model.UploadCommand.Execute(null);
@@ -875,7 +905,7 @@ namespace Tests
 
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, A<bool>._))
                 .MustHaveHappened(2, Times.Exactly);
         }
 
@@ -889,7 +919,7 @@ namespace Tests
 
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, A<bool>._))
                 .MustHaveHappened(4, Times.Exactly);
         }
 

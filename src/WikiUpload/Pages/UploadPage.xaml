@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
       xmlns:local="clr-namespace:WikiUpload"
       FocusManager.FocusedElement="{Binding ElementName=AddFiles}"
       DataContext="{Binding Path=UploadViewModel, Source={StaticResource ServiceLocator}}"
@@ -132,19 +133,29 @@
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Margin="10" Grid.Column="2" VerticalAlignment="Bottom">
-                            <CheckBox Content="Force Upload"
-                                  IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"
-                                  IsChecked="{Binding ForceUpload, Mode=OneWayToSource}">
-                                <CheckBox.LayoutTransform>
-                                    <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
-                                </CheckBox.LayoutTransform>
-                            </CheckBox>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Column="0" Text="Ignore warnings" VerticalAlignment="Center"
+                                           ToolTip="Ignore warnings and upload files even if they already exist or are duplicates."/>
+                                <ToggleSwitch:HorizontalToggleSwitch Grid.Column="1"
+                                    IsChecked="{Binding ForceUpload, Mode=OneWayToSource}"
+                                    IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
 
-                            <TextBlock FontFamily="{StaticResource MainFont}"
-                                   FontSize="{StaticResource FontSizeSmall}"
-                                   TextWrapping="Wrap" Margin="0 0 0 20">
-                                Tick to ignore warnings and force the upload even if the file already exists or is a duplicate.
-                            </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Add to watch list" VerticalAlignment="Center"
+                                           Margin="0 10 0 0" ToolTip="Add the uploaded files to your watch list."/>
+                                <ToggleSwitch:HorizontalToggleSwitch Grid.Column="1" Grid.Row="1" Margin="0 10 0 0"
+                                    IsChecked="{Binding IncludeInWatchlist, Mode=OneWayToSource}"
+                                    IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
+                            </Grid>
+
                             <Button  Content="Stop Upload"
                                      IsEnabled="{Binding UploadIsRunning}"
                                      Command="{Binding CancelCommand}"

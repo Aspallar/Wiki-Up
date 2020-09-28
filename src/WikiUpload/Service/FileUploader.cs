@@ -159,7 +159,7 @@ namespace WikiUpload
             }
         }
 
-        public async Task<IUploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false)
+        public async Task<IUploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false, bool includeInWatchlist = false)
         {
             string fileName = Path.GetFileName(fullPath);
 
@@ -174,8 +174,8 @@ namespace WikiUpload
             {
                 { new StringContent("upload"), "action" },
                 { new StringContent("5"), "maxlag" },
+                { new StringContent(includeInWatchlist ? "watch" : "nochange"), "watchlist" },
                 { new StringContent(fileName), "filename" },
-                { new StringContent(_editToken), "token" },
                 { new StringContent("xml"), "format" },
                 { new StringContent(PageContent), "text" },
                 { new StringContent(Summary), "comment" },
@@ -185,6 +185,8 @@ namespace WikiUpload
                 uploadFormData.Add(new StringContent("1"), "ignorewarnings");
 
             uploadFormData.Add(new StreamContent(file), "file", fileName);
+
+            uploadFormData.Add(new StringContent(_editToken), "token");
 
             using (HttpResponseMessage response = await _client.PostAsync(_api, uploadFormData, cancelToken))
             {
