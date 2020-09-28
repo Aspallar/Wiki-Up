@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WikiUpload
 {
@@ -6,7 +7,7 @@ namespace WikiUpload
     {
         bool AddFilesDialog(string[] permittedExtensions, string imageExtensions, out IList<string> fileNames);
         bool ConfirmInsecureLoginDialog();
-        void ErrorMessage(string message);
+        void ErrorMessage(string message, Exception ex);
         bool LoadContentDialog(out string fileName);
         bool LoadUploadListDialog(out string fileName);
         bool SaveContentDialog(out string fileName);

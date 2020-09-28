@@ -121,6 +121,7 @@
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
+    <Compile Include="ViewModel\ErrorMessageViewModel.cs" />
     <Compile Include="ViewModel\InsecureWarningViewModel.cs" />
     <Compile Include="ViewModel\AboutBoxViewModel.cs" />
     <Compile Include="Exceptions\ServerIsBusyException.cs" />
@@ -157,6 +158,9 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\UploadViewModel.cs" />
     <Compile Include="ViewModel\WindowViewModel.cs" />
+    <Compile Include="Window\ErrorMessageWindow.xaml.cs">
+      <DependentUpon>ErrorMessageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\InsecureWarningWindow.xaml.cs">
       <DependentUpon>InsecureWarningWindow.xaml</DependentUpon>
     </Compile>
@@ -215,6 +219,10 @@
     <Page Include="Pages\UploadPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\ErrorMessageWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Window\InsecureWarningWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

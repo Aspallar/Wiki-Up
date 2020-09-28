@@ -232,7 +232,7 @@ namespace WikiUpload
             }
             catch (Win32Exception ex)
             {
-                _dialogs.ErrorMessage(ex.Message);
+                _dialogs.ErrorMessage("Unable to view iumage.", ex);
             }
         }
 
@@ -249,9 +249,9 @@ namespace WikiUpload
                 {
                     PageContent = _helpers.ReadAllText(fileName);
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to read file. " + ex.Message);
+                    _dialogs.ErrorMessage("Unable to read content.", ex);
                 }
             }
         }
@@ -264,9 +264,9 @@ namespace WikiUpload
                 {
                     _helpers.WriteAllText(fileName, PageContent);
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to save file. " + ex.Message);
+                    _dialogs.ErrorMessage("Unable to save content.",  ex);
                 }
             }
         }
@@ -279,13 +279,9 @@ namespace WikiUpload
                 {
                     _uploadFileSerializer.Add(fileName, UploadFiles);
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to read upload list. " + ex.Message);
-                }
-                catch (InvalidOperationException)
-                {
-                    _dialogs.ErrorMessage("Invalid file format.");
+                    _dialogs.ErrorMessage("Unable to read upload list.", ex);
                 }
             }
         }
@@ -298,9 +294,9 @@ namespace WikiUpload
                 {
                     _uploadFileSerializer.Save(fileName, UploadFiles);
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to save file. " + ex.Message);
+                    _dialogs.ErrorMessage("Unable to save upload list.", ex);
                 }
             }
         }

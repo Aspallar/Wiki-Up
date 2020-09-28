@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -109,9 +110,10 @@ namespace WikiUpload
             return result;
         }
 
-        public void ErrorMessage(string message)
+        public void ErrorMessage(string message, Exception ex)
         {
-            Utils.ErrorMessage(message);
+            var dlg = new ErrorMessageWindow(message, ex);
+            dlg.ShowDialog();
         }
 
         public bool ConfirmInsecureLoginDialog()

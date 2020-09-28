@@ -1,5 +1,6 @@
 ﻿using Ninject;
 using Ninject.Parameters;
+using System;
 using System.Windows;
 
 namespace WikiUpload
@@ -16,6 +17,9 @@ namespace WikiUpload
         public LoginViewModel LoginViewModel => _kernel.Get<LoginViewModel>();
 
         public UploadViewModel UploadViewModel => _kernel.Get<UploadViewModel>();
+
+        internal ErrorMessageViewModel ErrorMessageViewModel(Window window)
+            => _kernel.Get<ErrorMessageViewModel>(new ConstructorArgument("window", window));
 
         public AboutBoxViewModel AboutBoxViewModel(Window window) 
             => _kernel.Get<AboutBoxViewModel>(new ConstructorArgument("window", window));

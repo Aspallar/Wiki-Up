@@ -137,14 +137,14 @@ namespace Tests
             const string thePath = "foobar.txt";
             string path;
             A.CallTo(() => _helpers.ReadAllText(A<string>._))
-                .Throws(new IOException());
+                .Throws(new Exception());
             A.CallTo(() => _dialogs.LoadContentDialog(out path))
                 .Returns(true)
                 .AssignsOutAndRefParameters(thePath);
 
             _model.LoadContentCommand.Execute(null);
 
-            A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to read file.")))
+            A.CallTo(() => _dialogs.ErrorMessage("Unable to read content.", A<Exception>._))
                 .MustHaveHappened(1, Times.Exactly);
 
         }
@@ -155,14 +155,14 @@ namespace Tests
             const string thePath = "foobar.txt";
             string path;
             A.CallTo(() => _helpers.WriteAllText(A<string>._, A<string>._))
-                .Throws(new IOException());
+                .Throws(new Exception());
             A.CallTo(() => _dialogs.SaveContentDialog(out path))
                 .Returns(true)
                 .AssignsOutAndRefParameters(thePath);
 
             _model.SaveContentCommand.Execute(null);
 
-            A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to save file.")))
+            A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to save content."), A<Exception>._))
                 .MustHaveHappened(1, Times.Exactly);
         }
         #endregion
@@ -299,32 +299,14 @@ namespace Tests
             const string thePath = "foobar.wul";
 
             A.CallTo(() => _uploadListSerializer.Add(A<string>._, A<UploadList>._))
-                .Throws(new IOException());
+                .Throws(new Exception());
             A.CallTo(() => _dialogs.LoadUploadListDialog(out path))
                 .Returns(true)
                 .AssignsOutAndRefParameters(thePath);
 
             _model.LoadListCommand.Execute(null);
 
-            A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to read upload list.")))
-                .MustHaveHappened(1, Times.Exactly);
-        }
-
-        [Test]
-        public void When_LoadUploadFilesFormatError_Then_ErrorMessageIsShown()
-        {
-            string path;
-            const string thePath = "foobar.wul";
-
-            A.CallTo(() => _uploadListSerializer.Add(A<string>._, A<UploadList>._))
-                .Throws(new InvalidOperationException());
-            A.CallTo(() => _dialogs.LoadUploadListDialog(out path))
-                .Returns(true)
-                .AssignsOutAndRefParameters(thePath);
-
-            _model.LoadListCommand.Execute(null);
-
-            A.CallTo(() => _dialogs.ErrorMessage("Invalid file format."))
+            A.CallTo(() => _dialogs.ErrorMessage("Unable to read upload list.", A<Exception>._))
                 .MustHaveHappened(1, Times.Exactly);
         }
 
@@ -335,14 +317,14 @@ namespace Tests
             const string thePath = "foobar.wul";
 
             A.CallTo(() => _uploadListSerializer.Save(A<string>._, A<UploadList>._))
-                .Throws(new IOException());
+                .Throws(new Exception());
             A.CallTo(() => _dialogs.SaveUploadListDialog(out path))
                 .Returns(true)
                 .AssignsOutAndRefParameters(thePath);
 
             _model.SaveListCommand.Execute(null);
 
-            A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to save file.")))
+            A.CallTo(() => _dialogs.ErrorMessage("Unable to save upload list.", A<Exception>._))
                 .MustHaveHappened(1, Times.Exactly);
         }
         #endregion
