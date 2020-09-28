@@ -103,7 +103,7 @@
                         </ListBox>
                         <StackPanel Grid.Column="2" Margin="10">
                             <Button x:Name="AddFiles" Content="Add Files" Margin="0"
-                                ToolTip="Add files to the upload list"
+                                ToolTip="Add files to the upload list (Ctrl+A)"
                                 Command="{Binding AddFilesCommand}"
                                 IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
                             <Button Content="Remove Files" 
@@ -153,7 +153,7 @@
                                     Style="{StaticResource BusyButton}"
                                     Command="{Binding UploadCommand}"
                                     local:IsBusyProperty.Value="{Binding UploadIsRunning}"
-                                    ToolTip="Start uploading files."/>
+                                    ToolTip="Start uploading files. (Ctrl+U)"/>
                         </StackPanel>
                     </Grid>
                 </TabItem>
