@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -10,17 +9,35 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
+using WikiUpload.Properties;
 
 namespace WikiUpload
 {
     public class UploadViewModel : BaseViewModel, IFileDropTarget
     {
-        private readonly DialogManager _dialogs;
         private CancellationTokenSource _cancelSource;
 
-        public UploadViewModel()
+        private readonly IDialogManager _dialogs;
+        private readonly IHelpers _helpers;
+        private readonly INavigatorService _navigatorService;
+        private readonly IUploadListSerializer _uploadFileSerializer;
+        private readonly IFileUploader _fileUploader;
+        private readonly IAppSettings _appSettings;
+
+        public UploadViewModel(IFileUploader fileUploader,
+            IDialogManager dialogManager,
+            IHelpers helpers,
+            IUploadListSerializer uploadFileSerializer,
+            INavigatorService navigatorService,
+            IAppSettings appSettings)
         {
-            _dialogs = new DialogManager();
+            _fileUploader = fileUploader;
+            _appSettings = appSettings;
+            _dialogs = dialogManager;
+            _helpers = helpers;
+            _navigatorService = navigatorService;
+            _uploadFileSerializer = uploadFileSerializer;
+
             UploadSummary = "";
             PageContent = "";
             AddFilesCommand = new RelayCommand(AddFiles);
@@ -29,27 +46,34 @@ namespace WikiUpload
             CancelCommand = new RelayCommand(Cancel);
             LoadContentCommand = new RelayCommand(LoadContent);
             SaveContentCommand = new RelayCommand(SaveContent);
-            LaunchSiteCommand = new RelayCommand(() => Process.Start(Site));
+            LaunchSiteCommand = new RelayCommand(() => _helpers.LaunchProcess(Site));
             LoadListCommand = new RelayCommand(LoadList);
             SaveListCommand = new RelayCommand(SaveList);
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
             AddCategoryCommand = new RelayCommand(AddCategory);
-            Site = UploadService.Uploader.Site;
+            SignOutCommand = new RelayCommand(SignOut);
+            Site = _fileUploader.Site;
+        }
+
+        private void SignOut()
+        {
+            _fileUploader.LogOff();
+            _navigatorService.NavigateToLoginPage();
         }
 
         private async Task Upload()
         {
-            await RunCommand(() => this.UploadIsRunning, async () =>
+            await RunCommand(() => UploadIsRunning, async () =>
             {
                 using (_cancelSource = new CancellationTokenSource())
                 {
                     CancellationToken cancelToken = _cancelSource.Token;
                     var filesToUpload = UploadFiles.Select(x => x).ToList();
-                    UploadService.Uploader.Summary = AddAppName(UploadSummary);
-                    UploadService.Uploader.PageContent = PageContent;
+                    _fileUploader.Summary = AddAppName(UploadSummary);
+                    _fileUploader.PageContent = PageContent;
                     foreach (var file in filesToUpload)
                     {
-                        if (!UploadService.Uploader.PermittedFiles.IsPermitted(file.FileName))
+                        if (!_fileUploader.PermittedFiles.IsPermitted(file.FileName))
                         {
                             file.SetError($"Files of type \"{Path.GetExtension(file.FileName)}\" are not permitted.");
                         }
@@ -62,47 +86,47 @@ namespace WikiUpload
                             catch (HttpRequestException ex)
                             {
                                 if (ex.InnerException is IOException)
-                                    file.SetError("Error reading file during upload.");
+                                    file.SetError(UploadMessages.ReadFail);
                                 else
-                                    file.SetError("Network error. Unable to upload.");
+                                    file.SetError(UploadMessages.NetworkError);
                             }
                             catch (XmlException)
                             {
-                                file.SetError("Server returned an invalid XML response.");
+                                file.SetError(UploadMessages.InvalidXml);
                             }
                             catch (FileNotFoundException)
                             {
-                                file.SetError($"File not found.");
+                                file.SetError(UploadMessages.FileNotFound);
                             }
                             catch (IOException)
                             {
-                                file.SetError("Unable to read file.");
+                                file.SetError(UploadMessages.ReadFail);
                             }
                             catch (TaskCanceledException)
                             {
-                                if (cancelToken.IsCancellationRequested)
+                                if (_helpers.IsCancellationRequested(cancelToken))
                                 {
-                                    file.SetError("Upload cancelled.");
+                                    file.SetError(UploadMessages.Cancelled);
                                     break; // foreach
                                 }
                                 else
                                 {
-                                    file.SetError("The upload timed out.");
+                                    file.SetError(UploadMessages.TimedOut);
                                 }
                             }
                             catch (OperationCanceledException)
                             {
-                                file.SetError("Upload cancelled.");
+                                file.SetError(UploadMessages.Cancelled);
                                 break; // foreach
                             }
                             catch (ServerIsBusyException)
                             {
-                                file.SetError("Server is too busy. Uploads cancelled. Try again later.");
+                                file.SetError(UploadMessages.ServerBusy);
                                 break; // foreach
                             }
                             catch (NoEditTokenException)
                             {
-                                file.SetError("Unable to obtain valid edit token. Uploads cancelled. You may have to restart Wiki-Up to resolve this error.");
+                                file.SetError(UploadMessages.NoEditToken);
                                 break; // foreach
                             }
                         }
@@ -122,22 +146,26 @@ namespace WikiUpload
                 file.SetUploading();
                 ViewedFile = file;
 
-                var response = await UploadService.Uploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload);
-                await Task.Delay(Properties.Settings.Default.UploadDelay, cancelToken);
+                var response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload, IncludeInWatchlist);
+                await _helpers.Wait(_appSettings.UploadDelay, cancelToken);
 
-                if (response.Result == ResponseCodes.Success)
+                // Note: Only access response.Result once, as thgis makes testing much easier
+                //       as a chain of responses can be faked. See maclag tests in UploadViewModelTests.cs
+                var result = response.Result;
+
+                if (result == ResponseCodes.Success)
                 {
                     UploadFiles.Remove(file);
                 }
-                else if (response.Result == ResponseCodes.Warning)
+                else if (result == ResponseCodes.Warning)
                 {
                     file.SetWarning(response.WarningsText);
                 }
-                else if (response.Result == ResponseCodes.MaxlagThrottle)
+                else if (result == ResponseCodes.MaxlagThrottle)
                 {
                     if (--maxLagRetries < 0)
                         throw new ServerIsBusyException();
-                    await Task.Delay(response.RetryDelay * 1000, cancelToken);
+                    await _helpers.Wait(response.RetryDelay * 1000, cancelToken);
                     continue;
                 }
                 else if (response.IsError)
@@ -150,7 +178,7 @@ namespace WikiUpload
                         }
                         else
                         {
-                            await UploadService.Uploader.RefreshTokenAsync();
+                            await _fileUploader.RefreshTokenAsync();
                             tokenRefreshed = true;
                             continue;
                         }
@@ -162,7 +190,7 @@ namespace WikiUpload
                 }
                 else
                 {
-                    file.SetError("Unexpected server response");
+                    file.SetError(UploadMessages.UnkownServerResponse);
                 }
                 return;
             }
@@ -170,12 +198,12 @@ namespace WikiUpload
 
         private string AddAppName(string uploadSummary)
         {
-            var appName = UploadService.Uploader.Site.ToLowerInvariant().Contains(".fandom.")
+            var appName = Site.ToLowerInvariant().Contains(".fandom.")
                 ? "[[w:c:dev:Wiki-Up|Wiki-Up]]" : "Wiki-Up";
 
             return uploadSummary == ""
-                ? $"Uploaded via {appName} {Utils.ApplicationVersion}"
-                : $"{uploadSummary} (via {appName} {Utils.ApplicationVersion})";
+                ? $"Uploaded via {appName} {_helpers.ApplicationVersion}"
+                : $"{uploadSummary} (via {appName} {_helpers.ApplicationVersion})";
         }
 
         private void RemoveFiles(object selectedItems)
@@ -188,8 +216,8 @@ namespace WikiUpload
 
         private void AddFiles()
         {
-            if (_dialogs.AddFilesDialog(UploadService.Uploader.PermittedFiles.GetExtensions(),
-                Properties.Settings.Default.ImageExtensions,
+            if (_dialogs.AddFilesDialog(_fileUploader.PermittedFiles.GetExtensions(),
+                _appSettings.ImageExtensions,
                 out IList<string> fileNames))
             {
                 UploadFiles.AddNewRange(fileNames);
@@ -200,17 +228,17 @@ namespace WikiUpload
         {
             try
             {
-                Process.Start(fullPath);
+                _helpers.LaunchProcess(fullPath);
             }
             catch (Win32Exception ex)
             {
-                _dialogs.ErrorMessage(ex.Message);
+                _dialogs.ErrorMessage("Unable to view iumage.", ex);
             }
         }
 
         private void Cancel()
         {
-            _cancelSource.Cancel();
+            _helpers.SignalCancel(_cancelSource);
         }
 
         private void LoadContent()
@@ -219,11 +247,11 @@ namespace WikiUpload
             {
                 try
                 {
-                    PageContent = File.ReadAllText(fileName);
+                    PageContent = _helpers.ReadAllText(fileName);
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to read file. " + ex.Message);
+                    _dialogs.ErrorMessage("Unable to read content.", ex);
                 }
             }
         }
@@ -234,11 +262,11 @@ namespace WikiUpload
             {
                 try
                 {
-                    File.WriteAllText(fileName, PageContent);
+                    _helpers.WriteAllText(fileName, PageContent);
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to save file. " + ex.Message);
+                    _dialogs.ErrorMessage("Unable to save content.",  ex);
                 }
             }
         }
@@ -249,15 +277,11 @@ namespace WikiUpload
             {
                 try
                 {
-                    UploadFiles.AddFromXml(fileName);
+                    _uploadFileSerializer.Add(fileName, UploadFiles);
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to read upload list. " + ex.Message);
-                }
-                catch (InvalidOperationException)
-                {
-                    _dialogs.ErrorMessage("Invalid file format.");
+                    _dialogs.ErrorMessage("Unable to read upload list.", ex);
                 }
             }
         }
@@ -268,11 +292,11 @@ namespace WikiUpload
             {
                 try
                 {
-                    UploadFiles.SaveToXml(fileName);
+                    _uploadFileSerializer.Save(fileName, UploadFiles);
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to save file. " + ex.Message);
+                    _dialogs.ErrorMessage("Unable to save upload list.", ex);
                 }
             }
         }
@@ -327,11 +351,15 @@ namespace WikiUpload
         public ICommand ShowFileCommand { get; set; }
 
         public ICommand AddCategoryCommand { get; set; }
+        
+        public ICommand SignOutCommand { get; set; }
 
         public bool UploadIsRunning { get; set; }
 
         public UploadList UploadFiles { get; set; } = new UploadList();
 
         public UploadFile ViewedFile { get; set; }
+
+        public bool IncludeInWatchlist { get; set; }
     }
 }

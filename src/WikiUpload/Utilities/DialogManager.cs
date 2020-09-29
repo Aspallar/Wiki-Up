@@ -1,11 +1,12 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
 namespace WikiUpload
 {
-    public class DialogManager
+    public class DialogManager : IDialogManager
     {
         public bool AddFilesDialog(string[] permittedExtensions, string imageExtensions, out IList<string> fileNames)
         {
@@ -109,18 +110,16 @@ namespace WikiUpload
             return result;
         }
 
-        public void ErrorMessage(string message)
+        public void ErrorMessage(string message, Exception ex)
         {
-            Utils.ErrorMessage(message);
+            var dlg = new ErrorMessageWindow(message, ex);
+            dlg.ShowDialog();
         }
 
         public bool ConfirmInsecureLoginDialog()
         {
-            var result = MessageBox.Show(
-                "Login via an insecure connection (http) will result in your username and password being sent in unencrypted plain text.\n\nAre you sure you wish to continue?",
-                "Wiki-Up Warning",
-                MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            return result == MessageBoxResult.Yes;
+            var dlg = new InsecureWarningWindow();
+            return (bool)dlg.ShowDialog();
         }
     }
 }

@@ -3,10 +3,10 @@
   
   <?define WikiUpload_TargetDir=$(var.WikiUpload.TargetDir)?>
 	
-  <Product Id="{9D4AE2FF-161D-40ED-BBC1-5682905EACBB}"
+  <Product Id="{B676540D-5739-458E-BFDF-76AF4FAE17EF}"
            Name="Wiki-Up"
            Language="1033"
-           Version="1.5.0.0"
+           Version="1.6.0.0"
            Manufacturer="Aspallar"
            UpgradeCode="{5DBEE1B6-4D18-4F36-BEA8-74C89ADD342B}">
     
@@ -72,6 +72,16 @@
       </Component>
       <Component Id="MahApps.Metro.IconPacks.FontAwesome.dll" Guid="309d62ff-7718-4a1e-8c90-54bf10ad8771">
         <File Id="MahApps.Metro.IconPacks.FontAwesome.dll" Name="MahApps.Metro.IconPacks.FontAwesome.dll" Source="$(var.WikiUpload_TargetDir)MahApps.Metro.IconPacks.FontAwesome.dll" KeyPath="yes"/>
+      </Component>
+      
+      <!-- Ninject DI Franework -->
+      <Component Id="Ninject.dll" Guid="1a52b4aa-eb8a-4d10-9fde-f919612b930a">
+        <File Id="Ninject.dll" Name="Ninject.dll" Source="$(var.WikiUpload_TargetDir)Ninject.dll" KeyPath="yes"/>
+      </Component>
+      
+      <!-- ToggleSwitch -->
+      <Component Id="ToggleSwitch.dll" Guid="0f57a084-0581-4145-bbcc-f3237a1c288a">
+        <File Id="ToggleSwitch.dll" Name="ToggleSwitch.dll" Source="$(var.WikiUpload_TargetDir)ToggleSwitch.dll" KeyPath="yes"/>
       </Component>
 
     </ComponentGroup>

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Xml.Serialization;
+using System.Linq;
 
 namespace WikiUpload
 {
@@ -13,42 +12,33 @@ namespace WikiUpload
                 Remove(item);
         }
 
+        public void AddIfNotDuplicate(UploadFile file)
+        {
+            if (!this.Any(x => x.FullPath == file.FullPath))
+                base.Add(file);
+        }
+
         public void AddNewRange(IList<string> items)
         {
             foreach (var item in items)
-                Add(new UploadFile { FullPath = item });
+                AddIfNotDuplicate(new UploadFile { FullPath = item });
         }
 
         public void AddRange(IList<UploadFile> items)
         {
             foreach (var item in items)
-                Add(item);
+                AddIfNotDuplicate(item);
         }
 
-        public void AddFromXml(TextReader textReader)
-        {
-            List<UploadFile> files;
-            var serializer = new XmlSerializer(typeof(List<UploadFile>));
-            files = (List<UploadFile>)serializer.Deserialize(textReader);
-            AddRange(files);
-        }
+#if DEBUG
+        //public new void Add(UploadFile file) 
+        //    => throw new InvalidOperationException("Use AddIfNotDuplicate instead.");
 
-        public void AddFromXml(string fileName)
-        {
-            using (var sr = new StreamReader(fileName))
-                AddFromXml(sr);
-        }
-
-        public void SaveToXml(TextWriter textWriter)
-        {
-            var serializer = new XmlSerializer(typeof(UploadList));
-            serializer.Serialize(textWriter, this);
-        }
-
-        public void SaveToXml(string fileName)
-        {
-            using (var sw = new StreamWriter(fileName))
-                SaveToXml(sw);
-        }
+        //public new UploadFile this[int i]
+        //{
+        //    get => base[i];
+        //    set => throw new InvalidOperationException("Use AddIfNotDuplicate instead.");
+        //}
+#endif
     }
 }

@@ -2,6 +2,7 @@
 using System.Net;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace WikiUpload
 {
@@ -12,13 +13,15 @@ namespace WikiUpload
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+
             base.OnStartup(e);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             GetCommandLineArguments(e.Args, out int timeout);
-            UploadService.Uploader = new FileUploader(UserAgent, timeout);
+            Timewout = timeout;
         }
+
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
@@ -43,7 +46,7 @@ namespace WikiUpload
             }
         }
 
-        private string UserAgent
+        public static string UserAgent
         {
             get
             {
@@ -54,5 +57,11 @@ namespace WikiUpload
                 return userAgent;
             }
         }
+
+        public static int Timewout { get; private set; }
+
+        public static INavigatorService Navigator { get; set; }
+        
+        public static ServiceLocator ServiceLocator { get; set; }
     }
 }

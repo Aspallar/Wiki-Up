@@ -1,9 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.IO;
-using System.Security;
-using System.Xml;
-using System.Xml.Serialization;
+﻿using System.Security;
 using WikiUpload.Extensions;
 using WikiUpload.Utilities;
 
@@ -11,49 +6,18 @@ namespace WikiUpload
 {
     public class PasswordManager : IPasswordManager
     {
-        private PasswordDictionary _passwords;
-        private string _fileName;
+        private readonly PasswordDictionary _passwords;
+        private readonly IPasswordStore _passwordStore;
 
-        public PasswordManager()
+        public PasswordManager(IPasswordStore passwordStore)
         {
-            _fileName = DetermineFileName();
-            if (File.Exists(_fileName))
-            {
-                Load();
-            }
-            else
-            {
-                _passwords = new PasswordDictionary();
-            }
+            _passwordStore = passwordStore;
+            _passwords = _passwordStore.Load();
         }
-
-        private void Load()
-        {
-            try
-            {
-                var serializer = new XmlSerializer(typeof(PasswordDictionary));
-                using (var sr = new StreamReader(_fileName))
-                    _passwords = (PasswordDictionary)serializer.Deserialize(sr);
-            }
-            catch (InvalidOperationException ex) when (ex.InnerException is XmlException)
-            {
-                // Fail silently as the worst case is just some remembered passwords are lost
-                // the xml file will be regenerated the next time a password is saved.
-            }
-       }
 
         private void Save()
         {
-            var serializer = new XmlSerializer(typeof(PasswordDictionary));
-            using (var sw = new StreamWriter(_fileName))
-                serializer.Serialize(sw, _passwords);
-        }
-
-        private static string DetermineFileName()
-        {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            var folder = Path.GetDirectoryName(config.FilePath);
-            return folder + @"\0ED8B7F4-7A81-4DC1-812F-9F120F60E8E2.xml";
+            _passwordStore.Save(_passwords);
         }
 
         public SecureCharArray GetPassword(string site, string username)

@@ -1,0 +1,149 @@
+﻿<Window x:Class="WikiUpload.ErrorMessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:WikiUpload"
+        mc:Ignorable="d"
+        FocusManager.FocusedElement="{Binding ElementName=OkButton}"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterOwner"
+        Icon="{StaticResource LogoImage}"
+        ResizeMode="NoResize"
+        Width="580"
+        SizeToContent="Height"
+        Title="Error" >
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:ErrorMessageWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        
+                        <!-- Outer border -->
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+
+                            <!-- Main window outline -->
+                            <Grid>
+
+                                <!-- Opacity mask for corners on grid -->
+                                <Border x:Name="Container"
+                                        Background="{StaticResource PrimaryDarkBrush}"
+                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
+
+                                <!-- Window border and dropshadown -->
+                                <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
+                                        Background="{Binding PrimaryBrush, FallbackValue={StaticResource PrimaryDarkBrush}}" 
+                                        BorderThickness="1"
+                                        BorderBrush="{StaticResource ErrorColorBrush}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2" />
+                                    </Border.Effect>
+                                </Border>
+
+                                <!-- The window content -->
+                                <Grid>
+
+                                    <!-- Corner clipping -->
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Container}" />
+                                    </Grid.OpacityMask>
+
+                                    <Grid.RowDefinitions>
+
+                                        <!-- Title Bar -->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}" />
+                                        <!-- Window Content -->
+                                        <RowDefinition Height="*" />
+
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Title Bar -->
+                                    <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource PrimaryBrush}">
+
+                                        <Grid.ColumnDefinitions>
+                                            <!-- Icon -->
+                                            <ColumnDefinition Width="Auto" />
+                                            <!-- Title -->
+                                            <ColumnDefinition Width="*" />
+                                            <!-- Windows Button -->
+                                            <ColumnDefinition Width="Auto" />
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Title -->
+                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="10 2" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" />
+                                            </StackPanel>
+                                        </Viewbox>
+
+                                        <!-- Window Buttons -->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <Button Command="{Binding CloseCommand}"
+                                                    Style="{StaticResource WindowCloseButton}"
+                                                    ToolTip="Close"
+                                                    Content="X" />
+                                        </StackPanel>
+
+                                    </Grid>
+
+                                    <!-- Page Content -->
+                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
+                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                    </Border>
+
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"/>
+    </WindowChrome.WindowChrome>
+
+    <!-- window content start here -->
+    <Grid>
+        <Grid Margin="0,8,0,-8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <iconPacks:PackIconFontAwesome Grid.Column="0" Kind="SkullCrossbonesSolid"
+                                           Height="64" Width="64"
+                                           Foreground="{StaticResource ErrorColorBrush}"
+                                           Margin="10 10 20 0"/>
+            <StackPanel Grid.Column="1" Margin="0 10 10 0">
+                <TextBlock FontSize="{StaticResource FontSizeRegular}"
+                           TextWrapping="Wrap"
+                           Text="{Binding ErrorMessage}"
+                           Foreground="{StaticResource ErrorColorBrush}"
+                           FontWeight="Bold"/>
+                <TextBlock FontSize="{StaticResource FontSizeSmall}"
+                           Margin="0 10 00 0"
+                           Visibility="{Binding ExceptionVisibility}"
+                           Text="{Binding ExceptonMessage}"
+                           TextWrapping="Wrap"/>
+                <Button x:Name="OkButton"
+                        Content="Ok"
+                        Width="100" Height="30"
+                        Margin="0 20 20 20"  
+                        HorizontalAlignment="Right"
+                        Padding="2" FontSize="18"
+                        IsCancel="True"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+</Window>

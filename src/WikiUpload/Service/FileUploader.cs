@@ -12,13 +12,15 @@ using System.Xml;
 
 namespace WikiUpload
 {
-    public sealed class FileUploader : IDisposable
+    public sealed class FileUploader : IDisposable, IFileUploader
     {
         private ApiUri _api;
         private string _editToken;
         private HttpClient _client;
         private PermittedFiles _permittedFiles;
         private bool _useDeprecatedLogin;
+        private readonly string _userAgent;
+        private readonly int _timeoutSeconds;
 
         public string PageContent { get; set; }
 
@@ -34,12 +36,25 @@ namespace WikiUpload
             PageContent = "";
             Summary = "";
             _permittedFiles = new PermittedFiles();
-            HttpClientHandler handler = new HttpClientHandler();
+            _timeoutSeconds = timeoutSeconds;
+            _userAgent = userAgent;
+            CreateClient();
+        }
+
+        private void CreateClient()
+        {
+            var handler = new HttpClientHandler();
             handler.CookieContainer = new CookieContainer();
             _client = new HttpClient(handler);
-            _client.DefaultRequestHeaders.Add("User-Agent", userAgent);
-            if (timeoutSeconds > 0)
-                _client.Timeout = new TimeSpan(0, 0, timeoutSeconds);
+            _client.DefaultRequestHeaders.Add("User-Agent", _userAgent);
+            if (_timeoutSeconds > 0)
+                _client.Timeout = new TimeSpan(0, 0, _timeoutSeconds);
+        }
+
+        public void LogOff()
+        {
+            _client.Dispose();
+            CreateClient();
         }
 
         public async Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted = false)
@@ -144,7 +159,7 @@ namespace WikiUpload
             }
         }
 
-        public async Task<UploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false)
+        public async Task<IUploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false, bool includeInWatchlist = false)
         {
             string fileName = Path.GetFileName(fullPath);
 
@@ -159,8 +174,8 @@ namespace WikiUpload
             {
                 { new StringContent("upload"), "action" },
                 { new StringContent("5"), "maxlag" },
+                { new StringContent(includeInWatchlist ? "watch" : "nochange"), "watchlist" },
                 { new StringContent(fileName), "filename" },
-                { new StringContent(_editToken), "token" },
                 { new StringContent("xml"), "format" },
                 { new StringContent(PageContent), "text" },
                 { new StringContent(Summary), "comment" },
@@ -170,6 +185,8 @@ namespace WikiUpload
                 uploadFormData.Add(new StringContent("1"), "ignorewarnings");
 
             uploadFormData.Add(new StreamContent(file), "file", fileName);
+
+            uploadFormData.Add(new StringContent(_editToken), "token");
 
             using (HttpResponseMessage response = await _client.PostAsync(_api, uploadFormData, cancelToken))
             {

@@ -1,24 +1,44 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace WikiUpload
 {
     public class LoginViewModel : BaseViewModel
     {
-        private DialogManager _dialogs = new DialogManager();
-        private IPasswordManager _passwordManager = new PasswordManager();
+        private readonly IPasswordManager _passwordManager;
+        private readonly IDialogManager _dialogs;
+        private readonly IFileUploader _fileUploader;
+        private readonly INavigatorService _navigator;
+        private readonly Properties.IAppSettings _appSettings;
+        private readonly IHelpers _helpers;
 
-        public string Username { get; set; } = Properties.Settings.Default.Username;
+        public LoginViewModel(IFileUploader fileUploader,
+            INavigatorService navigator,
+            IDialogManager dialogManager,
+            IPasswordManager passwordManager,
+            IHelpers helpers,
+            Properties.IAppSettings appSettings)
+        {
+            _fileUploader = fileUploader;
+            _navigator = navigator;
+            _appSettings = appSettings;
+            _dialogs = dialogManager;
+            _passwordManager = passwordManager;
+            _helpers = helpers;
 
-        public string WikiUrl { get; set; } = Properties.Settings.Default.WikiUrl;
+            InitializeFromApplicationSettings();
 
-        public bool RememberPassword { get; set; } = Properties.Settings.Default.RememberPassword;
+            LoginCommand = new RelayParameterizedCommand(async (securePassword) => await Login(securePassword));
+        }
+
+        public string Username { get; set; }
+
+        public string WikiUrl { get; set; }
+
+        public bool RememberPassword { get; set; }
 
         public ObservableCollection<string> PreviousSites { get; set; }
 
@@ -34,16 +54,10 @@ namespace WikiUpload
 
         public SecureString SavedPassword { get; } = new SecureString();
 
-        public LoginViewModel()
-        {
-            LoginCommand = new RelayParameterizedCommand(async (securePassword) => await Login(securePassword));
-            PreviousSites = Properties.Settings.Default.RecentlyUsedSites;
-        }
-
         public async Task Login(object securePassword)
         {
             IsLoginError = false;
-            await RunCommand(() => this.LoginIsRunning, async () =>
+            await RunCommand(() => LoginIsRunning, async () =>
             {
                 string url;
                 if ((url = await Validate()) != null)
@@ -59,14 +73,14 @@ namespace WikiUpload
         {
             try
             {
-                bool loggedIn = await UploadService.Uploader.LoginAsync(url, Username, password);
+                bool loggedIn = await _fileUploader.LoginAsync(url, Username, password, false);
 
                 if (loggedIn)
                 {
-                    UpdateSettings();
+                    UpdateApplicationSettings();
                     UpdateSavedPassword(password);
                     //SavedPassword.Dispose();
-                    Navigator.NavigationService.Navigate(new UploadPage());
+                    _navigator.NavigateToUploadPage();
                 }
                 else
                 {
@@ -90,21 +104,28 @@ namespace WikiUpload
                 _passwordManager.RemovePassword(WikiUrl, Username);
         }
 
-        private void UpdateSettings()
+        private void UpdateApplicationSettings()
         {
-            var settings = Properties.Settings.Default;
-            settings.Username = Username;
-            settings.WikiUrl = WikiUrl;
-            settings.RememberPassword = RememberPassword;
-            settings.AddMostRecentlyUsedSite(WikiUrl);
-            settings.Save();
+            _appSettings.Username = Username;
+            _appSettings.WikiUrl = WikiUrl;
+            _appSettings.RememberPassword = RememberPassword;
+            _appSettings.AddMostRecentlyUsedSite(WikiUrl);
+            _appSettings.Save();
+        }
+
+        private void InitializeFromApplicationSettings()
+        {
+            PreviousSites = _appSettings.RecentlyUsedSites;
+            Username = _appSettings.Username;
+            WikiUrl = _appSettings.WikiUrl;
+            RememberPassword = _appSettings.RememberPassword;
         }
 
         private async Task<string> Validate()
         {
             if (string.IsNullOrWhiteSpace(WikiUrl) || string.IsNullOrWhiteSpace(Username))
             {
-                await Task.Delay(500);
+                await _helpers.Wait(500);
                 LoginError("You must supply a wiki url and username.");
                 return null;
             }
@@ -115,7 +136,7 @@ namespace WikiUpload
 
             if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) || url.IndexOf('?') != -1)
             {
-                await Task.Delay(500);
+                await _helpers.Wait(500); 
                 LoginError("Invalid wiki url");
                 return null;
             }

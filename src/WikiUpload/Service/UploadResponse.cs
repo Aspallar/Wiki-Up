@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace WikiUpload
 {
-    public class UploadResponse
+    public class UploadResponse : IUploadResponse
     {
         private readonly List<string> _warnings;
         private readonly List<ApiError> _errors;
@@ -21,25 +21,7 @@ namespace WikiUpload
             { "was-deleted", "Deleted file" },
         };
 
-        public IReadOnlyList<string> Warnings => _warnings;
-
-        public IReadOnlyList<ApiError> Errors => _errors;
-
-        public string Xml { get; private set; }
-
-        public string Result { get; private set; }
-
-        public string ArchiveDuplicate { get; private set; }
-
-        public List<string> Duplicates { get; private set; }
-
-        public bool IsDuplicate => Duplicates.Count > 0;
-
-        public bool IsDuplicateOfArchive => !string.IsNullOrEmpty(ArchiveDuplicate);
-
-        public bool IsError => _errors.Count > 0;
-
-        public int RetryDelay { get; private set; }
+        public UploadResponse() { }
 
         public UploadResponse(string xml, string retryAfter)
         {
@@ -90,6 +72,26 @@ namespace WikiUpload
 
             }
         }
+
+        public IReadOnlyList<string> Warnings => _warnings;
+
+        public IReadOnlyList<ApiError> Errors => _errors;
+
+        public string Xml { get; private set; }
+
+        public string Result { get; private set; }
+
+        public string ArchiveDuplicate { get; private set; }
+
+        public List<string> Duplicates { get; private set; }
+
+        public bool IsDuplicate => Duplicates.Count > 0;
+
+        public bool IsDuplicateOfArchive => !string.IsNullOrEmpty(ArchiveDuplicate);
+
+        public bool IsError => _errors.Count > 0;
+
+        public int RetryDelay { get; private set; }
 
         public string WarningsText
         {

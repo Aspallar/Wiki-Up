@@ -20,7 +20,7 @@ namespace TestServer
         public bool LoginTimeout { get; set; }
 
         [Option]
-        public bool UploadTimeout { get; set; }
+        public int UploadTimeout { get; set; }
 
         [Option(Default = 0, HelpText = "-1 to always maxlag")]
         public int MaxLag { get; set; }
