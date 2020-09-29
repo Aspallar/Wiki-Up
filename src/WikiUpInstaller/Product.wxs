@@ -78,6 +78,11 @@
       <Component Id="Ninject.dll" Guid="1a52b4aa-eb8a-4d10-9fde-f919612b930a">
         <File Id="Ninject.dll" Name="Ninject.dll" Source="$(var.WikiUpload_TargetDir)Ninject.dll" KeyPath="yes"/>
       </Component>
+      
+      <!-- ToggleSwitch -->
+      <Component Id="ToggleSwitch.dll" Guid="0f57a084-0581-4145-bbcc-f3237a1c288a">
+        <File Id="ToggleSwitch.dll" Name="ToggleSwitch.dll" Source="$(var.WikiUpload_TargetDir)ToggleSwitch.dll" KeyPath="yes"/>
+      </Component>
 
     </ComponentGroup>
 
