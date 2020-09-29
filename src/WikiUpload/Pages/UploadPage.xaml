@@ -161,6 +161,7 @@
                                      Command="{Binding CancelCommand}"
                                      ToolTip="Cancel running upload."/>
                             <Button Content="Upload"
+                                    Margin="0"
                                     Style="{StaticResource BusyButton}"
                                     Command="{Binding UploadCommand}"
                                     local:IsBusyProperty.Value="{Binding UploadIsRunning}"
