@@ -28,6 +28,10 @@ namespace WikiUpload
 
         public string Site { get; set; }
 
+        public string HomePage { get; set; }
+        
+        public string ScriptPath { get; set; }
+
         public IReadOnlyPermittedFiles PermittedFiles
             => (IReadOnlyPermittedFiles)_permittedFiles;
 
@@ -108,17 +112,10 @@ namespace WikiUpload
                 Task<string> editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
                 Task<bool> userConfirmedTask = IsUserConfirmedAsync(username);
                 Task<bool> authorizedTask = IsAuthorizedForUploadFilesAsync(username);
+                Task<SiteInfo> siteInfoTask = GeSiteInfoAsync();
 
-                if (allFilesPermitted)
-                {
-                    await Task.WhenAll(userConfirmedTask, authorizedTask, editTokenTask)
-                        .ConfigureAwait(false);
-                }
-                else
-                {
-                    await Task.WhenAll(userConfirmedTask, authorizedTask, GetPermittedTypes(), editTokenTask)
-                        .ConfigureAwait(false);
-                }
+                await Task.WhenAll(userConfirmedTask, authorizedTask, editTokenTask, siteInfoTask)
+                    .ConfigureAwait(false);
 
                 if (!userConfirmedTask.Result)
                     throw new LoginException("That account is not autoconfirmed.");
@@ -128,6 +125,15 @@ namespace WikiUpload
 
                 if (string.IsNullOrEmpty(editTokenTask.Result))
                     throw new LoginException("Unable to obtain edit token.");
+
+                HomePage = siteInfoTask.Result.BaseUrl;
+                ScriptPath = siteInfoTask.Result.ScriptPath;
+
+                if (!allFilesPermitted)
+                {
+                    foreach (string ext in siteInfoTask.Result.Extensions)
+                        _permittedFiles.Add(ext);
+                }
 
                 _editToken = editTokenTask.Result;
                 return true;
@@ -233,8 +239,8 @@ namespace WikiUpload
         {
             Uri uri = _api.ApiQuery(new RequestParameters
             {
-                { "meta","tokens" },
-                { "type","csrf" },
+                { "meta", "tokens" },
+                { "type", "csrf" },
             });
             XmlNode node = await GetSingleNode(uri, "/api/query/tokens");
             return node?.Attributes["csrftoken"]?.Value;
@@ -251,16 +257,15 @@ namespace WikiUpload
             return node?.Attributes["logintoken"]?.Value;
         }
 
-        private async Task GetPermittedTypes()
+        private async Task<SiteInfo> GeSiteInfoAsync()
         {
             Uri uri = _api.ApiQuery(new RequestParameters
             {
                 { "meta", "siteinfo" },
-                { "siprop", "fileextensions" },
+                { "siprop", "general|fileextensions" },
             });
-            XmlNodeList fileExtensions = await GetNodes(uri, "/api/query/fileextensions/fe");
-            foreach (XmlNode fe in fileExtensions)
-                _permittedFiles.Add(fe.Attributes["ext"].Value);
+            XmlDocument doc = await GetXmlResponse(uri);
+            return new SiteInfo(doc);
         }
 
         private async Task<bool> IsAuthorizedForUploadFilesAsync(string username)

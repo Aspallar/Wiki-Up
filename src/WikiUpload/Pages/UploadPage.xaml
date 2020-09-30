@@ -258,7 +258,7 @@
                             VerticalAlignment="Center" >
                     <Button VerticalAlignment="Center" Margin="0 5 5 0"
                             Style="{StaticResource PlainButton}"
-                            Content="{Binding Site}"
+                            Content="{Binding Site, Mode=OneTime}"
                             Command="{Binding LaunchSiteCommand}"/>
                     <Button Margin="0 0 10 0"
                             Height="20"
