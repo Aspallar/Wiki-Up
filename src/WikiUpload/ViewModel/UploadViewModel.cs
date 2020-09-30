@@ -46,13 +46,12 @@ namespace WikiUpload
             CancelCommand = new RelayCommand(Cancel);
             LoadContentCommand = new RelayCommand(LoadContent);
             SaveContentCommand = new RelayCommand(SaveContent);
-            LaunchSiteCommand = new RelayCommand(() => _helpers.LaunchProcess(Site));
+            LaunchSiteCommand = new RelayCommand(() => _helpers.LaunchProcess(_fileUploader.HomePage));
             LoadListCommand = new RelayCommand(LoadList);
             SaveListCommand = new RelayCommand(SaveList);
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
             AddCategoryCommand = new RelayCommand(AddCategory);
             SignOutCommand = new RelayCommand(SignOut);
-            Site = _fileUploader.Site;
         }
 
         private void SignOut()
@@ -320,7 +319,17 @@ namespace WikiUpload
                 UploadFiles.AddNewRange(filepaths);
         }
 
-        public string Site { get; set; }
+        public string Site
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_fileUploader.ScriptPath)
+                        && _fileUploader.Site.EndsWith(_fileUploader.ScriptPath))
+                    return _fileUploader.Site.Substring(0, _fileUploader.Site.Length - _fileUploader.ScriptPath.Length);
+                else
+                    return _fileUploader.Site;
+            }
+        }
 
         public bool ForceUpload { get; set; }
 

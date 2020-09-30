@@ -106,6 +106,7 @@
     <Compile Include="Service\PermittedFiles.cs" />
     <Compile Include="Properties\Settings.Extended.cs" />
     <Compile Include="Service\IReadOnlyPermittedFiles.cs" />
+    <Compile Include="Service\SiteInfo.cs" />
     <Compile Include="Service\UploadMessages.cs" />
     <Compile Include="Utilities\DialogManager.cs" />
     <Compile Include="Utilities\Encryption.cs" />

@@ -462,14 +462,28 @@ namespace Tests
 
         #region Process Launch
         [Test]
-        public void When_SiteNameIsExecuted_Then_SiteIsLaunched()
+        public void When_SiteEndsWithScrtppath_Then_SiteWithoutScriptpathIsDisplayed()
         {
-            const string siteUrl = "https://foobar.com";
-            _model.Site = siteUrl;
+            const string site = "foobar";
+            const string scriptpath = "/w";
+            A.CallTo(() => _fileUploader.Site)
+                .Returns(site + scriptpath);
+            A.CallTo(() => _fileUploader.ScriptPath)
+                .Returns(scriptpath);
+
+            Assert.That(_model.Site, Is.EqualTo(site));
+       }
+
+        [Test]
+        public void When_SiteNameIsExecuted_Then_SiteHomePageIsLaunched()
+        {
+            const string homePage = "foobar";
+            A.CallTo(() => _fileUploader.HomePage)
+                .Returns(homePage);
 
             _model.LaunchSiteCommand.Execute(null);
 
-            A.CallTo(() => _helpers.LaunchProcess(siteUrl))
+            A.CallTo(() => _helpers.LaunchProcess(homePage))
                 .MustHaveHappened(1, Times.Exactly);
         }
 
@@ -558,7 +572,9 @@ namespace Tests
             A.CallTo(() => _uploadResponse.Result).Returns(ResponseCodes.Success);
             const string summary = "foobar";
             _model.UploadSummary = summary;
-            _model.Site = ".fandom.";
+
+            A.CallTo(() => _fileUploader.Site)
+                .Returns(".fandom.");
 
             _model.UploadCommand.Execute(null);
 

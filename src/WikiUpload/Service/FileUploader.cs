@@ -19,6 +19,7 @@ namespace WikiUpload
         private HttpClient _client;
         private PermittedFiles _permittedFiles;
         private bool _useDeprecatedLogin;
+        private CookieContainer _cookies;
         private readonly string _userAgent;
         private readonly int _timeoutSeconds;
 
@@ -27,6 +28,10 @@ namespace WikiUpload
         public string Summary { get; set; }
 
         public string Site { get; set; }
+
+        public string HomePage { get; set; }
+        
+        public string ScriptPath { get; set; }
 
         public IReadOnlyPermittedFiles PermittedFiles
             => (IReadOnlyPermittedFiles)_permittedFiles;
@@ -44,7 +49,8 @@ namespace WikiUpload
         private void CreateClient()
         {
             var handler = new HttpClientHandler();
-            handler.CookieContainer = new CookieContainer();
+            _cookies = new CookieContainer();
+            handler.CookieContainer = _cookies;
             _client = new HttpClient(handler);
             _client.DefaultRequestHeaders.Add("User-Agent", _userAgent);
             if (_timeoutSeconds > 0)
@@ -55,6 +61,12 @@ namespace WikiUpload
         {
             _client.Dispose();
             CreateClient();
+        }
+
+        private void LogOffIfCookiesPresent()
+        {
+            if (_cookies.Count > 0)
+                LogOff();
         }
 
         public async Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted = false)
@@ -108,44 +120,63 @@ namespace WikiUpload
                 Task<string> editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
                 Task<bool> userConfirmedTask = IsUserConfirmedAsync(username);
                 Task<bool> authorizedTask = IsAuthorizedForUploadFilesAsync(username);
+                Task<SiteInfo> siteInfoTask = GeSiteInfoAsync();
 
-                if (allFilesPermitted)
-                {
-                    await Task.WhenAll(userConfirmedTask, authorizedTask, editTokenTask)
-                        .ConfigureAwait(false);
-                }
-                else
-                {
-                    await Task.WhenAll(userConfirmedTask, authorizedTask, GetPermittedTypes(), editTokenTask)
-                        .ConfigureAwait(false);
-                }
+                await Task.WhenAll(userConfirmedTask, authorizedTask, editTokenTask, siteInfoTask)
+                    .ConfigureAwait(false);
+
+                // From here on in if we fail the login we must also log out, as the
+                // sucessfull login session cookies will cause any subsequent login
+                // attempts to the same site to fail with an aborted response.
 
                 if (!userConfirmedTask.Result)
+                {
+                    LogOff();
                     throw new LoginException("That account is not autoconfirmed.");
+                }
 
                 if (!authorizedTask.Result)
+                {
+                    LogOff();
                     throw new LoginException("You are not authorized to use Wiki-Up on this wiki.");
+                }
 
                 if (string.IsNullOrEmpty(editTokenTask.Result))
+                {
+                    LogOff();
                     throw new LoginException("Unable to obtain edit token.");
+                }
+
+                HomePage = siteInfoTask.Result.BaseUrl;
+                ScriptPath = siteInfoTask.Result.ScriptPath;
+
+                if (!allFilesPermitted)
+                {
+                    foreach (string ext in siteInfoTask.Result.Extensions)
+                        _permittedFiles.Add(ext);
+                }
 
                 _editToken = editTokenTask.Result;
                 return true;
             }
             catch (XmlException)
             {
+                LogOffIfCookiesPresent();
                 throw new LoginException(xmlExceptionmessage);
             }
             catch (HttpRequestException ex)
             {
+                LogOffIfCookiesPresent();
                 throw new LoginException(ex.Message, ex.InnerException);
             }
             catch (TaskCanceledException)
             {
+                LogOffIfCookiesPresent();
                 throw new LoginException(timeoutExceptionMessage);
             }
             catch (AggregateException ex)
             {
+                LogOffIfCookiesPresent();
                 foreach (var innerEx in ex.InnerExceptions)
                 {
                     if (innerEx is TaskCanceledException)
@@ -233,8 +264,8 @@ namespace WikiUpload
         {
             Uri uri = _api.ApiQuery(new RequestParameters
             {
-                { "meta","tokens" },
-                { "type","csrf" },
+                { "meta", "tokens" },
+                { "type", "csrf" },
             });
             XmlNode node = await GetSingleNode(uri, "/api/query/tokens");
             return node?.Attributes["csrftoken"]?.Value;
@@ -251,16 +282,15 @@ namespace WikiUpload
             return node?.Attributes["logintoken"]?.Value;
         }
 
-        private async Task GetPermittedTypes()
+        private async Task<SiteInfo> GeSiteInfoAsync()
         {
             Uri uri = _api.ApiQuery(new RequestParameters
             {
                 { "meta", "siteinfo" },
-                { "siprop", "fileextensions" },
+                { "siprop", "general|fileextensions" },
             });
-            XmlNodeList fileExtensions = await GetNodes(uri, "/api/query/fileextensions/fe");
-            foreach (XmlNode fe in fileExtensions)
-                _permittedFiles.Add(fe.Attributes["ext"].Value);
+            XmlDocument doc = await GetXmlResponse(uri);
+            return new SiteInfo(doc);
         }
 
         private async Task<bool> IsAuthorizedForUploadFilesAsync(string username)
