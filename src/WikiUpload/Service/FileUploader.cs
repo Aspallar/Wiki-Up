@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security;
+using System.Security.AccessControl;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -330,6 +331,82 @@ namespace WikiUpload
                 }
             }
         }
+        public async Task<CategoryResponse> FetchCategories(string from)
+        {
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "list", "allcategories" },
+                { "acfrom", from },
+                { "aclimit", "50" },
+                { "rawcontinue", "" },
+            });
+            XmlDocument doc = await GetXmlResponse(uri);
+            return new CategoryResponse(doc);
+            //return new CategoryResponse
+            //{
+            //    NextFrom = "jhgjhg",
+            //    Categories = new List<string>
+            //    {
+            //        "Pages with script errors",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Donald duck",
+            //        "foobar",
+            //        "Pages with indexed rules",
+            //        "foobar",
+            //        "Donald duck",
+            //    }
+            //};
+        }
 
         private async Task<XmlNodeList> GetNodes(Uri uri, string path)
         {
@@ -367,5 +444,6 @@ namespace WikiUpload
                 _client = null;
             }
         }
+
     }
 }

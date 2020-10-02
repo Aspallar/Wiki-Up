@@ -1,0 +1,78 @@
+﻿<Page x:Class="WikiUpload.CategoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
+      xmlns:local="clr-namespace:WikiUpload"
+      DataContext="{Binding Path=UploadViewModel, Source={StaticResource ServiceLocator}}"
+      FocusManager.FocusedElement="{Binding ElementName=CategoryText}"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" d:DesignWidth="800"
+      Title="Categories">
+    
+    <Border Background="{StaticResource BackGroundColorBrush}" BorderThickness="0">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBox x:Name="CategoryText"
+                         BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
+                         FontSize="{StaticResource FontSizeRegular}"
+                         Background="{StaticResource ControlBackgroundBrush}"
+                         Width="260" Margin="10"/>
+                <Button  Content="Add" 
+                         Command="{Binding AddCategoryCommand}"
+                         CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
+                         FontSize="{StaticResource FontSizeSmall}"/>
+                <Button  Content="Find" 
+                         Command="{Binding StartCategorySearchCommand}"
+                         CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
+                         FontSize="{StaticResource FontSizeSmall}"
+                         Margin="0 10 40 10"/>
+                <Button  Content="Previous" 
+                         Command="{Binding PreviousCategoriesCommand}"
+                         IsEnabled="{Binding Path=Categories.HasPrevious, Mode=OneWay}"
+                         FontSize="{StaticResource FontSizeSmall}"
+                         Width="96"/>
+                <Button  Content="Next" 
+                         IsEnabled="{Binding Path=Categories.HasNext, Mode=OneWay}"
+                         Command="{Binding NextCategoriesCommand}"
+                         FontSize="{StaticResource FontSizeSmall}"
+                         Width="96"/>
+            </StackPanel>
+            <Button Content="Cancel"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CancelCategoryCommand}"
+                    FontSize="{StaticResource FontSizeSmall}"
+                    Margin="0 10 10 10"/>
+            
+
+            <ScrollViewer Grid.Row="1" Margin="20 20 0 20" VerticalScrollBarVisibility="Auto" Height="Auto">
+                <ItemsControl ItemsSource="{Binding Path=Categories.Categories}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btn"
+                                    Content="{Binding}"
+                                    Style="{StaticResource PlainButton}"
+                                    Command="{Binding DataContext.AddCategoryCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+                                    CommandParameter="{Binding ElementName=btn, Path=Content}"
+                                    Foreground="{StaticResource PrimaryTextBrush}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="2" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+        
+    </Border>
+</Page>

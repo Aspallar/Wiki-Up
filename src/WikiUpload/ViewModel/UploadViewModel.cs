@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -38,8 +39,8 @@ namespace WikiUpload
             _navigatorService = navigatorService;
             _uploadFileSerializer = uploadFileSerializer;
 
-            UploadSummary = "";
-            PageContent = "";
+            ResetViewModel();
+
             AddFilesCommand = new RelayCommand(AddFiles);
             RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
             UploadCommand = new RelayCommand(async () => await Upload());
@@ -50,14 +51,29 @@ namespace WikiUpload
             LoadListCommand = new RelayCommand(LoadList);
             SaveListCommand = new RelayCommand(SaveList);
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
-            AddCategoryCommand = new RelayCommand(AddCategory);
             SignOutCommand = new RelayCommand(SignOut);
+
+            PickCategoryCommand = new RelayCommand(() => _navigatorService.NavigateToCategoryPage());
+            CancelCategoryCommand = new RelayCommand(() => _navigatorService.NavigateToUploadPage());
+            AddCategoryCommand = new RelayParameterizedCommand(AddCategory);
+            NextCategoriesCommand = new RelayCommand(async () => await Categories.Next());
+            StartCategorySearchCommand = new RelayParameterizedCommand (async (from) => await Categories.Start((string)from));
+            PreviousCategoriesCommand = new RelayCommand(async () => await Categories.Previous());
         }
 
         private void SignOut()
         {
             _fileUploader.LogOff();
+            ResetViewModel();
             _navigatorService.NavigateToLoginPage();
+        }
+
+        private void ResetViewModel()
+        {
+            UploadSummary = "";
+            PageContent = "";
+            UploadFiles.Clear();
+            Categories = new CategorySearch(_fileUploader);
         }
 
         private async Task Upload()
@@ -300,12 +316,25 @@ namespace WikiUpload
             }
         }
 
-        private void AddCategory()
+        private void AddCategory(object categoryName)
+        {
+            var categoryString = (string)categoryName;
+            if (!string.IsNullOrWhiteSpace(categoryString))
+            {
+                bool needNewline = PageContent != "" && !PageContent.EndsWith("\n");
+                string newLine = needNewline ? "\n" : "";
+                PageContent += $"{newLine}[[Category:{categoryString}]]";
+                _navigatorService.NavigateToUploadPage();
+            }
+        }
+
+        private void NewCategory()
         {
             const string enterCategory = "Enter Category Name";
             bool needNewline = PageContent != "" && !PageContent.EndsWith("\n");
             string newLine = needNewline ? "\n" : "";
             PageContent += $"{newLine}[[Category:{enterCategory}]]";
+            _navigatorService.NavigateToUploadPage();
             PageContentSelection = new SelectRange
             {
                 Start = PageContent.Length - enterCategory.Length - 2,
@@ -359,15 +388,30 @@ namespace WikiUpload
 
         public ICommand ShowFileCommand { get; set; }
 
+        public ICommand PickCategoryCommand { get; }
+
+        public ICommand CancelCategoryCommand { get; }
+
         public ICommand AddCategoryCommand { get; set; }
+
+        public ICommand NextCategoriesCommand { get; set; }
+
+        public ICommand PreviousCategoriesCommand { get; set; }
+
         
         public ICommand SignOutCommand { get; set; }
+        public ICommand StartCategorySearchCommand { get; set; }
+
 
         public bool UploadIsRunning { get; set; }
+
+        public CategorySearch Categories { get; set; }
 
         public UploadList UploadFiles { get; set; } = new UploadList();
 
         public UploadFile ViewedFile { get; set; }
+
+        public List<string> Foo { get; set; } = new List<string> { "LKJLKJ", "LKJLKJ", "LKJLKJ", "LKJLKJ", "LKJLKJ", "LKJLKJ" };
 
         public bool IncludeInWatchlist { get; set; }
     }

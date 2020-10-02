@@ -34,6 +34,9 @@ namespace WikiUpload
             Bind<IHelpers>()
                 .To<Helpers>();
 
+            Bind<UploadViewModel>()
+                .ToSelf()
+                .InSingletonScope();
         }
     }
 }

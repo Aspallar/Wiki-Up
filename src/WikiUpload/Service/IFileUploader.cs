@@ -18,5 +18,7 @@ namespace WikiUpload
         void LogOff();
         Task RefreshTokenAsync();
         Task<IUploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false, bool includeInWatchlist = false);
+
+        Task<CategoryResponse> FetchCategories(string from);
     }
 }

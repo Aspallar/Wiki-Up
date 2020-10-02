@@ -4,5 +4,6 @@
     {
         void NavigateToUploadPage();
         void NavigateToLoginPage();
+        void NavigateToCategoryPage();
     }
 }
