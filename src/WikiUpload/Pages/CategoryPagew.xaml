@@ -70,9 +70,11 @@
                     Command="{Binding CancelCategoryCommand}"
                     FontSize="{StaticResource FontSizeSmall}"
                     Margin="0 10 10 10"/>
-            
 
-            <ScrollViewer Grid.Row="1" Margin="20 20 0 20" VerticalScrollBarVisibility="Auto" Height="Auto">
+            <!-- category displayu -->
+            <ScrollViewer Grid.Row="1" Margin="20 20 0 20"
+                          VerticalScrollBarVisibility="Auto" Height="Auto"
+                          Visibility="{Binding Path=Categories.IsError, Converter={local:BooleanToVisiblityConverter}}">
                 <ItemsControl ItemsSource="{Binding Path=Categories.Categories}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -91,6 +93,33 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
+
+            <!-- error reporting -->
+            <Grid Grid.Row="1" Margin="20"
+                  Visibility="{Binding Path=Categories.IsError, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <iconPacks:PackIconFontAwesome Grid.Column="0"
+                    Kind="SkullCrossbonesSolid"
+                    Height="64" Width="64"
+                    Foreground="{StaticResource ErrorColorBrush}"
+                    Margin="10 0 20 0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Foreground="{StaticResource ErrorColorBrush}"
+                               FontSize="{StaticResource FontSizeRegular}"
+                               FontWeight="Bold"
+                               TextWrapping="Wrap"
+                               Text="Error fetching categories from the wiki."/>
+                    <TextBlock Foreground="{StaticResource PrimaryTextBrush}"
+                               FontSize="{StaticResource FontSizeSmall}"
+                               Margin="0 10 0 0"
+                               Text="{Binding Path=Categories.ErrorMessage}"/>
+                </StackPanel>
+
+            </Grid>
+
         </Grid>
         
     </Border>

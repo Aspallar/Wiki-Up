@@ -1,4 +1,5 @@
 ﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
@@ -24,10 +25,20 @@ namespace WikiUpload
             if (_multipleRequestGuard == 0)
             {
                 Interlocked.Increment(ref _multipleRequestGuard);
-                _history.Clear();
-                _nextFrom = from;
-                await DoNext();
-                Interlocked.Decrement(ref _multipleRequestGuard);
+                try
+                {
+                    _history.Clear();
+                    _nextFrom = from;
+                    await DoNext();
+                }
+                catch (Exception ex)
+                {
+                    HandleError(ex);
+                }
+                finally
+                {
+                    Interlocked.Decrement(ref _multipleRequestGuard);
+                }
             }
         }
 
@@ -36,8 +47,18 @@ namespace WikiUpload
             if (_multipleRequestGuard == 0)
             {
                 Interlocked.Increment(ref _multipleRequestGuard);
-                await DoNext();
-                Interlocked.Decrement(ref _multipleRequestGuard);
+                try
+                {
+                    await DoNext();
+                }
+                catch (Exception ex)
+                {
+                    HandleError(ex);
+                }
+                finally
+                {
+                    Interlocked.Decrement(ref _multipleRequestGuard);
+                }
             }
         }
 
@@ -49,6 +70,7 @@ namespace WikiUpload
             HasNext = !string.IsNullOrEmpty(response.NextFrom);
             CalculateHasPrevious();
             Categories = response.Categories;
+            IsError = false;
         }
 
         public async Task Previous()
@@ -56,15 +78,34 @@ namespace WikiUpload
             if (_multipleRequestGuard == 0)
             {
                 Interlocked.Increment(ref _multipleRequestGuard);
-                _history.Pop();
-                var prev = _history.Peek();
-                var response = await _fileUploader.FetchCategories(prev);
-                _nextFrom = response.NextFrom;
-                Categories = response.Categories;
-                HasNext = true;
-                CalculateHasPrevious();
-                Interlocked.Decrement(ref _multipleRequestGuard);
+                try
+                {
+                    _history.Pop();
+                    var prev = _history.Peek();
+                    var response = await _fileUploader.FetchCategories(prev);
+                    _nextFrom = response.NextFrom;
+                    Categories = response.Categories;
+                    HasNext = true;
+                    CalculateHasPrevious();
+                    IsError = false;
+                }
+                catch (Exception ex)
+                {
+                    HandleError(ex);
+                }
+                finally
+                {
+                    Interlocked.Decrement(ref _multipleRequestGuard);
+                }
             }
+        }
+
+        private void HandleError(Exception ex)
+        {
+            IsError = true;
+            ErrorMessage = ex.InnerException == null
+                ? ex.Message
+                : ex.InnerException.Message;
         }
 
         private void CalculateHasPrevious() => HasPrevious = _history.Count > 1;
@@ -72,6 +113,10 @@ namespace WikiUpload
         public bool HasNext { get; private set; }
 
         public bool HasPrevious { get; private set; }
+
+        public bool IsError { get; private set; }
+
+        public string ErrorMessage { get; private set; }
 
         public List<string> Categories { get; private set; }
 
