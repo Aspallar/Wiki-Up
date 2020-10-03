@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -17,6 +16,8 @@ namespace WikiUpload
     public class UploadViewModel : BaseViewModel, IFileDropTarget
     {
         private CancellationTokenSource _cancelSource;
+
+        #region Constructor and dependencies
 
         private readonly IDialogManager _dialogs;
         private readonly IHelpers _helpers;
@@ -41,18 +42,25 @@ namespace WikiUpload
 
             ResetViewModel();
 
-            AddFilesCommand = new RelayCommand(AddFiles);
-            RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
-            UploadCommand = new RelayCommand(async () => await Upload());
-            CancelCommand = new RelayCommand(Cancel);
-            LoadContentCommand = new RelayCommand(LoadContent);
-            SaveContentCommand = new RelayCommand(SaveContent);
             LaunchSiteCommand = new RelayCommand(() => _helpers.LaunchProcess(_fileUploader.HomePage));
-            LoadListCommand = new RelayCommand(LoadList);
-            SaveListCommand = new RelayCommand(SaveList);
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
             SignOutCommand = new RelayCommand(SignOut);
 
+            // Mamage upload file list commands
+            AddFilesCommand = new RelayCommand(AddFiles);
+            RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
+            LoadListCommand = new RelayCommand(LoadList);
+            SaveListCommand = new RelayCommand(SaveList);
+
+            // Upload commands
+            UploadCommand = new RelayCommand(async () => await Upload());
+            CancelCommand = new RelayCommand(Cancel);
+
+            // Manage content commands
+            LoadContentCommand = new RelayCommand(LoadContent);
+            SaveContentCommand = new RelayCommand(SaveContent);
+
+            // Catgory commands
             PickCategoryCommand = new RelayCommand(() => _navigatorService.NavigateToCategoryPage());
             CancelCategoryCommand = new RelayCommand(() => _navigatorService.NavigateToUploadPage());
             AddCategoryCommand = new RelayParameterizedCommand(AddCategory);
@@ -60,23 +68,37 @@ namespace WikiUpload
             StartCategorySearchCommand = new RelayParameterizedCommand (async (from) => await StartCategorySearch((string)from));
             PreviousCategoriesCommand = new RelayCommand(async () => await PreviousCategorySearch());
         }
+        #endregion
 
-        private void SignOut()
+        #region Public Properties
+
+        public bool ForceUpload { get; set; }
+        public string UploadSummary { get; set; }
+        public string PageContent { get; set; }
+        public bool UploadIsRunning { get; set; }
+        public bool CategoryFetchInPreogress { get; set; }
+        public CategorySearch Categories { get; set; }
+        public UploadList UploadFiles { get; } = new UploadList();
+        public UploadFile ViewedFile { get; set; }
+        public bool IncludeInWatchlist { get; set; }
+
+        public string Site
         {
-            _fileUploader.LogOff();
-            ResetViewModel();
-            _navigatorService.NewUploadPage();
-            _navigatorService.NavigateToLoginPage();
+            get
+            {
+                if (!string.IsNullOrEmpty(_fileUploader.ScriptPath)
+                        && _fileUploader.Site.EndsWith(_fileUploader.ScriptPath))
+                    return _fileUploader.Site.Substring(0, _fileUploader.Site.Length - _fileUploader.ScriptPath.Length);
+                else
+                    return _fileUploader.Site;
+            }
         }
 
-        private void ResetViewModel()
-        {
-            UploadSummary = "";
-            PageContent = "";
-            UploadFiles.Clear();
-            Categories = new CategorySearch(_fileUploader);
-        }
+        #endregion
 
+        #region Upload
+
+        public ICommand UploadCommand { get; }
         private async Task Upload()
         {
             await RunCommand(() => UploadIsRunning, async () =>
@@ -222,14 +244,17 @@ namespace WikiUpload
                 : $"{uploadSummary} (via {appName} {_helpers.ApplicationVersion})";
         }
 
-        private void RemoveFiles(object selectedItems)
+        public ICommand CancelCommand { get; }
+        private void Cancel()
         {
-            // must guard against running upload because a delete keypress can fire this
-            // as well as a button press.
-            if (!UploadIsRunning)
-                UploadFiles.RemoveRange(((IList)selectedItems).OfType<UploadFile>().ToList());
+            _helpers.SignalCancel(_cancelSource);
         }
 
+        #endregion
+
+        #region Mamage upload file list
+
+        public ICommand AddFilesCommand { get; }
         private void AddFiles()
         {
             if (_dialogs.AddFilesDialog(_fileUploader.PermittedFiles.GetExtensions(),
@@ -240,53 +265,16 @@ namespace WikiUpload
             }
         }
 
-        private void ShowImage(string fullPath)
+        public ICommand RemoveFilesCommand { get; }
+        private void RemoveFiles(object selectedItems)
         {
-            try
-            {
-                _helpers.LaunchProcess(fullPath);
-            }
-            catch (Win32Exception ex)
-            {
-                _dialogs.ErrorMessage("Unable to view iumage.", ex);
-            }
+            // must guard against running upload because a delete keypress can fire this
+            // as well as a button press.
+            if (!UploadIsRunning)
+                UploadFiles.RemoveRange(((IList)selectedItems).OfType<UploadFile>().ToList());
         }
 
-        private void Cancel()
-        {
-            _helpers.SignalCancel(_cancelSource);
-        }
-
-        private void LoadContent()
-        {
-            if (_dialogs.LoadContentDialog(out string fileName))
-            {
-                try
-                {
-                    PageContent = _helpers.ReadAllText(fileName);
-                }
-                catch (Exception ex)
-                {
-                    _dialogs.ErrorMessage("Unable to read content.", ex);
-                }
-            }
-        }
-
-        private void SaveContent()
-        {
-            if (_dialogs.SaveContentDialog(out string fileName))
-            {
-                try
-                {
-                    _helpers.WriteAllText(fileName, PageContent);
-                }
-                catch (Exception ex)
-                {
-                    _dialogs.ErrorMessage("Unable to save content.",  ex);
-                }
-            }
-        }
-
+        public ICommand LoadListCommand { get; }
         private void LoadList()
         {
             if (_dialogs.LoadUploadListDialog(out string fileName))
@@ -302,6 +290,7 @@ namespace WikiUpload
             }
         }
 
+        public ICommand SaveListCommand { get; }
         private void SaveList()
         {
             if (_dialogs.SaveUploadListDialog(out string fileName))
@@ -317,6 +306,55 @@ namespace WikiUpload
             }
         }
 
+        public void OnFileDrop(string[] filepaths)
+        {
+            if (!UploadIsRunning)
+                UploadFiles.AddNewRange(filepaths);
+        }
+
+        #endregion
+
+        #region Manage content
+
+        public ICommand LoadContentCommand { get; }
+        private void LoadContent()
+        {
+            if (_dialogs.LoadContentDialog(out string fileName))
+            {
+                try
+                {
+                    PageContent = _helpers.ReadAllText(fileName);
+                }
+                catch (Exception ex)
+                {
+                    _dialogs.ErrorMessage("Unable to read content.", ex);
+                }
+            }
+        }
+
+        public ICommand SaveContentCommand { get; }
+        private void SaveContent()
+        {
+            if (_dialogs.SaveContentDialog(out string fileName))
+            {
+                try
+                {
+                    _helpers.WriteAllText(fileName, PageContent);
+                }
+                catch (Exception ex)
+                {
+                    _dialogs.ErrorMessage("Unable to save content.",  ex);
+                }
+            }
+        }
+        #endregion
+
+        #region Categories
+
+        public ICommand PickCategoryCommand { get; }
+        public ICommand CancelCategoryCommand { get; }
+
+        public ICommand AddCategoryCommand { get; }
         private void AddCategory(object categoryName)
         {
             var categoryString = (string)categoryName;
@@ -329,20 +367,7 @@ namespace WikiUpload
             }
         }
 
-        private void NewCategory()
-        {
-            const string enterCategory = "Enter Category Name";
-            bool needNewline = PageContent != "" && !PageContent.EndsWith("\n");
-            string newLine = needNewline ? "\n" : "";
-            PageContent += $"{newLine}[[Category:{enterCategory}]]";
-            _navigatorService.NavigateToUploadPage();
-            PageContentSelection = new SelectRange
-            {
-                Start = PageContent.Length - enterCategory.Length - 2,
-                Length = enterCategory.Length
-            };
-        }
-
+        public ICommand StartCategorySearchCommand { get; }
         private async Task StartCategorySearch(string from)
         {
             if (!CategoryFetchInPreogress)
@@ -353,6 +378,7 @@ namespace WikiUpload
             }
         }
 
+        public ICommand NextCategoriesCommand { get; }
         private async Task NextCategorySearch()
         {
             if (!CategoryFetchInPreogress)
@@ -363,6 +389,7 @@ namespace WikiUpload
             }
         }
 
+        public ICommand PreviousCategoriesCommand { get; }
         private async Task PreviousCategorySearch()
         {
             if (!CategoryFetchInPreogress)
@@ -373,78 +400,47 @@ namespace WikiUpload
             }
         }
 
+        #endregion
 
-        public void OnFileDrop(string[] filepaths)
-        {
-            if (!UploadIsRunning)
-                UploadFiles.AddNewRange(filepaths);
-        }
+        #region Launch
 
-        public string Site
+        public ICommand LaunchSiteCommand { get; }
+
+        public ICommand ShowFileCommand { get; }
+        private void ShowImage(string fullPath)
         {
-            get
+            try
             {
-                if (!string.IsNullOrEmpty(_fileUploader.ScriptPath)
-                        && _fileUploader.Site.EndsWith(_fileUploader.ScriptPath))
-                    return _fileUploader.Site.Substring(0, _fileUploader.Site.Length - _fileUploader.ScriptPath.Length);
-                else
-                    return _fileUploader.Site;
+                _helpers.LaunchProcess(fullPath);
+            }
+            catch (Win32Exception ex)
+            {
+                _dialogs.ErrorMessage("Unable to view iumage.", ex);
             }
         }
 
-        public bool ForceUpload { get; set; }
+        #endregion
 
-        public string UploadSummary { get; set; }
+        #region Sign out
 
-        public string PageContent { get; set; }
-
-        public SelectRange PageContentSelection { get; set; }
-
-        public ICommand AddFilesCommand { get; set; }
-
-        public ICommand RemoveFilesCommand { get; set; }
-
-        public ICommand UploadCommand { get; set; }
-
-        public ICommand CancelCommand { get; set; }
-
-        public ICommand LoadContentCommand { get; set; }
-
-        public ICommand SaveContentCommand { get; set; }
-
-        public ICommand LaunchSiteCommand { get; set; }
-
-        public ICommand LoadListCommand { get; set; }
-
-        public ICommand SaveListCommand { get; set; }
-
-        public ICommand ShowFileCommand { get; set; }
-
-        public ICommand PickCategoryCommand { get; }
-
-        public ICommand CancelCategoryCommand { get; }
-
-        public ICommand AddCategoryCommand { get; set; }
-
-        public ICommand NextCategoriesCommand { get; set; }
-
-        public ICommand PreviousCategoriesCommand { get; set; }
-
-        
         public ICommand SignOutCommand { get; set; }
+        private void SignOut()
+        {
+            _fileUploader.LogOff();
+            ResetViewModel();
+            _navigatorService.NewUploadPage();
+            _navigatorService.NavigateToLoginPage();
+        }
 
-        public ICommand StartCategorySearchCommand { get; set; }
+        private void ResetViewModel()
+        {
+            UploadSummary = "";
+            PageContent = "";
+            UploadFiles.Clear();
+            Categories = new CategorySearch(_fileUploader);
+        }
 
-        public bool UploadIsRunning { get; set; }
+        #endregion
 
-        public bool CategoryFetchInPreogress { get; set; }
-
-        public CategorySearch Categories { get; set; }
-
-        public UploadList UploadFiles { get; set; } = new UploadList();
-
-        public UploadFile ViewedFile { get; set; }
-
-        public bool IncludeInWatchlist { get; set; }
     }
 }
