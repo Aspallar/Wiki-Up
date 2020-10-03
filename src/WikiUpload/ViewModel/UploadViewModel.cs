@@ -56,15 +56,16 @@ namespace WikiUpload
             PickCategoryCommand = new RelayCommand(() => _navigatorService.NavigateToCategoryPage());
             CancelCategoryCommand = new RelayCommand(() => _navigatorService.NavigateToUploadPage());
             AddCategoryCommand = new RelayParameterizedCommand(AddCategory);
-            NextCategoriesCommand = new RelayCommand(async () => await Categories.Next());
-            StartCategorySearchCommand = new RelayParameterizedCommand (async (from) => await Categories.Start((string)from));
-            PreviousCategoriesCommand = new RelayCommand(async () => await Categories.Previous());
+            NextCategoriesCommand = new RelayCommand(async () => await NextCategorySearch());
+            StartCategorySearchCommand = new RelayParameterizedCommand (async (from) => await StartCategorySearch((string)from));
+            PreviousCategoriesCommand = new RelayCommand(async () => await PreviousCategorySearch());
         }
 
         private void SignOut()
         {
             _fileUploader.LogOff();
             ResetViewModel();
+            _navigatorService.NewUploadPage();
             _navigatorService.NavigateToLoginPage();
         }
 
@@ -342,6 +343,37 @@ namespace WikiUpload
             };
         }
 
+        private async Task StartCategorySearch(string from)
+        {
+            if (!CategoryFetchInPreogress)
+            {
+                CategoryFetchInPreogress = true;
+                await Categories.Start(from);
+                CategoryFetchInPreogress = false;
+            }
+        }
+
+        private async Task NextCategorySearch()
+        {
+            if (!CategoryFetchInPreogress)
+            {
+                CategoryFetchInPreogress = true;
+                await Categories.Next();
+                CategoryFetchInPreogress = false;
+            }
+        }
+
+        private async Task PreviousCategorySearch()
+        {
+            if (!CategoryFetchInPreogress)
+            {
+                CategoryFetchInPreogress = true;
+                await Categories.Previous();
+                CategoryFetchInPreogress = false;
+            }
+        }
+
+
         public void OnFileDrop(string[] filepaths)
         {
             if (!UploadIsRunning)
@@ -400,18 +432,18 @@ namespace WikiUpload
 
         
         public ICommand SignOutCommand { get; set; }
+
         public ICommand StartCategorySearchCommand { get; set; }
 
-
         public bool UploadIsRunning { get; set; }
+
+        public bool CategoryFetchInPreogress { get; set; }
 
         public CategorySearch Categories { get; set; }
 
         public UploadList UploadFiles { get; set; } = new UploadList();
 
         public UploadFile ViewedFile { get; set; }
-
-        public List<string> Foo { get; set; } = new List<string> { "LKJLKJ", "LKJLKJ", "LKJLKJ", "LKJLKJ", "LKJLKJ", "LKJLKJ" };
 
         public bool IncludeInWatchlist { get; set; }
     }

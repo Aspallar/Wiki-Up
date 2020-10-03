@@ -21,11 +21,29 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Grid  VerticalAlignment="Center" Margin="5 5 0 0">
+                    <iconPacks:PackIconFontAwesome Kind="GemRegular"
+                        Style="{StaticResource FontSizeIcon}"
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Foreground="{StaticResource PrimaryLightBrush}" 
+                        Visibility="{Binding CategoryFetchInPreogress, Converter={local:BooleanToVisiblityConverter}}"/>
+                    <iconPacks:PackIconFontAwesome Kind="SpinnerSolid"
+                        Style="{StaticResource SpinningIcon}"
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Visibility="{Binding CategoryFetchInPreogress, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                        Foreground="{StaticResource PrimaryLightBrush}" />
+                </Grid>
                 <TextBox x:Name="CategoryText"
                          BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                          FontSize="{StaticResource FontSizeRegular}"
                          Background="{StaticResource ControlBackgroundBrush}"
-                         Width="260" Margin="10"/>
+                         Width="260" Margin="10 10 10 10">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return"
+                                    Command="{Binding StartCategorySearchCommand}"
+                                    CommandParameter="{Binding ElementName=CategoryText, Path=Text}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button  Content="Add" 
                          Command="{Binding AddCategoryCommand}"
                          CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
@@ -34,7 +52,7 @@
                          Command="{Binding StartCategorySearchCommand}"
                          CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
                          FontSize="{StaticResource FontSizeSmall}"
-                         Margin="0 10 40 10"/>
+                         Margin="0 10 30 10"/>
                 <Button  Content="Previous" 
                          Command="{Binding PreviousCategoriesCommand}"
                          IsEnabled="{Binding Path=Categories.HasPrevious, Mode=OneWay}"
@@ -46,7 +64,8 @@
                          FontSize="{StaticResource FontSizeSmall}"
                          Width="96"/>
             </StackPanel>
-            <Button Content="Cancel"
+            <Button Grid.Row="0"
+                    Content="Cancel"
                     HorizontalAlignment="Right"
                     Command="{Binding CancelCategoryCommand}"
                     FontSize="{StaticResource FontSizeSmall}"

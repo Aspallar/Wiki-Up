@@ -29,5 +29,10 @@ namespace WikiUpload
                 _uploadPage = new UploadPage();
             _navigator.Navigate(_uploadPage);
         }
+
+        public void NewUploadPage()
+        {
+            _uploadPage = null;
+        }
     }
 }
