@@ -64,13 +64,13 @@ namespace WikiUpload
 
         private async Task DoNext()
         {
+            IsError = false;
             var response = await _fileUploader.FetchCategories(_nextFrom);
             _history.Push(_nextFrom);
             _nextFrom = response.NextFrom;
             HasNext = !string.IsNullOrEmpty(response.NextFrom);
             CalculateHasPrevious();
             Categories = response.Categories;
-            IsError = false;
         }
 
         public async Task Previous()
@@ -80,14 +80,14 @@ namespace WikiUpload
                 Interlocked.Increment(ref _multipleRequestGuard);
                 try
                 {
+                    IsError = false;
                     _history.Pop();
-                    var prev = _history.Peek();
-                    var response = await _fileUploader.FetchCategories(prev);
+                    var previous = _history.Peek();
+                    var response = await _fileUploader.FetchCategories(previous);
                     _nextFrom = response.NextFrom;
                     Categories = response.Categories;
                     HasNext = true;
                     CalculateHasPrevious();
-                    IsError = false;
                 }
                 catch (Exception ex)
                 {
@@ -102,10 +102,13 @@ namespace WikiUpload
 
         private void HandleError(Exception ex)
         {
+            if (ex is TaskCanceledException)
+                ErrorMessage = "The server took too long to respond.";
+            else if (ex.InnerException == null)
+                ErrorMessage = ex.Message;
+            else
+                ErrorMessage = ex.InnerException.Message;
             IsError = true;
-            ErrorMessage = ex.InnerException == null
-                ? ex.Message
-                : ex.InnerException.Message;
         }
 
         private void CalculateHasPrevious() => HasPrevious = _history.Count > 1;
