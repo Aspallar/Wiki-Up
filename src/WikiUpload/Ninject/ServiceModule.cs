@@ -10,7 +10,7 @@ namespace WikiUpload
                 .To<FileUploader>()
                 .InSingletonScope()
                 .WithConstructorArgument("userAgent", App.UserAgent)
-                .WithConstructorArgument("timeout", App.Timewout);
+                .WithConstructorArgument("timeoutSeconds", App.Timewout);
 
             Bind<INavigatorService>()
                 .ToConstant(App.Navigator);
