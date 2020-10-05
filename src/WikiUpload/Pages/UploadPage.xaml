@@ -232,9 +232,14 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" FontSize="{StaticResource FontSizeSmall}" 
-                                            Command="{Binding PickCategoryCommand}"
-                                            Content="Add Category"/>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Button FontSize="{StaticResource FontSizeSmall}" 
+                                                Command="{Binding PickCategoryCommand}"
+                                                Content="Add Category"/>
+                                        <Button FontSize="{StaticResource FontSizeSmall}"
+                                                Command="{Binding PickTemplateCommand}"
+                                                Content="Add Template"/>
+                                    </StackPanel>
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" MaxHeight="60">
                                         <Button Content="Save" Margin="0 10 10 0"
                                             FontSize="{StaticResource FontSizeRegular}"

@@ -16,6 +16,8 @@ namespace WikiUpload
     public class UploadViewModel : BaseViewModel, IFileDropTarget
     {
         private CancellationTokenSource _cancelSource;
+        private CategorySearch _categorySearch;
+        private TemplateSearch _templateSearch;
 
         #region Constructor and dependencies
 
@@ -60,13 +62,16 @@ namespace WikiUpload
             LoadContentCommand = new RelayCommand(LoadContent);
             SaveContentCommand = new RelayCommand(SaveContent);
 
-            // Catgory commands
-            PickCategoryCommand = new RelayCommand(() => _navigatorService.NavigateToCategoryPage());
-            CancelCategoryCommand = new RelayCommand(() => _navigatorService.NavigateToUploadPage());
-            AddCategoryCommand = new RelayParameterizedCommand(AddCategory);
-            NextCategoriesCommand = new RelayCommand(async () => await NextCategorySearch());
-            StartCategorySearchCommand = new RelayParameterizedCommand (async (from) => await StartCategorySearch((string)from));
-            PreviousCategoriesCommand = new RelayCommand(async () => await PreviousCategorySearch());
+            // Catgory and Template commands (UploadPage)
+            PickCategoryCommand = new RelayCommand(PickCategory);
+            PickTemplateCommand = new RelayCommand(PickTemplate);
+
+            // Catgory and Template commands (SearchPage)
+            CancelSearchCommand = new RelayCommand(() => _navigatorService.NavigateToUploadPage());
+            AddSearchItemCommand = new RelayParameterizedCommand(AddSearchItem);
+            NextSearchCommand = new RelayCommand(async () => await NextSearch());
+            StartSearchCommand = new RelayParameterizedCommand (async (from) => await StartSearch((string)from));
+            PreviousSearchCommand = new RelayCommand(async () => await PreviousSearch());
         }
         #endregion
 
@@ -76,11 +81,12 @@ namespace WikiUpload
         public string UploadSummary { get; set; }
         public string PageContent { get; set; }
         public bool UploadIsRunning { get; set; }
-        public bool CategoryFetchInPreogress { get; set; }
-        public CategorySearch Categories { get; set; }
+        public bool SearchFetchInProgress { get; set; }
+        public WikiSearch CurrentSearch { get; set; }
         public UploadList UploadFiles { get; } = new UploadList();
         public UploadFile ViewedFile { get; set; }
         public bool IncludeInWatchlist { get; set; }
+
 
         public string Site
         {
@@ -349,54 +355,67 @@ namespace WikiUpload
         }
         #endregion
 
-        #region Categories
+        #region Categories and Templates
+
+        public ICommand CancelSearchCommand { get; }
 
         public ICommand PickCategoryCommand { get; }
-        public ICommand CancelCategoryCommand { get; }
+        private void PickCategory()
+        {
+            CurrentSearch = _categorySearch;
+            _navigatorService.NavigateToCategoryPage();
+        }
 
-        public ICommand AddCategoryCommand { get; }
-        private void AddCategory(object categoryName)
+        public ICommand PickTemplateCommand { get; }
+        private void PickTemplate()
+        {
+            CurrentSearch = _templateSearch;
+            _navigatorService.NavigateToCategoryPage();
+        }
+
+        public ICommand AddSearchItemCommand { get; }
+        private void AddSearchItem(object categoryName)
         {
             var categoryString = (string)categoryName;
             if (!string.IsNullOrWhiteSpace(categoryString))
             {
                 bool needNewline = PageContent != "" && !PageContent.EndsWith("\n");
                 string newLine = needNewline ? "\n" : "";
-                PageContent += $"{newLine}[[Category:{categoryString}]]";
+                PageContent += newLine + CurrentSearch.FullItemString(categoryString);
                 _navigatorService.NavigateToUploadPage();
             }
         }
 
-        public ICommand StartCategorySearchCommand { get; }
-        private async Task StartCategorySearch(string from)
+        public ICommand StartSearchCommand { get; }
+        private async Task StartSearch(string from)
         {
-            if (!CategoryFetchInPreogress)
+            if (!SearchFetchInProgress)
             {
-                CategoryFetchInPreogress = true;
-                await Categories.Start(from);
-                CategoryFetchInPreogress = false;
+                SearchFetchInProgress = true;
+                await CurrentSearch.Start(from);
+                SearchFetchInProgress = false;
             }
         }
 
-        public ICommand NextCategoriesCommand { get; }
-        private async Task NextCategorySearch()
+        public ICommand NextSearchCommand { get; }
+        private async Task NextSearch()
         {
-            if (!CategoryFetchInPreogress)
+            if (!SearchFetchInProgress)
             {
-                CategoryFetchInPreogress = true;
-                await Categories.Next();
-                CategoryFetchInPreogress = false;
+                SearchFetchInProgress = true;
+                await CurrentSearch.Next();
+                SearchFetchInProgress = false;
             }
         }
 
-        public ICommand PreviousCategoriesCommand { get; }
-        private async Task PreviousCategorySearch()
+        public ICommand PreviousSearchCommand { get; }
+        private async Task PreviousSearch()
         {
-            if (!CategoryFetchInPreogress)
+            if (!SearchFetchInProgress)
             {
-                CategoryFetchInPreogress = true;
-                await Categories.Previous();
-                CategoryFetchInPreogress = false;
+                SearchFetchInProgress = true;
+                await CurrentSearch.Previous();
+                SearchFetchInProgress = false;
             }
         }
 
@@ -437,7 +456,8 @@ namespace WikiUpload
             UploadSummary = "";
             PageContent = "";
             UploadFiles.Clear();
-            Categories = new CategorySearch(_fileUploader);
+            _templateSearch = new TemplateSearch(_fileUploader);
+            _categorySearch = new CategorySearch(_fileUploader);
         }
 
         #endregion

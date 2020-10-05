@@ -2,20 +2,20 @@
 
 namespace WikiUpload
 {
-    public class CategorySearch : WikiSearch
+    public class TemplateSearch : WikiSearch
     {
         private IFileUploader _fileUploader;
 
-        public CategorySearch(IFileUploader fileUploader)
+        public TemplateSearch(IFileUploader fileUploader)
         {
             _fileUploader = fileUploader;
         }
 
         public override Task<SearchResponse> FetchData(string from)
         {
-            return _fileUploader.FetchCategories(from);
+            return _fileUploader.FetchTemplates(from);
         }
 
-        public override string FullItemString(string item) => $"[[Category:{item}]]";
+        public override string FullItemString(string item) => "{{" + item + "}}";
     }
 }

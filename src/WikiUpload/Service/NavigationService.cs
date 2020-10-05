@@ -17,7 +17,7 @@ namespace WikiUpload
 
         public void NavigateToCategoryPage()
         {
-            _navigator.Navigate(new CategoryPage());
+            _navigator.Navigate(new SearchPage());
         }
 
         public void NavigateToLoginPage()

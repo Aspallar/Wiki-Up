@@ -92,6 +92,8 @@
     <Compile Include="Behaviours\SelectRange.cs" />
     <Compile Include="Behaviours\SelectAndFocus.cs" />
     <Compile Include="Behaviours\SavedPassword.cs" />
+    <Compile Include="DataModels\TemplateSearch.cs" />
+    <Compile Include="DataModels\WikiSearch.cs" />
     <Compile Include="DataModels\CategorySearch.cs" />
     <Compile Include="DataModels\UploadList.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -99,12 +101,12 @@
     <Compile Include="Exceptions\LoginException.cs" />
     <Compile Include="Ninject\ServiceLocator.cs" />
     <Compile Include="Ninject\ServiceModule.cs" />
-    <Compile Include="Pages\CategoryPagew.xaml.cs">
-      <DependentUpon>CategoryPagew.xaml</DependentUpon>
+    <Compile Include="Pages\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AppSettings.cs" />
     <Compile Include="Properties\IAppSettings.cs" />
-    <Compile Include="Service\CategoryResponse.cs" />
+    <Compile Include="Service\SearchResponse.cs" />
     <Compile Include="Service\IFileUploader.cs" />
     <Compile Include="Service\INavigatorService.cs" />
     <Compile Include="Service\IUploadResponse.cs" />
@@ -178,7 +180,7 @@
       <DependentUpon>AboutBoxWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\WindowResizer.cs" />
-    <Page Include="Pages\CategoryPagew.xaml">
+    <Page Include="Pages\SearchPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

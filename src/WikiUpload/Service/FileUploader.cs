@@ -331,7 +331,7 @@ namespace WikiUpload
                 }
             }
         }
-        public async Task<CategoryResponse> FetchCategories(string from)
+        public async Task<SearchResponse> FetchCategories(string from)
         {
             Uri uri = _api.ApiQuery(new RequestParameters
             {
@@ -341,7 +341,22 @@ namespace WikiUpload
                 { "rawcontinue", "" },
             });
             XmlDocument doc = await GetXmlResponse(uri);
-            return new CategoryResponse(doc);
+            return SearchResponse.FromCategoryXml(doc);
+        }
+
+        public async Task<SearchResponse> FetchTemplates(string from)
+        {
+            const string templateNamespace = "10";
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "list", "allpages" },
+                { "apnamespace", templateNamespace },
+                { "apfrom", from },
+                { "aplimit", "100" },
+                { "rawcontinue", "" },
+            });
+            XmlDocument doc = await GetXmlResponse(uri);
+            return SearchResponse.FromTemplateXml(doc);
         }
 
         private async Task<XmlNodeList> GetNodes(Uri uri, string path)
