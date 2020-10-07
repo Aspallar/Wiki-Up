@@ -34,7 +34,7 @@ namespace WikiUpload
             foreach (XmlNode node in pages)
             {
                 var title = node.Attributes["title"].Value;
-                if (!title.EndsWith("/doc"))
+                if (!(title.EndsWith("/doc") || title.Contains("/doc/")))
                     result.Categories.Add(title.Substring(9));
             }
 

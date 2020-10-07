@@ -16,8 +16,8 @@ namespace WikiUpload
     public class UploadViewModel : BaseViewModel, IFileDropTarget
     {
         private CancellationTokenSource _cancelSource;
-        private CategorySearch _categorySearch;
-        private TemplateSearch _templateSearch;
+        private IWikiSearch _categorySearch;
+        private IWikiSearch _templateSearch;
 
         #region Constructor and dependencies
 
@@ -25,6 +25,7 @@ namespace WikiUpload
         private readonly IHelpers _helpers;
         private readonly INavigatorService _navigatorService;
         private readonly IUploadListSerializer _uploadFileSerializer;
+        private readonly IWikiSearchFactory _wikiSearchFactory;
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;
 
@@ -33,6 +34,7 @@ namespace WikiUpload
             IHelpers helpers,
             IUploadListSerializer uploadFileSerializer,
             INavigatorService navigatorService,
+            IWikiSearchFactory wikiSearchFactory,
             IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
@@ -41,6 +43,7 @@ namespace WikiUpload
             _helpers = helpers;
             _navigatorService = navigatorService;
             _uploadFileSerializer = uploadFileSerializer;
+            _wikiSearchFactory = wikiSearchFactory;
 
             ResetViewModel();
 
@@ -82,11 +85,10 @@ namespace WikiUpload
         public string PageContent { get; set; }
         public bool UploadIsRunning { get; set; }
         public bool SearchFetchInProgress { get; set; }
-        public WikiSearch CurrentSearch { get; set; }
+        public IWikiSearch CurrentSearch { get; set; }
         public UploadList UploadFiles { get; } = new UploadList();
         public UploadFile ViewedFile { get; set; }
         public bool IncludeInWatchlist { get; set; }
-
 
         public string Site
         {
@@ -363,25 +365,25 @@ namespace WikiUpload
         private void PickCategory()
         {
             CurrentSearch = _categorySearch;
-            _navigatorService.NavigateToCategoryPage();
+            _navigatorService.NavigateToSearchPage();
         }
 
         public ICommand PickTemplateCommand { get; }
         private void PickTemplate()
         {
             CurrentSearch = _templateSearch;
-            _navigatorService.NavigateToCategoryPage();
+            _navigatorService.NavigateToSearchPage();
         }
 
         public ICommand AddSearchItemCommand { get; }
-        private void AddSearchItem(object categoryName)
+        private void AddSearchItem(object item)
         {
-            var categoryString = (string)categoryName;
-            if (!string.IsNullOrWhiteSpace(categoryString))
+            var itemString = (string)item;
+            if (!string.IsNullOrWhiteSpace(itemString))
             {
                 bool needNewline = PageContent != "" && !PageContent.EndsWith("\n");
                 string newLine = needNewline ? "\n" : "";
-                PageContent += newLine + CurrentSearch.FullItemString(categoryString);
+                PageContent += newLine + CurrentSearch.FullItemString(itemString);
                 _navigatorService.NavigateToUploadPage();
             }
         }
@@ -456,8 +458,8 @@ namespace WikiUpload
             UploadSummary = "";
             PageContent = "";
             UploadFiles.Clear();
-            _templateSearch = new TemplateSearch(_fileUploader);
-            _categorySearch = new CategorySearch(_fileUploader);
+            _templateSearch = _wikiSearchFactory.CreateTemplateSearch(_fileUploader);
+            _categorySearch = _wikiSearchFactory.CreateCategorySearch(_fileUploader);
         }
 
         #endregion

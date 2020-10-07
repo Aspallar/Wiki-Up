@@ -92,10 +92,13 @@
     <Compile Include="Behaviours\SelectRange.cs" />
     <Compile Include="Behaviours\SelectAndFocus.cs" />
     <Compile Include="Behaviours\SavedPassword.cs" />
+    <Compile Include="DataModels\IWikiSearch.cs" />
+    <Compile Include="DataModels\IWikiSearchFactory.cs" />
     <Compile Include="DataModels\TemplateSearch.cs" />
     <Compile Include="DataModels\WikiSearch.cs" />
     <Compile Include="DataModels\CategorySearch.cs" />
     <Compile Include="DataModels\UploadList.cs" />
+    <Compile Include="DataModels\WikiSearchFactory.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Exceptions\LoginException.cs" />

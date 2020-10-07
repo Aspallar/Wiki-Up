@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WikiUpload
 {
     [AddINotifyPropertyChangedInterface]
-    public abstract class WikiSearch : INotifyPropertyChanged
+    public abstract class WikiSearch : INotifyPropertyChanged, IWikiSearch
     {
         private Stack<string> _history = new Stack<string>();
         private string _nextFrom = "";
@@ -118,7 +118,7 @@ namespace WikiUpload
 
         public string ErrorMessage { get; private set; }
 
-        public List<string> Data{ get; private set; }
+        public List<string> Data { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 

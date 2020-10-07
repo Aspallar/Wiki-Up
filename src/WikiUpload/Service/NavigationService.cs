@@ -15,7 +15,7 @@ namespace WikiUpload
                 => ((Frame)sender).NavigationService.RemoveBackEntry();
         }
 
-        public void NavigateToCategoryPage()
+        public void NavigateToSearchPage()
         {
             _navigator.Navigate(new SearchPage());
         }

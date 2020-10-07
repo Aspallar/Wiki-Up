@@ -37,6 +37,9 @@ namespace WikiUpload
             Bind<UploadViewModel>()
                 .ToSelf()
                 .InSingletonScope();
+
+            Bind<IWikiSearchFactory>()
+                .To<WikiSearchFactory>();
         }
     }
 }
