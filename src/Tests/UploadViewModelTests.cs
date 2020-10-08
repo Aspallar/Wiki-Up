@@ -21,6 +21,9 @@ namespace Tests
         private IHelpers _helpers;
         private IUploadResponse _uploadResponse;
         private INavigatorService _navigationService;
+        private IWikiSearchFactory _wikiSearchFactory;
+        private IWikiSearch _categorySearch;
+        private IWikiSearch _templateSearch;
         private IUploadListSerializer _uploadListSerializer;
         private IReadOnlyPermittedFiles _permittedFiles;
         private UploadViewModel _model;
@@ -37,9 +40,17 @@ namespace Tests
             _helpers = A.Fake<IHelpers>();
             _uploadResponse = A.Fake<IUploadResponse>();
             _navigationService = A.Fake<INavigatorService>();
+            _wikiSearchFactory = A.Fake<IWikiSearchFactory>();
+            _categorySearch = A.Fake<IWikiSearch>();
+            _templateSearch = A.Fake<IWikiSearch>();
 
             A.CallTo(() => _fileUploader.PermittedFiles)
                 .Returns(_permittedFiles);
+
+            A.CallTo(() => _wikiSearchFactory.CreateCategorySearch(A<IFileUploader>._))
+                .Returns(_categorySearch);
+            A.CallTo(() => _wikiSearchFactory.CreateTemplateSearch(A<IFileUploader>._))
+                .Returns(_templateSearch);
 
             A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, A<bool>._))
                 .Returns(_uploadResponse);
@@ -49,6 +60,7 @@ namespace Tests
                 _helpers,
                 _uploadListSerializer,
                 _navigationService,
+                _wikiSearchFactory,
                 _appSetttings);
         }
 
@@ -165,69 +177,6 @@ namespace Tests
             A.CallTo(() => _dialogs.ErrorMessage(A<string>.That.StartsWith("Unable to save content."), A<Exception>._))
                 .MustHaveHappened(1, Times.Exactly);
         }
-        #endregion
-
-        #region Page content Add Category
-        private const string ExpectedCategory = "[[Category:Enter Category Name]]";
-
-        [Test]
-        public void When_AddCategoryIsExecutedWithEmptyContent_Then_NewCategoryAddedTWithoutNewline()
-        {
-            _model.PageContent = "";
-
-            _model.AddCategoryCommand.Execute(null);
-
-            Assert.That(_model.PageContent, Is.EqualTo(ExpectedCategory));
-        }
-
-        [Test]
-        public void When_AddCategoryIsExecutedWithNewlinedContent_Then_NewCategoryAddedTWithoutNewline()
-        {
-            _model.PageContent = "Foobar\n";
-            var expected = _model.PageContent + ExpectedCategory;
-
-            _model.AddCategoryCommand.Execute(null);
-
-            Assert.That(_model.PageContent, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void When_AddCategoryIsExecutedWithoutNewlinedContenbt_Then_NewCategoryAddedTWithNewline()
-        {
-            _model.PageContent = "Foobar";
-            var expected = _model.PageContent + "\n" + ExpectedCategory;
-
-            _model.AddCategoryCommand.Execute(null);
-
-            Assert.That(_model.PageContent, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void When_AddCategoryIsExecuted_Then_CategpryNamePartIsSelected()
-        {
-            _model.PageContent = "";
-
-            _model.AddCategoryCommand.Execute(null);
-
-            Assert.That(_model.PageContentSelection, Is.Not.Null);
-            Assert.That(_model.PageContentSelection.Start, Is.EqualTo(11));
-            Assert.That(_model.PageContentSelection.Length, Is.EqualTo(19));
-        }
-
-        [Test]
-        public void When_AddCategoryIsExecuted_Then_PageContentSelectionAlwaysChanges()
-        {
-            _model.PageContent = "";
-
-            _model.AddCategoryCommand.Execute(null);
-            var firstSelection = _model.PageContentSelection;
-            _model.PageContent = "";
-            _model.AddCategoryCommand.Execute(null);
-
-            var isSameReference = Object.ReferenceEquals(_model.PageContentSelection, firstSelection);
-            Assert.That(isSameReference, Is.False);
-        }
-
         #endregion
 
         #region Upload files Load and Save
@@ -990,6 +939,222 @@ namespace Tests
 
             A.CallTo(() => _navigationService.NavigateToLoginPage())
                 .MustHaveHappened(1, Times.Exactly);
+        }
+
+        #endregion
+
+        #region Add Category and Add Template
+
+        [Test]
+        public void When_PickCategoryIsExecuted_Then_SearchPageIsNavigatedTo()
+        {
+            _model.PickCategoryCommand.Execute(null);
+
+            A.CallTo(() => _navigationService.NavigateToSearchPage())
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_PickCategoryIsExecuted_Then_CurrentSearchIsCategory()
+        {
+            _model.PickCategoryCommand.Execute(null);
+
+            Assert.That(_model.CurrentSearch, Is.EqualTo(_categorySearch));
+        }
+
+        [Test]
+        public void When_PickTemplateIsExecuted_Then_SearchPageIsNavigatedTo()
+        {
+            _model.PickTemplateCommand.Execute(null);
+
+            A.CallTo(() => _navigationService.NavigateToSearchPage())
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_PickTemplateIsExecuted_Then_CurrentSearchIsTemplate()
+        {
+            _model.PickTemplateCommand.Execute(null);
+
+            Assert.That(_model.CurrentSearch, Is.EqualTo(_templateSearch));
+        }
+
+        [Test]
+        public void When_CategorySearchInProgress_Then_AnotherSearchCannotBeDone()
+        {
+            _model.SearchFetchInProgress = true;
+            _model.CurrentSearch = _categorySearch;
+            
+            _model.StartSearchCommand.Execute(null);
+            _model.NextSearchCommand.Execute(null);
+            _model.PreviousSearchCommand.Execute(null);
+            
+            Assert.That(_model.SearchFetchInProgress, Is.True);
+            A.CallTo(() => _categorySearch.Start(A<string>._))
+                .MustNotHaveHappened();
+            A.CallTo(() => _categorySearch.Next())
+                .MustNotHaveHappened();
+            A.CallTo(() => _categorySearch.Previous())
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_TemplateSearchInProgress_Then_AnotherSearchCannotBeDone()
+        {
+            _model.SearchFetchInProgress = true;
+            _model.CurrentSearch = _templateSearch;
+            
+            _model.StartSearchCommand.Execute(null);
+            _model.NextSearchCommand.Execute(null);
+            _model.PreviousSearchCommand.Execute(null);
+
+            Assert.That(_model.SearchFetchInProgress, Is.True);
+            A.CallTo(() => _templateSearch.Start(A<string>._))
+                .MustNotHaveHappened();
+            A.CallTo(() => _templateSearch.Next())
+                .MustNotHaveHappened();
+            A.CallTo(() => _templateSearch.Previous())
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_StartSearchIsExecuted_Then_Start_SearchIsDoneOnCurrentSearch()
+        {
+            _model.SearchFetchInProgress = false;
+            _model.CurrentSearch = _templateSearch;
+            
+            _model.StartSearchCommand.Execute(null);
+
+            A.CallTo(() => _model.CurrentSearch.Start(A<string>._))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_NextSearchIsExecuted_Then_NextSearchIsDoneOnCurrentSearch()
+        {
+            _model.SearchFetchInProgress = false;
+            _model.CurrentSearch = _templateSearch;
+            
+            _model.NextSearchCommand.Execute(null);
+
+            A.CallTo(() => _model.CurrentSearch.Next())
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_PreviousSearchIsExecuted_Then_PreviousSearchIsDoneOnCurrentSearch()
+        {
+            _model.SearchFetchInProgress = false;
+            _model.CurrentSearch = _templateSearch;
+            
+            _model.PreviousSearchCommand.Execute(null);
+
+            A.CallTo(() => _model.CurrentSearch.Previous())
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_StartSearchIsExecuted_Then_SearchInProgressIsSetToTrue()
+        {
+            _model.SearchFetchInProgress = false;
+            _model.CurrentSearch = _templateSearch;
+            var searchInProgressWasSetToTrue = false;
+
+            _model.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_model.SearchFetchInProgress))
+                    searchInProgressWasSetToTrue = true;
+            };
+
+            _model.StartSearchCommand.Execute(null);
+
+            Assert.That(_model.SearchFetchInProgress, Is.False);
+            Assert.That(searchInProgressWasSetToTrue, Is.True);
+        }
+
+        [Test]
+        public void When_NextSearchIsExecuted_Then_SearchInProgressIsSetToTrue()
+        {
+            _model.SearchFetchInProgress = false;
+            _model.CurrentSearch = _templateSearch;
+            var searchInProgressWasSetToTrue = false;
+
+            _model.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_model.SearchFetchInProgress))
+                    searchInProgressWasSetToTrue = true;
+            };
+
+            _model.NextSearchCommand.Execute(null);
+
+            Assert.That(_model.SearchFetchInProgress, Is.False);
+            Assert.That(searchInProgressWasSetToTrue, Is.True);
+        }
+
+        [Test]
+        public void When_PreviousSearchIsExecuted_Then_SearchInProgressIsSetToTrue()
+        {
+            _model.SearchFetchInProgress = false;
+            _model.CurrentSearch = _templateSearch;
+            var searchInProgressWasSetToTrue = false;
+
+            _model.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_model.SearchFetchInProgress))
+                    searchInProgressWasSetToTrue = true;
+            };
+
+            _model.PreviousSearchCommand.Execute(null);
+
+            Assert.That(_model.SearchFetchInProgress, Is.False);
+            Assert.That(searchInProgressWasSetToTrue, Is.True);
+        }
+
+        [Test]
+        public void When_ContentIsEmptyAndSearchItemAdded_Then_NoNewlinwIsAdded()
+        {
+            _model.PageContent = "";
+            _model.CurrentSearch = _categorySearch;
+
+            _model.AddSearchItemCommand.Execute("foo");
+
+            Assert.That(_model.PageContent, Does.Not.Contain("\n"));
+        }
+
+        [Test]
+        public void When_ContentEndsWithNewlineAndSearchItemAdded_Then_NoNewlinwIsAdded()
+        {
+            _model.PageContent = "bar\n";
+            _model.CurrentSearch = _categorySearch;
+
+            _model.AddSearchItemCommand.Execute("foo");
+
+            Assert.That(_model.PageContent, Does.Not.Contain("\n\n"));
+        }
+
+        [Test]
+        public void When_ContentDoesNotEndsWithNewlineAndSearchItemAdded_Then_NewlinwIsAdded()
+        {
+            _model.PageContent = "bar";
+            _model.CurrentSearch = _categorySearch;
+
+            _model.AddSearchItemCommand.Execute("foo");
+
+            Assert.That(_model.PageContent, Does.Contain("\n"));
+        }
+
+        [Test]
+        public void When_SearchItemIsAdded_Then_FullTextIsUsed()
+        {
+            _model.PageContent = "";
+            _model.CurrentSearch = _categorySearch;
+            const string fullString = "bar";
+            A.CallTo(() => _categorySearch.FullItemString(A<string>._))
+                .Returns(fullString);
+
+            _model.AddSearchItemCommand.Execute("foo");
+
+            Assert.That(_model.PageContent, Is.EqualTo(fullString));
         }
 
         #endregion

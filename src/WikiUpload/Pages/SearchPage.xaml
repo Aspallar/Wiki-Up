@@ -1,0 +1,126 @@
+﻿<Page x:Class="WikiUpload.SearchPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
+      xmlns:local="clr-namespace:WikiUpload"
+      DataContext="{Binding Path=UploadViewModel, Source={StaticResource ServiceLocator}}"
+      FocusManager.FocusedElement="{Binding ElementName=CategoryText}"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" d:DesignWidth="800"
+      Title="Categories">
+    
+    <Border Background="{StaticResource BackGroundColorBrush}" BorderThickness="0">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Grid  VerticalAlignment="Center" Margin="5 5 0 0">
+                    <iconPacks:PackIconFontAwesome Kind="GemRegular"
+                        Style="{StaticResource FontSizeIcon}"
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Foreground="{StaticResource PrimaryLightBrush}" 
+                        Visibility="{Binding SearchFetchInProgress, Converter={local:BooleanToVisiblityConverter}}"/>
+                    <iconPacks:PackIconFontAwesome Kind="SpinnerSolid"
+                        Style="{StaticResource SpinningIcon}"
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Visibility="{Binding SearchFetchInProgress, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                        Foreground="{StaticResource PrimaryLightBrush}" />
+                </Grid>
+                <TextBox x:Name="CategoryText"
+                         BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
+                         FontSize="{StaticResource FontSizeRegular}"
+                         Background="{StaticResource ControlBackgroundBrush}"
+                         Width="260" Margin="10 10 10 10">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return"
+                                    Command="{Binding StartSearchCommand}"
+                                    CommandParameter="{Binding ElementName=CategoryText, Path=Text}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button  Content="Add" 
+                         Command="{Binding AddSearchItemCommand}"
+                         CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
+                         FontSize="{StaticResource FontSizeSmall}"/>
+                <Button  Content="Find" 
+                         Command="{Binding StartSearchCommand}"
+                         CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
+                         FontSize="{StaticResource FontSizeSmall}"
+                         Margin="0 10 30 10"/>
+                <Button  Content="Previous" 
+                         Command="{Binding PreviousSearchCommand}"
+                         IsEnabled="{Binding Path=CurrentSearch.HasPrevious, Mode=OneWay}"
+                         FontSize="{StaticResource FontSizeSmall}"
+                         Width="96"/>
+                <Button  Content="Next" 
+                         IsEnabled="{Binding Path=CurrentSearch.HasNext, Mode=OneWay}"
+                         Command="{Binding NextSearchCommand}"
+                         FontSize="{StaticResource FontSizeSmall}"
+                         Width="96"/>
+            </StackPanel>
+            <Button Grid.Row="0"
+                    Content="Cancel"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CancelSearchCommand}"
+                    FontSize="{StaticResource FontSizeSmall}"
+                    Margin="0 10 10 10"/>
+
+            <!-- category displayu -->
+            <ScrollViewer Grid.Row="1" Margin="20 20 0 20"
+                          VerticalScrollBarVisibility="Auto" Height="Auto"
+                          Visibility="{Binding Path=CurrentSearch.IsError, Converter={local:BooleanToVisiblityConverter}}">
+                <ItemsControl ItemsSource="{Binding Path=CurrentSearch.Data}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btn"
+                                    Content="{Binding}"
+                                    Style="{StaticResource PlainButton}"
+                                    Command="{Binding DataContext.AddSearchItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+                                    CommandParameter="{Binding ElementName=btn, Path=Content}"
+                                    Foreground="{StaticResource PrimaryTextBrush}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="2" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!-- error reporting -->
+            <Grid Grid.Row="1" Margin="20"
+                  Visibility="{Binding Path=CurrentSearch.IsError, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <iconPacks:PackIconFontAwesome Grid.Column="0"
+                    Kind="SkullCrossbonesSolid"
+                    Height="64" Width="64"
+                    Foreground="{StaticResource ErrorColorBrush}"
+                    Margin="10 0 20 0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Foreground="{StaticResource ErrorColorBrush}"
+                               FontSize="{StaticResource FontSizeRegular}"
+                               FontWeight="Bold"
+                               TextWrapping="Wrap"
+                               Text="Error while probing the wiki."/>
+                    <TextBlock Foreground="{StaticResource PrimaryTextBrush}"
+                               FontSize="{StaticResource FontSizeSmall}"
+                               Margin="0 10 0 0"
+                               Text="{Binding Path=CurrentSearch.ErrorMessage}"/>
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+        
+    </Border>
+</Page>

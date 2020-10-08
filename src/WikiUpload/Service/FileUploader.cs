@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security;
+using System.Security.AccessControl;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -330,6 +331,33 @@ namespace WikiUpload
                 }
             }
         }
+        public async Task<SearchResponse> FetchCategories(string from)
+        {
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "list", "allcategories" },
+                { "acfrom", from },
+                { "aclimit", "50" },
+                { "rawcontinue", "" },
+            });
+            XmlDocument doc = await GetXmlResponse(uri);
+            return SearchResponse.FromCategoryXml(doc);
+        }
+
+        public async Task<SearchResponse> FetchTemplates(string from)
+        {
+            const string templateNamespace = "10";
+            Uri uri = _api.ApiQuery(new RequestParameters
+            {
+                { "list", "allpages" },
+                { "apnamespace", templateNamespace },
+                { "apfrom", from },
+                { "aplimit", "100" },
+                { "rawcontinue", "" },
+            });
+            XmlDocument doc = await GetXmlResponse(uri);
+            return SearchResponse.FromTemplateXml(doc);
+        }
 
         private async Task<XmlNodeList> GetNodes(Uri uri, string path)
         {
@@ -367,5 +395,6 @@ namespace WikiUpload
                 _client = null;
             }
         }
+
     }
 }

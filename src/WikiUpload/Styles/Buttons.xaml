@@ -178,7 +178,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <TextBlock x:Name="text" Text="{TemplateBinding Content}"/>
+                    <TextBlock x:Name="text" Text="{TemplateBinding Content}" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Foreground" TargetName="text" Value="{StaticResource HighlightTextCBrush}"/>

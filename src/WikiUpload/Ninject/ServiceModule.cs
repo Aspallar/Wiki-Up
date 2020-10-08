@@ -10,7 +10,7 @@ namespace WikiUpload
                 .To<FileUploader>()
                 .InSingletonScope()
                 .WithConstructorArgument("userAgent", App.UserAgent)
-                .WithConstructorArgument("timeout", App.Timewout);
+                .WithConstructorArgument("timeoutSeconds", App.Timewout);
 
             Bind<INavigatorService>()
                 .ToConstant(App.Navigator);
@@ -34,6 +34,12 @@ namespace WikiUpload
             Bind<IHelpers>()
                 .To<Helpers>();
 
+            Bind<UploadViewModel>()
+                .ToSelf()
+                .InSingletonScope();
+
+            Bind<IWikiSearchFactory>()
+                .To<WikiSearchFactory>();
         }
     }
 }

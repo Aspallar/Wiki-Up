@@ -73,6 +73,8 @@ namespace TestServer
             else
             {
                 reply = NoRequestBodyReply(options, request);
+                if (reply == null)
+                    return;
             }
 
             response.StatusCode = 200;
@@ -108,6 +110,9 @@ namespace TestServer
 
             else if (request.RawUrl.IndexOf("meta=tokens&type=csrf") != -1)
                 reply = QueryReply("<tokens csrftoken=\"666+\\\" />");
+
+            else if (request.RawUrl.IndexOf("allcategories") != -1)
+                reply = null;
 
             else
                 reply = ApiReply("");
