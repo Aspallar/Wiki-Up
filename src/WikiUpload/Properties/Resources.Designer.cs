@@ -88,6 +88,33 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string ButtonAddText {
+            get {
+                return ResourceManager.GetString("ButtonAddText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonCancelText {
+            get {
+                return ResourceManager.GetString("ButtonCancelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find.
+        /// </summary>
+        public static string ButtonFindText {
+            get {
+                return ResourceManager.GetString("ButtonFindText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string ButtonLogin {
@@ -97,11 +124,29 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string ButtonNextText {
+            get {
+                return ResourceManager.GetString("ButtonNextText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string ButtonNoText {
             get {
                 return ResourceManager.GetString("ButtonNoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string ButtonPreviousText {
+            get {
+                return ResourceManager.GetString("ButtonPreviousText", resourceCulture);
             }
         }
         
@@ -219,6 +264,15 @@ namespace WikiUpload.Properties {
         public static string RememberPassword {
             get {
                 return ResourceManager.GetString("RememberPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while probing the wiki..
+        /// </summary>
+        public static string SearchErrorText {
+            get {
+                return ResourceManager.GetString("SearchErrorText", resourceCulture);
             }
         }
         

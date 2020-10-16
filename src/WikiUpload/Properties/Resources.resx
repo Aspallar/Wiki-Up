@@ -174,10 +174,28 @@
   <data name="ContiuePrompt" xml:space="preserve">
     <value>Are you sure you want to continue?</value>
   </data>
+  <data name="SearchErrorText" xml:space="preserve">
+    <value>Error while probing the wiki.</value>
+  </data>
   <data name="ButtonYesText" xml:space="preserve">
     <value>Yes</value>
   </data>
   <data name="ButtonNoText" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="ButtonAddText" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ButtonFindText" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="ButtonNextText" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="ButtonPreviousText" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="ButtonCancelText" xml:space="preserve">
+    <value>Cancel</value>
   </data>
 </root>

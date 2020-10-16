@@ -6,6 +6,7 @@
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
       xmlns:local="clr-namespace:WikiUpload"
+      xmlns:p="clr-namespace:WikiUpload.Properties"
       DataContext="{Binding Path=UploadViewModel, Source={StaticResource ServiceLocator}}"
       FocusManager.FocusedElement="{Binding ElementName=CategoryText}"
       mc:Ignorable="d" 
@@ -44,28 +45,28 @@
                                     CommandParameter="{Binding ElementName=CategoryText, Path=Text}"/>
                     </TextBox.InputBindings>
                 </TextBox>
-                <Button  Content="Add" 
+                <Button  Content="{x:Static p:Resources.ButtonAddText}" 
                          Command="{Binding AddSearchItemCommand}"
                          CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
                          FontSize="{StaticResource FontSizeSmall}"/>
-                <Button  Content="Find" 
+                <Button  Content="{x:Static p:Resources.ButtonFindText}" 
                          Command="{Binding StartSearchCommand}"
                          CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
                          FontSize="{StaticResource FontSizeSmall}"
                          Margin="0 10 30 10"/>
-                <Button  Content="Previous" 
+                <Button  Content="{x:Static p:Resources.ButtonPreviousText}" 
                          Command="{Binding PreviousSearchCommand}"
                          IsEnabled="{Binding Path=CurrentSearch.HasPrevious, Mode=OneWay}"
                          FontSize="{StaticResource FontSizeSmall}"
                          Width="96"/>
-                <Button  Content="Next" 
+                <Button  Content="{x:Static p:Resources.ButtonNextText}" 
                          IsEnabled="{Binding Path=CurrentSearch.HasNext, Mode=OneWay}"
                          Command="{Binding NextSearchCommand}"
                          FontSize="{StaticResource FontSizeSmall}"
                          Width="96"/>
             </StackPanel>
             <Button Grid.Row="0"
-                    Content="Cancel"
+                    Content="{x:Static p:Resources.ButtonCancelText}"
                     HorizontalAlignment="Right"
                     Command="{Binding CancelSearchCommand}"
                     FontSize="{StaticResource FontSizeSmall}"
@@ -111,7 +112,7 @@
                                FontSize="{StaticResource FontSizeRegular}"
                                FontWeight="Bold"
                                TextWrapping="Wrap"
-                               Text="Error while probing the wiki."/>
+                               Text="{x:Static p:Resources.SearchErrorText}"/>
                     <TextBlock Foreground="{StaticResource PrimaryTextBrush}"
                                FontSize="{StaticResource FontSizeSmall}"
                                Margin="0 10 0 0"
