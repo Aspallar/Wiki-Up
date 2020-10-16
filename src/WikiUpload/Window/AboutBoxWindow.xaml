@@ -128,8 +128,8 @@
                 <Image.Resources>
                     <Storyboard x:Key="SlideUp">
                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                             From="500" To="0"
-                             Duration="0:0:.5" />
+                             From="600" To="0"
+                             Duration="0:0:1" />
                     </Storyboard>
                 </Image.Resources>
                 <Image.Triggers>
@@ -163,34 +163,57 @@
         </Grid>
 
         <StackPanel>
-            <StackPanel.Resources>
-                <Storyboard x:Key="SlideLeft">
-                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                             From="500" To="0"
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Storyboard x:Key="SlideLeft">
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                             From="600" To="0"
+                             BeginTime="0:0:.5"
                              Duration="0:0:.5" />
-                </Storyboard>
-            </StackPanel.Resources>
-            <StackPanel.Triggers>
-                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard Storyboard="{StaticResource SlideLeft}" />
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </StackPanel.Triggers>
-            <StackPanel.RenderTransform>
-                <TranslateTransform />
-            </StackPanel.RenderTransform>
-            <TextBlock Foreground="{StaticResource PrimaryLightBrush}" FontSize="{StaticResource FontSizeRegular}" TextWrapping="Wrap" FontStyle="Italic" Margin="20 20 20 0">
-                “That was a memorable day to me, for it made great changes in me. But it is the same with any life.
-                Imagine one selected day struck out of it, and think how different its course would have been.
-                Pause you who read this, and think for a moment of the long chain of iron or gold, of thorns or flowers,
-                that would never have bound you, but for the formation of the first link on one memorable day.”
-            </TextBlock>
-            <TextBlock Foreground="{StaticResource PrimaryLightBrush}" Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charles Dickens</TextBlock>
-            <TextBlock Foreground="{StaticResource PrimaryLightBrush}" FontStyle="Italic" Margin="20 20 20 0" FontSize="{StaticResource FontSizeRegular}">
-                “Allo my darlings”
-            </TextBlock>
-            <TextBlock Foreground="{StaticResource PrimaryLightBrush}" Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charlie Drake</TextBlock>
+                    </Storyboard>
+                </StackPanel.Resources>
+                <StackPanel.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard Storyboard="{StaticResource SlideLeft}" />
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </StackPanel.Triggers>
+                <StackPanel.RenderTransform>
+                    <TranslateTransform X="1000"/>
+                </StackPanel.RenderTransform>
+                <TextBlock Foreground="{StaticResource PrimaryLightBrush}" FontSize="{StaticResource FontSizeRegular}" TextWrapping="Wrap" FontStyle="Italic" Margin="20 20 20 0">
+                    “That was a memorable day to me, for it made great changes in me. But it is the same with any life.
+                    Imagine one selected day struck out of it, and think how different its course would have been.
+                    Pause you who read this, and think for a moment of the long chain of iron or gold, of thorns or flowers,
+                    that would never have bound you, but for the formation of the first link on one memorable day.”
+                </TextBlock>
+                <TextBlock Foreground="{StaticResource PrimaryLightBrush}" Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charles Dickens</TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Storyboard x:Key="SlideLeft">
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                             From="500" To="0"
+                             BeginTime="0:0:.9"
+                             Duration="0:0:.5" />
+                    </Storyboard>
+                </StackPanel.Resources>
+                <StackPanel.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard Storyboard="{StaticResource SlideLeft}" />
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </StackPanel.Triggers>
+                <StackPanel.RenderTransform>
+                    <TranslateTransform X="1000"/>
+                </StackPanel.RenderTransform>
+                <TextBlock Foreground="{StaticResource PrimaryLightBrush}" FontStyle="Italic" Margin="20 20 20 0" FontSize="{StaticResource FontSizeRegular}">
+                    “Allo my darlings”
+                </TextBlock>
+                <TextBlock Foreground="{StaticResource PrimaryLightBrush}" Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charlie Drake</TextBlock>
+            </StackPanel>
         </StackPanel>
 
         <Button Content="OK" x:Name="OkButton" HorizontalAlignment="Center" Margin="20" Width="200"
