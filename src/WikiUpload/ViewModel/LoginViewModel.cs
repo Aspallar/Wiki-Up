@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WikiUpload.Properties;
 
 namespace WikiUpload
 {
@@ -84,7 +85,7 @@ namespace WikiUpload
                 }
                 else
                 {
-                    LoginError("Make sure the above details are correct.");
+                    LoginError(Resources.InvalidLoginDetailsMessage);
                 }
             }
             catch (LoginException ex)
@@ -126,7 +127,7 @@ namespace WikiUpload
             if (string.IsNullOrWhiteSpace(WikiUrl) || string.IsNullOrWhiteSpace(Username))
             {
                 await _helpers.Wait(500);
-                LoginError("You must supply a wiki url and username.");
+                LoginError(Resources.LoginErrorNoWikiOrUsername);
                 return null;
             }
 
@@ -137,7 +138,7 @@ namespace WikiUpload
             if (!Uri.IsWellFormedUriString(url, UriKind.Absolute) || url.IndexOf('?') != -1)
             {
                 await _helpers.Wait(500); 
-                LoginError("Invalid wiki url");
+                LoginError(Resources.LoginErrorInvalidWikiUrl);
                 return null;
             }
 
