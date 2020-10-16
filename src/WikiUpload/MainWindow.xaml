@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WikiUpload"
+        xmlns:p = "clr-namespace:WikiUpload.Properties"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -12,7 +13,8 @@
         x:Name="AppWindow"
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeight}"
-        Title="Wiki-Up" Height="600" Width="800">
+        Title="{x:Static p:Resources.AppNameText}"
+        Height="600" Width="800">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
@@ -78,7 +80,7 @@
                                         <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Style="{StaticResource HeaderText}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Wiki-Up'}" />
-                                                <TextBlock Text="by Aspallar"
+                                                <TextBlock Text="{x:Static p:Resources.AppByLineText}"
                                                            FontFamily="{StaticResource MainFont}"
                                                            FontSize="{StaticResource FontSizeSmall}"
                                                            Foreground="{StaticResource HighlightTextCBrush}"
@@ -91,15 +93,15 @@
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                                             <Button Command="{Binding MinimizeCommand}"
                                                     Style="{StaticResource WindowControlButton}"
-                                                    ToolTip="Minimize"
+                                                    ToolTip="{x:Static p:Resources.MiximizeText}"
                                                     Content="_" />
                                             <Button Command="{Binding MaximizeCommand}"
                                                     Style="{StaticResource WindowControlButton}"
-                                                    ToolTip="Maximize/Restore"
+                                                    ToolTip="{x:Static p:Resources.ManimizeRestoreText}"
                                                     Content="▢"/>
                                             <Button Command="{Binding CloseCommand}"
                                                     Style="{StaticResource WindowCloseButton}"
-                                                    ToolTip="Close"
+                                                    ToolTip="{x:Static p:Resources.CloseText}"
                                                     Content="X" />
                                         </StackPanel>
 

@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppNameText" xml:space="preserve">
+    <value>Wiki-Up</value>
+  </data>
+  <data name="AppByLineText" xml:space="preserve">
+    <value>by Aspallar</value>
+  </data>
+  <data name="AboutMenuItemText" xml:space="preserve">
+    <value>About...</value>
+  </data>
+  <data name="ManimizeRestoreText" xml:space="preserve">
+    <value>Maximize/Restore</value>
+  </data>
+  <data name="MiximizeText" xml:space="preserve">
+    <value>Minimize</value>
+  </data>
+  <data name="CloseText" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>
   </data>
@@ -161,8 +179,5 @@
   </data>
   <data name="ButtonNoText" xml:space="preserve">
     <value>No</value>
-  </data>
-  <data name="CloseText" xml:space="preserve">
-    <value>Close</value>
   </data>
 </root>

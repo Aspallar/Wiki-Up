@@ -61,6 +61,33 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About....
+        /// </summary>
+        public static string AboutMenuItemText {
+            get {
+                return ResourceManager.GetString("AboutMenuItemText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to by Aspallar.
+        /// </summary>
+        public static string AppByLineText {
+            get {
+                return ResourceManager.GetString("AppByLineText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wiki-Up.
+        /// </summary>
+        public static string AppNameText {
+            get {
+                return ResourceManager.GetString("AppNameText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string ButtonLogin {
@@ -156,6 +183,24 @@ namespace WikiUpload.Properties {
         public static string LoginFailedMessage {
             get {
                 return ResourceManager.GetString("LoginFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximize/Restore.
+        /// </summary>
+        public static string ManimizeRestoreText {
+            get {
+                return ResourceManager.GetString("ManimizeRestoreText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize.
+        /// </summary>
+        public static string MiximizeText {
+            get {
+                return ResourceManager.GetString("MiximizeText", resourceCulture);
             }
         }
         

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WikiUpload
 {
@@ -35,11 +31,11 @@ namespace WikiUpload
         // The constants we'll use to identify our custom system menu items
         internal static readonly IntPtr AboutSysMenuId = new IntPtr(1001);
 
-        internal static void CreateSystemMenu(IntPtr handle)
+        internal static void CreateSystemMenu(IntPtr handle, string aboutMenuItemText)
         {
             IntPtr systemMenuHandle = GetSystemMenu(handle, false);
             InsertMenu(systemMenuHandle, 5, MF_BYPOSITION | MF_SEPARATOR, IntPtr.Zero, string.Empty);
-            InsertMenu(systemMenuHandle, 7, MF_BYPOSITION, AboutSysMenuId, "About...");
+            InsertMenu(systemMenuHandle, 7, MF_BYPOSITION, AboutSysMenuId, aboutMenuItemText);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace WikiUpload
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             IntPtr handle = new WindowInteropHelper(this).Handle;
-            NativeMethods.CreateSystemMenu(handle);
+            NativeMethods.CreateSystemMenu(handle, Properties.Resources.AboutMenuItemText);
             HwndSource source = HwndSource.FromHwnd(handle);
             source.AddHook(new HwndSourceHook(WndProc));
         }
