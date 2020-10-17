@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security;
-using System.Security.AccessControl;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using WikiUpload.Properties;
 
 namespace WikiUpload
 {
@@ -29,7 +29,7 @@ namespace WikiUpload
         public string Summary { get; set; }
 
         public string Site { get; set; }
-
+        
         public string HomePage { get; set; }
         
         public string ScriptPath { get; set; }
@@ -72,9 +72,6 @@ namespace WikiUpload
 
         public async Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted = false)
         {
-            const string xmlExceptionmessage = "The server returned an invalid response.";
-            const string timeoutExceptionMessage = "The server did not respond.";
-
             try
             {
                 Site = site;
@@ -113,7 +110,7 @@ namespace WikiUpload
                 });
 
                 if (response.Result == ResponseCodes.Aborted)
-                    throw new LoginException("You must use a bot password (username@password).");
+                    throw new LoginException(Resources.LoginExceptionAborted);
 
                 if (response.Result != ResponseCodes.Success)
                     return false;
@@ -133,19 +130,19 @@ namespace WikiUpload
                 if (!userConfirmedTask.Result)
                 {
                     LogOff();
-                    throw new LoginException("That account is not autoconfirmed.");
+                    throw new LoginException(Resources.LoginExceptionNotAutoConfirmed);
                 }
 
                 if (!authorizedTask.Result)
                 {
                     LogOff();
-                    throw new LoginException("You are not authorized to use Wiki-Up on this wiki.");
+                    throw new LoginException(Resources.LoginExceptionNotAuthorized);
                 }
 
                 if (string.IsNullOrEmpty(editTokenTask.Result))
                 {
                     LogOff();
-                    throw new LoginException("Unable to obtain edit token.");
+                    throw new LoginException(Resources.LoginExceptionNoEditToken);
                 }
 
                 HomePage = siteInfoTask.Result.BaseUrl;
@@ -163,7 +160,7 @@ namespace WikiUpload
             catch (XmlException)
             {
                 LogOffIfCookiesPresent();
-                throw new LoginException(xmlExceptionmessage);
+                throw new LoginException(Resources.LoginExceptionInvalidResponse);
             }
             catch (HttpRequestException ex)
             {
@@ -173,7 +170,7 @@ namespace WikiUpload
             catch (TaskCanceledException)
             {
                 LogOffIfCookiesPresent();
-                throw new LoginException(timeoutExceptionMessage);
+                throw new LoginException(Resources.LoginExceptionTimeout);
             }
             catch (AggregateException ex)
             {
@@ -181,13 +178,13 @@ namespace WikiUpload
                 foreach (var innerEx in ex.InnerExceptions)
                 {
                     if (innerEx is TaskCanceledException)
-                        throw new LoginException(timeoutExceptionMessage);
+                        throw new LoginException(Resources.LoginExceptionTimeout);
                     else if (innerEx is HttpRequestException)
                         throw new LoginException(innerEx.Message, innerEx.InnerException);
                     else if (innerEx is XmlException)
-                        throw new LoginException(xmlExceptionmessage);
+                        throw new LoginException(Resources.LoginExceptionInvalidResponse);
                 }
-                throw new LoginException("An unexpected error occured.");
+                throw new LoginException(Resources.LoginExceptionUnexpectedError);
             }
         }
 

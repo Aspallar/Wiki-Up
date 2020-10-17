@@ -173,7 +173,32 @@
   <data name="LoginErrorInvalidWikiUrl" xml:space="preserve">
     <value>Invalid wiki url.</value>
   </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Login Exceptions -->
   
+  <data name="LoginExceptionInvalidResponse" xml:space="preserve">
+    <value>The server returned an invalid response.</value>
+  </data>
+  <data name="LoginExceptionTimeout" xml:space="preserve">
+    <value>The server did not respond.</value>
+  </data>
+  <data name="LoginExceptionUnexpectedError" xml:space="preserve">
+    <value>An unexpected error occured.</value>
+  </data>
+  <data name="LoginExceptionNotAutoConfirmed" xml:space="preserve">
+    <value>That account is not autoconfirmed.</value>
+  </data>
+  <data name="LoginExceptionNotAuthorized" xml:space="preserve">
+    <value>You are not authorized to use Wiki-Up on this wiki.</value>
+  </data>
+  <data name="LoginExceptionNoEditToken" xml:space="preserve">
+    <value>Unable to obtain edit token.</value>
+  </data>
+  <data name="LoginExceptionAborted" xml:space="preserve">
+    <value>The server aborted the login (you may need to use a BOT password)</value>
+  </data>
+
   <!-- ***************************************************************** -->
   <!-- Insecure connection dialog -->  
   

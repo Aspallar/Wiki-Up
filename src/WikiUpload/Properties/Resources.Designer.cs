@@ -475,6 +475,69 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The server aborted the login (you may need to use a BOT password).
+        /// </summary>
+        public static string LoginExceptionAborted {
+            get {
+                return ResourceManager.GetString("LoginExceptionAborted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The server returned an invalid response..
+        /// </summary>
+        public static string LoginExceptionInvalidResponse {
+            get {
+                return ResourceManager.GetString("LoginExceptionInvalidResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to obtain edit token..
+        /// </summary>
+        public static string LoginExceptionNoEditToken {
+            get {
+                return ResourceManager.GetString("LoginExceptionNoEditToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not authorized to use Wiki-Up on this wiki..
+        /// </summary>
+        public static string LoginExceptionNotAuthorized {
+            get {
+                return ResourceManager.GetString("LoginExceptionNotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That account is not autoconfirmed..
+        /// </summary>
+        public static string LoginExceptionNotAutoConfirmed {
+            get {
+                return ResourceManager.GetString("LoginExceptionNotAutoConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The server did not respond..
+        /// </summary>
+        public static string LoginExceptionTimeout {
+            get {
+                return ResourceManager.GetString("LoginExceptionTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occured..
+        /// </summary>
+        public static string LoginExceptionUnexpectedError {
+            get {
+                return ResourceManager.GetString("LoginExceptionUnexpectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login Failed.
         /// </summary>
         public static string LoginFailedMessage {
