@@ -121,7 +121,7 @@ namespace WikiUpload
                     {
                         if (!_fileUploader.PermittedFiles.IsPermitted(file.FileName))
                         {
-                            file.SetError($"Files of type \"{Path.GetExtension(file.FileName)}\" are not permitted.");
+                            file.SetError(UploadMessages.FileTypeNotPermitted(Path.GetExtension(file.FileName)));
                         }
                         else
                         {
@@ -248,8 +248,8 @@ namespace WikiUpload
                 ? "[[w:c:dev:Wiki-Up|Wiki-Up]]" : "Wiki-Up";
 
             return uploadSummary == ""
-                ? $"Uploaded via {appName} {_helpers.ApplicationVersion}"
-                : $"{uploadSummary} (via {appName} {_helpers.ApplicationVersion})";
+                ? $"{Resources.UploadViaText} {appName} {_helpers.ApplicationVersion}"
+                : $"{uploadSummary} ({Resources.ViaText} {appName} {_helpers.ApplicationVersion})";
         }
 
         public ICommand CancelCommand { get; }
@@ -293,7 +293,7 @@ namespace WikiUpload
                 }
                 catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to read upload list.", ex);
+                    _dialogs.ErrorMessage(Resources.CantReadUploadListMessage, ex);
                 }
             }
         }
@@ -309,7 +309,7 @@ namespace WikiUpload
                 }
                 catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to save upload list.", ex);
+                    _dialogs.ErrorMessage(Resources.CantSaveUploadListMessage, ex);
                 }
             }
         }
@@ -335,7 +335,7 @@ namespace WikiUpload
                 }
                 catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to read content.", ex);
+                    _dialogs.ErrorMessage(Resources.CantReadContentMessage, ex);
                 }
             }
         }
@@ -351,7 +351,7 @@ namespace WikiUpload
                 }
                 catch (Exception ex)
                 {
-                    _dialogs.ErrorMessage("Unable to save content.",  ex);
+                    _dialogs.ErrorMessage(Resources.CantSaveContentMessage, ex);
                 }
             }
         }
@@ -436,7 +436,7 @@ namespace WikiUpload
             }
             catch (Win32Exception ex)
             {
-                _dialogs.ErrorMessage("Unable to view iumage.", ex);
+                _dialogs.ErrorMessage(Resources.ViewImageErrorMessage, ex);
             }
         }
 

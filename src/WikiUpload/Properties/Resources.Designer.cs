@@ -322,6 +322,42 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to read content..
+        /// </summary>
+        public static string CantReadContentMessage {
+            get {
+                return ResourceManager.GetString("CantReadContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to read upload list..
+        /// </summary>
+        public static string CantReadUploadListMessage {
+            get {
+                return ResourceManager.GetString("CantReadUploadListMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save content..
+        /// </summary>
+        public static string CantSaveContentMessage {
+            get {
+                return ResourceManager.GetString("CantSaveContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save upload list..
+        /// </summary>
+        public static string CantSaveUploadListMessage {
+            get {
+                return ResourceManager.GetString("CantSaveUploadListMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string CloseText {
@@ -556,6 +592,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Files of type &quot;{0}&quot; are not permitted..
+        /// </summary>
+        public static string UploadMessageFileTypeNotPermitted {
+            get {
+                return ResourceManager.GetString("UploadMessageFileTypeNotPermitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server returned an invalid XML response..
         /// </summary>
         public static string UploadMessageInvalidXml {
@@ -628,11 +673,38 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploaded via.
+        /// </summary>
+        public static string UploadViaText {
+            get {
+                return ResourceManager.GetString("UploadViaText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User name.
         /// </summary>
         public static string UsernamePlaceholder {
             get {
                 return ResourceManager.GetString("UsernamePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to via.
+        /// </summary>
+        public static string ViaText {
+            get {
+                return ResourceManager.GetString("ViaText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to view image..
+        /// </summary>
+        public static string ViewImageErrorMessage {
+            get {
+                return ResourceManager.GetString("ViewImageErrorMessage", resourceCulture);
             }
         }
         

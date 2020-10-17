@@ -348,4 +348,33 @@
   <data name="UploadMessageUnkownServerResponse" xml:space="preserve">
     <value>Unexpected server response.</value>
   </data>
+  <data name="UploadMessageFileTypeNotPermitted" xml:space="preserve">
+    <value>Files of type "{0}" are not permitted.</value>
+  </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Upload View Model -->
+
+  <data name="UploadViaText" xml:space="preserve">
+    <value>Uploaded via</value>
+  </data>
+  <data name="ViaText" xml:space="preserve">
+    <value>via</value>
+  </data>
+  <data name="CantReadUploadListMessage" xml:space="preserve">
+    <value>Unable to read upload list.</value>
+  </data>
+  <data name="CantSaveUploadListMessage" xml:space="preserve">
+    <value>Unable to save upload list.</value>
+  </data>
+  <data name="CantReadContentMessage" xml:space="preserve">
+    <value>Unable to read content.</value>
+  </data>
+  <data name="CantSaveContentMessage" xml:space="preserve">
+    <value>Unable to save content.</value>
+  </data>
+  <data name="ViewImageErrorMessage" xml:space="preserve">
+    <value>Unable to view image.</value>
+  </data>
+
 </root>

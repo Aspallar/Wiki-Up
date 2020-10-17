@@ -13,5 +13,8 @@ namespace WikiUpload
         public static string NetworkError => Resources.UploadMessageNetworkError;
         public static string TimedOut => Resources.UploadMessageTimedOut;
         public static string UnkownServerResponse => Resources.UploadMessageUnkownServerResponse;
+
+        public static string FileTypeNotPermitted(string extension)
+            => string.Format(Resources.UploadMessageFileTypeNotPermitted, extension);
     }
 }
