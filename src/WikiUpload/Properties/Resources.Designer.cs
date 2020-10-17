@@ -538,6 +538,87 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upload cancelled..
+        /// </summary>
+        public static string UploadMessageCancelled {
+            get {
+                return ResourceManager.GetString("UploadMessageCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File not found..
+        /// </summary>
+        public static string UploadMessageFileNotFound {
+            get {
+                return ResourceManager.GetString("UploadMessageFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server returned an invalid XML response..
+        /// </summary>
+        public static string UploadMessageInvalidXml {
+            get {
+                return ResourceManager.GetString("UploadMessageInvalidXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network error. Unable to upload..
+        /// </summary>
+        public static string UploadMessageNetworkError {
+            get {
+                return ResourceManager.GetString("UploadMessageNetworkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to obtain valid edit token. Uploads cancelled. You may have to restart Wiki-Up to resolve this error..
+        /// </summary>
+        public static string UploadMessageNoEditToken {
+            get {
+                return ResourceManager.GetString("UploadMessageNoEditToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to read file..
+        /// </summary>
+        public static string UploadMessageReadFail {
+            get {
+                return ResourceManager.GetString("UploadMessageReadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server is too busy. Uploads cancelled. Try again later..
+        /// </summary>
+        public static string UploadMessageServerBusy {
+            get {
+                return ResourceManager.GetString("UploadMessageServerBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The upload timed out..
+        /// </summary>
+        public static string UploadMessageTimedOut {
+            get {
+                return ResourceManager.GetString("UploadMessageTimedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected server response..
+        /// </summary>
+        public static string UploadMessageUnkownServerResponse {
+            get {
+                return ResourceManager.GetString("UploadMessageUnkownServerResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload.
         /// </summary>
         public static string UploadTabText {
