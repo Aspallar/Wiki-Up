@@ -11,7 +11,8 @@ namespace Tests
     public class AboutBoxViewModelTests
     {
         private const string Version = "bar";
-        private const string Copyright = "foo";
+        private const string Copyright = "foo foo";
+        private const string ExpectedCopyright = "Copyright foo";
 
         private IHelpers _helpers;
         private AboutBoxViewModel _model;
@@ -35,7 +36,7 @@ namespace Tests
         [Test]
         public void When_Created_Then_CopyrightIsSet()
         {
-            Assert.That(_model.CopyrightText, Is.EqualTo(Copyright));
+            Assert.That(_model.CopyrightText, Is.EqualTo(ExpectedCopyright));
         }
 
         [Test]
