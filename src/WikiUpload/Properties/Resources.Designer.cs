@@ -61,11 +61,29 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wiki-Up.
+        /// </summary>
+        public static string AboutApplicationNameText {
+            get {
+                return ResourceManager.GetString("AboutApplicationNameText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About....
         /// </summary>
         public static string AboutMenuItemText {
             get {
                 return ResourceManager.GetString("AboutMenuItemText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About Wiki-Up.
+        /// </summary>
+        public static string AboutTitleText {
+            get {
+                return ResourceManager.GetString("AboutTitleText", resourceCulture);
             }
         }
         
@@ -219,6 +237,15 @@ namespace WikiUpload.Properties {
         public static string ButtonNoText {
             get {
                 return ResourceManager.GetString("ButtonNoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string ButtonOkText {
+            get {
+                return ResourceManager.GetString("ButtonOkText", resourceCulture);
             }
         }
         
@@ -399,6 +426,24 @@ namespace WikiUpload.Properties {
         public static string ContiuePrompt {
             get {
                 return ResourceManager.GetString("ContiuePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright.
+        /// </summary>
+        public static string CopyrightText {
+            get {
+                return ResourceManager.GetString("CopyrightText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string ErrorTitleText {
+            get {
+                return ResourceManager.GetString("ErrorTitleText", resourceCulture);
             }
         }
         
@@ -772,6 +817,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string VersionText {
+            get {
+                return ResourceManager.GetString("VersionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to via.
         /// </summary>
         public static string ViaText {
@@ -786,6 +840,15 @@ namespace WikiUpload.Properties {
         public static string ViewImageErrorMessage {
             get {
                 return ResourceManager.GetString("ViewImageErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website.
+        /// </summary>
+        public static string WebsiteText {
+            get {
+                return ResourceManager.GetString("WebsiteText", resourceCulture);
             }
         }
         

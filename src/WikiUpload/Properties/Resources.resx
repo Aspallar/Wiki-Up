@@ -139,6 +139,12 @@
   <data name="CloseText" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="ErrorTitleText" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="AboutTitleText" xml:space="preserve">
+    <value>About Wiki-Up</value>
+  </data>
   
   <!-- ***************************************************************** -->
   <!-- Login -->
@@ -309,6 +315,12 @@
   <!-- ***************************************************************** -->
   <!-- General button text -->
 
+  <data name="ButtonOkText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonCancelText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ButtonSaveText" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -332,9 +344,6 @@
   </data>
   <data name="ButtonPreviousText" xml:space="preserve">
     <value>Previous</value>
-  </data>
-  <data name="ButtonCancelText" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="ToggleSwitchYesText" xml:space="preserve">
     <value>YES</value>
@@ -407,5 +416,19 @@
   <data name="ViewImageErrorMessage" xml:space="preserve">
     <value>Unable to view image.</value>
   </data>
-
+  
+  <!-- About window -->
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="AboutApplicationNameText" xml:space="preserve">
+    <value>Wiki-Up</value>
+  </data>
+  
 </root>

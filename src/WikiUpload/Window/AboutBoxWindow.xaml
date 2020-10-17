@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WikiUpload"
+        xmlns:p="clr-namespace:WikiUpload.Properties"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -11,7 +12,7 @@
         FocusManager.FocusedElement="{Binding ElementName=OkButton}"
         Icon="{StaticResource LogoImage}"
         ResizeMode="NoResize"
-        Title="About Wiki-Up" Height="580" Width="680">
+        Title="{x:Static p:Resources.AboutTitleText}" Height="580" Width="680">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:AboutBoxWindow}">
@@ -86,7 +87,7 @@
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                                             <Button Command="{Binding CloseCommand}"
                                                     Style="{StaticResource WindowCloseButton}"
-                                                    ToolTip="Close"
+                                                    ToolTip="{x:Static p:Resources.CloseText}"
                                                     Content="X" />
                                         </StackPanel>
 
@@ -145,8 +146,10 @@
             </Image>
 
             <StackPanel Grid.Column="1" Margin="0 20 0 0">
-                <TextBlock Foreground="{StaticResource PrimaryTextBrush}" Text="Wiki-Up" FontSize="{StaticResource FontSizeLarge}" FontWeight="Bold" />
-                <TextBlock Foreground="{StaticResource PrimaryTextBrush}" Text="{Binding VersionText}" FontSize="{StaticResource FontSizeRegular}"/>
+                <TextBlock Foreground="{StaticResource PrimaryTextBrush}" Text="{x:Static p:Resources.AboutApplicationNameText}"
+                           FontSize="{StaticResource FontSizeLarge}" FontWeight="Bold" />
+                <TextBlock Foreground="{StaticResource PrimaryTextBrush}" Text="{Binding VersionText}"
+                           FontSize="{StaticResource FontSizeRegular}"/>
                 <TextBlock FontSize="{StaticResource FontSizeRegular}">           
                     <Hyperlink Command="{Binding LaunchWebSiteCommand}">
                         <Hyperlink.Style>
@@ -154,7 +157,7 @@
                                 <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
                             </Style>
                         </Hyperlink.Style>
-                        Website
+                        <TextBlock Text="{x:Static p:Resources.WebsiteText}"/>
                     </Hyperlink>
                 </TextBlock>
                 <TextBlock Foreground="{StaticResource PrimaryTextBrush}" Text="{Binding CopyrightText}" FontSize="{StaticResource FontSizeRegular}" />
@@ -216,7 +219,7 @@
             </StackPanel>
         </StackPanel>
 
-        <Button Content="OK" x:Name="OkButton" HorizontalAlignment="Center" Margin="20" Width="200"
+        <Button Content="{x:Static p:Resources.ButtonOkText}" x:Name="OkButton" HorizontalAlignment="Center" Margin="20" Width="200"
                 Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=AboutBox}"/>
 
     </StackPanel>
