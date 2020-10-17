@@ -177,6 +177,87 @@
   <data name="SearchErrorText" xml:space="preserve">
     <value>Error while probing the wiki.</value>
   </data>
+  <data name="ContentTabText" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="UploadTabText" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="FilesText" xml:space="preserve">
+    <value> Files</value>
+  </data>
+  <data name="IgnoreWarningsLabelText" xml:space="preserve">
+    <value>Ignore warnings</value>
+  </data>
+  <data name="IgnoreWarningsTooltipText" xml:space="preserve">
+    <value>Ignore warnings and upload files even if they already exist or are duplicates.</value>
+  </data>
+  <data name="AddToWatchlistLabelText" xml:space="preserve">
+    <value>Add to watch list</value>
+  </data>
+  <data name="AddToWatchlistTooltipText" xml:space="preserve">
+    <value>Add the uploaded files to your watch list.</value>
+  </data>
+  <data name="ButtonLoadContentTooltipText" xml:space="preserve">
+    <value>Load content from file.</value>
+  </data>
+  <data name="ButtonSaveContentTooltipText" xml:space="preserve">
+    <value>Save content to file.</value>
+  </data>
+  <data name="SummaryLabelText" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="SummaryDescriptionText" xml:space="preserve">
+    <value>This is the summary for the upload in the wiki's activity log.</value>
+  </data>
+  <data name="ContentLabelText" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="ContentDescriptionText" xml:space="preserve">
+    <value>Enter the wikitext to use as the initial page content for new images below. This will be only used for new images, it will not replace any existing page content.</value>
+  </data>
+  <data name="ButtonAddCategoryText" xml:space="preserve">
+    <value>Add Category</value>
+  </data>
+  <data name="ButtonAddTemplateText" xml:space="preserve">
+    <value>Add Template</value>
+  </data>
+  <data name="ButtonUploadText" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="ButtonUploadTooltipText" xml:space="preserve">
+    <value>Start uploading files. (Ctrl+U)</value>
+  </data>
+  <data name="ButtonStopUploadText" xml:space="preserve">
+    <value>Stop Upload</value>
+  </data>
+  <data name="ButtonStopUploadTooltipText" xml:space="preserve">
+    <value>Cancel running upload.</value>
+  </data>
+  <data name="ButtonAddFilesText" xml:space="preserve">
+    <value>Add Files</value>
+  </data>
+  <data name="ButtonAddFilesTooltipText" xml:space="preserve">
+    <value>Add files to the upload list (Ctrl+A)</value>
+  </data>
+  <data name="ButtonRemoveFilesText" xml:space="preserve">
+    <value>Remove Files</value>
+  </data>
+  <data name="ButtonRemoveFilesTooltipText" xml:space="preserve">
+    <value>Remove selected files from the upload list.</value>
+  </data>
+  <data name="ButtonLoadFilesTooltipText" xml:space="preserve">
+    <value>Add files from a previously saved upload list.</value>
+  </data>
+  <data name="ButtonSaveFilesTooltipText" xml:space="preserve">
+    <value>Save the upload list.</value>
+  </data>
+  <data name="ButtonSaveText" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ButtonLoadText" xml:space="preserve">
+    <value>Load</value>
+  </data>
   <data name="ButtonYesText" xml:space="preserve">
     <value>Yes</value>
   </data>
@@ -197,5 +278,11 @@
   </data>
   <data name="ButtonCancelText" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="ToggleSwitchYesText" xml:space="preserve">
+    <value>YES</value>
+  </data>
+  <data name="ToggleSwitchNoText" xml:space="preserve">
+    <value>NO</value>
   </data>
 </root>

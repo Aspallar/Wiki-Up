@@ -3,7 +3,8 @@
                     xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
                     xmlns:Borders="clr-namespace:ToggleSwitch.Borders;assembly=ToggleSwitch" 
                     xmlns:Utils="clr-namespace:ToggleSwitch.Utils;assembly=ToggleSwitch"
-                    xmlns:local="clr-namespace:WikiUpload">
+                    xmlns:local="clr-namespace:WikiUpload"
+                    xmlns:p="clr-namespace:WikiUpload.Properties">
 
     <ControlTemplate x:Key="SimpleThumbTemplate" TargetType="Thumb">
         <Grid Background="Transparent">
@@ -56,8 +57,8 @@
         <Setter Property="Height" Value="30"/>
         <Setter Property="BorderBrush" Value="#FF6A6A6A"/>
         <Setter Property="UncheckedForeground" Value="White"/>
-        <Setter Property="UncheckedContent" Value="NO"/>
-        <Setter Property="CheckedContent" Value="YES"/>
+        <Setter Property="UncheckedContent" Value="{x:Static p:Resources.ToggleSwitchNoText}"/>
+        <Setter Property="CheckedContent" Value="{x:Static p:Resources.ToggleSwitchYesText}"/>
         <Setter Property="CheckedBackground" Value="{StaticResource FlipSwitchBackground}"/>
         <Setter Property="UncheckedBackground" Value="{StaticResource FlipSwitchBackground}"/>
         <Setter Property="ThumbBrush">

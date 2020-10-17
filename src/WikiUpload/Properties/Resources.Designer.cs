@@ -70,6 +70,24 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to watch list.
+        /// </summary>
+        public static string AddToWatchlistLabelText {
+            get {
+                return ResourceManager.GetString("AddToWatchlistLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add the uploaded files to your watch list..
+        /// </summary>
+        public static string AddToWatchlistTooltipText {
+            get {
+                return ResourceManager.GetString("AddToWatchlistTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to by Aspallar.
         /// </summary>
         public static string AppByLineText {
@@ -84,6 +102,42 @@ namespace WikiUpload.Properties {
         public static string AppNameText {
             get {
                 return ResourceManager.GetString("AppNameText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Category.
+        /// </summary>
+        public static string ButtonAddCategoryText {
+            get {
+                return ResourceManager.GetString("ButtonAddCategoryText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Files.
+        /// </summary>
+        public static string ButtonAddFilesText {
+            get {
+                return ResourceManager.GetString("ButtonAddFilesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add files to the upload list (Ctrl+A).
+        /// </summary>
+        public static string ButtonAddFilesTooltipText {
+            get {
+                return ResourceManager.GetString("ButtonAddFilesTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Template.
+        /// </summary>
+        public static string ButtonAddTemplateText {
+            get {
+                return ResourceManager.GetString("ButtonAddTemplateText", resourceCulture);
             }
         }
         
@@ -111,6 +165,33 @@ namespace WikiUpload.Properties {
         public static string ButtonFindText {
             get {
                 return ResourceManager.GetString("ButtonFindText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load content from file..
+        /// </summary>
+        public static string ButtonLoadContentTooltipText {
+            get {
+                return ResourceManager.GetString("ButtonLoadContentTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add files from a previously saved upload list..
+        /// </summary>
+        public static string ButtonLoadFilesTooltipText {
+            get {
+                return ResourceManager.GetString("ButtonLoadFilesTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load.
+        /// </summary>
+        public static string ButtonLoadText {
+            get {
+                return ResourceManager.GetString("ButtonLoadText", resourceCulture);
             }
         }
         
@@ -151,6 +232,87 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Files.
+        /// </summary>
+        public static string ButtonRemoveFilesText {
+            get {
+                return ResourceManager.GetString("ButtonRemoveFilesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected files from the upload list..
+        /// </summary>
+        public static string ButtonRemoveFilesTooltipText {
+            get {
+                return ResourceManager.GetString("ButtonRemoveFilesTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save content to file..
+        /// </summary>
+        public static string ButtonSaveContentTooltipText {
+            get {
+                return ResourceManager.GetString("ButtonSaveContentTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the upload list..
+        /// </summary>
+        public static string ButtonSaveFilesTooltipText {
+            get {
+                return ResourceManager.GetString("ButtonSaveFilesTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string ButtonSaveText {
+            get {
+                return ResourceManager.GetString("ButtonSaveText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop Upload.
+        /// </summary>
+        public static string ButtonStopUploadText {
+            get {
+                return ResourceManager.GetString("ButtonStopUploadText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel running upload..
+        /// </summary>
+        public static string ButtonStopUploadTooltipText {
+            get {
+                return ResourceManager.GetString("ButtonStopUploadTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        public static string ButtonUploadText {
+            get {
+                return ResourceManager.GetString("ButtonUploadText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start uploading files. (Ctrl+U).
+        /// </summary>
+        public static string ButtonUploadTooltipText {
+            get {
+                return ResourceManager.GetString("ButtonUploadTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string ButtonYesText {
@@ -169,11 +331,65 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the wikitext to use as the initial page content for new images below. This will be only used for new images, it will not replace any existing page content..
+        /// </summary>
+        public static string ContentDescriptionText {
+            get {
+                return ResourceManager.GetString("ContentDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string ContentLabelText {
+            get {
+                return ResourceManager.GetString("ContentLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string ContentTabText {
+            get {
+                return ResourceManager.GetString("ContentTabText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to continue?.
         /// </summary>
         public static string ContiuePrompt {
             get {
                 return ResourceManager.GetString("ContiuePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Files.
+        /// </summary>
+        public static string FilesText {
+            get {
+                return ResourceManager.GetString("FilesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore warnings.
+        /// </summary>
+        public static string IgnoreWarningsLabelText {
+            get {
+                return ResourceManager.GetString("IgnoreWarningsLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore warnings and upload files even if they already exist or are duplicates..
+        /// </summary>
+        public static string IgnoreWarningsTooltipText {
+            get {
+                return ResourceManager.GetString("IgnoreWarningsTooltipText", resourceCulture);
             }
         }
         
@@ -282,6 +498,51 @@ namespace WikiUpload.Properties {
         public static string SignIn {
             get {
                 return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is the summary for the upload in the wiki&apos;s activity log..
+        /// </summary>
+        public static string SummaryDescriptionText {
+            get {
+                return ResourceManager.GetString("SummaryDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary.
+        /// </summary>
+        public static string SummaryLabelText {
+            get {
+                return ResourceManager.GetString("SummaryLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NO.
+        /// </summary>
+        public static string ToggleSwitchNoText {
+            get {
+                return ResourceManager.GetString("ToggleSwitchNoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to YES.
+        /// </summary>
+        public static string ToggleSwitchYesText {
+            get {
+                return ResourceManager.GetString("ToggleSwitchYesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        public static string UploadTabText {
+            get {
+                return ResourceManager.GetString("UploadTabText", resourceCulture);
             }
         }
         
