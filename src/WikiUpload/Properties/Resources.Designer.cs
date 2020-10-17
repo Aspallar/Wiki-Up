@@ -574,6 +574,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Awaiting upload..
+        /// </summary>
+        public static string UploadMessageAwaitingUpload {
+            get {
+                return ResourceManager.GetString("UploadMessageAwaitingUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload cancelled..
         /// </summary>
         public static string UploadMessageCancelled {
@@ -660,6 +669,15 @@ namespace WikiUpload.Properties {
         public static string UploadMessageUnkownServerResponse {
             get {
                 return ResourceManager.GetString("UploadMessageUnkownServerResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading to wiki....
+        /// </summary>
+        public static string UploadMessageUploading {
+            get {
+                return ResourceManager.GetString("UploadMessageUploading", resourceCulture);
             }
         }
         

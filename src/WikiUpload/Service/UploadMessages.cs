@@ -4,6 +4,8 @@ namespace WikiUpload
 {
     public class UploadMessages
     {
+        public static string AwaitingUpload => Resources.UploadMessageAwaitingUpload;
+        public static string Uploading => Resources.UploadMessageUploading;
         public static string InvalidXml => Resources.UploadMessageInvalidXml;
         public static string FileNotFound => Resources.UploadMessageFileNotFound;
         public static string ReadFail => Resources.UploadMessageReadFail;

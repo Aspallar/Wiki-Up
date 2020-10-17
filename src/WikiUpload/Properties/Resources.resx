@@ -321,9 +321,15 @@
   <!-- ***************************************************************** -->
   <!-- Upload status messages -->
   
+  <data name="UploadMessageAwaitingUpload" xml:space="preserve">
+    <value>Awaiting upload.</value>
+  </data>
+  <data name="UploadMessageUploading" xml:space="preserve">
+    <value>Uploading to wiki...</value>
+  </data>
   <data name="UploadMessageInvalidXml" xml:space="preserve">
     <value>Server returned an invalid XML response.</value>
-   </data>
+  </data>
   <data name="UploadMessageFileNotFound" xml:space="preserve">
     <value>File not found.</value>
   </data>
