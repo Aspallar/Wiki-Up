@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using WikiUpload.Properties;
 
 namespace WikiUpload
 {
@@ -16,6 +17,6 @@ namespace WikiUpload
             return _fileUploader.FetchCategories(from);
         }
 
-        public override string FullItemString(string item) => $"[[Category:{item}]]";
+        public override string FullItemString(string item) => string.Format(Resources.CategoryTemplate, item);
     }
 }

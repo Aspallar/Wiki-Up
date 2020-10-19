@@ -133,107 +133,107 @@
     <value>Wiki-Up</value>
   </data>
   <data name="AppByLineText" xml:space="preserve">
-    <value>by Aspallar</value>
+    <value>von Aspallar</value>
   </data>
   <data name="AboutMenuItemText" xml:space="preserve">
-    <value>About...</value>
+    <value>Über...</value>
   </data>
   <data name="ManimizeRestoreText" xml:space="preserve">
-    <value>Maximize/Restore</value>
+    <value>Maximieren/Wiederherstellen</value>
   </data>
   <data name="MiximizeText" xml:space="preserve">
-    <value>Minimize</value>
+    <value>Minimieren</value>
   </data>
   <data name="CloseText" xml:space="preserve">
-    <value>Close</value>
+    <value>Schließen</value>
   </data>
   <data name="ErrorTitleText" xml:space="preserve">
-    <value>Error</value>
+    <value>Fehler</value>
   </data>
   <data name="AboutTitleText" xml:space="preserve">
-    <value>About Wiki-Up</value>
+    <value>Über Wiki-Up</value>
   </data>
   
   <!-- ***************************************************************** -->
-  <!-- Login / Logoff -->
+  <!-- Login / Logout -->
   
   <data name="SignIn" xml:space="preserve">
-    <value>Sign In</value>
+    <value>Anmelden</value>
   </data>
   <data name="SignOut" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Abmelden</value>
   </data>
   <data name="WikiUrlPlaceholder" xml:space="preserve">
-    <value>wiki url</value>
+    <value>Wiki URL</value>
   </data>
   <data name="UsernamePlaceholder" xml:space="preserve">
-    <value>User name</value>
+    <value>Benutzername</value>
   </data>
   <data name="PasswordPlaceholder" xml:space="preserve">
-    <value>Password</value>
+    <value>Passwort</value>
   </data>
   <data name="RememberPassword" xml:space="preserve">
-    <value>Remember Password</value>
+    <value>Passwort merken</value>
   </data>
   <data name="ButtonLogin" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="LoginFailedMessage" xml:space="preserve">
-    <value>Login Failed</value>
+    <value>Login fehlgeschlagen</value>
   </data>
   <data name="InvalidLoginDetailsMessage" xml:space="preserve">
-    <value>Make sure the above details are correct.</value>
+    <value>Stelle sicher, dass die Details oben richtig sind!</value>
   </data>
   <data name="LoginErrorNoWikiOrUsername" xml:space="preserve">
-    <value>You must supply a wiki url and username.</value>
+    <value>Du musst eine Wiki URL und einen Benutzernamen angeben.</value>
   </data>
   <data name="LoginErrorInvalidWikiUrl" xml:space="preserve">
-    <value>Invalid wiki url.</value>
+    <value>Ungültige Wiki URL.</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Login Exceptions -->
   
   <data name="LoginExceptionInvalidResponse" xml:space="preserve">
-    <value>The server returned an invalid response.</value>
+    <value>Der Server hat eine ungültige Antwort gesendet.</value>
   </data>
   <data name="LoginExceptionTimeout" xml:space="preserve">
-    <value>The server did not respond.</value>
+    <value>Der Server hat nicht geantwortet.</value>
   </data>
   <data name="LoginExceptionUnexpectedError" xml:space="preserve">
-    <value>An unexpected error occured.</value>
+    <value>Ein unerwarteter Fehler ist aufgetreten.</value>
   </data>
   <data name="LoginExceptionNotAutoConfirmed" xml:space="preserve">
-    <value>That account is not autoconfirmed.</value>
+    <value>Dieser Account is nicht autoconfirmed.</value>
   </data>
   <data name="LoginExceptionNotAuthorized" xml:space="preserve">
-    <value>You are not authorized to use Wiki-Up on this wiki.</value>
+    <value>Du hast nicht die Berechtigung Wiki-Up auf diesem Wiki zu benutzen.</value>
   </data>
   <data name="LoginExceptionNoEditToken" xml:space="preserve">
-    <value>Unable to obtain edit token.</value>
+    <value>Nicht imstande einen edit token zu erhalten.</value>
   </data>
   <data name="LoginExceptionAborted" xml:space="preserve">
-    <value>The server aborted the login (you may need to use a BOT password)</value>
+    <value>Der Server hat den Login abgebrochen. (Du musst vielleicht ein BOT Passwort verwenden.)</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Insecure connection dialog -->  
   
   <data name="InsecureConnectionTitleText" xml:space="preserve">
-    <value>Insecure Connection</value>
+    <value>Unsichere Verbindung</value>
   </data>
   <data name="InsecureConnectionMessage" xml:space="preserve">
-    <value>Http connections are not secure. Signing in using http will result in your user name and password being sent in unencrypted plain text.</value>
+    <value>HTTP Verbindungen sind nicht sicher. Beim Anmelden über HTTP werden Dein Benutzername und Passwort als unverschlüsselter Klartext übertragen!</value>
   </data>
   <data name="ContiuePrompt" xml:space="preserve">
-    <value>Are you sure you want to continue?</value>
+    <value>Bist Du Dir sicher, dass Du fortfahren möchtest?</value>
   </data>
   
   <!-- ***************************************************************** -->
-  <!-- Categoty and Termplate search page -->
+  <!-- Category and Termplate search page -->
     
   <data name="SearchErrorText" xml:space="preserve">
-    <value>Error while probing the wiki.</value>
+    <value>Fehler beim Untersuchen des Wikis.</value>
   </data>
   <data name="CategoryTemplate" xml:space="preserve">
     <value>[[Category:{0}]]</value>
@@ -244,7 +244,7 @@
   <!--Upload page - tabs -->  
   
   <data name="ContentTabText" xml:space="preserve">
-    <value>Content</value>
+    <value>Inhalt</value>
   </data>
   <data name="UploadTabText" xml:space="preserve">
     <value>Upload</value>
@@ -254,77 +254,77 @@
   <!-- Upload Page - Upload Tab -->  
   
   <data name="FilesText" xml:space="preserve">
-    <value> Files</value>
+    <value> Dateien</value>
   </data>
   <data name="IgnoreWarningsLabelText" xml:space="preserve">
-    <value>Ignore warnings</value>
+    <value>Warnungen ignorieren</value>
   </data>
   <data name="IgnoreWarningsTooltipText" xml:space="preserve">
-    <value>Ignore warnings and upload files even if they already exist or are duplicates.</value>
+    <value>Warnungen ignorieren und Dateien hochladen auch falls sie schon existieren oder Duplikate sind.</value>
   </data>
   <data name="AddToWatchlistLabelText" xml:space="preserve">
-    <value>Add to watch list</value>
+    <value>Zur Beobachtungsliste hinzufügen</value>
   </data>
   <data name="AddToWatchlistTooltipText" xml:space="preserve">
-    <value>Add the uploaded files to your watch list.</value>
+    <value>Die hochgeladenen Dateien zu Deiner Beobachtungsliste hinzufügen.</value>
   </data>
   <data name="ButtonLoadContentTooltipText" xml:space="preserve">
-    <value>Load content from file.</value>
+    <value>Inhalt aus einer Datei laden.</value>
   </data>
   <data name="ButtonSaveContentTooltipText" xml:space="preserve">
-    <value>Save content to file.</value>
+    <value>Inhalt in eine Datei sichern.</value>
   </data>
   <data name="ButtonUploadText" xml:space="preserve">
     <value>Upload</value>
   </data>
   <data name="ButtonUploadTooltipText" xml:space="preserve">
-    <value>Start uploading files. (Ctrl+U)</value>
+    <value>Beginne mit dem Hochladen der Dateien. (Ctrl+U)</value>
   </data>
   <data name="ButtonStopUploadText" xml:space="preserve">
-    <value>Stop Upload</value>
+    <value>Upload anhalten.</value>
   </data>
   <data name="ButtonStopUploadTooltipText" xml:space="preserve">
-    <value>Cancel running upload.</value>
+    <value>Laufenden Upload abbrechen.</value>
   </data>
   <data name="ButtonAddFilesText" xml:space="preserve">
-    <value>Add Files</value>
+    <value>Dateien hinzufügen</value>
   </data>
   <data name="ButtonAddFilesTooltipText" xml:space="preserve">
-    <value>Add files to the upload list (Ctrl+A)</value>
+    <value>Dateien zur Upload Liste hinzufügen (Ctrl+A)</value>
   </data>
   <data name="ButtonRemoveFilesText" xml:space="preserve">
-    <value>Remove Files</value>
+    <value>Dateien entfernen</value>
   </data>
   <data name="ButtonRemoveFilesTooltipText" xml:space="preserve">
-    <value>Remove selected files from the upload list.</value>
+    <value>Ausgewählte Dateien aus der Upload Liste entfernen.</value>
   </data>
   <data name="ButtonLoadFilesTooltipText" xml:space="preserve">
-    <value>Add files from a previously saved upload list.</value>
+    <value>Dateien aus einer vorher gespeicherten Upload Liste hinzufügen.</value>
   </data>
   <data name="ButtonSaveFilesTooltipText" xml:space="preserve">
-    <value>Save the upload list.</value>
+    <value>Upload Liste speichern.</value>
   </data>  
   
   <!-- ***************************************************************** -->
   <!-- Upload Page - Content tab -->
     
   <data name="SummaryLabelText" xml:space="preserve">
-    <value>Summary</value>
+    <value>Zusammenfassung</value>
   </data>
   <data name="SummaryDescriptionText" xml:space="preserve">
-    <value>This is the summary for the upload in the wiki's activity log.</value>
+    <value>Dies ist die Zusammenfassung für den Upload im Aktivitätslogfile des Wikis.</value>
   </data>
   <data name="ContentLabelText" xml:space="preserve">
-    <value>Content</value>
+    <value>Inhalt</value>
   </data>
   <data name="ContentDescriptionText" xml:space="preserve">
-    <value>Enter the wikitext to use as the initial page content for new images below. This will be only used for new images, it will not replace any existing page content.</value>
+    <value>Gib unten den Wikitext ein, der als erster Seiteninhalt für neue Bilder verwendet werden soll. Er wird nur für neue Bilder verwendet und überschreibt vorhandenen Inhalt nicht.</value>
   </data>
   <data name="ButtonAddCategoryText" xml:space="preserve">
-    <value>Add Category</value>
+    <value>Kategorie hinzufügen</value>
   </data>
   <data name="ButtonAddTemplateText" xml:space="preserve">
-    <value>Add Template</value>
+    <value>Template hinzufügen</value>
   </data>
   
   <!-- ***************************************************************** -->
@@ -334,107 +334,106 @@
     <value>OK</value>
   </data>
   <data name="ButtonCancelText" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Abbrechen</value>
   </data>
   <data name="ButtonSaveText" xml:space="preserve">
-    <value>Save</value>
+    <value>Speichern</value>
   </data>
   <data name="ButtonLoadText" xml:space="preserve">
-    <value>Load</value>
+    <value>Laden</value>
   </data>
   <data name="ButtonYesText" xml:space="preserve">
-    <value>Yes</value>
+    <value>Ja</value>
   </data>
   <data name="ButtonNoText" xml:space="preserve">
-    <value>No</value>
+    <value>Nein</value>
   </data>
   <data name="ButtonAddText" xml:space="preserve">
-    <value>Add</value>
+    <value>Hinzufügen</value>
   </data>
   <data name="ButtonFindText" xml:space="preserve">
-    <value>Find</value>
+    <value>Suchen</value>
   </data>
   <data name="ButtonNextText" xml:space="preserve">
-    <value>Next</value>
+    <value>Nächstes</value>
   </data>
   <data name="ButtonPreviousText" xml:space="preserve">
-    <value>Previous</value>
+    <value>Vorheriges</value>
   </data>
   <data name="ToggleSwitchYesText" xml:space="preserve">
-    <value>YES</value>
+    <value>JA</value>
   </data>
   <data name="ToggleSwitchNoText" xml:space="preserve">
-    <value>NO</value>
+    <value>NEIN</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Upload status messages -->
   
   <data name="UploadMessageAwaitingUpload" xml:space="preserve">
-    <value>Awaiting upload.</value>
+    <value>Warte auf Upload.</value>
   </data>
   <data name="UploadMessageUploading" xml:space="preserve">
-    <value>Uploading to wiki...</value>
+    <value>Uploade auf Wiki...</value>
   </data>
   <data name="UploadMessageInvalidXml" xml:space="preserve">
-    <value>Server returned an invalid XML response.</value>
+    <value>Server hat eine ungültige XML zurückgemeldet.</value>
   </data>
   <data name="UploadMessageFileNotFound" xml:space="preserve">
-    <value>File not found.</value>
+    <value>Datei nicht gefunden.</value>
   </data>
   <data name="UploadMessageReadFail" xml:space="preserve">
-    <value>Unable to read file.</value>
+    <value>Kann Datei nicht lesen.</value>
   </data>
   <data name="UploadMessageCancelled" xml:space="preserve">
-    <value>Upload cancelled.</value>
+    <value>Upload abgebrochen.</value>
   </data>
   <data name="UploadMessageServerBusy" xml:space="preserve">
-    <value>Server is too busy. Uploads cancelled. Try again later.</value>
+    <value>Der Server ist zu beschäftigt. Uploads abgebrochen. Bitte später nochmal versuchen.</value>
   </data>
   <data name="UploadMessageNoEditToken" xml:space="preserve">
-    <value>Unable to obtain valid edit token. Uploads cancelled. You may have to restart Wiki-Up to resolve this error.</value>
+    <value>Erhalte keine edit token. Upload abgebrochen. Versuche Wiki-Up neu zu starten um diesen Fehler zu beheben.</value>
   </data>
   <data name="UploadMessageNetworkError" xml:space="preserve">
-    <value>Network error. Unable to upload.</value>
+    <value>Netzwerkfehler. Upload nicht möglich.</value>
   </data>
   <data name="UploadMessageTimedOut" xml:space="preserve">
-    <value>The upload timed out.</value>
+    <value>Zeitüberschreitung beim Upload.</value>
   </data>
   <data name="UploadMessageUnkownServerResponse" xml:space="preserve">
-    <value>Unexpected server response.</value>
+    <value>Unerwartete Serverantwort.</value>
   </data>
   <data name="UploadMessageFileTypeNotPermitted" xml:space="preserve">
-    <value>Files of type "{0}" are not permitted.</value>
+    <value>Dateien der Art "{0}" sind nicht erlaubt.</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Upload View Model -->
 
   <data name="UploadViaText" xml:space="preserve">
-    <value>Uploaded via</value>
+    <value>Hochgeladen mit</value>
   </data>
   <data name="ViaText" xml:space="preserve">
-    <value>via</value>
+    <value>mit</value>
   </data>
   <data name="CantReadUploadListMessage" xml:space="preserve">
-    <value>Unable to read upload list.</value>
+    <value>Lesen der Upload Liste nicht möglich.</value>
   </data>
   <data name="CantSaveUploadListMessage" xml:space="preserve">
-    <value>Unable to save upload list.</value>
+    <value>Speichern der Upload Liste nicht möglich.</value>
   </data>
   <data name="CantReadContentMessage" xml:space="preserve">
-    <value>Unable to read content.</value>
+    <value>Lesen des Inhalts nicht möglich.</value>
   </data>
   <data name="CantSaveContentMessage" xml:space="preserve">
-    <value>Unable to save content.</value>
+    <value>Speichern des Inhalts nicht möglich.</value>
   </data>
   <data name="ViewImageErrorMessage" xml:space="preserve">
-    <value>Unable to view image.</value>
+    <value>Betrachten des Bilds nicht möglich.</value>
   </data>
-  
+
   <!-- ***************************************************************** -->
   <!-- About window -->
-
   <data name="CopyrightText" xml:space="preserve">
     <value>Copyright</value>
   </data>
@@ -452,25 +451,25 @@
   <!--Friendly upload error text -->
 
   <data name="UploadErrorAlreadyExists" xml:space="preserve">
-    <value>Already Exists</value>
+    <value>Existiert bereits</value>
   </data>
   <data name="UploadErrorBadFilename" xml:space="preserve">
-    <value>Invalid file name</value>
+    <value>Ungültiger Dateiname</value>
   </data>
   <data name="UploadErrorUnwantedType" xml:space="preserve">
-    <value>Unwanted file type</value>
+    <value>Unerwünschter Dateityp</value>
   </data>
   <data name="UploadErrorLargeFile" xml:space="preserve">
-    <value>Large file warning</value>
+    <value>Große Datei Warnung</value>
   </data>
   <data name="UploadErrorEmptyFile" xml:space="preserve">
-    <value>File is empty</value>
+    <value>Datei ist leer</value>
   </data>
   <data name="UploadErrorDuplicateArchive" xml:space="preserve">
-    <value>Duplicate of archived</value>
+    <value>Duplikat eines Archivs</value>
   </data>
   <data name="UploadErrorDeletedFile" xml:space="preserve">
-    <value>Deleted File</value>
+    <value>Gelöschte Datei</value>
   </data>
 
 </root>

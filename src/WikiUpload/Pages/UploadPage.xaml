@@ -268,7 +268,7 @@
                             FontSize="{StaticResource FontSizeSmall}"
                             Command="{Binding SignOutCommand}"
                             IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"
-                            Content="Sign Out"/>
+                            Content="{x:Static p:Resources.SignOut}"/>
                 </StackPanel>
             </Grid>
 

@@ -385,6 +385,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [[Category:{0}]].
+        /// </summary>
+        public static string CategoryTemplate {
+            get {
+                return ResourceManager.GetString("CategoryTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string CloseText {
@@ -646,6 +655,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sign Out.
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This is the summary for the upload in the wiki&apos;s activity log..
         /// </summary>
         public static string SummaryDescriptionText {
@@ -678,6 +696,69 @@ namespace WikiUpload.Properties {
         public static string ToggleSwitchYesText {
             get {
                 return ResourceManager.GetString("ToggleSwitchYesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Already Exists.
+        /// </summary>
+        public static string UploadErrorAlreadyExists {
+            get {
+                return ResourceManager.GetString("UploadErrorAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid file name.
+        /// </summary>
+        public static string UploadErrorBadFilename {
+            get {
+                return ResourceManager.GetString("UploadErrorBadFilename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted File.
+        /// </summary>
+        public static string UploadErrorDeletedFile {
+            get {
+                return ResourceManager.GetString("UploadErrorDeletedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate of archived.
+        /// </summary>
+        public static string UploadErrorDuplicateArchive {
+            get {
+                return ResourceManager.GetString("UploadErrorDuplicateArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File is empty.
+        /// </summary>
+        public static string UploadErrorEmptyFile {
+            get {
+                return ResourceManager.GetString("UploadErrorEmptyFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Large file warning.
+        /// </summary>
+        public static string UploadErrorLargeFile {
+            get {
+                return ResourceManager.GetString("UploadErrorLargeFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unwanted file type.
+        /// </summary>
+        public static string UploadErrorUnwantedType {
+            get {
+                return ResourceManager.GetString("UploadErrorUnwantedType", resourceCulture);
             }
         }
         
