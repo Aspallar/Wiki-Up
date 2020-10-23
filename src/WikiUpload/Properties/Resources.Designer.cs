@@ -466,6 +466,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to German translation by.
+        /// </summary>
+        public static string GermanTrsnslationText {
+            get {
+                return ResourceManager.GetString("GermanTrsnslationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignore warnings.
         /// </summary>
         public static string IgnoreWarningsLabelText {

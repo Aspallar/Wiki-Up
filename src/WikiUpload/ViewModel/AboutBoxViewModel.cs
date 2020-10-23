@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using WikiUpload.Properties;
 
@@ -11,7 +12,7 @@ namespace WikiUpload
             var (copyright, version) = helpers.ApplicationInformation;
             CopyrightText = Resources.CopyrightText + copyright.Substring(copyright.IndexOf(' '));
             VersionText = $"{Resources.VersionText} {version}";
-            LaunchWebSiteCommand = new RelayCommand(() => helpers.LaunchProcess("https://github.com/Aspallar/Wiki-Up"));
+            LaunchWebSiteCommand = new RelayParameterizedCommand((uri) => helpers.LaunchProcess(((Uri)uri).AbsoluteUri));
         }
 
         public string CopyrightText { get; }

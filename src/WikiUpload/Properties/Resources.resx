@@ -500,5 +500,8 @@
   <data name="ImageFilesDetailsText" xml:space="preserve">
     <value>This is a list of file extensions that wiki up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon.</value>
   </data>
+  <data name="GermanTrsnslationText" xml:space="preserve">
+    <value>German translation by</value>
+  </data>
 
 </root>
