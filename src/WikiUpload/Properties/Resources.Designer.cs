@@ -493,7 +493,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Delay.
+        ///   Looks up a localized string similar to Image File Extensions.
         /// </summary>
         public static string ImageFilesText {
             get {

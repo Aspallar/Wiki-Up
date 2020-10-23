@@ -495,7 +495,7 @@
     <value>This time, in milliseconds, that Wiki-Up waits between each file upload.</value>
   </data>
   <data name="ImageFilesText" xml:space="preserve">
-    <value>Upload Delay</value>
+    <value>Image File Extensions</value>
   </data>
   <data name="ImageFilesDetailsText" xml:space="preserve">
     <value>This is a list of file extensions that wiki up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon.</value>
