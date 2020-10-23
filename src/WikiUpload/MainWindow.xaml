@@ -92,6 +92,13 @@
 
                                         <!-- Window Buttons -->
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <Button Command="{Binding AboutCommand}"
+                                                    Style="{StaticResource WindowTitleButton}"
+                                                    ToolTip="{x:Static p:Resources.AboutMenuItemText}" >
+                                                <iconPacks:PackIconFontAwesome Kind="YinYangSolid"
+                                                            Foreground="{StaticResource PrimaryTextBrush}"
+                                                            Width="16" Height="16" />
+                                            </Button>
                                             <Button Command="{Binding SettingsCommand}"
                                                     Style="{StaticResource WindowTitleButton}"
                                                     ToolTip="{x:Static p:Resources.SettingsText}" >

@@ -14,34 +14,12 @@ namespace WikiUpload
             InitializeComponent();
             CreateApplicationServices();
             DataContext = new MainWindowViewModel(this, App.Navigator);
-            Loaded += Window_Loaded;
         }
 
         private void CreateApplicationServices()
         {
             App.Navigator = new NavigationService(MainFrame.NavigationService);
             App.ServiceLocator = new ServiceLocator();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            IntPtr handle = new WindowInteropHelper(this).Handle;
-            NativeMethods.CreateSystemMenu(handle, Properties.Resources.AboutMenuItemText);
-            HwndSource source = HwndSource.FromHwnd(handle);
-            source.AddHook(new HwndSourceHook(WndProc));
-        }
-
-        private static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (msg == NativeMethods.WM_SYSCOMMAND && wParam == NativeMethods.AboutSysMenuId)
-            {
-                handled = true;
-                var about = new AboutBoxWindow();
-                WindowInteropHelper aboutHandle = new WindowInteropHelper(about);
-                aboutHandle.Owner = hwnd;
-                about.ShowDialog();
-            }
-            return IntPtr.Zero;
         }
     }
 }
