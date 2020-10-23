@@ -493,7 +493,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is a list of file extensions that wiki up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon..
+        ///   Looks up a localized string similar to This is a list of file extensions that Wiki-Up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon..
         /// </summary>
         public static string ImageFilesDetailsText {
             get {
@@ -538,7 +538,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The language to use in the Wiki-Up user interface. Changes to the language settong will not take effect until the next time Wiki-up is run..
+        ///   Looks up a localized string similar to The language to use in the Wiki-Up user interface. Changes to the language setting will not take effect until the next time Wiki-up is run..
         /// </summary>
         public static string LanguageDetailsText {
             get {
@@ -948,6 +948,15 @@ namespace WikiUpload.Properties {
         public static string UploadMessageUploading {
             get {
                 return ResourceManager.GetString("UploadMessageUploading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate of.
+        /// </summary>
+        public static string UploadResponseDuplicateOf {
+            get {
+                return ResourceManager.GetString("UploadResponseDuplicateOf", resourceCulture);
             }
         }
         

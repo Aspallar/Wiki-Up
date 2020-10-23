@@ -118,7 +118,7 @@ namespace WikiUpload
 
                 if (IsDuplicate)
                 {
-                    text.Append("Duplicate of");
+                    text.Append(Resources.UploadResponseDuplicateOf);
                     foreach (string duplicate in Duplicates)
                         text.Append($" [{duplicate}]");
                     text.Append('.');
