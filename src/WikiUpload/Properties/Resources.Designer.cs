@@ -754,7 +754,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This time, in milliseconds, that Wiki-Up waits between each file upload..
+        ///   Looks up a localized string similar to This is the time, in milliseconds, that Wiki-Up waits between each file upload..
         /// </summary>
         public static string UploadDelayDetailsText {
             get {

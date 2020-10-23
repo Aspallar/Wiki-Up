@@ -492,7 +492,7 @@
     <value>Upload Delay</value>
   </data>
   <data name="UploadDelayDetailsText" xml:space="preserve">
-    <value>This time, in milliseconds, that Wiki-Up waits between each file upload.</value>
+    <value>This is the time, in milliseconds, that Wiki-Up waits between each file upload.</value>
   </data>
   <data name="ImageFilesText" xml:space="preserve">
     <value>Image File Extensions</value>
