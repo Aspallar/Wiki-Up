@@ -5,7 +5,11 @@ namespace WikiUpload.Properties
 {
     public class AppSettings : IAppSettings
     {
-        public string ImageExtensions => Settings.Default.ImageExtensions;
+        public string ImageExtensions
+        {
+            get => Settings.Default.ImageExtensions;
+            set => Settings.Default.ImageExtensions = value;
+        }
 
         public StringCollection PreviousSites => Settings.Default.PreviousSites;
 
@@ -17,7 +21,11 @@ namespace WikiUpload.Properties
             set => Settings.Default.RememberPassword = value;
         }
 
-        public int UploadDelay => Settings.Default.UploadDelay;
+        public int UploadDelay
+        {
+            get => Settings.Default.UploadDelay;
+            set => Settings.Default.UploadDelay = value;
+        }
 
         public string Username
         {
@@ -29,6 +37,11 @@ namespace WikiUpload.Properties
         {
             get => Settings.Default.WikiUrl;
             set => Settings.Default.WikiUrl = value;
+        }
+        public string Language
+        {
+            get => Settings.Default.Language;
+            set => Settings.Default.Language = value;
         }
 
         public void AddMostRecentlyUsedSite(string site)

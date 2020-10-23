@@ -8,19 +8,19 @@
     <Setting Name="WikiUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UploadDelay" Type="System.Int32" Scope="Application">
+    <Setting Name="UploadDelay" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="PreviousSites" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ImageExtensions" Type="System.String" Scope="Application">
+    <Setting Name="ImageExtensions" Type="System.String" Scope="User">
       <Value Profile="(Default)">png;jpg;jpeg;gif;ico;svg;webp;bmp;tif;tiff</Value>
     </Setting>
     <Setting Name="RememberPassword" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Language" Type="System.String" Scope="Application">
+    <Setting Name="Language" Type="System.String" Scope="User">
       <Value Profile="(Default)">Default</Value>
     </Setting>
   </Settings>

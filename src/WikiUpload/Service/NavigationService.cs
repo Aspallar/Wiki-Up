@@ -34,5 +34,17 @@ namespace WikiUpload
         {
             _uploadPage = null;
         }
+
+        public void NavigateToSettingsPage()
+            => _navigator.Navigate(new SettingsPage());
+
+        public void LeaveSettingsPage()
+        {
+            if (_uploadPage != null)
+                _navigator.Navigate(_uploadPage);
+            else
+                NavigateToLoginPage();
+
+        }
     }
 }

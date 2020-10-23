@@ -473,4 +473,32 @@
     <value>Deleted File</value>
   </data>
 
+  <!-- ***************************************************************** -->
+  <!-- New (to be translated) -->
+
+  <data name="SettingsText" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SaveSettingsText" xml:space="preserve">
+    <value>Save Settings</value>
+  </data>
+  <data name="LanguageText" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LanguageDetailsText" xml:space="preserve">
+    <value>The language to use in the Wiki-Up user interface. Changes to the language settong will not take effect until the next time Wiki-up is run.</value>
+  </data>
+  <data name="UploadDelayText" xml:space="preserve">
+    <value>Upload Delay</value>
+  </data>
+  <data name="UploadDelayDetailsText" xml:space="preserve">
+    <value>This time, in milliseconds, that Wiki-Up waits between each file upload.</value>
+  </data>
+  <data name="ImageFilesText" xml:space="preserve">
+    <value>Upload Delay</value>
+  </data>
+  <data name="ImageFilesDetailsText" xml:space="preserve">
+    <value>This is a list of file extensions that wiki up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon.</value>
+  </data>
+
 </root>

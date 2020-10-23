@@ -5,6 +5,7 @@
   </DeployedProjects>
   <DirectoryMappings>
     <Item Key="" Value="INSTALLFOLDER" />
+    <Item Key="de-DE" Value="ProgramFilesFolder" />
   </DirectoryMappings>
   <FileMappings />
   <DeploySymbols>false</DeploySymbols>

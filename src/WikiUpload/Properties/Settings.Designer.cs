@@ -47,12 +47,15 @@ namespace WikiUpload.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int UploadDelay {
             get {
                 return ((int)(this["UploadDelay"]));
+            }
+            set {
+                this["UploadDelay"] = value;
             }
         }
         
@@ -67,12 +70,15 @@ namespace WikiUpload.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("png;jpg;jpeg;gif;ico;svg;webp;bmp;tif;tiff")]
         public string ImageExtensions {
             get {
                 return ((string)(this["ImageExtensions"]));
+            }
+            set {
+                this["ImageExtensions"] = value;
             }
         }
         
@@ -88,12 +94,15 @@ namespace WikiUpload.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Default")]
         public string Language {
             get {
                 return ((string)(this["Language"]));
+            }
+            set {
+                this["Language"] = value;
             }
         }
     }

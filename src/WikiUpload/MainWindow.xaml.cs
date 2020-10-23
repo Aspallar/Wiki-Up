@@ -12,8 +12,8 @@ namespace WikiUpload
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new WindowViewModel(this);
             CreateApplicationServices();
+            DataContext = new MainWindowViewModel(this, App.Navigator);
             Loaded += Window_Loaded;
         }
 

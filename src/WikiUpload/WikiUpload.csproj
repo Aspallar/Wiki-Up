@@ -94,6 +94,7 @@
     <Compile Include="Behaviours\SavedPassword.cs" />
     <Compile Include="DataModels\IWikiSearch.cs" />
     <Compile Include="DataModels\IWikiSearchFactory.cs" />
+    <Compile Include="DataModels\Language.cs" />
     <Compile Include="DataModels\TemplateSearch.cs" />
     <Compile Include="DataModels\WikiSearch.cs" />
     <Compile Include="DataModels\CategorySearch.cs" />
@@ -106,6 +107,9 @@
     <Compile Include="Ninject\ServiceModule.cs" />
     <Compile Include="Pages\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AppSettings.cs" />
     <Compile Include="Properties\IAppSettings.cs" />
@@ -141,6 +145,7 @@
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ErrorMessageViewModel.cs" />
     <Compile Include="ViewModel\InsecureWarningViewModel.cs" />
     <Compile Include="ViewModel\AboutBoxViewModel.cs" />
@@ -176,6 +181,7 @@
     <Compile Include="ViewModel\Base\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\UploadViewModel.cs" />
     <Compile Include="ViewModel\WindowViewModel.cs" />
     <Compile Include="Window\ErrorMessageWindow.xaml.cs">
@@ -191,6 +197,14 @@
     <Page Include="Pages\SearchPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Icons.xaml">
       <SubType>Designer</SubType>

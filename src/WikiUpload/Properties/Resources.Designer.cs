@@ -484,6 +484,24 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is a list of file extensions that wiki up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon..
+        /// </summary>
+        public static string ImageFilesDetailsText {
+            get {
+                return ResourceManager.GetString("ImageFilesDetailsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Delay.
+        /// </summary>
+        public static string ImageFilesText {
+            get {
+                return ResourceManager.GetString("ImageFilesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Http connections are not secure. Signing in using http will result in your user name and password being sent in unencrypted plain text..
         /// </summary>
         public static string InsecureConnectionMessage {
@@ -507,6 +525,24 @@ namespace WikiUpload.Properties {
         public static string InvalidLoginDetailsMessage {
             get {
                 return ResourceManager.GetString("InvalidLoginDetailsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The language to use in the Wiki-Up user interface. Changes to the language settong will not take effect until the next time Wiki-up is run..
+        /// </summary>
+        public static string LanguageDetailsText {
+            get {
+                return ResourceManager.GetString("LanguageDetailsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string LanguageText {
+            get {
+                return ResourceManager.GetString("LanguageText", resourceCulture);
             }
         }
         
@@ -637,11 +673,29 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Settings.
+        /// </summary>
+        public static string SaveSettingsText {
+            get {
+                return ResourceManager.GetString("SaveSettingsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error while probing the wiki..
         /// </summary>
         public static string SearchErrorText {
             get {
                 return ResourceManager.GetString("SearchErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsText {
+            get {
+                return ResourceManager.GetString("SettingsText", resourceCulture);
             }
         }
         
@@ -696,6 +750,24 @@ namespace WikiUpload.Properties {
         public static string ToggleSwitchYesText {
             get {
                 return ResourceManager.GetString("ToggleSwitchYesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This time, in milliseconds, that Wiki-Up waits between each file upload..
+        /// </summary>
+        public static string UploadDelayDetailsText {
+            get {
+                return ResourceManager.GetString("UploadDelayDetailsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Delay.
+        /// </summary>
+        public static string UploadDelayText {
+            get {
+                return ResourceManager.GetString("UploadDelayText", resourceCulture);
             }
         }
         

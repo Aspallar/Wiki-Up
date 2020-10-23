@@ -6,5 +6,7 @@
         void NavigateToUploadPage();
         void NavigateToLoginPage();
         void NavigateToSearchPage();
+        void NavigateToSettingsPage();
+        void LeaveSettingsPage();
     }
 }
