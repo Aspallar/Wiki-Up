@@ -21,7 +21,12 @@ namespace WikiUpload
 
             XmlNode continueNode = doc.SelectSingleNode("/api/query-continue/allcategories");
             if (continueNode != null)
-                result.NextFrom = continueNode.Attributes["acfrom"].Value;
+            {
+                if (continueNode.Attributes["acfrom"] != null)
+                    result.NextFrom = continueNode.Attributes["acfrom"].Value;
+                else if (continueNode.Attributes["accontinue"] != null)
+                    result.NextFrom = continueNode.Attributes["accontinue"].Value;
+            }
 
             return result;
         }
@@ -40,7 +45,12 @@ namespace WikiUpload
 
             XmlNode continueNode = doc.SelectSingleNode("/api/query-continue/allpages");
             if (continueNode != null)
-                result.NextFrom = continueNode.Attributes["apfrom"].Value;
+            {
+                if (continueNode.Attributes["apfrom"] != null)
+                    result.NextFrom = continueNode.Attributes["apfrom"].Value;
+                else if (continueNode.Attributes["apcontinue"] != null)
+                    result.NextFrom = continueNode.Attributes["apcontinue"].Value;
+            }
 
             return result;
         }
