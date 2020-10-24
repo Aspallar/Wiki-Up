@@ -3,10 +3,10 @@
   
   <?define WikiUpload_TargetDir=$(var.WikiUpload.TargetDir)?>
 	
-  <Product Id="{4DC66900-AEAD-4398-8479-24606D0EAC00}"
+  <Product Id="{D293FC16-FE3C-4947-BA76-52E23C6A8625}"
            Name="Wiki-Up"
            Language="1033"
-           Version="1.7.0.0"
+           Version="1.7.1.0"
            Manufacturer="Aspallar"
            UpgradeCode="{5DBEE1B6-4D18-4F36-BEA8-74C89ADD342B}">
     
@@ -63,7 +63,7 @@
 
       <!-- custom chrome dll -->
       <Component Id="Microsoft.Windows.Shell.dll" Guid="82564700-855B-4664-9A4F-2BC425189D24">
-        <File Id="Microsoft.Windows.Shell.dll" Name="Microsoft.Windows.Shell.dll" Source="$(var.WikiUpload_TargetDir)WikiUp.exe.config" KeyPath="yes" />
+        <File Id="Microsoft.Windows.Shell.dll" Name="Microsoft.Windows.Shell.dll" Source="$(var.WikiUpload_TargetDir)Microsoft.Windows.Shell.dll" KeyPath="yes" />
       </Component>
 
       <!-- Mahapps icon pack -->
