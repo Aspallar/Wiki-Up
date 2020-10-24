@@ -254,7 +254,7 @@
   <!-- Upload Page - Upload Tab -->  
   
   <data name="FilesText" xml:space="preserve">
-    <value>Dateien</value>
+    <value> Dateien</value>
   </data>
   <data name="IgnoreWarningsLabelText" xml:space="preserve">
     <value>Warnungen ignorieren</value>
