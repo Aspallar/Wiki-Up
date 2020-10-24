@@ -254,7 +254,7 @@
   <!-- Upload Page - Upload Tab -->  
   
   <data name="FilesText" xml:space="preserve">
-    <value> Dateien</value>
+    <value>Dateien</value>
   </data>
   <data name="IgnoreWarningsLabelText" xml:space="preserve">
     <value>Warnungen ignorieren</value>
@@ -476,34 +476,34 @@
   <!-- New (to be translated) -->
 
   <data name="SettingsText" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
   <data name="SaveSettingsText" xml:space="preserve">
-    <value>Save Settings</value>
+    <value>Einstellungen speichern</value>
   </data>
   <data name="LanguageText" xml:space="preserve">
-    <value>Language</value>
+    <value>Sprache</value>
   </data>
   <data name="LanguageDetailsText" xml:space="preserve">
-    <value>The language to use in the Wiki-Up user interface. Changes to the language setting will not take effect until the next time Wiki-up is run.</value>
+    <value>Die Sprache welche für die Wiki-Up Benutzeroberfläche verwendet wird. Änderungen der Spracheneinstellung werden erst nach einem Neustart von Wiki-Up wirksam.</value>
   </data>
   <data name="UploadDelayText" xml:space="preserve">
-    <value>Upload Delay</value>
+    <value>Upload Verzögerung</value>
   </data>
   <data name="UploadDelayDetailsText" xml:space="preserve">
-    <value>This is the time, in milliseconds, that Wiki-Up waits between each file upload.</value>
+    <value>Dies ist die Zeitspanne in Millisekunden, die Wiki-Up zwischen Dateiuploads wartet.</value>
   </data>
   <data name="ImageFilesText" xml:space="preserve">
-    <value>Image File Extensions</value>
+    <value>Bilder Dateierweiterung</value>
   </data>
   <data name="ImageFilesDetailsText" xml:space="preserve">
-    <value>This is a list of file extensions that Wiki-Up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon.</value>
+    <value>Dies ist eine Liste von Dateierweiterungen, die Wiki-Up als Bilddateien im Dateien Hinzufügen Dialog erkennt. Trenne jeden Eintrag mit einem Strichpunkt.</value>
   </data>
   <data name="GermanTrsnslationText" xml:space="preserve">
-    <value>German translation by</value>
+    <value>Deutsche Übersetzung von</value>
   </data>
   <data name="UploadResponseDuplicateOf" xml:space="preserve">
-    <value>Duplicate of</value>
+    <value>Duplikat von</value>
   </data>
 
 </root>
