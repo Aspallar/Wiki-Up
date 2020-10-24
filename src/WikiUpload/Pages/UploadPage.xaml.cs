@@ -20,6 +20,8 @@ namespace WikiUpload
             {
                 AddToWatchlistLabel.FontSize = 15;
                 IgnoreWarningsLabel.FontSize = 15;
+                SaveListButton.FontSize = 22;
+                LoadListButton.FontSize = 22;
             }
         }
     }

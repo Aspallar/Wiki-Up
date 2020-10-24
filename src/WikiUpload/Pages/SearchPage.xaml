@@ -54,16 +54,17 @@
                          CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
                          FontSize="{StaticResource FontSizeSmall}"
                          Margin="0 10 30 10"/>
-                <Button  Content="{x:Static p:Resources.ButtonPreviousText}" 
+
+                <Button  ToolTip="{x:Static p:Resources.ButtonPreviousText}" 
                          Command="{Binding PreviousSearchCommand}"
-                         IsEnabled="{Binding Path=CurrentSearch.HasPrevious, Mode=OneWay}"
-                         FontSize="{StaticResource FontSizeSmall}"
-                         Width="96"/>
-                <Button  Content="{x:Static p:Resources.ButtonNextText}" 
+                         IsEnabled="{Binding Path=CurrentSearch.HasPrevious, Mode=OneWay}">
+                    <iconPacks:PackIconFontAwesome Kind="CaretLeftSolid" />
+                </Button>
+                <Button  ToolTip="{x:Static p:Resources.ButtonNextText}" 
                          IsEnabled="{Binding Path=CurrentSearch.HasNext, Mode=OneWay}"
-                         Command="{Binding NextSearchCommand}"
-                         FontSize="{StaticResource FontSizeSmall}"
-                         Width="96"/>
+                         Command="{Binding NextSearchCommand}">
+                    <iconPacks:PackIconFontAwesome Kind="CaretRightSolid" />
+                </Button>
             </StackPanel>
             <Button Grid.Row="0"
                     Content="{x:Static p:Resources.ButtonCancelText}"

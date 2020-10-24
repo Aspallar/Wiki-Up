@@ -118,12 +118,14 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Button Content="{x:Static p:Resources.ButtonLoadText}" Grid.Column="0" Margin="0 0 5 0"
+                                <Button x:Name="LoadListButton"
+                                        Content="{x:Static p:Resources.ButtonLoadText}" Grid.Column="0" Margin="0 0 5 0"
                                         ToolTip="{x:Static p:Resources.ButtonLoadFilesTooltipText}"
                                         Command="{Binding LoadListCommand}"
                                         IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}">
                                 </Button>
-                                <Button Content="{x:Static p:Resources.ButtonSaveText}" Grid.Column="1" Margin="5 0 0 0"
+                                <Button x:Name="SaveListButton"
+                                    Content="{x:Static p:Resources.ButtonSaveText}" Grid.Column="1" Margin="5 0 0 0"
                                     ToolTip="{x:Static p:Resources.ButtonSaveFilesTooltipText}"
                                     Command="{Binding SaveListCommand}"
                                     IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
