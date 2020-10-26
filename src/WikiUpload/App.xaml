@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Styles/Tabs.xaml"/>
                 <ResourceDictionary Source="Styles/ToggleSwitch.xaml"/>
                 <ResourceDictionary Source="Styles/ComboBox.xaml"/>
+                <ResourceDictionary Source="Styles/Slider.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <x:StaticExtension x:Key="ServiceLocator" Member="local:App.ServiceLocator"/>
         </ResourceDictionary>

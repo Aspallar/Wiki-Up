@@ -402,7 +402,7 @@ namespace WikiUpload
         public ICommand NextSearchCommand { get; }
         private async Task NextSearch()
         {
-            if (!SearchFetchInProgress)
+            if (CurrentSearch != null &&  !SearchFetchInProgress && CurrentSearch.HasNext)
             {
                 SearchFetchInProgress = true;
                 await CurrentSearch.Next();
@@ -413,7 +413,7 @@ namespace WikiUpload
         public ICommand PreviousSearchCommand { get; }
         private async Task PreviousSearch()
         {
-            if (!SearchFetchInProgress)
+            if (CurrentSearch != null &&  !SearchFetchInProgress && CurrentSearch.HasPrevious)
             {
                 SearchFetchInProgress = true;
                 await CurrentSearch.Previous();
