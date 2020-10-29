@@ -40,6 +40,12 @@ namespace WikiUpload
 
             Bind<IWikiSearchFactory>()
                 .To<WikiSearchFactory>();
+
+            Bind<IUpdateCheck>()
+                .To<UpdateCheck>();
+
+            Bind<IWindowManager>()
+                .To<WindowManager>();
         }
     }
 }

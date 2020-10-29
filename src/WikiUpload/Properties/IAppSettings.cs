@@ -13,8 +13,11 @@ namespace WikiUpload.Properties
         string Username { get; set; }
         string WikiUrl { get; set; }
         string Language { get; set; }
+        bool CheckForUpdates { get; set; }
+        
 
         void AddMostRecentlyUsedSite(string site);
+        void RestoreConfigurationDefaults();
         void Save();
     }
 }

@@ -474,7 +474,7 @@
   </data>
 
   <!-- ***************************************************************** -->
-  <!-- New (to be translated) -->
+  <!-- New (to be moved to correct location in file) -->
 
   <data name="SettingsText" xml:space="preserve">
     <value>Settings</value>
@@ -505,6 +505,34 @@
   </data>
   <data name="UploadResponseDuplicateOf" xml:space="preserve">
     <value>Duplicate of</value>
+  </data>
+
+  <!-- ***************************************************************** -->
+  <!-- New (to be translated) -->
+
+  <data name="UpdatesText" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="CheckNowText" xml:space="preserve">
+    <value>Check Now</value>
+  </data>
+  <data name="UpdatesDetailsText" xml:space="preserve">
+    <value>Check for new versions of Wiki-Up when Wiki-Up starts up.</value>
+  </data>
+  <data name="NewVersionTitleText" xml:space="preserve">
+    <value>New Version Available</value>
+  </data>
+  <data name="NewVersionMessage" xml:space="preserve">
+    <value>A newer version of Wiki-Up, version {0}, is available for download.</value>
+  </data>
+  <data name="DownloadNowText" xml:space="preserve">
+    <value>Download Now</value>
+  </data>
+  <data name="UpToDateText" xml:space="preserve">
+    <value>Wiki-Up is up to date.</value>
+  </data>
+  <data name="RestoreDefaultsText" xml:space="preserve">
+    <value>Restore Defaults</value>
   </data>
 
 </root>

@@ -5,9 +5,6 @@ using System.Windows;
 
 namespace WikiUpload
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class ErrorMessageWindow : Window
     {
         public ErrorMessageWindow(string errorMessage, Exception ex)

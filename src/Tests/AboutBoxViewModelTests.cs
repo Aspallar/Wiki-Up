@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
+using System;
 using System.Threading;
 using System.Windows;
 using WikiUpload;
@@ -42,9 +43,10 @@ namespace Tests
         [Test]
         public void When_LaunchWebsiteIsExecuted_Then_WebsiteIsLaunched()
         {
-            _model.LaunchWebSiteCommand.Execute(null);
+            var uri = new Uri("https://github.com/Aspallar/Wiki-Up");
+            _model.LaunchWebSiteCommand.Execute(uri);
 
-            A.CallTo(()=>_helpers.LaunchProcess("https://github.com/Aspallar/Wiki-Up"))
+            A.CallTo(()=>_helpers.LaunchProcess(uri.AbsoluteUri))
                 .MustHaveHappened(1, Times.Exactly);
         }
 

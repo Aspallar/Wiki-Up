@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
       xmlns:local="clr-namespace:WikiUpload"
       xmlns:p="clr-namespace:WikiUpload.Properties"
       DataContext="{Binding Path=SettingsViewModel, Source={StaticResource ServiceLocator}}"
@@ -12,8 +13,8 @@
       Title="SettingsPage">
     <Page.Resources>
         <Thickness x:Key="SeparatorMargin" Top="4" />
+        <Thickness x:Key="ItemSeparatorMargin" Top="18" />
         <Thickness x:Key="BorderMargin" Left="20" Right="20" />
-
     </Page.Resources>
 
     <Grid>
@@ -34,7 +35,6 @@
             <TextBlock Margin="10 0 0 0" Text="{x:Static p:Resources.SettingsText}" FontSize="{StaticResource FontSizeLarge}" />
         </StackPanel>
 
-
         <Grid Grid.Row="1" Background="{StaticResource PrimaryDarkBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -45,7 +45,7 @@
                     Background="{StaticResource PrimaryDarkBrush}"
                     Margin="{StaticResource BorderMargin}">
                 <TextBlock Text="{x:Static p:Resources.LanguageText}" 
-                           Margin="0 30 0 0"
+                           Margin="{StaticResource ItemSeparatorMargin}"
                            FontSize="{StaticResource FontSizeRegular}"
                            FontWeight="Bold"
                            Foreground="{StaticResource PrimaryTextBrush}"/>
@@ -63,7 +63,7 @@
                     </ComboBox.Resources>
                 </ComboBox>
                 <TextBlock Text="{x:Static p:Resources.UploadDelayText}" 
-                       Margin="0 30 0 0"
+                       Margin="{StaticResource ItemSeparatorMargin}"
                        FontSize="{StaticResource FontSizeRegular}"
                        FontWeight="Bold"
                        Foreground="{StaticResource PrimaryTextBrush}"/>
@@ -85,7 +85,7 @@
                     </Slider>
                 </DockPanel>
                 <TextBlock Text="{x:Static p:Resources.ImageFilesText}" 
-                       Margin="0 30 0 0"
+                       Margin="{StaticResource ItemSeparatorMargin}"
                        FontSize="{StaticResource FontSizeRegular}"
                        FontWeight="Bold"
                        Foreground="{StaticResource PrimaryTextBrush}"/>
@@ -98,10 +98,47 @@
                      Margin="{StaticResource SeparatorMargin}"
                      BorderThickness="1"/>
 
+                <TextBlock Text="{x:Static p:Resources.UpdatesText}" 
+                       Margin="{StaticResource ItemSeparatorMargin}"
+                       FontSize="{StaticResource FontSizeRegular}"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                <TextBlock Text="{x:Static p:Resources.UpdatesDetailsText}"
+                       TextWrapping="Wrap"
+                       Margin="{StaticResource SeparatorMargin}"
+                       FontSize="{StaticResource FontSizeSmall}"/>
+               
+                
+                <StackPanel Orientation="Horizontal">
+                    <ToggleSwitch:HorizontalToggleSwitch
+                        Margin="0 0 10 0"
+                        HorizontalAlignment="Left"
+                        IsChecked="{Binding CheckForUpdates, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="{x:Static p:Resources.CheckNowText}"
+                            Command="{Binding CheckForUpdatesNowCommand}"
+                            Style="{StaticResource BusyButton}"
+                            local:IsBusyProperty.Value="{Binding UpdateCheckIsRunning}"
+                            Height="34" 
+                            FontSize="{StaticResource FontSizeSmall}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconFontAwesome Kind="CheckSolid"
+                            VerticalAlignment="Center"
+                            Margin="10 0 0 0"
+                            FontSize="{StaticResource FontSizeLarge}"
+                            Style="{StaticResource FontSizeIcon}"
+                            Visibility="{Binding IsCheckForUpdateMessage, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"   
+                            Foreground="Green"/>
+                        <TextBlock Text="{Binding CheckUpdateMessage}"
+                            Margin="10 0 0 0"
+                            VerticalAlignment="Center" />
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
             <Grid Grid.Row="2" Margin="{StaticResource BorderMargin}"
                 Background="{StaticResource PrimaryDarkBrush}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="{x:Static p:Resources.RestoreDefaultsText}" FontSize="{StaticResource FontSizeRegular}"
+                            Command="{Binding RestoreDefaultsCommand}"/>
                     <Button Content="{x:Static p:Resources.ButtonCancelText}" FontSize="{StaticResource FontSizeRegular}"
                             Command="{Binding CancelSettingsCommand}"/>
                     <Button Content="{x:Static p:Resources.SaveSettingsText}" FontSize="{StaticResource FontSizeRegular}"

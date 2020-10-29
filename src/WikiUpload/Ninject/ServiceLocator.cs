@@ -28,5 +28,8 @@ namespace WikiUpload
 
         public InsecureWarningViewModel InsecureWarningViewModel(Window window) 
             => _kernel.Get<InsecureWarningViewModel>(new ConstructorArgument("window", window));
+
+        public NewVersionViewModel NewVersionViewModel(Window window) 
+            => _kernel.Get<NewVersionViewModel>(new ConstructorArgument("window", window));
     }
 }

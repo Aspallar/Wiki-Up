@@ -394,6 +394,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check Now.
+        /// </summary>
+        public static string CheckNowText {
+            get {
+                return ResourceManager.GetString("CheckNowText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string CloseText {
@@ -444,6 +453,15 @@ namespace WikiUpload.Properties {
         public static string CopyrightText {
             get {
                 return ResourceManager.GetString("CopyrightText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Now.
+        /// </summary>
+        public static string DownloadNowText {
+            get {
+                return ResourceManager.GetString("DownloadNowText", resourceCulture);
             }
         }
         
@@ -664,6 +682,24 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A newer version of Wiki-Up, version {0}, is available for download..
+        /// </summary>
+        public static string NewVersionMessage {
+            get {
+                return ResourceManager.GetString("NewVersionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Version Available.
+        /// </summary>
+        public static string NewVersionTitleText {
+            get {
+                return ResourceManager.GetString("NewVersionTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordPlaceholder {
@@ -678,6 +714,15 @@ namespace WikiUpload.Properties {
         public static string RememberPassword {
             get {
                 return ResourceManager.GetString("RememberPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore Defaults.
+        /// </summary>
+        public static string RestoreDefaultsText {
+            get {
+                return ResourceManager.GetString("RestoreDefaultsText", resourceCulture);
             }
         }
         
@@ -759,6 +804,24 @@ namespace WikiUpload.Properties {
         public static string ToggleSwitchYesText {
             get {
                 return ResourceManager.GetString("ToggleSwitchYesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for new versions of Wiki-Up when Wiki-Up starts up..
+        /// </summary>
+        public static string UpdatesDetailsText {
+            get {
+                return ResourceManager.GetString("UpdatesDetailsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates.
+        /// </summary>
+        public static string UpdatesText {
+            get {
+                return ResourceManager.GetString("UpdatesText", resourceCulture);
             }
         }
         
@@ -975,6 +1038,15 @@ namespace WikiUpload.Properties {
         public static string UploadViaText {
             get {
                 return ResourceManager.GetString("UploadViaText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wiki-Up is up to date..
+        /// </summary>
+        public static string UpToDateText {
+            get {
+                return ResourceManager.GetString("UpToDateText", resourceCulture);
             }
         }
         

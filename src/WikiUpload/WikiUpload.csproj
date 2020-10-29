@@ -128,6 +128,7 @@
     <Compile Include="Service\IReadOnlyPermittedFiles.cs" />
     <Compile Include="Service\SiteInfo.cs" />
     <Compile Include="Service\UploadMessages.cs" />
+    <Compile Include="Utilities\CheckForUpdateEventArgs.cs" />
     <Compile Include="Utilities\DialogManager.cs" />
     <Compile Include="Utilities\Encryption.cs" />
     <Compile Include="Utilities\Entropy.cs" />
@@ -136,15 +137,20 @@
     <Compile Include="Utilities\IHelpers.cs" />
     <Compile Include="Utilities\IPasswordManager.cs" />
     <Compile Include="Utilities\IPasswordStore.cs" />
+    <Compile Include="Utilities\IUpdateCheck.cs" />
     <Compile Include="Utilities\IUploadListSerializer.cs" />
+    <Compile Include="Utilities\IWindowManager.cs" />
     <Compile Include="Utilities\PasswordManager.cs" />
     <Compile Include="Utilities\PasswordDictionary.cs" />
     <Compile Include="Utilities\PasswordStore.cs" />
     <Compile Include="Utilities\SecureCharArray.cs" />
+    <Compile Include="Utilities\UpdateCheck.cs" />
     <Compile Include="Utilities\UploadListSerializer.cs" />
     <Compile Include="Utilities\Utils.cs" />
+    <Compile Include="Utilities\WindowManager.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
+    <Compile Include="ViewModel\NewVersionViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ErrorMessageViewModel.cs" />
     <Compile Include="ViewModel\InsecureWarningViewModel.cs" />
@@ -184,6 +190,9 @@
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\UploadViewModel.cs" />
     <Compile Include="ViewModel\WindowViewModel.cs" />
+    <Compile Include="Window\NewVersionWindow.xaml.cs">
+      <DependentUpon>NewVersionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\ErrorMessageWindow.xaml.cs">
       <DependentUpon>ErrorMessageWindow.xaml</DependentUpon>
     </Compile>
@@ -265,6 +274,10 @@
     <Page Include="Styles\ToggleSwitch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\NewVersionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Window\ErrorMessageWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
