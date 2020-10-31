@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ErrorMessageViewModelTests.cs" />
+    <Compile Include="SettingsViewModelTests.cs" />
     <Compile Include="UploadFileTests.cs" />
     <Compile Include="AboutBoxViewModelTests.cs" />
     <Compile Include="UploadListTests.cs" />
