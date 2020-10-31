@@ -513,22 +513,22 @@
     <value>Updates</value>
   </data>
   <data name="CheckNowText" xml:space="preserve">
-    <value>Check Now</value>
+    <value>Jetzt prüfen</value>
   </data>
   <data name="UpdatesDetailsText" xml:space="preserve">
-    <value>Check for new versions of Wiki-Up when Wiki-Up starts up.</value>
+    <value>Auf neue Versionen überprüfen, wenn Wiki-Up gestartet wird.</value>
   </data>
   <data name="NewVersionTitleText" xml:space="preserve">
-    <value>New Version Available</value>
+    <value>Neue Version verfügbar</value>
   </data>
   <data name="NewVersionMessage" xml:space="preserve">
-    <value>A newer version of Wiki-Up, version {0}, is available for download.</value>
+    <value>Eine neuere Version von Wiki-Up, Version {0} ist zum Download verfügbar.</value>
   </data>
   <data name="DownloadNowText" xml:space="preserve">
-    <value>Download Now</value>
+    <value>Jetzt herunterladen</value>
   </data>
   <data name="UpToDateText" xml:space="preserve">
-    <value>Wiki-Up is up to date.</value>
+    <value>Wiki-Up ist auf dem neuesten Stand.</value>
   </data>
   <data name="RestoreDefaultsText" xml:space="preserve">
     <value>Restore Defaults</value>
