@@ -531,7 +531,7 @@
     <value>Wiki-Up ist auf dem neuesten Stand.</value>
   </data>
   <data name="RestoreDefaultsText" xml:space="preserve">
-    <value>Restore Defaults</value>
+    <value>Auf Standartwerte zurücksetzen</value>
   </data>
 
 </root>

@@ -20,7 +20,7 @@ namespace WikiUpload
         public List<Language> Languages { get; } = new List<Language>
         {
             new Language("English", "en-US"),
-            new Language("Deutsche (German)", "de-DE"),
+            new Language("Deutsch (German)", "de-DE"),
         };
 
         public SettingsViewModel(
