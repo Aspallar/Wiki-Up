@@ -9,7 +9,6 @@ namespace WikiUpload
         /// The action to run
         /// </summary>
         private readonly Action _action;
-        private ICommand cancelSettingsCommand;
 
         /// <summary>
         /// The event thats fired when the <see cref="CanExecute(object)"/> value has changed
@@ -23,11 +22,6 @@ namespace WikiUpload
         public RelayCommand(Action action)
         {
             _action = action;
-        }
-
-        public RelayCommand(ICommand cancelSettingsCommand)
-        {
-            this.cancelSettingsCommand = cancelSettingsCommand;
         }
 
         /// <summary>
