@@ -142,5 +142,9 @@
 
     </Style>
 
+    <Style TargetType="{x:Type Hyperlink}" BasedOn="{StaticResource {x:Type Hyperlink}}">
+        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+    </Style>
+
 </ResourceDictionary>
     

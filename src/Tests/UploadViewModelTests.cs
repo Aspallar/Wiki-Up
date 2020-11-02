@@ -1032,6 +1032,7 @@ namespace Tests
         [Test]
         public void When_NextSearchIsExecuted_Then_NextSearchIsDoneOnCurrentSearch()
         {
+            A.CallTo(() => _templateSearch.HasNext).Returns(true);
             _model.SearchFetchInProgress = false;
             _model.CurrentSearch = _templateSearch;
             
@@ -1042,8 +1043,22 @@ namespace Tests
         }
 
         [Test]
+        public void When_NextSearchIsExecutedWithNoMoreResults_Then_NoSeachIsMade()
+        {
+            A.CallTo(() => _templateSearch.HasNext).Returns(false);
+            _model.SearchFetchInProgress = false;
+            _model.CurrentSearch = _templateSearch;
+            
+            _model.NextSearchCommand.Execute(null);
+
+            A.CallTo(() => _model.CurrentSearch.Next())
+                .MustNotHaveHappened();
+        }
+
+        [Test]
         public void When_PreviousSearchIsExecuted_Then_PreviousSearchIsDoneOnCurrentSearch()
         {
+            A.CallTo(() => _templateSearch.HasPrevious).Returns(true);
             _model.SearchFetchInProgress = false;
             _model.CurrentSearch = _templateSearch;
             
@@ -1051,6 +1066,19 @@ namespace Tests
 
             A.CallTo(() => _model.CurrentSearch.Previous())
                 .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_PreviousSearchIsExecutedAndNoPrevious_Then_PNoSeachIsMade()
+        {
+            A.CallTo(() => _templateSearch.HasPrevious).Returns(false);
+            _model.SearchFetchInProgress = false;
+            _model.CurrentSearch = _templateSearch;
+            
+            _model.PreviousSearchCommand.Execute(null);
+
+            A.CallTo(() => _model.CurrentSearch.Previous())
+                .MustNotHaveHappened();
         }
 
         [Test]
@@ -1075,6 +1103,7 @@ namespace Tests
         [Test]
         public void When_NextSearchIsExecuted_Then_SearchInProgressIsSetToTrue()
         {
+            A.CallTo(() => _templateSearch.HasNext).Returns(true);
             _model.SearchFetchInProgress = false;
             _model.CurrentSearch = _templateSearch;
             var searchInProgressWasSetToTrue = false;
@@ -1094,6 +1123,7 @@ namespace Tests
         [Test]
         public void When_PreviousSearchIsExecuted_Then_SearchInProgressIsSetToTrue()
         {
+            A.CallTo(() => _templateSearch.HasPrevious).Returns(true);
             _model.SearchFetchInProgress = false;
             _model.CurrentSearch = _templateSearch;
             var searchInProgressWasSetToTrue = false;

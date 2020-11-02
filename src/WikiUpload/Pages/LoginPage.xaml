@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:WikiUpload"
+      xmlns:p = "clr-namespace:WikiUpload.Properties"
       mc:Ignorable="d" 
       DataContext="{Binding Path=LoginViewModel, Source={StaticResource ServiceLocator}}"
       d:DesignHeight="450" d:DesignWidth="800"
@@ -42,21 +43,21 @@
                                     Foreground="{StaticResource ButtonColorBrush}"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource FontSizeIcon}" Margin="0 0 10 0"/>
-                                <TextBlock Text="Sign In" 
+                                <TextBlock Text="{x:Static p:Resources.SignIn}" 
                                        FontSize="{StaticResource FontSizeLarge}"
                                        FontFamily="{StaticResource MainFont}"
                                        FontWeight="ExtraBold"
                                        Foreground="{StaticResource ButtonColorBrush}"/>
                             </StackPanel>
 
-                            <TextBox x:Name="WikiSite" Tag="wiki url" Style="{StaticResource LineTextBox}"
+                            <TextBox x:Name="WikiSite" Tag="{x:Static p:Resources.WikiUrlPlaceholder}" Style="{StaticResource LineTextBox}"
                                      Text="{Binding WikiUrl, UpdateSourceTrigger=PropertyChanged}"
                                      local:AutoComplete.ItemsSource="{Binding PreviousSites, Mode=OneTime}"/>
 
-                            <TextBox Tag="username" Style="{StaticResource LineTextBox}"
+                            <TextBox Tag="{x:Static p:Resources.UsernamePlaceholder}" Style="{StaticResource LineTextBox}"
                                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
-                            
-                            <PasswordBox x:Name="PasswordText" Tag="password" 
+
+                            <PasswordBox x:Name="PasswordText" Tag="{x:Static p:Resources.PasswordPlaceholder}" 
                                          local:SavedPassword.Username="{Binding Username, Mode=OneWay}"
                                          local:SavedPassword.Site="{Binding WikiUrl, Mode=OneWay}"
                                          local:SavedPassword.PasswordManager="{Binding PasswordManager, Mode=OneTime}"
@@ -65,10 +66,10 @@
 
                             <CheckBox HorizontalAlignment="Center" FontSize="{StaticResource FontSizeRegular}"
                                       IsChecked="{Binding RememberPassword}">
-                                <TextBlock Text="Remember Password" Foreground="{StaticResource SecondaryTextBrush}"/>
+                                <TextBlock Text="{x:Static p:Resources.RememberPassword}" Foreground="{StaticResource SecondaryTextBrush}"/>
                             </CheckBox>
 
-                            <Button Content="Login"  HorizontalAlignment="Center"  Margin="0 30 0 0" 
+                            <Button Content="{x:Static p:Resources.ButtonLogin}"  HorizontalAlignment="Center"  Margin="0 30 0 0" 
                                     Style="{StaticResource BusyButton}"
                                     local:IsBusyProperty.Value="{Binding LoginIsRunning}"
                                     Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=Page}"/>
@@ -79,7 +80,7 @@
                                            FontSize="{StaticResource FontSizeRegular}"
                                            FontWeight="Bold"
                                            Margin="0 5 0 0"
-                                           Text="Login Failed" />
+                                           Text="{x:Static p:Resources.LoginFailedMessage}" />
                                 <TextBlock Foreground="{StaticResource ErrorColorBrush}"
                                            FontSize="{StaticResource FontSizeSmall}"
                                            Margin="0"

@@ -6,6 +6,7 @@
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
       xmlns:local="clr-namespace:WikiUpload"
+      xmlns:p="clr-namespace:WikiUpload.Properties"
       FocusManager.FocusedElement="{Binding ElementName=AddFiles}"
       DataContext="{Binding Path=UploadViewModel, Source={StaticResource ServiceLocator}}"
       mc:Ignorable="d" 
@@ -47,7 +48,8 @@
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconFontAwesome Kind="UploadSolid" VerticalAlignment="Center"
                                 Foreground="{StaticResource PrimaryTextBrush}"/>
-                            <TextBlock Text="Upload" Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>
+                            <TextBlock Text="{x:Static p:Resources.UploadTabText}" 
+                                       Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>
                         </StackPanel>
                     </TabItem.Header>
                     <Grid Background="{StaticResource BackGroundColorBrush}">
@@ -102,12 +104,12 @@
                             </ListBox.InputBindings>
                         </ListBox>
                         <StackPanel Grid.Column="2" Margin="10">
-                            <Button x:Name="AddFiles" Content="Add Files" Margin="0"
-                                ToolTip="Add files to the upload list (Ctrl+A)"
+                            <Button Content="{x:Static p:Resources.ButtonAddFilesText}" Margin="0"
+                                ToolTip="{x:Static p:Resources.ButtonAddFilesTooltipText}"
                                 Command="{Binding AddFilesCommand}"
                                 IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
-                            <Button Content="Remove Files" 
-                                ToolTip="Remove selected files from the upload list"
+                            <Button Content="{x:Static p:Resources.ButtonRemoveFilesText}" 
+                                ToolTip="{x:Static p:Resources.ButtonRemoveFilesTooltipText}"
                                 Command="{Binding RemoveFilesCommand}"
                                 CommandParameter="{Binding ElementName=FilesListBox, Path=SelectedItems}"
                                 IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
@@ -116,19 +118,21 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Button Content="Load" Grid.Column="0" Margin="0 0 5 0"
-                                        ToolTip="Add files from a previously saved upload list."
+                                <Button x:Name="LoadListButton"
+                                        Content="{x:Static p:Resources.ButtonLoadText}" Grid.Column="0" Margin="0 0 5 0"
+                                        ToolTip="{x:Static p:Resources.ButtonLoadFilesTooltipText}"
                                         Command="{Binding LoadListCommand}"
                                         IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}">
                                 </Button>
-                                <Button Content="Save" Grid.Column="1" Margin="5 0 0 0"
-                                    ToolTip="Save the upload list."
+                                <Button x:Name="SaveListButton"
+                                    Content="{x:Static p:Resources.ButtonSaveText}" Grid.Column="1" Margin="5 0 0 0"
+                                    ToolTip="{x:Static p:Resources.ButtonSaveFilesTooltipText}"
                                     Command="{Binding SaveListCommand}"
                                     IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
                             </Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5 0 0">
                                 <TextBlock Text="{Binding UploadFiles.Count}" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}"/>
-                                <TextBlock Text=" Files" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}"/>
+                                <TextBlock Text="{x:Static p:Resources.FilesText}" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Margin="10" Grid.Column="2" VerticalAlignment="Bottom">
@@ -141,30 +145,30 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                
-                                <TextBlock Grid.Column="0" Text="Ignore warnings" VerticalAlignment="Center"
-                                           ToolTip="Ignore warnings and upload files even if they already exist or are duplicates."/>
+
+                                <TextBlock Grid.Column="0" x:Name="IgnoreWarningsLabel" Text="{x:Static p:Resources.IgnoreWarningsLabelText}" VerticalAlignment="Center"
+                                           ToolTip="{x:Static p:Resources.IgnoreWarningsTooltipText}"/>
                                 <ToggleSwitch:HorizontalToggleSwitch Grid.Column="1"
                                     IsChecked="{Binding ForceUpload, Mode=OneWayToSource}"
                                     IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
 
-                                <TextBlock Grid.Column="0" Grid.Row="1" Text="Add to watch list" VerticalAlignment="Center"
-                                           Margin="0 10 0 0" ToolTip="Add the uploaded files to your watch list."/>
+                                <TextBlock Grid.Column="0" x:Name="AddToWatchlistLabel" Grid.Row="1" Text="{x:Static p:Resources.AddToWatchlistLabelText}" VerticalAlignment="Center"
+                                           Margin="0 10 0 0" ToolTip="{x:Static p:Resources.AddToWatchlistTooltipText}"/>
                                 <ToggleSwitch:HorizontalToggleSwitch Grid.Column="1" Grid.Row="1" Margin="0 10 0 0"
                                     IsChecked="{Binding IncludeInWatchlist, Mode=OneWayToSource}"
                                     IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
                             </Grid>
 
-                            <Button  Content="Stop Upload"
+                            <Button  Content="{x:Static p:Resources.ButtonStopUploadText}"
                                      IsEnabled="{Binding UploadIsRunning}"
                                      Command="{Binding CancelCommand}"
-                                     ToolTip="Cancel running upload."/>
-                            <Button Content="Upload"
+                                     ToolTip="{x:Static p:Resources.ButtonStopUploadTooltipText}"/>
+                            <Button Content="{x:Static p:Resources.ButtonUploadText}"
                                     Margin="0"
                                     Style="{StaticResource BusyButton}"
                                     Command="{Binding UploadCommand}"
                                     local:IsBusyProperty.Value="{Binding UploadIsRunning}"
-                                    ToolTip="Start uploading files. (Ctrl+U)"/>
+                                    ToolTip="{x:Static p:Resources.ButtonUploadTooltipText}"/>
                         </StackPanel>
                     </Grid>
                 </TabItem>
@@ -174,8 +178,8 @@
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconFontAwesome Kind="FileAltSolid" VerticalAlignment="Center"
                                 Foreground="{StaticResource PrimaryTextBrush}"/>
-                            <TextBlock Text="Content" Margin="6 0 0 0"
-                                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                            <TextBlock Text="{x:Static p:Resources.ContentTabText}"
+                                       Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>
                         </StackPanel>
                     </TabItem.Header>
 
@@ -189,10 +193,9 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock FontFamily="{StaticResource MainFont}"
                                        FontSize="{StaticResource FontSizeRegular}"
-                                       Text="Summary"/>
-                                    <TextBlock Margin="5 0 0 0" VerticalAlignment="Bottom" FontSize="{StaticResource FontSizeSmall}">
-                                        This is the summary for the upload in the wiki's activity log.
-                                    </TextBlock>
+                                       Text="{x:Static p:Resources.SummaryLabelText}"/>
+                                    <TextBlock Text="{x:Static p:Resources.SummaryDescriptionText}"
+                                        Margin="5 0 0 0" VerticalAlignment="Bottom" FontSize="{StaticResource FontSizeSmall}"/>
                                 </StackPanel>
                                 <TextBox Text="{Binding UploadSummary}"
                                      BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
@@ -200,13 +203,10 @@
                                      Background="{StaticResource ControlBackgroundBrush}"/>
                                 <TextBlock FontFamily="{StaticResource MainFont}"
                                        FontSize="{StaticResource FontSizeRegular}"
-                                       Text="Content"
+                                       Text="{x:Static p:Resources.ContentLabelText}"
                                        Margin="0 10 0 0"/>
-                                <TextBlock FontSize="{StaticResource FontSizeSmall}" TextWrapping="Wrap" Margin="0 0 0 3">
-                                    Enter the wikitext to use as the initial page content for new images below.
-                                    This will be used only for new images, it will not replace any existing
-                                    page content.
-                                </TextBlock>
+                                <TextBlock Text="{x:Static p:Resources.ContentDescriptionText}"
+                                    FontSize="{StaticResource FontSizeSmall}" TextWrapping="Wrap" Margin="0 0 0 3"/>
                             </StackPanel>
                             <Grid Grid.Row="1">
                                 <Grid.RowDefinitions>
@@ -235,20 +235,20 @@
                                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                                         <Button FontSize="{StaticResource FontSizeSmall}" 
                                                 Command="{Binding PickCategoryCommand}"
-                                                Content="Add Category"/>
+                                                Content="{x:Static p:Resources.ButtonAddCategoryText}"/>
                                         <Button FontSize="{StaticResource FontSizeSmall}"
                                                 Command="{Binding PickTemplateCommand}"
-                                                Content="Add Template"/>
+                                                Content="{x:Static p:Resources.ButtonAddTemplateText}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" MaxHeight="60">
-                                        <Button Content="Save" Margin="0 10 10 0"
+                                        <Button Content="{x:Static p:Resources.ButtonSaveText}" Margin="0 10 10 0"
                                             FontSize="{StaticResource FontSizeRegular}"
                                             Command="{Binding SaveContentCommand}"
-                                            ToolTip="Save content to file."/>
-                                        <Button Content="Load" Margin="0 10 0 0"
+                                            ToolTip="{x:Static p:Resources.ButtonSaveContentTooltipText}"/>
+                                        <Button Content="{x:Static p:Resources.ButtonLoadText}" Margin="0 10 0 0"
                                             FontSize="{StaticResource FontSizeRegular}"
                                             Command="{Binding LoadContentCommand}"
-                                            ToolTip="Load content from file."/>
+                                            ToolTip="{x:Static p:Resources.ButtonLoadContentTooltipText}"/>
                                     </StackPanel>
                                 </Grid>
                             </Grid>
@@ -270,7 +270,7 @@
                             FontSize="{StaticResource FontSizeSmall}"
                             Command="{Binding SignOutCommand}"
                             IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"
-                            Content="Sign Out"/>
+                            Content="{x:Static p:Resources.SignOut}"/>
                 </StackPanel>
             </Grid>
 

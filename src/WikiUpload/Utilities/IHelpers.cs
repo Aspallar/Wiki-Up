@@ -9,6 +9,7 @@ namespace WikiUpload
     public interface IHelpers
     {
         string ApplicationVersion { get; }
+        string UserAgent { get; }
         Process LaunchProcess(string path);
         string ReadAllText(string path);
         Task Wait(int ms);

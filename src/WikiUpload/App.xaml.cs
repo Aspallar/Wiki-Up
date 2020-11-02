@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Globalization;
 using System.Net;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace WikiUpload
 {
@@ -11,17 +12,19 @@ namespace WikiUpload
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-
-            base.OnStartup(e);
+         protected override void OnStartup(StartupEventArgs e)
+         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            var language = WikiUpload.Properties.Settings.Default.Language;
+            if (!string.IsNullOrEmpty(language) && language != "Default")
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+            UploadResponse.Initialize();
+            base.OnStartup(e);
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             GetCommandLineArguments(e.Args, out int timeout);
             Timewout = timeout;
         }
-
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {

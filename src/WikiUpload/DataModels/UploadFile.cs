@@ -26,7 +26,7 @@ namespace WikiUpload
         public void SetDefault()
         {
             Status = UploadFileStatus.Waiting;
-            Message = "Awaiting upload.";
+            Message = UploadMessages.AwaitingUpload;
         }
 
         public void SetError(string message)
@@ -44,7 +44,7 @@ namespace WikiUpload
         public void SetUploading()
         {
             Status = UploadFileStatus.Uploading;
-            Message = "Uploading to wiki...";
+            Message = UploadMessages.Uploading;
         }
 
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };

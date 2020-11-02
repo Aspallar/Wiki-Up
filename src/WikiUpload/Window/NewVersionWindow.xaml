@@ -1,24 +1,23 @@
-﻿<Window x:Class="WikiUpload.MainWindow"
+﻿<Window x:Class="WikiUpload.NewVersionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WikiUpload"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:p = "clr-namespace:WikiUpload.Properties"
+        xmlns:local="clr-namespace:WikiUpload"
+        xmlns:p="clr-namespace:WikiUpload.Properties"
         mc:Ignorable="d"
+        FocusManager.FocusedElement="{Binding ElementName=CloseButton}"
         WindowStyle="None"
         AllowsTransparency="True"
-        WindowStartupLocation="CenterScreen"
         Icon="{StaticResource LogoImage}"
-        x:Name="AppWindow"
-        MinWidth="{Binding WindowMinimumWidth}"
-        MinHeight="{Binding WindowMinimumHeight}"
-        Title="{x:Static p:Resources.AppNameText}"
-        Height="600" Width="892">
+        ResizeMode="NoResize"
+        Width="580"
+        SizeToContent="Height"
+        Title="{x:Static p:Resources.NewVersionTitleText}" >
 
     <Window.Resources>
-        <Style TargetType="{x:Type local:MainWindow}">
+        <Style TargetType="{x:Type local:NewVersionWindow}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
@@ -36,13 +35,15 @@
 
                                 <!-- Window border and dropshadown -->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
-                                    Background="{Binding PrimaryBrush, FallbackValue={StaticResource PrimaryDarkBrush}}" >
+                                        Background="{Binding PrimaryBrush, FallbackValue={StaticResource PrimaryDarkBrush}}" 
+                                        BorderThickness="1"
+                                        BorderBrush="{StaticResource PrimaryBrush}">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" Opacity="0.2" />
                                     </Border.Effect>
                                 </Border>
 
-                                <!-- The main window content -->
+                                <!-- The window content -->
                                 <Grid>
 
                                     <!-- Corner clipping -->
@@ -72,48 +73,15 @@
 
                                         </Grid.ColumnDefinitions>
 
-                                        <!-- Icon -->
-                                        <Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
-                                            <Image Source="{StaticResource LogoImage}" />
-                                        </Button>
-
                                         <!-- Title -->
-                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
+                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="10 2" HorizontalAlignment="Left">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Style="{StaticResource HeaderText}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Wiki-Up'}" />
-                                                <TextBlock Text="{x:Static p:Resources.AppByLineText}"
-                                                           FontFamily="{StaticResource MainFont}"
-                                                           FontSize="{StaticResource FontSizeSmall}"
-                                                           Foreground="{StaticResource HighlightTextCBrush}"
-                                                           VerticalAlignment="Bottom"
-                                                           TextAlignment="Right" />
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" />
                                             </StackPanel>
                                         </Viewbox>
 
                                         <!-- Window Buttons -->
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                            <Button Command="{Binding AboutCommand}"
-                                                    Style="{StaticResource WindowTitleButton}"
-                                                    ToolTip="{x:Static p:Resources.AboutMenuItemText}" >
-                                                <iconPacks:PackIconFontAwesome Kind="YinYangSolid"
-                                                            Foreground="{StaticResource PrimaryTextBrush}"
-                                                            Width="16" Height="16" />
-                                            </Button>
-                                            <Button Command="{Binding SettingsCommand}"
-                                                    Style="{StaticResource WindowTitleButton}"
-                                                    ToolTip="{x:Static p:Resources.SettingsText}" >
-                                                <iconPacks:PackIconFontAwesome Kind="CogSolid"
-                                                            Foreground="{StaticResource PrimaryTextBrush}"
-                                                            Width="16" Height="16" />
-                                            </Button>
-                                            <Button Command="{Binding MinimizeCommand}"
-                                                    Style="{StaticResource WindowControlButton}"
-                                                    ToolTip="{x:Static p:Resources.MiximizeText}"
-                                                    Content="_" />
-                                            <Button Command="{Binding MaximizeCommand}"
-                                                    Style="{StaticResource WindowControlButton}"
-                                                    ToolTip="{x:Static p:Resources.ManimizeRestoreText}"
-                                                    Content="▢"/>
                                             <Button Command="{Binding CloseCommand}"
                                                     Style="{StaticResource WindowCloseButton}"
                                                     ToolTip="{x:Static p:Resources.CloseText}"
@@ -145,8 +113,37 @@
             GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
 
+    <!-- window content start here -->
     <Grid>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/LoginPage.xaml"/>
+        <Grid Margin="0,8,0,-8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <iconPacks:PackIconFontAwesome Grid.Column="0" Kind="DownloadSolid"
+                                           Height="64" Width="64"
+                                           Foreground="{StaticResource PrimaryLightBrush}"
+                                           Margin="10 10 20 0"/>
+            <StackPanel Grid.Column="1" Margin="0 10 10 0">
+                <TextBlock FontSize="{StaticResource FontSizeRegular}"
+                           Margin="0 10 00 0"
+                           Text="{Binding Message}"
+                           TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="{x:Static p:Resources.DownloadNowText}"
+                        Command="{Binding LauchWebsiteCommand}"
+                        Height="30"
+                        Margin="0 20 20 20"  
+                        Padding="6 2 6 2" FontSize="18"/>
+                    <Button x:Name="CloseButton"
+                        Content="{x:Static p:Resources.CloseText}"
+                        Command="{Binding CloseCommand}"
+                        Height="30"
+                        Margin="0 20 20 20"  
+                        Padding="6 2 6 2" FontSize="18"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
-    
+
 </Window>

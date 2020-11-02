@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  
+
   <?define WikiUpload_TargetDir=$(var.WikiUpload.TargetDir)?>
-	
-  <Product Id="{D293FC16-FE3C-4947-BA76-52E23C6A8625}"
+
+  <Product Id="{7BAA32FE-FC4D-47BA-9706-7D5C0EDE3CCD}"
            Name="Wiki-Up"
            Language="1033"
-           Version="1.7.1.0"
+           Version="1.8.0.0"
            Manufacturer="Aspallar"
            UpgradeCode="{5DBEE1B6-4D18-4F36-BEA8-74C89ADD342B}">
-    
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of Wiki-Up is already installed." />
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Wiki-Up is already installed." />
 
     <MediaTemplate EmbedCab="yes" />
 
@@ -31,32 +31,35 @@
       <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
     </UI>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
-    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Wiki-Up" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="!(loc.LaunchWikiup)" />
     <Property Id="WixShellExecTarget" Value="[#WikiUp.exe]" />
     <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
 
     <Feature Id="ProductFeature" Title="WikiUpInstaller" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="ProductComponents" />
       <ComponentGroupRef Id="ProductShortcut" />
+      <ComponentGroupRef Id="locale_deDE" />
     </Feature>
-	</Product>
+  </Product>
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="WikiUp" />
-			</Directory>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="WikiUp">
+          <Directory Id="LocaleFolder_deDE" Name="de-DE" />
+        </Directory>
+      </Directory>
       <Directory Id="ProgramMenuFolder" />
     </Directory>
-	</Fragment>
+  </Fragment>
 
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+
       <!-- application files -->
-			<Component Id="WikiUp.exe" Guid="5b498955-2daf-471c-9276-edee62761a81">
-			  <File Id="WikiUp.exe" Name="WikiUp.exe" Source="$(var.WikiUpload_TargetDir)WikiUp.exe" KeyPath="yes" />
-			</Component>
+      <Component Id="WikiUp.exe" Guid="5b498955-2daf-471c-9276-edee62761a81">
+        <File Id="WikiUp.exe" Name="WikiUp.exe" Source="$(var.WikiUpload_TargetDir)WikiUp.exe" KeyPath="yes" />
+      </Component>
       <Component Id="WikiUp.exe.config" Guid="fd424b39-4f9e-4e60-af79-51559887592c">
         <File Id="WikiUp.exe.config" Name="WikiUp.exe.config" Source="$(var.WikiUpload_TargetDir)WikiUp.exe.config" KeyPath="yes" />
       </Component>
@@ -73,17 +76,23 @@
       <Component Id="MahApps.Metro.IconPacks.FontAwesome.dll" Guid="309d62ff-7718-4a1e-8c90-54bf10ad8771">
         <File Id="MahApps.Metro.IconPacks.FontAwesome.dll" Name="MahApps.Metro.IconPacks.FontAwesome.dll" Source="$(var.WikiUpload_TargetDir)MahApps.Metro.IconPacks.FontAwesome.dll" KeyPath="yes"/>
       </Component>
-      
+
       <!-- Ninject DI Franework -->
       <Component Id="Ninject.dll" Guid="1a52b4aa-eb8a-4d10-9fde-f919612b930a">
         <File Id="Ninject.dll" Name="Ninject.dll" Source="$(var.WikiUpload_TargetDir)Ninject.dll" KeyPath="yes"/>
       </Component>
-      
+
       <!-- ToggleSwitch -->
       <Component Id="ToggleSwitch.dll" Guid="0f57a084-0581-4145-bbcc-f3237a1c288a">
         <File Id="ToggleSwitch.dll" Name="ToggleSwitch.dll" Source="$(var.WikiUpload_TargetDir)ToggleSwitch.dll" KeyPath="yes"/>
       </Component>
 
+    </ComponentGroup>
+
+    <ComponentGroup Id="locale_deDE" Directory="LocaleFolder_deDE">
+      <Component Id="WikiUp.resources.deDE.dll" Guid="896b5009-06a5-4e7d-a3af-1863e49ad747">
+        <File Id="WikiUp.resources.deDE.dll" Name="WikiUp.resources.dll" Source="$(var.WikiUpload_TargetDir)de-DE\WikiUp.resources.dll" KeyPath="yes"/>
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="ProductShortcut">

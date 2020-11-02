@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using WikiUpload.Properties;
 
 namespace WikiUpload
 {
@@ -10,18 +11,23 @@ namespace WikiUpload
         private readonly List<string> _warnings;
         private readonly List<ApiError> _errors;
 
-        private readonly Dictionary<string, string> friendlyWarnings = new Dictionary<string, string>
-        {
-            { "exists", "Already exists" },
-            { "badfilename", "Invalid file name" },
-            { "filetype-unwanted-type", "Unwanted file type" },
-            { "large-file", "Large file warning" },
-            { "emptyfile", "File is empty" },
-            { "duplicate-archive", "Duplicate of archived" },
-            { "was-deleted", "Deleted file" },
-        };
+        private static Dictionary<string, string> friendlyWarnings;
 
         public UploadResponse() { }
+
+        public static void Initialize()
+        {
+            friendlyWarnings = new Dictionary<string, string>
+            {
+                { "exists", Resources.UploadErrorAlreadyExists },
+                { "badfilename", Resources.UploadErrorBadFilename },
+                { "filetype-unwanted-type", Resources.UploadErrorUnwantedType },
+                { "large-file", Resources.UploadErrorLargeFile },
+                { "emptyfile", Resources.UploadErrorEmptyFile },
+                { "duplicate-archive", Resources.UploadErrorDuplicateArchive },
+                { "was-deleted", Resources.UploadErrorDeletedFile },
+            };
+        }
 
         public UploadResponse(string xml, string retryAfter)
         {
@@ -112,7 +118,7 @@ namespace WikiUpload
 
                 if (IsDuplicate)
                 {
-                    text.Append("Duplicate of");
+                    text.Append(Resources.UploadResponseDuplicateOf);
                     foreach (string duplicate in Duplicates)
                         text.Append($" [{duplicate}]");
                     text.Append('.');

@@ -94,6 +94,7 @@
     <Compile Include="Behaviours\SavedPassword.cs" />
     <Compile Include="DataModels\IWikiSearch.cs" />
     <Compile Include="DataModels\IWikiSearchFactory.cs" />
+    <Compile Include="DataModels\Language.cs" />
     <Compile Include="DataModels\TemplateSearch.cs" />
     <Compile Include="DataModels\WikiSearch.cs" />
     <Compile Include="DataModels\CategorySearch.cs" />
@@ -107,8 +108,16 @@
     <Compile Include="Pages\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AppSettings.cs" />
     <Compile Include="Properties\IAppSettings.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\SearchResponse.cs" />
     <Compile Include="Service\IFileUploader.cs" />
     <Compile Include="Service\INavigatorService.cs" />
@@ -119,6 +128,7 @@
     <Compile Include="Service\IReadOnlyPermittedFiles.cs" />
     <Compile Include="Service\SiteInfo.cs" />
     <Compile Include="Service\UploadMessages.cs" />
+    <Compile Include="Utilities\CheckForUpdateEventArgs.cs" />
     <Compile Include="Utilities\DialogManager.cs" />
     <Compile Include="Utilities\Encryption.cs" />
     <Compile Include="Utilities\Entropy.cs" />
@@ -127,15 +137,21 @@
     <Compile Include="Utilities\IHelpers.cs" />
     <Compile Include="Utilities\IPasswordManager.cs" />
     <Compile Include="Utilities\IPasswordStore.cs" />
+    <Compile Include="Utilities\IUpdateCheck.cs" />
     <Compile Include="Utilities\IUploadListSerializer.cs" />
+    <Compile Include="Utilities\IWindowManager.cs" />
     <Compile Include="Utilities\PasswordManager.cs" />
     <Compile Include="Utilities\PasswordDictionary.cs" />
     <Compile Include="Utilities\PasswordStore.cs" />
     <Compile Include="Utilities\SecureCharArray.cs" />
+    <Compile Include="Utilities\UpdateCheck.cs" />
     <Compile Include="Utilities\UploadListSerializer.cs" />
     <Compile Include="Utilities\Utils.cs" />
+    <Compile Include="Utilities\WindowManager.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
+    <Compile Include="ViewModel\NewVersionViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ErrorMessageViewModel.cs" />
     <Compile Include="ViewModel\InsecureWarningViewModel.cs" />
     <Compile Include="ViewModel\AboutBoxViewModel.cs" />
@@ -171,8 +187,12 @@
     <Compile Include="ViewModel\Base\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\UploadViewModel.cs" />
     <Compile Include="ViewModel\WindowViewModel.cs" />
+    <Compile Include="Window\NewVersionWindow.xaml.cs">
+      <DependentUpon>NewVersionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\ErrorMessageWindow.xaml.cs">
       <DependentUpon>ErrorMessageWindow.xaml</DependentUpon>
     </Compile>
@@ -187,6 +207,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,6 +222,10 @@
     <Page Include="Styles\Images.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Slider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\tabs.xaml">
       <SubType>Designer</SubType>
@@ -243,6 +275,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Window\NewVersionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Window\ErrorMessageWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -260,18 +296,14 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Fonts\SaucerBB.ttf" />

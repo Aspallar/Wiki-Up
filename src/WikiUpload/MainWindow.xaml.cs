@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Interop;
+﻿using System.Windows;
 
 namespace WikiUpload
 {
@@ -9,39 +7,39 @@ namespace WikiUpload
     /// </summary>
     public partial class MainWindow : Window
     {
+        UpdateCheck _updateCheck;
+
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new WindowViewModel(this);
             CreateApplicationServices();
-            Loaded += Window_Loaded;
+            DataContext = new MainWindowViewModel(this, App.Navigator);
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.CheckForUpdates)
+            {
+                _updateCheck = new UpdateCheck();
+                _updateCheck.CheckForUpdateCompleted += updateCheck_CheckForUpdateCompleted;
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                _updateCheck.CheckForUpdates(App.UserAgent, 3000);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed 
+            }
+        }
+
+        private void updateCheck_CheckForUpdateCompleted(object sender, CheckForUpdatesEventArgs e)
+        {
+            if (e.IsNewerVersion)
+                new WindowManager().ShowNewVersionWindow(e);
+            _updateCheck = null;
         }
 
         private void CreateApplicationServices()
         {
             App.Navigator = new NavigationService(MainFrame.NavigationService);
             App.ServiceLocator = new ServiceLocator();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            IntPtr handle = new WindowInteropHelper(this).Handle;
-            NativeMethods.CreateSystemMenu(handle);
-            HwndSource source = HwndSource.FromHwnd(handle);
-            source.AddHook(new HwndSourceHook(WndProc));
-        }
-
-        private static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (msg == NativeMethods.WM_SYSCOMMAND && wParam == NativeMethods.AboutSysMenuId)
-            {
-                handled = true;
-                var about = new AboutBoxWindow();
-                WindowInteropHelper aboutHandle = new WindowInteropHelper(about);
-                aboutHandle.Owner = hwnd;
-                about.ShowDialog();
-            }
-            return IntPtr.Zero;
         }
     }
 }

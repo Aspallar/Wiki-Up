@@ -18,6 +18,8 @@ namespace WikiUpload
 
         public UploadViewModel UploadViewModel => _kernel.Get<UploadViewModel>();
 
+        public SettingsViewModel SettingsViewModel => _kernel.Get<SettingsViewModel>();
+
         internal ErrorMessageViewModel ErrorMessageViewModel(Window window)
             => _kernel.Get<ErrorMessageViewModel>(new ConstructorArgument("window", window));
 
@@ -26,5 +28,8 @@ namespace WikiUpload
 
         public InsecureWarningViewModel InsecureWarningViewModel(Window window) 
             => _kernel.Get<InsecureWarningViewModel>(new ConstructorArgument("window", window));
+
+        public NewVersionViewModel NewVersionViewModel(Window window) 
+            => _kernel.Get<NewVersionViewModel>(new ConstructorArgument("window", window));
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
+using System;
 using System.Threading;
 using System.Windows;
 using WikiUpload;
@@ -11,7 +12,8 @@ namespace Tests
     public class AboutBoxViewModelTests
     {
         private const string Version = "bar";
-        private const string Copyright = "foo";
+        private const string Copyright = "foo foo";
+        private const string ExpectedCopyright = "Copyright foo";
 
         private IHelpers _helpers;
         private AboutBoxViewModel _model;
@@ -35,15 +37,16 @@ namespace Tests
         [Test]
         public void When_Created_Then_CopyrightIsSet()
         {
-            Assert.That(_model.CopyrightText, Is.EqualTo(Copyright));
+            Assert.That(_model.CopyrightText, Is.EqualTo(ExpectedCopyright));
         }
 
         [Test]
         public void When_LaunchWebsiteIsExecuted_Then_WebsiteIsLaunched()
         {
-            _model.LaunchWebSiteCommand.Execute(null);
+            var uri = new Uri("https://github.com/Aspallar/Wiki-Up");
+            _model.LaunchWebSiteCommand.Execute(uri);
 
-            A.CallTo(()=>_helpers.LaunchProcess("https://github.com/Aspallar/Wiki-Up"))
+            A.CallTo(()=>_helpers.LaunchProcess(uri.AbsoluteUri))
                 .MustHaveHappened(1, Times.Exactly);
         }
 

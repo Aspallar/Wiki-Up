@@ -55,6 +55,13 @@
     <!-- tab control -->
     <Color x:Key="InactiveTabColor">Black</Color>
 
+    <!-- ComboBox -->
+    <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#e3e9ef" />
+    <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="{StaticResource PrimaryDarkColor}" />
+    <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="#888" />
+    <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush" Color="#eee" />
+    <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush" Color="#888" />
+
     <!-- misc -->
     <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource Amber}"/>
     <SolidColorBrush x:Key="FocusedBorderBrush" Color="White"/>

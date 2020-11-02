@@ -24,6 +24,8 @@ namespace WikiUpload
 
         public string ApplicationVersion => Utils.ApplicationVersion;
 
+        public string UserAgent => App.UserAgent;
+
         public (string copyright, string version) ApplicationInformation
         {
             get

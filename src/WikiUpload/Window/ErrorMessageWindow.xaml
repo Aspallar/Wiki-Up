@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:WikiUpload"
+        xmlns:p="clr-namespace:WikiUpload.Properties"
         mc:Ignorable="d"
         FocusManager.FocusedElement="{Binding ElementName=OkButton}"
         WindowStyle="None"
@@ -14,7 +15,7 @@
         ResizeMode="NoResize"
         Width="580"
         SizeToContent="Height"
-        Title="Error" >
+        Title="{x:Static p:Resources.ErrorTitleText}" >
 
     <Window.Resources>
         <Style TargetType="{x:Type local:ErrorMessageWindow}">
@@ -84,7 +85,7 @@
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                                             <Button Command="{Binding CloseCommand}"
                                                     Style="{StaticResource WindowCloseButton}"
-                                                    ToolTip="Close"
+                                                    ToolTip="{x:Static p:Resources.CloseText}"
                                                     Content="X" />
                                         </StackPanel>
 
@@ -136,7 +137,7 @@
                            Text="{Binding ExceptonMessage}"
                            TextWrapping="Wrap"/>
                 <Button x:Name="OkButton"
-                        Content="Ok"
+                        Content="{x:Static p:Resources.ButtonOkText}"
                         Width="100" Height="30"
                         Margin="0 20 20 20"  
                         HorizontalAlignment="Right"
