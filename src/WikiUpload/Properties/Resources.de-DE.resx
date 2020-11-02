@@ -406,6 +406,9 @@
   <data name="UploadMessageFileTypeNotPermitted" xml:space="preserve">
     <value>Dateien der Art "{0}" sind nicht erlaubt.</value>
   </data>
+  <data name="UploadResponseDuplicateOf" xml:space="preserve">
+    <value>Duplikat von</value>
+  </data>
 
   <!-- ***************************************************************** -->
   <!-- Upload View Model -->
@@ -473,7 +476,7 @@
   </data>
 
   <!-- ***************************************************************** -->
-  <!-- New (to be moved to correct location in file) -->
+  <!-- Settings Page -->
 
   <data name="SettingsText" xml:space="preserve">
     <value>Einstellungen</value>
@@ -502,13 +505,6 @@
   <data name="GermanTrsnslationText" xml:space="preserve">
     <value>Deutsche Übersetzung von</value>
   </data>
-  <data name="UploadResponseDuplicateOf" xml:space="preserve">
-    <value>Duplikat von</value>
-  </data>
-
-  <!-- ***************************************************************** -->
-  <!-- New (to be translated) -->
-
   <data name="UpdatesText" xml:space="preserve">
     <value>Updates</value>
   </data>
@@ -518,6 +514,16 @@
   <data name="UpdatesDetailsText" xml:space="preserve">
     <value>Auf neue Versionen überprüfen, wenn Wiki-Up gestartet wird.</value>
   </data>
+  <data name="UpToDateText" xml:space="preserve">
+    <value>Wiki-Up ist auf dem neuesten Stand.</value>
+  </data>
+  <data name="RestoreDefaultsText" xml:space="preserve">
+    <value>Auf Standartwerte zurücksetzen</value>
+  </data>
+
+  <!-- ***************************************************************** -->
+  <!-- New version window -->
+
   <data name="NewVersionTitleText" xml:space="preserve">
     <value>Neue Version verfügbar</value>
   </data>
@@ -526,12 +532,6 @@
   </data>
   <data name="DownloadNowText" xml:space="preserve">
     <value>Jetzt herunterladen</value>
-  </data>
-  <data name="UpToDateText" xml:space="preserve">
-    <value>Wiki-Up ist auf dem neuesten Stand.</value>
-  </data>
-  <data name="RestoreDefaultsText" xml:space="preserve">
-    <value>Auf Standartwerte zurücksetzen</value>
   </data>
 
 </root>

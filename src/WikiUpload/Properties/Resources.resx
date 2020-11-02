@@ -406,6 +406,9 @@
   <data name="UploadMessageFileTypeNotPermitted" xml:space="preserve">
     <value>Files of type "{0}" are not permitted.</value>
   </data>
+  <data name="UploadResponseDuplicateOf" xml:space="preserve">
+    <value>Duplicate of</value>
+  </data>
 
   <!-- ***************************************************************** -->
   <!-- Upload View Model -->
@@ -447,6 +450,9 @@
   <data name="AboutApplicationNameText" xml:space="preserve">
     <value>Wiki-Up</value>
   </data>
+  <data name="GermanTrsnslationText" xml:space="preserve">
+    <value>German translation by</value>
+  </data>
 
   <!-- ***************************************************************** -->
   <!--Friendly upload error text -->
@@ -474,7 +480,7 @@
   </data>
 
   <!-- ***************************************************************** -->
-  <!-- New (to be moved to correct location in file) -->
+  <!-- Settings Page -->
 
   <data name="SettingsText" xml:space="preserve">
     <value>Settings</value>
@@ -500,16 +506,6 @@
   <data name="ImageFilesDetailsText" xml:space="preserve">
     <value>This is a list of file extensions that Wiki-Up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon.</value>
   </data>
-  <data name="GermanTrsnslationText" xml:space="preserve">
-    <value>German translation by</value>
-  </data>
-  <data name="UploadResponseDuplicateOf" xml:space="preserve">
-    <value>Duplicate of</value>
-  </data>
-
-  <!-- ***************************************************************** -->
-  <!-- New (to be translated) -->
-
   <data name="UpdatesText" xml:space="preserve">
     <value>Updates</value>
   </data>
@@ -519,6 +515,16 @@
   <data name="UpdatesDetailsText" xml:space="preserve">
     <value>Check for new versions of Wiki-Up when Wiki-Up starts up.</value>
   </data>
+  <data name="UpToDateText" xml:space="preserve">
+    <value>Wiki-Up is up to date.</value>
+  </data>
+  <data name="RestoreDefaultsText" xml:space="preserve">
+    <value>Restore Defaults</value>
+  </data>
+
+  <!-- ***************************************************************** -->
+  <!-- New Version Window -->
+
   <data name="NewVersionTitleText" xml:space="preserve">
     <value>New Version Available</value>
   </data>
@@ -527,12 +533,6 @@
   </data>
   <data name="DownloadNowText" xml:space="preserve">
     <value>Download Now</value>
-  </data>
-  <data name="UpToDateText" xml:space="preserve">
-    <value>Wiki-Up is up to date.</value>
-  </data>
-  <data name="RestoreDefaultsText" xml:space="preserve">
-    <value>Restore Defaults</value>
   </data>
 
 </root>
