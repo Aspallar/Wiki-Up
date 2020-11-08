@@ -491,9 +491,6 @@
   <data name="LanguageText" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="LanguageDetailsText" xml:space="preserve">
-    <value>The language to use in the Wiki-Up user interface. Changes to the language setting will not take effect until the next time Wiki-up is run.</value>
-  </data>
   <data name="UploadDelayText" xml:space="preserve">
     <value>Upload Delay</value>
   </data>
@@ -533,6 +530,32 @@
   </data>
   <data name="DownloadNowText" xml:space="preserve">
     <value>Download Now</value>
+  </data>
+
+  <!-- ***************************************************************** -->
+  <!-- NEW Settings Page -->
+
+  <data name="TakeEffectNextRunText" xml:space="preserve">
+    <value>Changes to the Language and Color Theme settings will take effet the next time Wiki-Up is run.</value>
+  </data>
+  <data name="ColorThemeText" xml:space="preserve">
+    <value>Color Theme</value>
+  </data>
+
+  <!-- ***************************************************************** -->
+  <!-- NEW Color theme names -->
+    
+  <data name="PutpleOverloadText" xml:space="preserve">
+    <value>Purpole Overload</value>
+  </data>
+  <data name="PutpleHazeText" xml:space="preserve">
+    <value>Purpole Haze</value>
+  </data>
+  <data name="GreenForrestTest" xml:space="preserve">
+    <value>Green Forest</value>
+  </data>
+  <data name="BlueLightText" xml:space="preserve">
+    <value>Bright Blue</value>
   </data>
 
 </root>

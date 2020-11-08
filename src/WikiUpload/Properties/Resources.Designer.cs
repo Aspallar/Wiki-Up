@@ -124,6 +124,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bright Blue.
+        /// </summary>
+        public static string BlueLightText {
+            get {
+                return ResourceManager.GetString("BlueLightText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Category.
         /// </summary>
         public static string ButtonAddCategoryText {
@@ -412,6 +421,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color Theme.
+        /// </summary>
+        public static string ColorThemeText {
+            get {
+                return ResourceManager.GetString("ColorThemeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the wikitext to use as the initial page content for new images below. This will be only used for new images, it will not replace any existing page content..
         /// </summary>
         public static string ContentDescriptionText {
@@ -493,6 +511,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Green Forest.
+        /// </summary>
+        public static string GreenForrestTest {
+            get {
+                return ResourceManager.GetString("GreenForrestTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignore warnings.
         /// </summary>
         public static string IgnoreWarningsLabelText {
@@ -552,15 +579,6 @@ namespace WikiUpload.Properties {
         public static string InvalidLoginDetailsMessage {
             get {
                 return ResourceManager.GetString("InvalidLoginDetailsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The language to use in the Wiki-Up user interface. Changes to the language setting will not take effect until the next time Wiki-up is run..
-        /// </summary>
-        public static string LanguageDetailsText {
-            get {
-                return ResourceManager.GetString("LanguageDetailsText", resourceCulture);
             }
         }
         
@@ -709,6 +727,24 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purpole Haze.
+        /// </summary>
+        public static string PutpleHazeText {
+            get {
+                return ResourceManager.GetString("PutpleHazeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purpole Overload.
+        /// </summary>
+        public static string PutpleOverloadText {
+            get {
+                return ResourceManager.GetString("PutpleOverloadText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remember Password.
         /// </summary>
         public static string RememberPassword {
@@ -786,6 +822,15 @@ namespace WikiUpload.Properties {
         public static string SummaryLabelText {
             get {
                 return ResourceManager.GetString("SummaryLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes to the Language and Color Theme settings will take effet the next time Wiki-Up is run..
+        /// </summary>
+        public static string TakeEffectNextRunText {
+            get {
+                return ResourceManager.GetString("TakeEffectNextRunText", resourceCulture);
             }
         }
         

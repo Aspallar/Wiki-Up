@@ -144,12 +144,15 @@
     <Compile Include="Utilities\PasswordDictionary.cs" />
     <Compile Include="Utilities\PasswordStore.cs" />
     <Compile Include="Utilities\SecureCharArray.cs" />
+    <Compile Include="Utilities\Skin.cs" />
+    <Compile Include="Utilities\SkinResourceDictionary.cs" />
     <Compile Include="Utilities\UpdateCheck.cs" />
     <Compile Include="Utilities\UploadListSerializer.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="Utilities\WindowManager.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
+    <Compile Include="ViewModel\ColorTheme.cs" />
     <Compile Include="ViewModel\NewVersionViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ErrorMessageViewModel.cs" />
@@ -251,7 +254,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\Colors.xaml">
+    <Page Include="Styles\Themes\GreenForest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\BrightBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\PurpleOverload.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\PurpleHaze.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

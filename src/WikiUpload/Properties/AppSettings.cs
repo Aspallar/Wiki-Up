@@ -51,6 +51,12 @@ namespace WikiUpload.Properties
             set => Settings.Default.CheckForUpdates = value;
         }
 
+        public Skin Theme
+        {
+            get => (Skin)Settings.Default.Theme;
+            set => Settings.Default.Theme = (int)value;
+        }
+
         public void AddMostRecentlyUsedSite(string site)
         {
             Settings.Default.AddMostRecentlyUsedSite(site);

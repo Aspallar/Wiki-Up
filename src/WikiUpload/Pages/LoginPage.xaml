@@ -52,12 +52,15 @@
 
                             <TextBox x:Name="WikiSite" Tag="{x:Static p:Resources.WikiUrlPlaceholder}" Style="{StaticResource LineTextBox}"
                                      Text="{Binding WikiUrl, UpdateSourceTrigger=PropertyChanged}"
+                                     Background="{StaticResource VeryLightNackgroundBrush}"
                                      local:AutoComplete.ItemsSource="{Binding PreviousSites, Mode=OneTime}"/>
 
                             <TextBox Tag="{x:Static p:Resources.UsernamePlaceholder}" Style="{StaticResource LineTextBox}"
+                                     Background="{StaticResource VeryLightNackgroundBrush}"
                                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <PasswordBox x:Name="PasswordText" Tag="{x:Static p:Resources.PasswordPlaceholder}" 
+                                         Background="{StaticResource VeryLightNackgroundBrush}"
                                          local:SavedPassword.Username="{Binding Username, Mode=OneWay}"
                                          local:SavedPassword.Site="{Binding WikiUrl, Mode=OneWay}"
                                          local:SavedPassword.PasswordManager="{Binding PasswordManager, Mode=OneTime}"

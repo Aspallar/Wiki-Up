@@ -14,7 +14,7 @@ namespace WikiUpload.Properties
         string WikiUrl { get; set; }
         string Language { get; set; }
         bool CheckForUpdates { get; set; }
-        
+        Skin Theme { get; set; }
 
         void AddMostRecentlyUsedSite(string site);
         void RestoreConfigurationDefaults();

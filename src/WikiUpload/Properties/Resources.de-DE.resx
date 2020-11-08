@@ -487,9 +487,6 @@
   <data name="LanguageText" xml:space="preserve">
     <value>Sprache</value>
   </data>
-  <data name="LanguageDetailsText" xml:space="preserve">
-    <value>Die Sprache welche für die Wiki-Up Benutzeroberfläche verwendet wird. Änderungen der Spracheneinstellung werden erst nach einem Neustart von Wiki-Up wirksam.</value>
-  </data>
   <data name="UploadDelayText" xml:space="preserve">
     <value>Upload Verzögerung</value>
   </data>

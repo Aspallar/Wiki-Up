@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:WikiUpload">
+
+    <!-- base colors (from material desigb) -->
+    <Color x:Key="PrimaryColor">Blue</Color>
+    <Color x:Key="PrimaryLightColor">#2d67c4</Color>
+    <Color x:Key="PrimaryDarkColor">Black</Color>
+    <Color x:Key="DisabledColor">Gray</Color>
+    <Color x:Key="Amber">#ffbf00</Color>
+
+
+    <Color x:Key="PrimaryTextColor">#ffbf00</Color>
+    <Color x:Key="SecondaryTextColor">#000000</Color>
+
+    <!-- highlighted text color (not selection highlight) -->
+    <Color x:Key="HighlightTextColor">White</Color>
+
+    <!-- brushes for base colors -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+    <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLightColor}" />
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}" />
+    <SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource PrimaryTextColor}" />
+    <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}" />
+    <SolidColorBrush x:Key="HighlightTextCBrush" Color="{StaticResource HighlightTextColor}" />
+
+    <!-- Background colors -->
+    <SolidColorBrush x:Key="BackGroundColorBrush" Color="{StaticResource PrimaryDarkColor}" />
+    <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource PrimaryDarkColor}"/>
+    <SolidColorBrush x:Key="ControlDisabledBackgroundBrush" Color="{StaticResource DisabledColor}"/>
+    <SolidColorBrush x:Key="VeryLightNackgroundBrush" Color="Wheat"/>
+    
+    <!-- button background color -->
+    <SolidColorBrush x:Key="ButtonColorBrush" Color="{StaticResource PrimaryColor}" />
+
+    <!-- error message text color -->
+    <Color x:Key="ErrorColor">Red</Color>
+    <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
+
+    <!-- upload status icon colors -->
+    <Color x:Key="UploadStatusWaitingColor">Gray</Color>
+    <Color x:Key="UploadStatusUploadingColor">Green</Color>
+    <Color x:Key="UploadStatusErrorColor">#cc0000</Color>
+
+    <SolidColorBrush x:Key="UploadStatusWaitingBrush" Color="{StaticResource UploadStatusWaitingColor}"/>
+    <SolidColorBrush x:Key="UploadStatusWarningBrush" Color="{StaticResource Amber}"/>
+    <SolidColorBrush x:Key="UploadStatusUploadingBrush" Color="{StaticResource UploadStatusUploadingColor}"/>
+    <SolidColorBrush x:Key="UploadStatusErrorBrush" Color="{StaticResource UploadStatusErrorColor}"/>
+
+    <!-- placeholdesr color for LineTextBox -->
+    <Color x:Key="PlaceholderColor">#233954</Color>
+    <SolidColorBrush x:Key="PlaceholdeBrush" Color="{StaticResource PlaceholderColor}"/>
+    
+    <!-- tab control -->
+    <Color x:Key="InactiveTabColor">Black</Color>
+
+    <!-- ComboBox -->
+    <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#e3e9ef" />
+    <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="{StaticResource PrimaryDarkColor}" />
+    <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="#888" />
+    <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush" Color="#eee" />
+    <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush" Color="#888" />
+
+    <!-- misc -->
+    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource Amber}"/>
+    <SolidColorBrush x:Key="FocusedBorderBrush" Color="White"/>
+    <SolidColorBrush x:Key="FlipSwitchBackground" Color="Black"/>
+</ResourceDictionary>
+

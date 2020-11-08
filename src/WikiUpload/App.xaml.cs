@@ -12,7 +12,9 @@ namespace WikiUpload
     /// </summary>
     public partial class App : Application
     {
-         protected override void OnStartup(StartupEventArgs e)
+        public static Skin Skin { get; } = (Skin)WikiUpload.Properties.Settings.Default.Theme;
+
+        protected override void OnStartup(StartupEventArgs e)
          {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             var language = WikiUpload.Properties.Settings.Default.Language;

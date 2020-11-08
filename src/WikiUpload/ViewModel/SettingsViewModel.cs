@@ -1,9 +1,5 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Input;
 using WikiUpload.Properties;
 
@@ -23,6 +19,14 @@ namespace WikiUpload
             new Language("Deutsch (German)", "de-DE"),
         };
 
+        public List<ColorTheme> ColorThemes { get; } = new List<ColorTheme>
+        {
+           new ColorTheme(Skin.PurpleOverload, Resources.PutpleOverloadText),
+           new ColorTheme(Skin.PurpleHaze, Resources.PutpleHazeText),
+           new ColorTheme(Skin.GreenForest, Resources.GreenForrestTest),
+           new ColorTheme(Skin.BlueLight, Resources.BlueLightText),
+        };
+
         public SettingsViewModel(
             IAppSettings appSettings,
             INavigatorService navigatorService,
@@ -38,7 +42,9 @@ namespace WikiUpload
             _updateCheck.CheckForUpdateCompleted += updateCheck_CheckForUpdateCompleted;
 
             SetPropeertiesFromAppSettings();
+
             SelectedLanguage = Languages.Where(x => x.Code == _appSettings.Language).FirstOrDefault();
+            SelectedColorTheme = ColorThemes.Where(x => x.Id == _appSettings.Theme).FirstOrDefault();
 
             CancelSettingsCommand = new RelayCommand(CancelSettings);
             SaveSettingsCommand = new RelayCommand(SaveSettings);
@@ -64,6 +70,8 @@ namespace WikiUpload
             _appSettings.UploadDelay = Delay;
             _appSettings.ImageExtensions = ImageExtensions;
             _appSettings.CheckForUpdates = CheckForUpdates;
+            if (SelectedColorTheme != null)
+                _appSettings.Theme = SelectedColorTheme.Id;
             if (SelectedLanguage != null)
                 _appSettings.Language = SelectedLanguage.Code;
             _appSettings.Save();
@@ -99,6 +107,8 @@ namespace WikiUpload
         public int Delay { get; set; }
 
         public Language SelectedLanguage { get; set; }
+
+        public ColorTheme SelectedColorTheme { get; set; }
 
         public string ImageExtensions { get; set; }
 
