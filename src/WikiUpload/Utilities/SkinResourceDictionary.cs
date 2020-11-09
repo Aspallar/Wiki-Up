@@ -9,6 +9,8 @@ namespace WikiUpload
         private Uri _purpleOverloadSource;
         private Uri _greenForestSource;
         private Uri _blueLightSource;
+        private Uri _solarizedSource;
+        private Uri _rakdosSource;
 
         public Uri PurpleHazeSource
         {
@@ -50,6 +52,26 @@ namespace WikiUpload
             }
         }
 
+        public Uri SolarizedSource
+        {
+            get { return _solarizedSource; }
+            set
+            {
+                _solarizedSource = value;
+                UpdateSource();
+            }
+        }
+
+        public Uri RakdosSource
+        {
+            get { return _rakdosSource; }
+            set
+            {
+                _rakdosSource = value;
+                UpdateSource();
+            }
+        }
+
         private void UpdateSource()
         {
             Uri source = AppSkinResource();
@@ -59,23 +81,29 @@ namespace WikiUpload
 
         private Uri AppSkinResource()
         {
-            Uri source = null;
+            Uri thisSource = null;
             switch (App.Skin)
             {
                 case Skin.PurpleHaze:
-                    source = _purpleHazeSource;
+                    thisSource = _purpleHazeSource;
                     break;
                 case Skin.PurpleOverload:
-                    source = _purpleOverloadSource;
+                    thisSource = _purpleOverloadSource;
                     break;
                 case Skin.GreenForest:
-                    source = _greenForestSource;
+                    thisSource = _greenForestSource;
                     break;
                 case Skin.BlueLight:
-                    source = _blueLightSource;
+                    thisSource = _blueLightSource;
+                    break;
+                case Skin.Solarized:
+                    thisSource = _solarizedSource;
+                    break;
+                case Skin.Rakdos:
+                    thisSource = _rakdosSource;
                     break;
             }
-            return source;
+            return thisSource;
         }
     }
 }

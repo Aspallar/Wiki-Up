@@ -557,5 +557,11 @@
   <data name="BlueLightText" xml:space="preserve">
     <value>Bright Blue</value>
   </data>
+  <data name="SolarizedText" xml:space="preserve">
+    <value>Sort of Solarized</value>
+  </data>
+  <data name="RakdosText" xml:space="preserve">
+    <value>Rakdos</value>
+  </data>
 
 </root>

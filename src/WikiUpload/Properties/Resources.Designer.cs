@@ -745,6 +745,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rakdos.
+        /// </summary>
+        public static string RakdosText {
+            get {
+                return ResourceManager.GetString("RakdosText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remember Password.
         /// </summary>
         public static string RememberPassword {
@@ -804,6 +813,15 @@ namespace WikiUpload.Properties {
         public static string SignOut {
             get {
                 return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort of Solarized.
+        /// </summary>
+        public static string SolarizedText {
+            get {
+                return ResourceManager.GetString("SolarizedText", resourceCulture);
             }
         }
         
