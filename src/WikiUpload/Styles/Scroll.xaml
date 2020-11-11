@@ -46,7 +46,7 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border x:Name="rectangle"
                                 SnapsToDevicePixels="True"
-                                Background="{StaticResource PrimaryBrush}"
+                                Background="{StaticResource ScrollBarThumbBrush}"
                                 CornerRadius="3"
                                 Height="{TemplateBinding Height}"
                                 Width="{TemplateBinding Width}"/>

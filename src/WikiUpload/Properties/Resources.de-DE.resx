@@ -517,6 +517,12 @@
   <data name="RestoreDefaultsText" xml:space="preserve">
     <value>Auf Standartwerte zurücksetzen</value>
   </data>
+  <data name="TakeEffectNextRunText" xml:space="preserve">
+    <value>Änderung der Einstellungen für Sprache und Farbschema werden erst nach einem Neustart von Wiki-Up wirksam.</value>
+  </data>
+  <data name="ColorThemeText" xml:space="preserve">
+    <value>Farbschema</value>
+  </data>
 
   <!-- ***************************************************************** -->
   <!-- New version window -->
@@ -531,4 +537,26 @@
     <value>Jetzt herunterladen</value>
   </data>
 
+  <!-- ***************************************************************** -->
+  <!-- Color theme names -->
+
+  <data name="PutpleOverloadText" xml:space="preserve">
+    <value>Lila Überlastung</value>
+  </data>
+  <data name="PutpleHazeText" xml:space="preserve">
+    <value>Lila Dunst</value>
+  </data>
+  <data name="GreenForestText" xml:space="preserve">
+    <value>Grüner Wald</value>
+  </data>
+  <data name="BlueLightText" xml:space="preserve">
+    <value>Leuchtend Blau</value>
+  </data>
+  <data name="SolarizedText" xml:space="preserve">
+    <value>Fast solarisiert</value>
+  </data>
+  <data name="RakdosText" xml:space="preserve">
+    <value>Rakdos</value>
+  </data>  
+  
 </root>

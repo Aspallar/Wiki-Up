@@ -5,13 +5,13 @@
 
     <!-- base colors (from material desigb) -->
     <Color x:Key="PrimaryColor">#1a1a1a</Color>
-    <Color x:Key="PrimaryLightColor">#4e4e4e</Color>
+    <Color x:Key="PrimaryLightColor">Red</Color>
     <Color x:Key="PrimaryDarkColor">#000000</Color>
     <Color x:Key="DisabledColor">Gray</Color>
     <Color x:Key="Amber">#ffbf00</Color>
 
 
-    <Color x:Key="PrimaryTextColor">Red</Color>
+    <Color x:Key="PrimaryTextColor">White</Color>
     <Color x:Key="SecondaryTextColor">#000000</Color>
 
     <!-- highlighted text color (not selection highlight) -->
@@ -23,16 +23,18 @@
     <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}" />
     <SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource PrimaryTextColor}" />
     <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}" />
-    <SolidColorBrush x:Key="HighlightTextCBrush" Color="{StaticResource HighlightTextColor}" />
+    <SolidColorBrush x:Key="HighlightTextCBrush" Color="{StaticResource PrimaryLightColor}" />
 
     <!-- Background colors -->
     <SolidColorBrush x:Key="BackGroundColorBrush" Color="{StaticResource PrimaryDarkColor}" />
     <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource PrimaryDarkColor}"/>
     <SolidColorBrush x:Key="ControlDisabledBackgroundBrush" Color="{StaticResource DisabledColor}"/>
     <SolidColorBrush x:Key="VeryLightNackgroundBrush" Color="#fdf6e3"/>
-    
-    <!-- button background color -->
+
+    <!-- button colors -->
     <SolidColorBrush x:Key="ButtonColorBrush" Color="{StaticResource PrimaryColor}" />
+    <SolidColorBrush x:Key="ButtonTextBrush" Color="Red" />
+    <SolidColorBrush x:Key="ButtonMouseOverBrush" Color="DarkRed"/>
 
     <!-- error message text color -->
     <Color x:Key="ErrorColor">#dc322f</Color>
@@ -66,5 +68,6 @@
     <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource Amber}"/>
     <SolidColorBrush x:Key="FocusedBorderBrush" Color="White"/>
     <SolidColorBrush x:Key="FlipSwitchBackground" Color="Black"/>
+    <SolidColorBrush x:Key="ScrollBarThumbBrush" Color="DarkRed"/>
 </ResourceDictionary>
 

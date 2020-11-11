@@ -518,6 +518,13 @@
   <data name="RestoreDefaultsText" xml:space="preserve">
     <value>Restore Defaults</value>
   </data>
+  <data name="TakeEffectNextRunText" xml:space="preserve">
+    <value>Changes to the Language and Color Theme settings will take effect the next time Wiki-Up is run.</value>
+  </data>
+  <data name="ColorThemeText" xml:space="preserve">
+    <value>Color Theme</value>
+  </data>
+
 
   <!-- ***************************************************************** -->
   <!-- New Version Window -->
@@ -533,25 +540,15 @@
   </data>
 
   <!-- ***************************************************************** -->
-  <!-- NEW Settings Page -->
-
-  <data name="TakeEffectNextRunText" xml:space="preserve">
-    <value>Changes to the Language and Color Theme settings will take effet the next time Wiki-Up is run.</value>
-  </data>
-  <data name="ColorThemeText" xml:space="preserve">
-    <value>Color Theme</value>
-  </data>
-
-  <!-- ***************************************************************** -->
-  <!-- NEW Color theme names -->
+  <!-- Color theme names -->
     
   <data name="PutpleOverloadText" xml:space="preserve">
-    <value>Purpole Overload</value>
+    <value>Purple Overload</value>
   </data>
   <data name="PutpleHazeText" xml:space="preserve">
-    <value>Purpole Haze</value>
+    <value>Purple Haze</value>
   </data>
-  <data name="GreenForrestTest" xml:space="preserve">
+  <data name="GreenForestText" xml:space="preserve">
     <value>Green Forest</value>
   </data>
   <data name="BlueLightText" xml:space="preserve">

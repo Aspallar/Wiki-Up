@@ -15,7 +15,7 @@
     <Color x:Key="SecondaryTextColor">#000000</Color>
 
     <!-- highlighted text color (not selection highlight) -->
-    <Color x:Key="HighlightTextColor">White</Color>
+    <Color x:Key="HighlightTextColor">#2aa198</Color>
 
     <!-- brushes for base colors -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
@@ -30,9 +30,11 @@
     <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource PrimaryDarkColor}"/>
     <SolidColorBrush x:Key="ControlDisabledBackgroundBrush" Color="{StaticResource DisabledColor}"/>
     <SolidColorBrush x:Key="VeryLightNackgroundBrush" Color="#fdf6e3"/>
-    
-    <!-- button background color -->
+
+    <!-- button colors -->
     <SolidColorBrush x:Key="ButtonColorBrush" Color="{StaticResource PrimaryColor}" />
+    <SolidColorBrush x:Key="ButtonTextBrush" Color="{StaticResource PrimaryTextColor}" />
+    <SolidColorBrush x:Key="ButtonMouseOverBrush" Color="{StaticResource PrimaryLightColor}"/>
 
     <!-- error message text color -->
     <Color x:Key="ErrorColor">#dc322f</Color>
@@ -66,5 +68,6 @@
     <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource Amber}"/>
     <SolidColorBrush x:Key="FocusedBorderBrush" Color="White"/>
     <SolidColorBrush x:Key="FlipSwitchBackground" Color="Black"/>
+    <SolidColorBrush x:Key="ScrollBarThumbBrush" Color="{StaticResource PrimaryLightColor}"/>
 </ResourceDictionary>
 

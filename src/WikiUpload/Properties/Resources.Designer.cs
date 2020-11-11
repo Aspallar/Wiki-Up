@@ -513,9 +513,9 @@ namespace WikiUpload.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Green Forest.
         /// </summary>
-        public static string GreenForrestTest {
+        public static string GreenForestText {
             get {
-                return ResourceManager.GetString("GreenForrestTest", resourceCulture);
+                return ResourceManager.GetString("GreenForestText", resourceCulture);
             }
         }
         
@@ -727,7 +727,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Purpole Haze.
+        ///   Looks up a localized string similar to Purple Haze.
         /// </summary>
         public static string PutpleHazeText {
             get {
@@ -736,7 +736,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Purpole Overload.
+        ///   Looks up a localized string similar to Purple Overload.
         /// </summary>
         public static string PutpleOverloadText {
             get {
@@ -844,7 +844,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changes to the Language and Color Theme settings will take effet the next time Wiki-Up is run..
+        ///   Looks up a localized string similar to Changes to the Language and Color Theme settings will take effect the next time Wiki-Up is run..
         /// </summary>
         public static string TakeEffectNextRunText {
             get {

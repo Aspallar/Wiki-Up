@@ -8,7 +8,7 @@
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="Background" Value="{StaticResource ButtonColorBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ButtonTextBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
@@ -27,12 +27,18 @@
                             Padding="{TemplateBinding Padding}"
                             SnapsToDevicePixels="True">
                         <Grid>
-                            <ContentPresenter HorizontalAlignment="Center" />
+                            <ContentPresenter HorizontalAlignment="Center">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}} }"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource PrimaryLightBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource ButtonMouseOverBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource ControlDisabledBackgroundBrush}"/>
@@ -123,7 +129,7 @@
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" x:Key="BusyButton">
 
         <Setter Property="Background" Value="{StaticResource ButtonColorBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ButtonTextBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
@@ -143,6 +149,7 @@
                             SnapsToDevicePixels="True">
                         <Grid>
                             <TextBlock Text="{TemplateBinding Content}" 
+                                   Foreground="{TemplateBinding Foreground}"
                                    Focusable="False" 
                                    FontFamily="{TemplateBinding FontFamily}"
                                    Visibility="{TemplateBinding local:IsBusyProperty.Value, Converter={local:BooleanToVisiblityConverter}}"
@@ -159,7 +166,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource PrimaryLightBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource ButtonMouseOverBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource ControlDisabledBackgroundBrush}"/>
