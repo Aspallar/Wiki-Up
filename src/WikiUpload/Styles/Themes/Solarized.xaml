@@ -3,17 +3,19 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:WikiUpload">
 
+    <!-- local - only used in this xaml file -->
+    <Color x:Key="SolarizedRed">#dc322f</Color>
+
     <!-- base colors (from material desigb) -->
     <Color x:Key="PrimaryColor">#073642</Color>
     <Color x:Key="PrimaryLightColor">#586e75</Color>
     <Color x:Key="PrimaryDarkColor">#002b36</Color>
     <Color x:Key="DisabledColor">Gray</Color>
-    <Color x:Key="Amber">#ffbf00</Color>
-
+    <Color x:Key="Amber">#b58900</Color> <!-- solarized yellow-->
 
     <Color x:Key="PrimaryTextColor">#93a1a1</Color>
     <Color x:Key="SecondaryTextColor">#000000</Color>
-
+    
     <!-- highlighted text color (not selection highlight) -->
     <Color x:Key="HighlightTextColor">#2aa198</Color>
 
@@ -42,13 +44,13 @@
 
     <!-- upload status icon colors -->
     <Color x:Key="UploadStatusWaitingColor">Gray</Color>
-    <Color x:Key="UploadStatusUploadingColor">Green</Color>
-    <Color x:Key="UploadStatusErrorColor">#cc0000</Color>
+    <Color x:Key="UploadStatusUploadingColor">#2aa198</Color>
+    <!--<Color x:Key="UploadStatusErrorColor">#cc0000</Color>-->
 
     <SolidColorBrush x:Key="UploadStatusWaitingBrush" Color="{StaticResource UploadStatusWaitingColor}"/>
     <SolidColorBrush x:Key="UploadStatusWarningBrush" Color="{StaticResource Amber}"/>
     <SolidColorBrush x:Key="UploadStatusUploadingBrush" Color="{StaticResource UploadStatusUploadingColor}"/>
-    <SolidColorBrush x:Key="UploadStatusErrorBrush" Color="{StaticResource UploadStatusErrorColor}"/>
+    <SolidColorBrush x:Key="UploadStatusErrorBrush" Color="{StaticResource SolarizedRed}"/>
 
     <!-- placeholdesr color for LineTextBox -->
     <Color x:Key="PlaceholderColor">#93a1a1</Color>
