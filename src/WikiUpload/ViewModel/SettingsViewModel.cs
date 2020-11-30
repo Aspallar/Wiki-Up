@@ -17,6 +17,7 @@ namespace WikiUpload
         {
             new Language("English", "en-US"),
             new Language("Deutsch (German)", "de-DE"),
+            new Language("Eesti (Estonian)", "et-EE"),
         };
 
         public List<ColorTheme> ColorThemes { get; } = new List<ColorTheme>

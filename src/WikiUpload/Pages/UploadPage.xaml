@@ -159,7 +159,8 @@
                                     IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
                             </Grid>
 
-                            <Button  Content="{x:Static p:Resources.ButtonStopUploadText}"
+                            <Button  x:Name="StopUpload"
+                                     Content="{x:Static p:Resources.ButtonStopUploadText}"
                                      IsEnabled="{Binding UploadIsRunning}"
                                      Command="{Binding CancelCommand}"
                                      ToolTip="{x:Static p:Resources.ButtonStopUploadTooltipText}"/>

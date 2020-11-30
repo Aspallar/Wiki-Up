@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+    <data name="AppNameText" xml:space="preserve">
+    <value>Wiki-Up</value>
+  </data>
+  <data name="AppByLineText" xml:space="preserve">
+    <value>Autor Aspallar</value>
+  </data>
+  <data name="AboutMenuItemText" xml:space="preserve">
+    <value>Wiki-Up info</value>
+  </data>
+  <data name="ManimizeRestoreText" xml:space="preserve">
+    <value>Maksimaliseeri/Taasta</value>
+  </data>
+  <data name="MiximizeText" xml:space="preserve">
+    <value>Minimeeri</value>
+  </data>
+  <data name="CloseText" xml:space="preserve">
+    <value>Sulge</value>
+  </data>
+  <data name="ErrorTitleText" xml:space="preserve">
+    <value>Viga</value>
+  </data>
+  <data name="AboutTitleText" xml:space="preserve">
+    <value>Wiki-Up´ist</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Logi sisse</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Logi välja</value>
+  </data>
+  <data name="WikiUrlPlaceholder" xml:space="preserve">
+    <value>Wiki url</value>
+  </data>
+  <data name="UsernamePlaceholder" xml:space="preserve">
+    <value>Kasutajanimi</value>
+  </data>
+  <data name="PasswordPlaceholder" xml:space="preserve">
+    <value>Salasõna</value>
+  </data>
+  <data name="RememberPassword" xml:space="preserve">
+    <value>Salvesta salasõna</value>
+  </data>
+  <data name="ButtonLogin" xml:space="preserve">
+    <value>Logi sisse</value>
+  </data>
+  <data name="LoginFailedMessage" xml:space="preserve">
+    <value>Sisselogimine ebaõnnestus</value>
+  </data>
+  <data name="InvalidLoginDetailsMessage" xml:space="preserve">
+    <value>Kontrolli sisestatud andmete korrektsust.</value>
+  </data>
+  <data name="LoginErrorNoWikiOrUsername" xml:space="preserve">
+    <value>Palun sisesta Wiki url ja kasutajanimi</value>
+  </data>
+  <data name="LoginErrorInvalidWikiUrl" xml:space="preserve">
+    <value>Vigane Wiki url</value>
+  </data>
+  <data name="LoginExceptionInvalidResponse" xml:space="preserve">
+    <value>Server vastas vigase teatega</value>
+  </data>
+  <data name="LoginExceptionTimeout" xml:space="preserve">
+    <value>Server ei vastanud</value>
+  </data>
+  <data name="LoginExceptionUnexpectedError" xml:space="preserve">
+    <value>Ilmes ootamatu viga.</value>
+  </data>
+  <data name="LoginExceptionNotAutoConfirmed" xml:space="preserve">
+    <value>Konto pole automaatselt kinnitatud.</value>
+  </data>
+  <data name="LoginExceptionNotAuthorized" xml:space="preserve">
+    <value>Sul pole volitust Wiki-Up kasutamiseks antud Wiki lehel.</value>
+  </data>
+  <data name="LoginExceptionNoEditToken" xml:space="preserve">
+    <value>Ei õnnestunud saada luba muutmiseks</value>
+  </data>
+  <data name="LoginExceptionAborted" xml:space="preserve">
+    <value>Server katkestas sisselogimise(vajadusel kasuta BOT salasõna)</value>
+  </data>
+  <data name="InsecureConnectionTitleText" xml:space="preserve">
+    <value>Ebaturvaline ühendus</value>
+  </data>
+  <data name="InsecureConnectionMessage" xml:space="preserve">
+    <value>Http ühendus pole turvaline. Sisse logimine kasutades antud http võimaldab sinu kasuatajanime ja salasõna saatmise krüpteerimata lihttekstina.</value>
+  </data>
+  <data name="ContiuePrompt" xml:space="preserve">
+    <value>Kas sa oled kindel, et soovid jätkata?</value>
+  </data>
+  <data name="SearchErrorText" xml:space="preserve">
+    <value>Ilmnes viga Wiki kasutamisel.</value>
+  </data>
+  <data name="CategoryTemplate" xml:space="preserve">
+    <value>[[Category:{0}]]</value>
+  </data>
+  <data name="ContentTabText" xml:space="preserve">
+    <value>Sisu</value>
+  </data>
+  <data name="UploadTabText" xml:space="preserve">
+    <value>Lae üles</value>
+  </data>
+  <data name="FilesText" xml:space="preserve">
+    <value> Failid</value>
+  </data>
+  <data name="IgnoreWarningsLabelText" xml:space="preserve">
+    <value>Ignoreeri hoiatusi</value>
+  </data>
+  <data name="IgnoreWarningsTooltipText" xml:space="preserve">
+    <value>Ignoreeri hoiatusi ja lae falid üles, isegi kui failid juba eksisteerivad või on dublikaadid.</value>
+  </data>
+  <data name="AddToWatchlistLabelText" xml:space="preserve">
+    <value>Lisa jälgimisnimekirja</value>
+  </data>
+  <data name="AddToWatchlistTooltipText" xml:space="preserve">
+    <value>Lisa üles laetud failid oma jälgimisnimekirja.</value>
+  </data>
+  <data name="ButtonLoadContentTooltipText" xml:space="preserve">
+    <value>Lae sisu alla failist.</value>
+  </data>
+  <data name="ButtonSaveContentTooltipText" xml:space="preserve">
+    <value>Salvesta sisu failina.</value>
+  </data>
+  <data name="ButtonUploadText" xml:space="preserve">
+    <value>Lae üles</value>
+  </data>
+  <data name="ButtonUploadTooltipText" xml:space="preserve">
+    <value>Alusta failide üles laadimist.(Ctrl+U)</value>
+  </data>
+  <data name="ButtonStopUploadText" xml:space="preserve">
+    <value>Tühista üles laadimine</value>
+  </data>
+  <data name="ButtonStopUploadTooltipText" xml:space="preserve">
+    <value>Tühista käesolev üleslaadimine.</value>
+  </data>
+  <data name="ButtonAddFilesText" xml:space="preserve">
+    <value>Lisa faile</value>
+  </data>
+  <data name="ButtonAddFilesTooltipText" xml:space="preserve">
+    <value>Lisa failid üleslaadimis nimekirja.(Ctrl+A)</value>
+  </data>
+  <data name="ButtonRemoveFilesText" xml:space="preserve">
+    <value>Eemalda failid</value>
+  </data>
+  <data name="ButtonRemoveFilesTooltipText" xml:space="preserve">
+    <value>Eemalda valitud failid üleslaadimise nimekirjast.</value>
+  </data>
+  <data name="ButtonLoadFilesTooltipText" xml:space="preserve">
+    <value>Lisa faile eelnevalt salvestatud üleslaadimis nimekirjast.</value>
+  </data>
+  <data name="ButtonSaveFilesTooltipText" xml:space="preserve">
+    <value>Salvesta üleslaadimis nimekiri</value>
+  </data>
+  <data name="SummaryLabelText" xml:space="preserve">
+    <value>Kokkuvõte</value>
+  </data>
+  <data name="SummaryDescriptionText" xml:space="preserve">
+    <value>Üleslaadimiste kokkuvõte Wiki aktiivsuse logis.</value>
+  </data>
+  <data name="ContentLabelText" xml:space="preserve">
+    <value>Sisu</value>
+  </data>
+  <data name="ContentDescriptionText" xml:space="preserve">
+    <value>Sisesta Wikitekst algseks sisuks, allolevate uute piltide jaoks.Teksti kasutatakse ainult uute piltide jaoks, see ei asenda olemasolevate lehekülgede sisu.</value>
+  </data>
+  <data name="ButtonAddCategoryText" xml:space="preserve">
+    <value>Lisa kategooria</value>
+  </data>
+  <data name="ButtonAddTemplateText" xml:space="preserve">
+    <value>Lisa näidis</value>
+  </data>
+  <data name="ButtonOkText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonCancelText" xml:space="preserve">
+    <value>Tühista</value>
+  </data>
+  <data name="ButtonSaveText" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="ButtonLoadText" xml:space="preserve">
+    <value>Lae</value>
+  </data>
+  <data name="ButtonYesText" xml:space="preserve">
+    <value>Jah</value>
+  </data>
+  <data name="ButtonNoText" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="ButtonAddText" xml:space="preserve">
+    <value>Lisa</value>
+  </data>
+  <data name="ButtonFindText" xml:space="preserve">
+    <value>Otsi</value>
+  </data>
+  <data name="ButtonNextText" xml:space="preserve">
+    <value>Järgmine</value>
+  </data>
+  <data name="ButtonPreviousText" xml:space="preserve">
+    <value>Eelmine</value>
+  </data>
+  <data name="ToggleSwitchYesText" xml:space="preserve">
+    <value>JAH</value>
+  </data>
+  <data name="ToggleSwitchNoText" xml:space="preserve">
+    <value>EI</value>
+  </data>
+  <data name="UploadMessageAwaitingUpload" xml:space="preserve">
+    <value>Üleslaadimise ootel.</value>
+  </data>
+  <data name="UploadMessageUploading" xml:space="preserve">
+    <value>Lae üles Wiki lehele...</value>
+  </data>
+  <data name="UploadMessageInvalidXml" xml:space="preserve">
+    <value>Server vastas vigase XML vastusega.</value>
+  </data>
+  <data name="UploadMessageFileNotFound" xml:space="preserve">
+    <value>Faili ei leitud.</value>
+  </data>
+  <data name="UploadMessageReadFail" xml:space="preserve">
+    <value>Ei saa faili avada</value>
+  </data>
+  <data name="UploadMessageCancelled" xml:space="preserve">
+    <value>Üleslaadimine tühistatud</value>
+  </data>
+  <data name="UploadMessageServerBusy" xml:space="preserve">
+    <value>Server on ülekoormatud. Üleslaadimine tühistati. Palun proovi hiljem uuesti.</value>
+  </data>
+  <data name="UploadMessageNoEditToken" xml:space="preserve">
+    <value>Ei õnnestunud saada luba muutmiseks. Üleslaadimine tühistati. Taaskäivita Wiki-Up vea parandamiseks.</value>
+  </data>
+  <data name="UploadMessageNetworkError" xml:space="preserve">
+    <value>Ühenduse viga. Üleslaadimine pole võimalik.</value>
+  </data>
+  <data name="UploadMessageTimedOut" xml:space="preserve">
+    <value>Üleslaadimine aegus.</value>
+  </data>
+  <data name="UploadMessageUnkownServerResponse" xml:space="preserve">
+    <value>Ootamatu serveri vastus</value>
+  </data>
+  <data name="UploadMessageFileTypeNotPermitted" xml:space="preserve">
+    <value>"{0}" tüüpi failid pole lubatud</value>
+  </data>
+  <data name="UploadResponseDuplicateOf" xml:space="preserve">
+    <value>Koopia</value>
+  </data>
+  <data name="UploadViaText" xml:space="preserve">
+    <value>Üleslaetud läbi</value>
+  </data>
+  <data name="ViaText" xml:space="preserve">
+    <value>Allikas</value>
+  </data>
+  <data name="CantReadUploadListMessage" xml:space="preserve">
+    <value>Üleslaadimis nimekirja pole võimalik lugeda</value>
+  </data>
+  <data name="CantSaveUploadListMessage" xml:space="preserve">
+    <value>Üleslaadimis nimekirja ei saa salvestada</value>
+  </data>
+  <data name="CantReadContentMessage" xml:space="preserve">
+    <value>Sisu lugemine ebaõnnestus</value>
+  </data>
+  <data name="CantSaveContentMessage" xml:space="preserve">
+    <value>Sisu salvestamine ebaõnnestus</value>
+  </data>
+  <data name="ViewImageErrorMessage" xml:space="preserve">
+    <value>Pildi vaatamine ebaõnnestus</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Autoriõigus</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Versioon</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Interneti lehekülg</value>
+  </data>
+  <data name="AboutApplicationNameText" xml:space="preserve">
+    <value>Wiki Up</value>
+  </data>
+  <data name="GermanTrsnslationText" xml:space="preserve">
+    <value>Saksa keelne tõlge:</value>
+  </data>
+  <data name="UploadErrorAlreadyExists" xml:space="preserve">
+    <value>On juba olemas.</value>
+  </data>
+  <data name="UploadErrorBadFilename" xml:space="preserve">
+    <value>Ebakorrektne faili nimi</value>
+  </data>
+  <data name="UploadErrorUnwantedType" xml:space="preserve">
+    <value>Ebasobiv faili tüüp</value>
+  </data>
+  <data name="UploadErrorLargeFile" xml:space="preserve">
+    <value>Andmeside mahuka faili hoiatus.</value>
+  </data>
+  <data name="UploadErrorEmptyFile" xml:space="preserve">
+    <value>Fail on tühi</value>
+  </data>
+  <data name="UploadErrorDuplicateArchive" xml:space="preserve">
+    <value>Salvestuse koopia</value>
+  </data>
+  <data name="UploadErrorDeletedFile" xml:space="preserve">
+    <value>Kustuta fail</value>
+  </data>
+  <data name="SettingsText" xml:space="preserve">
+    <value>Sätted</value>
+  </data>
+  <data name="SaveSettingsText" xml:space="preserve">
+    <value>Salvesta sätted</value>
+  </data>
+  <data name="LanguageText" xml:space="preserve">
+    <value>Keele valik</value>
+  </data>
+  <data name="UploadDelayText" xml:space="preserve">
+    <value>Üleslaadimise viivitus</value>
+  </data>
+  <data name="UploadDelayDetailsText" xml:space="preserve">
+    <value>See on aeg, millisekundites, Kui kaua Wiki-Up ootab enne iga faili üleslaadimist.</value>
+  </data>
+  <data name="ImageFilesText" xml:space="preserve">
+    <value>Pildi faili laiendid</value>
+  </data>
+  <data name="ImageFilesDetailsText" xml:space="preserve">
+    <value>See on loend faililaienditest, mida Wiki-Up peab .add failide dialoogis pildifailideks. Eraldage iga sissekanne semikooloniga.</value>
+  </data>
+  <data name="UpdatesText" xml:space="preserve">
+    <value>Uuendused</value>
+  </data>
+  <data name="CheckNowText" xml:space="preserve">
+    <value>Kontrolli kohe</value>
+  </data>
+  <data name="UpdatesDetailsText" xml:space="preserve">
+    <value>Wiki-Up käivitamisel kontrolli uuema versiooni olemasolu.</value>
+  </data>
+  <data name="UpToDateText" xml:space="preserve">
+    <value>Wiki-Up on ajakohane.</value>
+  </data>
+  <data name="RestoreDefaultsText" xml:space="preserve">
+    <value>Taasta algseadmed</value>
+  </data>
+  <data name="NewVersionTitleText" xml:space="preserve">
+    <value>Uuem versioon on saadaval</value>
+  </data>
+  <data name="NewVersionMessage" xml:space="preserve">
+    <value>Wiki-Up uuendatud versioon {0} on alalaadimiseks valmis.</value>
+  </data>
+  <data name="DownloadNowText" xml:space="preserve">
+    <value>Lae alla</value>
+  </data>
+  <data name="TakeEffectNextRunText" xml:space="preserve">
+    <value>Keele ja värvi muudatuste sätted aktiveeritakse Wiki-Up taaskäivitamisel.</value>
+  </data>
+  <data name="ColorThemeText" xml:space="preserve">
+    <value>Värvilahendus</value>
+  </data>
+  <data name="PutpleOverloadText" xml:space="preserve">
+    <value>Tume-lilla</value>
+  </data>
+  <data name="PutpleHazeText" xml:space="preserve">
+    <value>Hele-lilla</value>
+  </data>
+  <data name="GreenForestText" xml:space="preserve">
+    <value>Roheline mets</value>
+  </data>
+  <data name="BlueLightText" xml:space="preserve">
+    <value>Hele sinine</value>
+  </data>
+  <data name="SolarizedText" xml:space="preserve">
+    <value>Päikseline</value>
+  </data>
+  <data name="RakdosText" xml:space="preserve">
+    <value>Rakdos</value>
+  </data>
+
+</root>
