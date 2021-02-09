@@ -437,7 +437,7 @@
     <value>Pildi faili laiendid</value>
   </data>
   <data name="ImageFilesDetailsText" xml:space="preserve">
-    <value>See on loend faililaienditest, mida Wiki-Up peab .add failide dialoogis pildifailideks. Eraldage iga sissekanne semikooloniga.</value>
+    <value>See on loend faililaienditest, mida Wiki-Up peab lisa failide dialoogis pildifailideks. Eraldage iga sissekanne semikooloniga.</value>
   </data>
   <data name="UpdatesText" xml:space="preserve">
     <value>Uuendused</value>
