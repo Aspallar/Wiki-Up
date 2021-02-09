@@ -63,7 +63,6 @@
                                  SelectionMode="Extended"
                                  BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                                  ItemsSource="{Binding UploadFiles}"
-                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                  local:IsDropFileEnabledProperty.Value="True"
                                  local:DropFileTargetProperty.Value="{Binding}"
                                  local:ViewedItemProperty.Value="{Binding ViewedFile}"
@@ -91,7 +90,19 @@
                                                 Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
                                                 CommandParameter="{Binding FullPath}"/>
                                             <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="{Binding Folder}"/>
-                                            <TextBlock FontSize="{StaticResource FontSizeSmall}" FontStyle="Italic" Text="{Binding Message}"/>
+                                            <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="{Binding Message}"
+                                                       FontStyle="Italic" >
+                                                <TextBlock.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem Header="Copy to clipboard" Click="ErrorContextMenu_CopyToClipboard_Click"/>
+                                                    </ContextMenu>
+                                                </TextBlock.ContextMenu>
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip MaxWidth="600">
+                                                        <TextBlock TextWrapping="Wrap" Text="{Binding Message}"/>
+                                                    </ToolTip>
+                                                </TextBlock.ToolTip>
+                                            </TextBlock>
                                         </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>
@@ -105,6 +116,7 @@
                         </ListBox>
                         <StackPanel Grid.Column="2" Margin="10">
                             <Button Content="{x:Static p:Resources.ButtonAddFilesText}" Margin="0"
+                                x:Name="AddFiles"
                                 ToolTip="{x:Static p:Resources.ButtonAddFilesTooltipText}"
                                 Command="{Binding AddFilesCommand}"
                                 IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>

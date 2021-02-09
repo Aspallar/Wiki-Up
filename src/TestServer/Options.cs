@@ -22,6 +22,9 @@ namespace TestServer
         [Option]
         public int UploadTimeout { get; set; }
 
+        [Option(Default = 0)]
+        public int LongError { get; set; }
+
         [Option(Default = 0, HelpText = "-1 to always maxlag")]
         public int MaxLag { get; set; }
 

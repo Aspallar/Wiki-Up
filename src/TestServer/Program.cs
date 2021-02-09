@@ -131,6 +131,8 @@ namespace TestServer
                 reply = "Hey this is not xml";
             else if (options.MaxLag > 0 && GetRandom(100) < options.MaxLag)
                 reply = MaxLagReply(response);
+            else if (options.LongError > 0 && GetRandom(100) < options.LongError)
+                reply = ApiReply("<error code=\"foobar\" info=\"This os a long error message. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Vivamus pretium neque et arcu scelerisque, vel accumsan ipsum elementum.Sed in convallis tortor.Morbi mollis nunc et felis pharetra, a pellentesque lectus volutpat.Aliquam eleifend purus purus, nec laoreet mi vestibulum. Once upon a time. And then there wrere none. The end.\"></error>");
             else
                 reply = ApiReply("<upload result=\"Success\"></upload>");
 

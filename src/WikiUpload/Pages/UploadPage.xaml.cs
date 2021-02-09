@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace WikiUpload
@@ -14,7 +15,7 @@ namespace WikiUpload
             Loaded += UploadPage_Loaded;
         }
 
-        private void UploadPage_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void UploadPage_Loaded(object sender, RoutedEventArgs e)
         {
             string cultureName = Thread.CurrentThread.CurrentUICulture.Name;
 
@@ -28,6 +29,15 @@ namespace WikiUpload
             else if (cultureName == "et-EE")
             {
                 StopUpload.FontSize = 24;
+            }
+        }
+
+        private void ErrorContextMenu_CopyToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuitem)
+            {
+                var data = (UploadFile)menuitem.DataContext;
+                Clipboard.SetText(data.Message);
             }
         }
     }
