@@ -43,6 +43,7 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Srings.et-EE.wxl" />
     <EmbeddedResource Include="Srings.de-DE.wxl" />
     <EmbeddedResource Include="Strings.wxl" />
   </ItemGroup>

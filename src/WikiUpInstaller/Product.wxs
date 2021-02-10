@@ -39,6 +39,7 @@
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentGroupRef Id="ProductShortcut" />
       <ComponentGroupRef Id="locale_deDE" />
+      <ComponentGroupRef Id="locale_etEE" />
     </Feature>
   </Product>
 
@@ -47,6 +48,7 @@
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="WikiUp">
           <Directory Id="LocaleFolder_deDE" Name="de-DE" />
+          <Directory Id="LocaleFolder_etEE" Name="et-EE" />
         </Directory>
       </Directory>
       <Directory Id="ProgramMenuFolder" />
@@ -92,6 +94,12 @@
     <ComponentGroup Id="locale_deDE" Directory="LocaleFolder_deDE">
       <Component Id="WikiUp.resources.deDE.dll" Guid="896b5009-06a5-4e7d-a3af-1863e49ad747">
         <File Id="WikiUp.resources.deDE.dll" Name="WikiUp.resources.dll" Source="$(var.WikiUpload_TargetDir)de-DE\WikiUp.resources.dll" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="locale_etEE" Directory="LocaleFolder_etEE">
+      <Component Id="WikiUp.resources.etEE.dll" Guid="79bed3b9-93d5-4bea-9a65-583b3b83812d">
+        <File Id="WikiUp.resources.etEE.dll" Name="WikiUp.resources.dll" Source="$(var.WikiUpload_TargetDir)et-EE\WikiUp.resources.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
