@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WikiUpload
 {
-    public class Youtube : IYoutube, IDisposable
+    public partial class Youtube : IYoutube, IDisposable
     {
         private YouTubeService _youtubeService;
         private PlaylistItemsResource.ListRequest _playlistItems;
@@ -15,8 +15,16 @@ namespace WikiUpload
             _youtubeService = new YouTubeService(new BaseClientService.Initializer
             {
                 ApplicationName = helpers.UserAgent,
-                ApiKey = "",
-            });
+
+                // Create the following class in a separate file to supply
+                // the google api key. Mark it as ignored by source controll.
+                // 
+                // public partial class Youtube
+                // {
+                //    private const string key = "";
+                // }
+                ApiKey = key,
+            }); ;
             _playlistItems = _youtubeService.PlaylistItems.List("contentDetails");
             _playlistItems.MaxResults = 100;
         }
