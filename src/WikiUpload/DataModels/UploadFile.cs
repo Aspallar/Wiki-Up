@@ -18,6 +18,8 @@ namespace WikiUpload
 
         public string Folder => Path.GetDirectoryName(FullPath);
 
+        public bool IsVideo => FullPath.StartsWith("https://");
+
         public UploadFile()
         {
             SetDefault();

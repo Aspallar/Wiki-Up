@@ -79,6 +79,19 @@ namespace WikiUpload
             }
         }
 
+        public UploadResponse(IngestionControllerResponse response)
+        {
+            if (response.Success)
+            {
+                Result = ResponseCodes.Success;
+            }
+            else
+            {
+                Result = ResponseCodes.NoResult;
+                _errors.Add(new ApiError("videeo-upload", response.Status));
+            }
+        }
+
         public IReadOnlyList<string> Warnings => _warnings;
 
         public IReadOnlyList<ApiError> Errors => _errors;

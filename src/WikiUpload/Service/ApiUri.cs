@@ -15,5 +15,6 @@ namespace WikiUpload
             url.Append(DateTime.Now.Ticks.ToString());
             return new Uri(this, url.ToString());
         }
+
     }
 }

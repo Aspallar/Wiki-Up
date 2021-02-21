@@ -46,6 +46,9 @@ namespace WikiUpload
 
             Bind<IWindowManager>()
                 .To<WindowManager>();
+
+            Bind<IYoutube>()
+                .To<Youtube>();
         }
     }
 }

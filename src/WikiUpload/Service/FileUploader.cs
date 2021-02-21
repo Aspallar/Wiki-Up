@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,15 +25,19 @@ namespace WikiUpload
         private readonly string _userAgent;
         private readonly int _timeoutSeconds;
 
+        private readonly Regex _isFandomDomainMatch = new Regex(@"^https://.+?\.fandom.com/", RegexOptions.IgnoreCase);
+
         public string PageContent { get; set; }
 
         public string Summary { get; set; }
 
         public string Site { get; set; }
-        
+
         public string HomePage { get; set; }
-        
+
         public string ScriptPath { get; set; }
+
+        public bool CanUploadVideos => _isFandomDomainMatch.IsMatch(Site);
 
         public IReadOnlyPermittedFiles PermittedFiles
             => (IReadOnlyPermittedFiles)_permittedFiles;
@@ -225,6 +230,43 @@ namespace WikiUpload
                 string responseContent = await response.Content.ReadAsStringAsync();
                 return new UploadResponse(responseContent, retryAfter);
             }
+        }
+
+        public async Task<IngestionControllerResponse> UpLoadVideoAsync(string fullPath, CancellationToken cancelToken)
+        {
+            var queryParams = new RequestParameters
+            {
+                {  "controller", @"Fandom\Video\IngestionController" },
+                {  "method", "uploadVideo" },
+            };
+            var uploadVideoUri = new Uri(Site + "/wikia.php" + queryParams.ToString());
+            var formParams = new RequestParameters
+            {
+                { "url", fullPath },
+                { "token", _editToken },
+            };
+            var req = new HttpRequestMessage(HttpMethod.Post, uploadVideoUri);
+            req.Content = new FormUrlEncodedContent(formParams);
+
+            IngestionControllerResponse videoUploadResponse;
+            using (HttpResponseMessage response = await _client.SendAsync(req, cancelToken))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    videoUploadResponse = JsonConvert.DeserializeObject<IngestionControllerResponse>(responseContent);
+                }
+                else
+                {
+                    videoUploadResponse = new IngestionControllerResponse
+                    {
+                        Status = $"[{(int)response.StatusCode}] {response.ReasonPhrase}",
+                        Success = false,
+                    };
+                }
+                videoUploadResponse.HttpStatusCode = response.StatusCode;
+            }
+            return videoUploadResponse;
         }
 
         public async Task RefreshTokenAsync()

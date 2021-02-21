@@ -26,8 +26,13 @@ namespace WikiUpload
 
             if (d.GetValue(DropFileTargetProperty.ValueProperty) is IFileDropTarget target)
             {
+                string[] paths = null;
                 if (dragEventArgs.Data.GetDataPresent(DataFormats.FileDrop))
-                    target.OnFileDrop((string[])dragEventArgs.Data.GetData(DataFormats.FileDrop));
+                    paths = (string[])dragEventArgs.Data.GetData(DataFormats.FileDrop);
+                else if (dragEventArgs.Data.GetDataPresent(DataFormats.Text))
+                    paths = new string[] { (string)dragEventArgs.Data.GetData(DataFormats.Text) };
+                if (paths != null)
+                    target.OnFileDrop(paths);
             }
             else
             {

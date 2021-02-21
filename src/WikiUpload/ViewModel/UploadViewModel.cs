@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,14 @@ using System.Windows.Input;
 using System.Xml;
 using WikiUpload.Properties;
 
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Services;
+using Google.Apis.Upload;
+using Google.Apis.Util.Store;
+using Google.Apis.YouTube.v3;
+using Google.Apis.YouTube.v3.Data;
+using System.Web;
+
 namespace WikiUpload
 {
     public class UploadViewModel : BaseViewModel, IFileDropTarget
@@ -19,6 +28,7 @@ namespace WikiUpload
         private CancellationTokenSource _cancelSource;
         private IWikiSearch _categorySearch;
         private IWikiSearch _templateSearch;
+        private bool _editTokenRefreshed;
 
         #region Constructor and dependencies
 
@@ -26,6 +36,7 @@ namespace WikiUpload
         private readonly IHelpers _helpers;
         private readonly INavigatorService _navigatorService;
         private readonly IUploadListSerializer _uploadFileSerializer;
+        private readonly IYoutube _youtube;
         private readonly IWikiSearchFactory _wikiSearchFactory;
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;
@@ -36,6 +47,7 @@ namespace WikiUpload
             IUploadListSerializer uploadFileSerializer,
             INavigatorService navigatorService,
             IWikiSearchFactory wikiSearchFactory,
+            IYoutube youtube,
             IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
@@ -44,6 +56,7 @@ namespace WikiUpload
             _helpers = helpers;
             _navigatorService = navigatorService;
             _uploadFileSerializer = uploadFileSerializer;
+            _youtube = youtube;
             _wikiSearchFactory = wikiSearchFactory;
 
             ResetViewModel();
@@ -116,11 +129,12 @@ namespace WikiUpload
                 {
                     CancellationToken cancelToken = _cancelSource.Token;
                     var filesToUpload = UploadFiles.Select(x => x).ToList();
+                    _editTokenRefreshed = false;
                     _fileUploader.Summary = AddAppName(UploadSummary);
                     _fileUploader.PageContent = PageContent;
                     foreach (var file in filesToUpload)
                     {
-                        if (!_fileUploader.PermittedFiles.IsPermitted(file.FileName))
+                        if (!file.IsVideo && !_fileUploader.PermittedFiles.IsPermitted(file.FileName))
                         {
                             file.SetError(UploadMessages.FileTypeNotPermitted(Path.GetExtension(file.FileName)));
                         }
@@ -128,7 +142,14 @@ namespace WikiUpload
                         {
                             try
                             {
-                                await UploadFile(file, cancelToken);
+                                if (file.IsVideo)
+                                {
+                                    await UploadVideo(file, cancelToken);
+                                }
+                                else
+                                {
+                                    await UploadFile(file, cancelToken);
+                                }
                             }
                             catch (HttpRequestException ex)
                             {
@@ -182,10 +203,35 @@ namespace WikiUpload
             });
         }
 
+        private async Task UploadVideo(UploadFile file, CancellationToken cancelToken)
+        {
+            file.SetUploading();
+            while (true)
+            {
+                var response = await _fileUploader.UpLoadVideoAsync(file.FullPath, cancelToken);
+                if (response.Success)
+                {
+                    UploadFiles.Remove(file);
+                    break; //while true
+                }
+                else
+                {
+                    if (_editTokenRefreshed || response.HttpStatusCode != HttpStatusCode.BadRequest)
+                    {
+                        file.SetError(response.Status);
+                        break; // while true
+                    }
+                    else
+                    {
+                        await RefreshEditeToken();
+                    }
+                }
+            }
+        }
+
         private async Task UploadFile(UploadFile file, CancellationToken cancelToken)
         {
             int maxLagRetries = 3;
-            bool tokenRefreshed = false;
             while (true)
             {
                 cancelToken.ThrowIfCancellationRequested();
@@ -219,14 +265,13 @@ namespace WikiUpload
                 {
                     if (response.IsTokenError)
                     {
-                        if (tokenRefreshed)
+                        if (_editTokenRefreshed)
                         {
                             throw new NoEditTokenException();
                         }
                         else
                         {
-                            await _fileUploader.RefreshTokenAsync();
-                            tokenRefreshed = true;
+                            await RefreshEditeToken();
                             continue;
                         }
                     }
@@ -241,6 +286,12 @@ namespace WikiUpload
                 }
                 return;
             }
+        }
+
+        private async Task RefreshEditeToken()
+        {
+            await _fileUploader.RefreshTokenAsync();
+            _editTokenRefreshed = true;
         }
 
         private string AddAppName(string uploadSummary)
@@ -318,7 +369,31 @@ namespace WikiUpload
         public void OnFileDrop(string[] filepaths)
         {
             if (!UploadIsRunning)
+            {
+                if (filepaths.Length == 1)
+                {
+                    string youtubePlaylistId = ExtractYoutubePlaylistId(filepaths[0]);
+                    if (youtubePlaylistId != null)
+                        filepaths = _youtube.PlaylistVideos(youtubePlaylistId).ToArray();
+                }
                 UploadFiles.AddNewRange(filepaths);
+            }
+        }
+ 
+        private string ExtractYoutubePlaylistId(string url)
+        {
+            string playlistId = null;
+
+            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
+            {
+                if (uri.Scheme == "https" && uri.Host.EndsWith("youtube.com"))
+                {
+                    var queryParams = HttpUtility.ParseQueryString(uri.Query);
+                    playlistId = queryParams.Get("list");
+                }
+            }
+
+            return playlistId;
         }
 
         #endregion
@@ -467,3 +542,4 @@ namespace WikiUpload
 
     }
 }
+ 
