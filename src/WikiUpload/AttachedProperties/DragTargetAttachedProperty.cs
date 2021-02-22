@@ -6,7 +6,7 @@ namespace WikiUpload
 {
     public interface IFileDropTarget
     {
-        void OnFileDrop(string[] filepaths);
+        void OnFileDrop(string[] filepaths, bool controlKeyPressed );
     }
 
     public class DropFileTargetProperty : BaseAttachedProperty<DropFileTargetProperty, object>  { }
@@ -31,9 +31,13 @@ namespace WikiUpload
                     paths = (string[])dragEventArgs.Data.GetData(DataFormats.FileDrop);
                 else if (dragEventArgs.Data.GetDataPresent(DataFormats.Text))
                     paths = new string[] { (string)dragEventArgs.Data.GetData(DataFormats.Text) };
+
                 if (paths != null)
-                    target.OnFileDrop(paths);
-            }
+                {
+                    var controlKeyPressed = (dragEventArgs.KeyStates & DragDropKeyStates.ControlKey) == DragDropKeyStates.ControlKey;
+                    target.OnFileDrop(paths, controlKeyPressed);
+                }
+            } 
             else
             {
                 throw new NotSupportedException($"{nameof(DropFileTargetProperty)} value must implement {nameof(IFileDropTarget)}");

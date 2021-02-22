@@ -359,11 +359,11 @@ namespace WikiUpload
             }
         }
 
-        public void OnFileDrop(string[] filepaths)
+        public void OnFileDrop(string[] filepaths, bool controlKeyPressed)
         {
             if (!UploadIsRunning)
             {
-                if (filepaths.Length == 1)
+                if (filepaths.Length == 1 && !controlKeyPressed)
                 {
                     string youtubePlaylistId = ExtractYoutubePlaylistId(filepaths[0]);
                     if (youtubePlaylistId != null)

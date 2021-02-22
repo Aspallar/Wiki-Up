@@ -61,6 +61,7 @@ namespace Tests
                 _uploadListSerializer,
                 _navigationService,
                 _wikiSearchFactory,
+                null, // TODO: update video tests
                 _appSetttings);
         }
 
