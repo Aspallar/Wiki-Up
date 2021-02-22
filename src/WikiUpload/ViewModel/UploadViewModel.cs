@@ -367,12 +367,45 @@ namespace WikiUpload
                 {
                     string youtubePlaylistId = ExtractYoutubePlaylistId(filepaths[0]);
                     if (youtubePlaylistId != null)
-                        filepaths = _youtube.PlaylistVideos(youtubePlaylistId).ToArray();
+                    {
+                        AddYoutubePlaylistVideos(youtubePlaylistId);
+                    }
+                    else
+                    {
+                        UploadFiles.AddNewRange(filepaths);
+                    }
                 }
-                UploadFiles.AddNewRange(filepaths);
+                else
+                {
+                    UploadFiles.AddNewRange(filepaths);
+                }
             }
         }
- 
+
+        private void AddYoutubePlaylistVideos(string youtubePlaylistId)
+        {
+            // TODO: localize the strings below
+            const int maxPlayllistLength = 200;
+            _youtube.FetchPlasylistViedeoLinksAsync(youtubePlaylistId, maxPlayllistLength).ContinueWith(
+                t =>
+                {
+                    switch (t.Exception)
+                    {
+                        case null:
+                            if (t.Result != null)
+                                UploadFiles.AddNewRange(t.Result.ToArray());
+                            else
+                                _dialogs.ErrorMessage($"Playlist is too large to import. Maximum length is {maxPlayllistLength} videos.", null);
+                            break;
+                        default:
+                            _dialogs.ErrorMessage("An error occured while communicating with youtube.", null);
+                            break;
+                    }
+                },
+                TaskScheduler.FromCurrentSynchronizationContext()
+            );
+        }
+
         private string ExtractYoutubePlaylistId(string url)
         {
             string playlistId = null;

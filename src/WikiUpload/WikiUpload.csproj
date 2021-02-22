@@ -162,6 +162,7 @@
     <Compile Include="Service\SiteInfo.cs" />
     <Compile Include="Service\UploadMessages.cs" />
     <Compile Include="Service\Youtube.cs" />
+    <Compile Include="Service\YoutubeSecrets.cs" />
     <Compile Include="Utilities\CheckForUpdateEventArgs.cs" />
     <Compile Include="Utilities\DialogManager.cs" />
     <Compile Include="Utilities\Encryption.cs" />

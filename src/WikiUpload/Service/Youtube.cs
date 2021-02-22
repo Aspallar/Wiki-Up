@@ -1,7 +1,9 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
+using Google.Apis.YouTube.v3.Data;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace WikiUpload
 {
@@ -29,15 +31,24 @@ namespace WikiUpload
             _playlistItems.MaxResults = 100;
         }
 
-        public IEnumerable<string> PlaylistVideos(string playlistId)
+        public async Task<IEnumerable<string>> FetchPlasylistViedeoLinksAsync(string playlistId, int maxPlaylistLength)
         {
             List<string> videos = new List<string>();
-
+            PlaylistItemListResponse results;
             _playlistItems.PlaylistId = playlistId;
 
-            var results = _playlistItems.Execute();
-            foreach (var item in results.Items)
-                videos.Add("https://youtube.com/watch?v=" + item.ContentDetails.VideoId);
+            do
+            {
+                results = await _playlistItems.ExecuteAsync();
+                if (results.PageInfo.TotalResults > maxPlaylistLength)
+                {
+                    videos = null;
+                    break; // do
+                }
+                foreach (var item in results.Items)
+                    videos.Add("https://youtube.com/watch?v=" + item.ContentDetails.VideoId);
+                _playlistItems.PageToken = results.NextPageToken;
+            } while (results.NextPageToken != null);
 
             return videos;
         }
