@@ -8,11 +8,10 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using System.Xml;
-using System.Web;
 using WikiUpload.Properties;
+using Newtonsoft.Json;
 
 namespace WikiUpload
 {
@@ -155,6 +154,10 @@ namespace WikiUpload
                             {
                                 file.SetError(UploadMessages.InvalidXml);
                             }
+                            catch (JsonException)
+                            {
+                                file.SetError(UploadMessages.InvalidJson);
+                            }
                             catch (FileNotFoundException)
                             {
                                 file.SetError(UploadMessages.FileNotFound);
@@ -199,9 +202,18 @@ namespace WikiUpload
         private async Task UploadVideo(UploadFile file, CancellationToken cancelToken)
         {
             file.SetUploading();
+            ViewedFile = file;
             while (true)
             {
-                var response = await _fileUploader.UpLoadVideoAsync(file.FullPath, cancelToken);
+                IngestionControllerResponse response;
+                try
+                {
+                    response = await _fileUploader.UpLoadVideoAsync(file.FullPath, cancelToken);
+                }
+                finally
+                {
+                    await _helpers.Wait(_appSettings.UploadDelay, cancelToken);
+                }
                 if (response.Success)
                 {
                     UploadFiles.Remove(file);
@@ -232,8 +244,15 @@ namespace WikiUpload
                 file.SetUploading();
                 ViewedFile = file;
 
-                var response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload, IncludeInWatchlist);
-                await _helpers.Wait(_appSettings.UploadDelay, cancelToken);
+                IUploadResponse response;
+                try
+                {
+                    response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload, IncludeInWatchlist);
+                }
+                finally
+                {
+                    await _helpers.Wait(_appSettings.UploadDelay, cancelToken);
+                }
 
                 // Note: Only access response.Result once, as thgis makes testing much easier
                 //       as a chain of responses can be faked. See maclag tests in UploadViewModelTests.cs
@@ -359,21 +378,21 @@ namespace WikiUpload
             }
         }
 
+        #endregion
+
+        #region File drag drop
+
         public void OnFileDrop(string[] filepaths, bool controlKeyPressed)
         {
             if (!UploadIsRunning)
             {
                 if (filepaths.Length == 1 && !controlKeyPressed)
                 {
-                    string youtubePlaylistId = ExtractYoutubePlaylistId(filepaths[0]);
+                    string youtubePlaylistId = _youtube.ExtractPlaylistId(filepaths[0]);
                     if (youtubePlaylistId != null)
-                    {
                         AddYoutubePlaylistVideos(youtubePlaylistId);
-                    }
                     else
-                    {
                         UploadFiles.AddNewRange(filepaths);
-                    }
                 }
                 else
                 {
@@ -384,7 +403,6 @@ namespace WikiUpload
 
         private void AddYoutubePlaylistVideos(string youtubePlaylistId)
         {
-            // TODO: localize the strings below
             const int maxPlayllistLength = 200;
             _youtube.FetchPlasylistViedeoLinksAsync(youtubePlaylistId, maxPlayllistLength).ContinueWith(
                 t =>
@@ -395,31 +413,15 @@ namespace WikiUpload
                             if (t.Result != null)
                                 UploadFiles.AddNewRange(t.Result.ToArray());
                             else
-                                _dialogs.ErrorMessage($"Playlist is too large to import. Maximum length is {maxPlayllistLength} videos.", null);
+                                _dialogs.ErrorMessage(string.Format(Resources.PlalistTooBig, maxPlayllistLength), null);
                             break;
                         default:
-                            _dialogs.ErrorMessage("An error occured while communicating with youtube.", null);
+                            _dialogs.ErrorMessage(Resources.YoutubeError, null);
                             break;
                     }
                 },
                 TaskScheduler.FromCurrentSynchronizationContext()
             );
-        }
-
-        private string ExtractYoutubePlaylistId(string url)
-        {
-            string playlistId = null;
-
-            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
-            {
-                if (uri.Scheme == "https" && uri.Host.EndsWith("youtube.com"))
-                {
-                    var queryParams = HttpUtility.ParseQueryString(uri.Query);
-                    playlistId = queryParams.Get("list");
-                }
-            }
-
-            return playlistId;
         }
 
         #endregion

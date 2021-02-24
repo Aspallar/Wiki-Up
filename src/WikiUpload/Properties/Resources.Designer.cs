@@ -124,6 +124,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to May be caused by trying to upload from an unsupported video website.
+        /// </summary>
+        public static string BadVideoUploadRequest {
+            get {
+                return ResourceManager.GetString("BadVideoUploadRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bright Blue.
         /// </summary>
         public static string BlueLightText {
@@ -718,11 +727,29 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wiki does not support video uploading.
+        /// </summary>
+        public static string NoVideoUploadSupport {
+            get {
+                return ResourceManager.GetString("NoVideoUploadSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordPlaceholder {
             get {
                 return ResourceManager.GetString("PasswordPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlist is too large to import. Maximum length is {0} videos.&quot;.
+        /// </summary>
+        public static string PlalistTooBig {
+            get {
+                return ResourceManager.GetString("PlalistTooBig", resourceCulture);
             }
         }
         
@@ -970,6 +997,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The server returned an invalid JSON response..
+        /// </summary>
+        public static string UploadMesageInvalidJson {
+            get {
+                return ResourceManager.GetString("UploadMesageInvalidJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Awaiting upload..
         /// </summary>
         public static string UploadMessageAwaitingUpload {
@@ -1164,6 +1200,15 @@ namespace WikiUpload.Properties {
         public static string WikiUrlPlaceholder {
             get {
                 return ResourceManager.GetString("WikiUrlPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while communicating with youtube..
+        /// </summary>
+        public static string YoutubeError {
+            get {
+                return ResourceManager.GetString("YoutubeError", resourceCulture);
             }
         }
     }

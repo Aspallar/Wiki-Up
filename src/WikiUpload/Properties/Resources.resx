@@ -561,4 +561,28 @@
     <value>Rakdos</value>
   </data>
 
+  <!-- ***************************************************************** -->
+  <!-- Not yet translated -->
+  <!--TODO: translate these -->
+
+  <data name="NoVideoUploadSupport" xml:space="preserve">
+    <value>Wiki does not support video uploading</value>
+  </data>
+
+  <data name="BadVideoUploadRequest" xml:space="preserve">
+    <value>May be caused by trying to upload from an unsupported video website</value>
+  </data>
+
+  <data name="UploadMesageInvalidJson" xml:space="preserve">
+    <value>The server returned an invalid JSON response.</value>
+  </data>
+
+  <data name="YoutubeError" xml:space="preserve">
+    <value>An error occured while communicating with youtube.</value>
+  </data>
+
+  <data name="PlalistTooBig" xml:space="preserve">
+    <value>Playlist is too large to import. Maximum length is {0} videos."</value>
+  </data>
+
 </root>

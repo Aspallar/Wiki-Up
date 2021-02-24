@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Media;
-using System.Runtime.InteropServices;
 using System.Windows;
 
 namespace WikiUpload

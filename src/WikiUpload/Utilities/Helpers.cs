@@ -14,7 +14,8 @@ namespace WikiUpload
 
         public Task Wait(int ms) => Task.Delay(ms);
 
-        public Task Wait(int ms, CancellationToken token) => Task.Delay(ms, token);
+        public Task Wait(int ms, CancellationToken token)
+            => token.IsCancellationRequested ? Task.CompletedTask : Task.Delay(ms, token);
 
         public Process LaunchProcess(string path) => Process.Start(path);
 

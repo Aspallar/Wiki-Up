@@ -24,6 +24,7 @@ namespace Tests
         private IWikiSearchFactory _wikiSearchFactory;
         private IWikiSearch _categorySearch;
         private IWikiSearch _templateSearch;
+        private IYoutube _youtube;
         private IUploadListSerializer _uploadListSerializer;
         private IReadOnlyPermittedFiles _permittedFiles;
         private UploadViewModel _model;
@@ -43,6 +44,7 @@ namespace Tests
             _wikiSearchFactory = A.Fake<IWikiSearchFactory>();
             _categorySearch = A.Fake<IWikiSearch>();
             _templateSearch = A.Fake<IWikiSearch>();
+            _youtube = A.Fake<IYoutube>();
 
             A.CallTo(() => _fileUploader.PermittedFiles)
                 .Returns(_permittedFiles);
@@ -61,7 +63,7 @@ namespace Tests
                 _uploadListSerializer,
                 _navigationService,
                 _wikiSearchFactory,
-                null, // TODO: update video tests
+                _youtube, 
                 _appSetttings);
         }
 
@@ -376,7 +378,7 @@ namespace Tests
             const string file2 = "foo.jpg";
             var dropFiles = new string[] { file1, file2 };
 
-            _model.OnFileDrop(dropFiles);
+            _model.OnFileDrop(dropFiles, false);
 
             Assert.That(_model.UploadFiles.Count, Is.EqualTo(dropFiles.Length + 1));
             Assert.That(_model.UploadFiles.Any(x => x.FullPath == file1), Is.True);
@@ -391,7 +393,7 @@ namespace Tests
             const string file2 = "foo.jpg";
             var dropFiles = new string[] { file1, file2 };
 
-            _model.OnFileDrop(dropFiles);
+            _model.OnFileDrop(dropFiles, false);
 
             Assert.That(_model.UploadFiles.Count(x => x.FullPath == file1), Is.EqualTo(1));
             Assert.That(_model.UploadFiles.Count, Is.EqualTo(2));
@@ -403,7 +405,7 @@ namespace Tests
             var dropFiles = new string[] { "foo.jpg" };
             _model.UploadIsRunning = true;
 
-            _model.OnFileDrop(dropFiles);
+            _model.OnFileDrop(dropFiles, false);
 
             Assert.That(_model.UploadFiles.Count, Is.Zero);
         }

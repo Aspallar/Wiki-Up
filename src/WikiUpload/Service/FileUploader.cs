@@ -260,14 +260,31 @@ namespace WikiUpload
                 {
                     videoUploadResponse = new IngestionControllerResponse
                     {
-                        Status = $"[{(int)response.StatusCode}] {response.ReasonPhrase}",
-                        Success = false,
+                        Status = VideoUploadResponseMessage(response.StatusCode, response.ReasonPhrase),
+                        Success = false
                     };
                 }
                 videoUploadResponse.HttpStatusCode = response.StatusCode;
             }
+
             return videoUploadResponse;
         }
+
+        private string VideoUploadResponseMessage(HttpStatusCode statusCode, string reason)
+        {
+            switch (statusCode)
+            {
+                case HttpStatusCode.NotFound:
+                    return $"[{(int)statusCode} {reason}] {Resources.NoVideoUploadSupport} ";
+
+                case HttpStatusCode.BadRequest:
+                    return $"[{(int)statusCode} {reason}] ";
+
+                default:
+                    return $"[{(int)statusCode}] {reason}] {Resources.BadVideoUploadRequest}";
+            }
+        }
+
 
         public async Task RefreshTokenAsync()
         {

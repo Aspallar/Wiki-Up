@@ -4,6 +4,7 @@ using Google.Apis.YouTube.v3.Data;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace WikiUpload
 {
@@ -36,6 +37,7 @@ namespace WikiUpload
             List<string> videos = new List<string>();
             PlaylistItemListResponse results;
             _playlistItems.PlaylistId = playlistId;
+            _playlistItems.PageToken = null;
 
             do
             {
@@ -52,6 +54,23 @@ namespace WikiUpload
 
             return videos;
         }
+
+        public string ExtractPlaylistId(string url)
+        {
+            string playlistId = null;
+
+            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
+            {
+                if (uri.Scheme == "https" && uri.Host.EndsWith("youtube.com"))
+                {
+                    var queryParams = HttpUtility.ParseQueryString(uri.Query);
+                    playlistId = queryParams.Get("list");
+                }
+            }
+
+            return playlistId;
+        }
+
 
         public void Dispose()
         {
