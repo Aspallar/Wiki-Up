@@ -41,12 +41,9 @@ namespace WikiUpload
 
             do
             {
-                results = await _playlistItems.ExecuteAsync();
+                results = await _playlistItems.ExecuteAsync().ConfigureAwait(false);
                 if (results.PageInfo.TotalResults > maxPlaylistLength)
-                {
-                    videos = null;
-                    break; // do
-                }
+                    throw new TooManyVideosException();
                 foreach (var item in results.Items)
                     videos.Add("https://youtube.com/watch?v=" + item.ContentDetails.VideoId);
                 _playlistItems.PageToken = results.NextPageToken;

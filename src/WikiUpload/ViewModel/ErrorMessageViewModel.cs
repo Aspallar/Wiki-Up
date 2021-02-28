@@ -12,10 +12,10 @@ namespace WikiUpload
 
         public string ErrorMessage { get; set; }
         
-        public string ExceptonMessage { get; set; }
+        public string SubMessage { get; set; }
 
         public Visibility ExceptionVisibility
-            => string.IsNullOrEmpty(ExceptonMessage) ? Visibility.Collapsed : Visibility.Visible;
+            => string.IsNullOrEmpty(SubMessage) ? Visibility.Collapsed : Visibility.Visible;
 
     }
 }

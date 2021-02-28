@@ -160,6 +160,7 @@
     <Compile Include="Properties\Settings.Extended.cs" />
     <Compile Include="Service\IReadOnlyPermittedFiles.cs" />
     <Compile Include="Service\SiteInfo.cs" />
+    <Compile Include="Exceptions\TooManyVideosException.cs" />
     <Compile Include="Service\UploadMessages.cs" />
     <Compile Include="Service\Youtube.cs" />
     <Compile Include="Service\YoutubeSecrets.cs" />

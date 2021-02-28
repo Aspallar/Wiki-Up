@@ -407,17 +407,18 @@ namespace WikiUpload
             _youtube.FetchPlasylistViedeoLinksAsync(youtubePlaylistId, maxPlayllistLength).ContinueWith(
                 t =>
                 {
-                    switch (t.Exception)
+                    if (t.Exception == null)
                     {
-                        case null:
-                            if (t.Result != null)
-                                UploadFiles.AddNewRange(t.Result.ToArray());
-                            else
-                                _dialogs.ErrorMessage(string.Format(Resources.PlalistTooBig, maxPlayllistLength), null);
-                            break;
-                        default:
-                            _dialogs.ErrorMessage(Resources.YoutubeError, null);
-                            break;
+                        UploadFiles.AddNewRange(t.Result.ToArray());
+                    }
+                    else if (t.Exception.InnerException is TooManyVideosException)
+                    {
+                        _dialogs.ErrorMessage(Resources.PlalistTooBig,
+                            string.Format(Resources.PlalistMaximumLength, maxPlayllistLength));
+                    }
+                    else
+                    {
+                        _dialogs.ErrorMessage(Resources.YoutubeError);
                     }
                 },
                 TaskScheduler.FromCurrentSynchronizationContext()

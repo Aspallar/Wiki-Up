@@ -110,11 +110,17 @@ namespace WikiUpload
             return result;
         }
 
-        public void ErrorMessage(string message, Exception ex)
+
+
+        public void ErrorMessage(string message, string subMessage)
         {
-            var dlg = new ErrorMessageWindow(message, ex);
+             var dlg = new ErrorMessageWindow(message, subMessage);
             dlg.ShowDialog();
         }
+
+        public void ErrorMessage(string message, Exception ex) => ErrorMessage(message, ex?.Message);
+        
+        public void ErrorMessage(string message) => ErrorMessage(message, string.Empty);
 
         public bool ConfirmInsecureLoginDialog()
         {

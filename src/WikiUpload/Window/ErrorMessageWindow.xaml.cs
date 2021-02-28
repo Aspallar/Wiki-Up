@@ -6,15 +6,14 @@ namespace WikiUpload
 {
     public partial class ErrorMessageWindow : Window
     {
-        public ErrorMessageWindow(string errorMessage, Exception ex)
+        public ErrorMessageWindow(string errorMessage, string subMessage)
         {
             Owner = Application.Current.MainWindow;
             InitializeComponent();
             
             var viewModel = App.ServiceLocator.ErrorMessageViewModel(this);
             viewModel.ErrorMessage = errorMessage;
-            if (ex != null)
-                viewModel.ExceptonMessage = ex.Message;
+            viewModel.SubMessage = subMessage;
 
             DataContext = viewModel;
 

@@ -745,7 +745,16 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Playlist is too large to import. Maximum length is {0} videos.&quot;.
+        ///   Looks up a localized string similar to Maximum length is {0} videos..
+        /// </summary>
+        public static string PlalistMaximumLength {
+            get {
+                return ResourceManager.GetString("PlalistMaximumLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlist is too large to import..
         /// </summary>
         public static string PlalistTooBig {
             get {

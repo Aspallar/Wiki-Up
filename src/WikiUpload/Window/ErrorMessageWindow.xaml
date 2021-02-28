@@ -134,7 +134,7 @@
                 <TextBlock FontSize="{StaticResource FontSizeSmall}"
                            Margin="0 10 00 0"
                            Visibility="{Binding ExceptionVisibility}"
-                           Text="{Binding ExceptonMessage}"
+                           Text="{Binding SubMessage}"
                            TextWrapping="Wrap"/>
                 <Button x:Name="OkButton"
                         Content="{x:Static p:Resources.ButtonOkText}"

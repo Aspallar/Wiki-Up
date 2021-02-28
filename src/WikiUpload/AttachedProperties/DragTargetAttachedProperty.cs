@@ -26,12 +26,7 @@ namespace WikiUpload
 
             if (d.GetValue(DropFileTargetProperty.ValueProperty) is IFileDropTarget target)
             {
-                string[] paths = null;
-                if (dragEventArgs.Data.GetDataPresent(DataFormats.FileDrop))
-                    paths = (string[])dragEventArgs.Data.GetData(DataFormats.FileDrop);
-                else if (dragEventArgs.Data.GetDataPresent(DataFormats.Text))
-                    paths = new string[] { (string)dragEventArgs.Data.GetData(DataFormats.Text) };
-
+                string[] paths = GetDragData(dragEventArgs.Data);
                 if (paths != null)
                 {
                     var controlKeyPressed = (dragEventArgs.KeyStates & DragDropKeyStates.ControlKey) == DragDropKeyStates.ControlKey;
@@ -42,6 +37,16 @@ namespace WikiUpload
             {
                 throw new NotSupportedException($"{nameof(DropFileTargetProperty)} value must implement {nameof(IFileDropTarget)}");
             }
+        }
+
+        private static string[] GetDragData(IDataObject data)
+        {
+            if (data.GetDataPresent(DataFormats.FileDrop))
+                return (string[])data.GetData(DataFormats.FileDrop);
+            else if (data.GetDataPresent(DataFormats.Text))
+                return new string[] { (string)data.GetData(DataFormats.Text) };
+            else
+                return null;
         }
     }
 }

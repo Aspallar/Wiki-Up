@@ -582,7 +582,11 @@
   </data>
 
   <data name="PlalistTooBig" xml:space="preserve">
-    <value>Playlist is too large to import. Maximum length is {0} videos."</value>
+    <value>Playlist is too large to import.</value>
+  </data>
+
+  <data name="PlalistMaximumLength" xml:space="preserve">
+    <value>Maximum length is {0} videos.</value>
   </data>
 
 </root>
