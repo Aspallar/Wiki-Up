@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using WikiUpload;
+using WikiUpload.Properties;
 
 namespace Tests
 {
@@ -161,7 +162,6 @@ namespace Tests
 
             A.CallTo(() => _dialogs.ErrorMessage("Unable to read content.", A<Exception>._))
                 .MustHaveHappened(1, Times.Exactly);
-
         }
 
         [Test]
@@ -398,6 +398,59 @@ namespace Tests
             Assert.That(_model.UploadFiles.Count(x => x.FullPath == file1), Is.EqualTo(1));
             Assert.That(_model.UploadFiles.Count, Is.EqualTo(2));
         }
+
+        [Test]
+        public void When_PlaylistIsDropped_Then_VideosInPlaylistAreAdded()
+        {
+            const string video1 = "one";
+            const string video2 = "two";
+            A.CallTo(() => _youtube.FetchPlasylistViedeoLinksAsync(A<string>._, A<int>._))
+                .Returns(new string[] {
+                    video1,
+                    video2
+                });
+            var dropFiles = new string[] { "https://youtube.com?v=A&list=A" };
+            SynchronizationContext.SetSynchronizationContext(new SynchonousSynchronizationContext());
+
+            _model.OnFileDrop(dropFiles, false);
+
+            Assert.That(_model.UploadFiles[0].FullPath, Is.EqualTo(video1));
+            Assert.That(_model.UploadFiles[1].FullPath, Is.EqualTo(video2));
+        }
+
+        [Test]
+        public void When_LongPlaylistIsDropped_Then_ErrorMessageIsShown()
+        {
+            A.CallTo(() => _youtube.FetchPlasylistViedeoLinksAsync(A<string>._, A<int>._))
+                .ThrowsAsync(new TooManyVideosException());
+
+            var dropFiles = new string[] { "https://youtube.com?v=A&list=A" };
+            SynchronizationContext.SetSynchronizationContext(new SynchonousSynchronizationContext());
+
+            _model.OnFileDrop(dropFiles, false);
+
+            var expectedMessage = Resources.PlalistTooBig;
+            A.CallTo(() => _dialogs.ErrorMessage(expectedMessage, A<string>._))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+
+        [Test]
+        public void When_PlaylistIsDroppedAndThereIsException_Then_ErrorMessageIsShown()
+        {
+            A.CallTo(() => _youtube.FetchPlasylistViedeoLinksAsync(A<string>._, A<int>._))
+                .ThrowsAsync(new Exception("foobar"));
+
+            var dropFiles = new string[] { "https://youtube.com?v=A&list=A" };
+            SynchronizationContext.SetSynchronizationContext(new SynchonousSynchronizationContext());
+
+            _model.OnFileDrop(dropFiles, false);
+
+            var expectedMessage = Resources.YoutubeError;
+            A.CallTo(() => _dialogs.ErrorMessage(expectedMessage))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
 
         [Test]
         public void When_FilesAreDroppedAndUploadRunning_Then_DroppedFilesNotAddedToUploadFiles()
@@ -781,6 +834,31 @@ namespace Tests
 
             A.CallTo(() => _helpers.SignalCancel(A<CancellationTokenSource>._))
                 .MustHaveHappened(1, Times.Exactly);
+        }
+
+        #endregion
+
+        #region Upload - Videos
+
+        [Test]
+        public void When_UploadFileIsVideo_Then_VideoIsUploaded()
+        {
+            _model.UploadFiles.Clear();
+            _model.UploadFiles.Add(new UploadFile
+            {
+                FullPath = "https://foobar.com"
+            });
+            _model.UploadFiles.Add(new UploadFile
+            {
+                FullPath = "https://youtube.com"
+            });
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadVideoAsync(A<string>._, A<CancellationToken>._))
+                .MustHaveHappened(2, Times.Exactly);
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, A<bool>._))
+                .MustNotHaveHappened();
         }
 
         #endregion

@@ -13,7 +13,7 @@ namespace Tests
         public void When_ExceptionMessageIsNull_Then_ExceptionMTextIsCollaped()
         {
             var model = new ErrorMessageViewModel(new Window());
-            model.ExceptonMessage = null;
+            model.SubMessage = null;
 
             Assert.That(model.ExceptionVisibility, Is.EqualTo(Visibility.Collapsed));
         }
@@ -22,7 +22,7 @@ namespace Tests
         public void When_ExceptionMessageIsEmpty_Then_ExceptionMTextIsCollaped()
         {
             var model = new ErrorMessageViewModel(new Window());
-            model.ExceptonMessage = string.Empty;
+            model.SubMessage = string.Empty;
 
             Assert.That(model.ExceptionVisibility, Is.EqualTo(Visibility.Collapsed));
         }
@@ -31,7 +31,7 @@ namespace Tests
         public void When_ExceptionMessageHasContent_Then_ExceptionMTextIsVisible()
         {
             var model = new ErrorMessageViewModel(new Window());
-            model.ExceptonMessage = "foobar";
+            model.SubMessage = "foobar";
 
             Assert.That(model.ExceptionVisibility, Is.EqualTo(Visibility.Visible));
         }
