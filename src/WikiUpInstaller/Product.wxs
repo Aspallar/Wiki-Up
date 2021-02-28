@@ -88,6 +88,41 @@
       <Component Id="ToggleSwitch.dll" Guid="0f57a084-0581-4145-bbcc-f3237a1c288a">
         <File Id="ToggleSwitch.dll" Name="ToggleSwitch.dll" Source="$(var.WikiUpload_TargetDir)ToggleSwitch.dll" KeyPath="yes"/>
       </Component>
+      
+      <!-- AngleSharp -->
+      <Component Id="AngleSharp.dll" Guid="adca39ea-0cdd-492e-aa28-3def7082717f">
+        <File Id="AngleSharp.dll" Name="AngleSharp.dll" Source="$(var.WikiUpload_TargetDir)AngleSharp.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="System.Runtime.CompilerServices.Unsafe.dll" Guid="cec14f5a-b9f2-4912-a423-999d6a4ddc84">
+        <File Id="System.Runtime.CompilerServices.Unsafe.dll" Name="System.Runtime.CompilerServices.Unsafe.dll" Source="$(var.WikiUpload_TargetDir)System.Runtime.CompilerServices.Unsafe.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="System.Text.Encoding.CodePages.dll" Guid="4b988c37-68e0-4fcb-9b9e-5ea0e5f3bd99">
+        <File Id="System.Text.Encoding.CodePages.dll" Name="System.Text.Encoding.CodePages.dll" Source="$(var.WikiUpload_TargetDir)System.Text.Encoding.CodePages.dll" KeyPath="yes"/>
+      </Component>
+
+      <Component Id="Google.Apis.Auth.dll" Guid="{94FA5A54-DCA3-4F83-9CFB-9E458EF644BC}">
+        <File Id="Google.Apis.Auth.dll" Name="Google.Apis.Auth.dll" Source="$(var.WikiUpload_TargetDir)Google.Apis.Auth.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="Google.Apis.Auth.PlatformServices.dll" Guid="{4DBC012A-ED57-4545-95C3-B9AF70E4B124}">
+        <File Id="Google.Apis.Auth.PlatformServices.dll" Name="Google.Apis.Auth.PlatformServices.dll" Source="$(var.WikiUpload_TargetDir)Google.Apis.Auth.PlatformServices.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="Google.Apis.Core.dll" Guid="{16177E3F-73B5-4B63-8FAC-8169F7782D12}">
+        <File Id="Google.Apis.Core.dll" Name="Google.Apis.Core.dll" Source="$(var.WikiUpload_TargetDir)Google.Apis.Core.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="Google.Apis.dll" Guid="{ED045B39-F894-48EF-B439-96934DC49B4D}">
+        <File Id="Google.Apis.dll" Name="Google.Apis.dll" Source="$(var.WikiUpload_TargetDir)Google.Apis.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="Google.Apis.PlatformServices.dll" Guid="{62D212F3-AD84-4271-B32C-CAAB2D14057F}">
+        <File Id="Google.Apis.PlatformServices.dll" Name="Google.Apis.PlatformServices.dll" Source="$(var.WikiUpload_TargetDir)" KeyPath="yes"/>
+      </Component>
+      <Component Id="Google.Apis.YouTube.v3.dll" Guid="{63AD947C-AB58-4B72-955C-371FD93AEBB5}">
+        <File Id="Google.Apis.YouTube.v3.dll" Name="Google.Apis.YouTube.v3.dll" Source="$(var.WikiUpload_TargetDir)Google.Apis.YouTube.v3.dll" KeyPath="yes"/>
+      </Component>
+
+      <!-- Newtonsoft JSON -->  
+      <Component Id="Newtonsoft.Json.dll" Guid="{CB1AA7E3-4321-4A0C-A417-05E57136088F}">
+        <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.WikiUpload_TargetDir)Newtonsoft.Json.dll" KeyPath="yes"/>
+      </Component>
 
     </ComponentGroup>
 
