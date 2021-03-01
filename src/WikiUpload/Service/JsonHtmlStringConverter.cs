@@ -21,7 +21,10 @@ namespace WikiUpload
         public override string ReadJson(JsonReader reader, Type objectType, string existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var nodes = _parser.ParseFragment((string)reader.Value, _parseContext.Body);
-            return nodes[0].TextContent;
+            var text = nodes[0].TextContent;
+            if (text.EndsWith("\n"))
+                text = text.Substring(0, text.Length - 1);
+            return text;
         }
 
         public override void WriteJson(JsonWriter writer, string value, JsonSerializer serializer)
