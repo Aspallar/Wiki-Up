@@ -23,6 +23,8 @@
         </Grid.Background>
 
         <DockPanel>
+            
+            <!--settingsd header -->
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5 0 0 0">
                 <iconPacks:PackIconFontAwesome Kind="CogsSolid"
                       Foreground="{StaticResource PrimaryLightBrush}"
@@ -30,17 +32,18 @@
                       FontSize="{StaticResource FontSizeLarge}"
                       VerticalAlignment="Center"/>
                 <TextBlock Margin="10 0 0 0" Text="{x:Static p:Resources.SettingsText}"
-                           FontSize="{StaticResource FontSizeLarge}" />
+                      FontSize="{StaticResource FontSizeLarge}" />
             </StackPanel>
 
+            <!--Bottom button controls (save etc) -->
             <Grid DockPanel.Dock="Bottom" Background="{StaticResource PrimaryDarkBrush}" >
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="{StaticResource BorderMargin}">
                     <Button Content="{x:Static p:Resources.RestoreDefaultsText}" FontSize="{StaticResource FontSizeRegular}"
-                  Command="{Binding RestoreDefaultsCommand}"/>
+                            Command="{Binding RestoreDefaultsCommand}"/>
                     <Button Content="{x:Static p:Resources.ButtonCancelText}" FontSize="{StaticResource FontSizeRegular}"
-                  Command="{Binding CancelSettingsCommand}"/>
+                            Command="{Binding CancelSettingsCommand}"/>
                     <Button Content="{x:Static p:Resources.SaveSettingsText}" FontSize="{StaticResource FontSizeRegular}"
-                  Command="{Binding SaveSettingsCommand}"/>
+                            Command="{Binding SaveSettingsCommand}"/>
                 </StackPanel>
             </Grid>
 
