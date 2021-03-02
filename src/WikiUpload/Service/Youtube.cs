@@ -8,7 +8,7 @@ using System.Web;
 
 namespace WikiUpload
 {
-    public partial class Youtube : IYoutube, IDisposable
+    public sealed partial class Youtube : IYoutube, IDisposable
     {
         private YouTubeService _youtubeService;
         private PlaylistItemsResource.ListRequest _playlistItems;

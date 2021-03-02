@@ -404,8 +404,8 @@ namespace WikiUpload
         private void AddYoutubePlaylistVideos(string youtubePlaylistId)
         {
             const int maxPlayllistLength = 200;
-            _youtube.FetchPlasylistViedeoLinksAsync(youtubePlaylistId, maxPlayllistLength).ContinueWith(
-                t =>
+            _youtube.FetchPlasylistViedeoLinksAsync(youtubePlaylistId, maxPlayllistLength)
+                .ContinueWith(t =>
                 {
                     if (t.Exception == null)
                     {
