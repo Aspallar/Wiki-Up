@@ -68,6 +68,12 @@
         </Setter>
     </Style>
 
+    <!-- Small button  -->
+    <Style TargetType="{x:Type Button}" x:Key="SmallButton" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Padding" Value="10 0 10 0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+
     <!-- System Icon Button -->
     <Style TargetType="{x:Type Button}" x:Key="SystemIconButton" BasedOn="{StaticResource Hoverless}">
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />

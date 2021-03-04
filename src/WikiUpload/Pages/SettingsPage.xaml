@@ -9,7 +9,7 @@
       xmlns:p="clr-namespace:WikiUpload.Properties"
       DataContext="{Binding Path=SettingsViewModel, Source={StaticResource ServiceLocator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="540" d:DesignWidth="800"
       Title="SettingsPage">
     <Page.Resources>
         <Thickness x:Key="SeparatorMargin" Top="4" />
@@ -36,7 +36,7 @@
             </StackPanel>
 
             <!--Bottom button controls (save etc) -->
-            <Grid DockPanel.Dock="Bottom" Background="{StaticResource PrimaryDarkBrush}" >
+            <Grid DockPanel.Dock="Bottom" Background="{StaticResource PrimaryDarkBrush}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="{StaticResource BorderMargin}">
                     <Button Content="{x:Static p:Resources.RestoreDefaultsText}" FontSize="{StaticResource FontSizeRegular}"
                             Command="{Binding RestoreDefaultsCommand}"/>
@@ -137,11 +137,66 @@
                             TextWrapping="Wrap"
                             Margin="{StaticResource SeparatorMargin}"
                             FontSize="{StaticResource FontSizeSmall}"/>
-                        <TextBox Text="{Binding ImageExtensions}"
-                            Background="{StaticResource ControlBackgroundBrush}"
-                            Margin="{StaticResource SeparatorMargin}"
-                            FontSize="{StaticResource FontSizeRegular}"
-                            BorderThickness="1"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Button Command="{Binding OpenAddImageExtensionCommand}"
+                                        FontSize="{StaticResource FontSizeLarge}"
+                                        Background="Transparent"
+                                        ToolTip="New image extension."
+                                        Padding="0" Margin="0 0 10 0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconFontAwesome Kind="PlusCircleSolid" 
+                                            Style="{StaticResource FontSizeIcon}"
+                                            Foreground="{StaticResource PrimaryLightBrush}"/>
+                                        <Popup IsOpen="{Binding IsAddingImageExtension, Mode=TwoWay}"
+                                                Placement="Relative"
+                                                StaysOpen="False"
+                                                PopupAnimation="Slide"
+                                                Opened="ImageFileExtensionPopu_Opened">
+                                            <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
+                                                    Padding="10">
+                                                <StackPanel>
+                                                    <TextBlock Text="Enter file extension" 
+                                                               FontSize="{StaticResource FontSizeSmall}"
+                                                               Margin="0 0 0 5"/>
+                                                    <TextBox x:Name="ImageExtension" Width="100" Background="{StaticResource ControlBackgroundBrush}">
+                                                        <TextBox.InputBindings>
+                                                            <KeyBinding Key="Return"
+                                                                        Command="{Binding AddImageEtensionCommand}"
+                                                                        CommandParameter="{Binding ElementName=ImageExtension, Path=Text}"/>
+                                                            <KeyBinding Key="Esc"
+                                                                        Command="{Binding CloseImageFileExtensopnPopupCommand}"/>
+                                                        </TextBox.InputBindings>
+                                                    </TextBox>
+                                                </StackPanel>
+                                            </Border>
+                                        </Popup>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                            <ItemsControl Grid.Column="1" ItemsSource="{Binding ImageFileExtensions}" Focusable="False">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
+                                            <Button Style="{StaticResource SmallButton}" Content="{Binding}"
+                                                    FontSize="{StaticResource FontSizeRegular}"
+                                                    ToolTip="Remove this extension"
+                                                    Command="{Binding DataContext.RemoveImageExtensionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+                                                    CommandParameter="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Grid>
 
                         <!--Updates -->
                         <TextBlock Text="{x:Static p:Resources.UpdatesText}"
@@ -171,7 +226,7 @@
                                     FontSize="{StaticResource FontSizeLarge}"
                                     Style="{StaticResource FontSizeIcon}"
                                     Visibility="{Binding IsCheckForUpdateMessage, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                                    Foreground="Green"/>
+                                    Foreground="Green" />
                                 <TextBlock Text="{Binding CheckUpdateMessage}"
                                     FontSize="{StaticResource FontSizeRegular}"
                                     Margin="10 0 0 0"

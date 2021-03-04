@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using WikiUpload.Properties;
@@ -53,13 +54,25 @@ namespace WikiUpload
             SaveSettingsCommand = new RelayCommand(SaveSettings);
             CheckForUpdatesNowCommand = new RelayCommand(CheckForUpdatesNow);
             RestoreDefaultsCommand = new RelayCommand(RestoreDefaults);
+            RemoveImageExtensionCommand = new RelayParameterizedCommand(item => ImageFileExtensions.Remove((string)item));
+            OpenAddImageExtensionCommand = new RelayCommand(() => IsAddingImageExtension = true);
+            AddImageEtensionCommand = new RelayParameterizedCommand(text => AddImageExtension((string)text));
+            CloseImageFileExtensopnPopupCommand = new RelayCommand(() => IsAddingImageExtension = false);
+        }
+
+        private void AddImageExtension(string text)
+        {
+            IsAddingImageExtension = false;
+            text = text.Replace(";", "").ToLower();
+            if (!string.IsNullOrEmpty(text) && !ImageFileExtensions.Contains(text))
+                ImageFileExtensions.Add(text);
         }
 
         private void SetPropeertiesFromAppSettings()
         {
             Delay = _appSettings.UploadDelay;
             CheckForUpdates = _appSettings.CheckForUpdates;
-            ImageExtensions = _appSettings.ImageExtensions;
+            ImageFileExtensions = new FileExensionsCollection(_appSettings.ImageExtensions);
         }
 
         private void RestoreDefaults()
@@ -71,8 +84,8 @@ namespace WikiUpload
         private void SaveSettings()
         {
             _appSettings.UploadDelay = Delay;
-            _appSettings.ImageExtensions = ImageExtensions;
             _appSettings.CheckForUpdates = CheckForUpdates;
+            _appSettings.ImageExtensions = ImageFileExtensions.ToString();
             if (SelectedColorTheme != null)
                 _appSettings.Theme = SelectedColorTheme.Id;
             if (SelectedLanguage != null)
@@ -106,14 +119,16 @@ namespace WikiUpload
         public ICommand SaveSettingsCommand { get; }
         public ICommand CheckForUpdatesNowCommand { get; }
         public ICommand RestoreDefaultsCommand { get; }
-
+        public ICommand RemoveImageExtensionCommand { get; }
+        public ICommand OpenAddImageExtensionCommand { get; }
+        public ICommand AddImageEtensionCommand { get; }
+        public ICommand CloseImageFileExtensopnPopupCommand { get; }
+        
         public int Delay { get; set; }
 
         public Language SelectedLanguage { get; set; }
 
         public ColorTheme SelectedColorTheme { get; set; }
-
-        public string ImageExtensions { get; set; }
 
         public bool CheckForUpdates { get; set; }
 
@@ -122,6 +137,10 @@ namespace WikiUpload
         public bool IsCheckForUpdateMessage => !string.IsNullOrEmpty(CheckUpdateMessage);
 
         public bool UpdateCheckIsRunning { get; set; }
+
+        public FileExensionsCollection ImageFileExtensions { get; set; }
+
+        public bool IsAddingImageExtension { get; set; }
     }
 
 }

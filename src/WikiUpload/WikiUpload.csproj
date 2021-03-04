@@ -126,6 +126,7 @@
     <Compile Include="DataModels\IWikiSearchFactory.cs" />
     <Compile Include="DataModels\Language.cs" />
     <Compile Include="DataModels\TemplateSearch.cs" />
+    <Compile Include="DataModels\FileExensionsCollection.cs" />
     <Compile Include="DataModels\WikiSearch.cs" />
     <Compile Include="DataModels\CategorySearch.cs" />
     <Compile Include="DataModels\UploadList.cs" />

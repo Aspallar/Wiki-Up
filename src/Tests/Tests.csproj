@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ErrorMessageViewModelTests.cs" />
+    <Compile Include="FileExtensionsCollectionTests.cs" />
     <Compile Include="SynchonousSynchronizationContext.cs" />
     <Compile Include="SettingsViewModelTests.cs" />
     <Compile Include="UploadFileTests.cs" />

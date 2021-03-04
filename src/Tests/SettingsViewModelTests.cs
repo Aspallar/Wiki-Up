@@ -1,10 +1,6 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WikiUpload;
 using WikiUpload.Properties;
 
@@ -36,7 +32,7 @@ namespace Tests
         {
             _model.SelectedLanguage = _model.Languages[0];
             _model.Delay = 666;
-            _model.ImageExtensions = "foo";
+            _model.ImageFileExtensions = new FileExensionsCollection("fooo");
             _model.CheckForUpdates = true;
 
             _model.SaveSettingsCommand.Execute(null);
@@ -45,7 +41,7 @@ namespace Tests
                 .MustHaveHappened(1, Times.Exactly);
             A.CallToSet(() => _appSettings.UploadDelay).To(() => _model.Delay)
                 .MustHaveHappened(1, Times.Exactly);
-            A.CallToSet(() => _appSettings.ImageExtensions).To(() => _model.ImageExtensions)
+            A.CallToSet(() => _appSettings.ImageExtensions).To(() => "foo;")
                 .MustHaveHappened(1, Times.Exactly);
             A.CallToSet(() => _appSettings.CheckForUpdates).To(() => _model.CheckForUpdates)
                 .MustHaveHappened(1, Times.Exactly);
@@ -58,7 +54,7 @@ namespace Tests
         {
             _model.SelectedLanguage = _model.Languages[0];
             _model.Delay = 666;
-            _model.ImageExtensions = "foo";
+            _model.ImageFileExtensions = new FileExensionsCollection("fooo");
             _model.CheckForUpdates = true;
 
             _model.CancelSettingsCommand.Execute(null);
@@ -91,6 +87,29 @@ namespace Tests
 
             A.CallTo(() => _navigatorService.LeaveSettingsPage())
                 .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_OpenAddImageExtensionIsExecuted_Then_AddIsStarted()
+        {
+            _model.IsAddingImageExtension = false;
+
+            _model.OpenAddImageExtensionCommand.Execute(null);
+
+            Assert.That(_model.IsAddingImageExtension, Is.True);
+        }
+
+        [Test]
+        public void When_ExtensionIsAdded_Then_SemiColonsAreStripped()
+        {
+            List<string> expected = new List<string> { "foo", "bar", "foobar" };
+            _model.ImageFileExtensions = new FileExensionsCollection();
+
+            _model.AddImageEtensionCommand.Execute("fo;o");
+            _model.AddImageEtensionCommand.Execute("bar;");
+            _model.AddImageEtensionCommand.Execute(";foobar");
+
+            Assert.That(_model.ImageFileExtensions, Is.EquivalentTo(expected));
         }
 
         [Test]
