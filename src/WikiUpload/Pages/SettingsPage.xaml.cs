@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace WikiUpload
 {
@@ -11,12 +10,6 @@ namespace WikiUpload
         public SettingsPage()
         {
             InitializeComponent();
-        }
-
-        private void ImageFileExtensionPopu_Opened(object sender, EventArgs e)
-        {
-            ImageExtension.Focus();
-            ImageExtension.SelectAll();
         }
     }
 }

@@ -153,17 +153,21 @@
                                             Style="{StaticResource FontSizeIcon}"
                                             Foreground="{StaticResource PrimaryLightBrush}"/>
                                         <Popup IsOpen="{Binding IsAddingImageExtension, Mode=TwoWay}"
-                                                Placement="Relative"
-                                                StaysOpen="False"
-                                                PopupAnimation="Slide"
-                                                Opened="ImageFileExtensionPopu_Opened">
+                                               Placement="Relative"
+                                               StaysOpen="False"
+                                               PopupAnimation="Scroll"
+                                               AllowsTransparency="True"
+                                               local:FocusElementProperty.Value="{Binding ElementName=ImageExtension}">
                                             <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
-                                                    Padding="10">
+                                                    Padding="10" Background="Black" CornerRadius="6">
                                                 <StackPanel>
                                                     <TextBlock Text="Enter file extension" 
                                                                FontSize="{StaticResource FontSizeSmall}"
                                                                Margin="0 0 0 5"/>
-                                                    <TextBox x:Name="ImageExtension" Width="100" Background="{StaticResource ControlBackgroundBrush}">
+                                                    <TextBox x:Name="ImageExtension"
+                                                             MaxLength="254"
+                                                             Width="100"
+                                                             Background="{StaticResource ControlBackgroundBrush}">
                                                         <TextBox.InputBindings>
                                                             <KeyBinding Key="Return"
                                                                         Command="{Binding AddImageEtensionCommand}"
@@ -184,7 +188,7 @@
                                         <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
                                             <Button Style="{StaticResource SmallButton}" Content="{Binding}"
                                                     FontSize="{StaticResource FontSizeRegular}"
-                                                    ToolTip="Remove this extension"
+                                                    ToolTip="Remove file extension"
                                                     Command="{Binding DataContext.RemoveImageExtensionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
                                                     CommandParameter="{Binding}"/>
                                         </StackPanel>
