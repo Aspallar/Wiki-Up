@@ -497,7 +497,7 @@
     <value>Bilder Dateierweiterung</value>
   </data>
   <data name="ImageFilesDetailsText" xml:space="preserve">
-    <value>Dies ist eine Liste von Dateierweiterungen, die Wiki-Up als Bilddateien im Dateien Hinzufügen Dialog erkennt. Trenne jeden Eintrag mit einem Strichpunkt.</value>
+    <value>Dies ist eine Liste von Dateierweiterungen, die Wiki-Up als Bilddateien im Dateien Hinzufügen Dialog erkennt.</value>
   </data>
   <data name="GermanTrsnslationText" xml:space="preserve">
     <value>Deutsche Übersetzung von</value>

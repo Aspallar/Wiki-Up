@@ -501,7 +501,7 @@
     <value>Image File Extensions</value>
   </data>
   <data name="ImageFilesDetailsText" xml:space="preserve">
-    <value>This is a list of file extensions that Wiki-Up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon.</value>
+    <value>This is a list of file extensions that Wiki-Up will consider to be image files in the add files dialog.</value>
   </data>
   <data name="UpdatesText" xml:space="preserve">
     <value>Updates</value>

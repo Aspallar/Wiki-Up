@@ -547,7 +547,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is a list of file extensions that Wiki-Up will consider to be image files in the.add files dialog. Seperate each entry with a semicolon..
+        ///   Looks up a localized string similar to This is a list of file extensions that Wiki-Up will consider to be image files in the add files dialog..
         /// </summary>
         public static string ImageFilesDetailsText {
             get {
