@@ -493,6 +493,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter file extension.
+        /// </summary>
+        public static string EnterFileExtension {
+            get {
+                return ResourceManager.GetString("EnterFileExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string ErrorTitleText {
@@ -709,6 +718,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New image extension..
+        /// </summary>
+        public static string NewImageExtension {
+            get {
+                return ResourceManager.GetString("NewImageExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A newer version of Wiki-Up, version {0}, is available for download..
         /// </summary>
         public static string NewVersionMessage {
@@ -795,6 +813,15 @@ namespace WikiUpload.Properties {
         public static string RememberPassword {
             get {
                 return ResourceManager.GetString("RememberPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove extension.
+        /// </summary>
+        public static string RemoveExtension {
+            get {
+                return ResourceManager.GetString("RemoveExtension", resourceCulture);
             }
         }
         
