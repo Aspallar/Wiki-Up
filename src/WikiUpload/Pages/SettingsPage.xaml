@@ -143,7 +143,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
-                                <Button Command="{Binding OpenAddImageExtensionCommand}"
+                                <Button x:Name="AddExtension" Command="{Binding OpenAddImageExtensionCommand}"
                                         FontSize="{StaticResource FontSizeLarge}"
                                         Background="Transparent"
                                         ToolTip="{x:Static p:Resources.NewImageExtension}"
@@ -157,7 +157,8 @@
                                                StaysOpen="False"
                                                PopupAnimation="Scroll"
                                                AllowsTransparency="True"
-                                               local:PopupInitialFocusProperty.Value="{Binding ElementName=ImageExtension}">
+                                               local:PopupInitialFocusProperty.Value="{Binding ElementName=ImageExtension}"
+                                               local:PopupClosedFocusProperty.Value="{Binding ElementName=AddExtension}">
                                             <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
                                                     Padding="10" Background="Black" CornerRadius="6">
                                                 <StackPanel>
