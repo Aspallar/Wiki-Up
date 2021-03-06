@@ -5,7 +5,7 @@ using System.Windows.Controls.Primitives;
 
 namespace WikiUpload
 {
-    public class FocusElementProperty : BaseAttachedProperty<FocusElementProperty, object>
+    public class PopupInitialFocusProperty : BaseAttachedProperty<PopupInitialFocusProperty, object>
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -17,7 +17,7 @@ namespace WikiUpload
         {
             if (sender is DependencyObject d)
             {
-                if (d.GetValue(FocusElementProperty.ValueProperty) is Control control)
+                if (d.GetValue(PopupInitialFocusProperty.ValueProperty) is Control control)
                 {
                     control.Focus();
                     if (control is TextBox tb)

@@ -116,7 +116,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AttachedProperties\FocusElementAttachedProperty.cs" />
+    <Compile Include="AttachedProperties\PopupInitialFocusProperty.cs" />
     <Compile Include="AttachedProperties\DragTargetAttachedProperty.cs" />
     <Compile Include="AttachedProperties\ListBoxAttachedProperties.cs" />
     <Compile Include="Behaviours\AutoComplete.cs" />

@@ -157,7 +157,7 @@
                                                StaysOpen="False"
                                                PopupAnimation="Scroll"
                                                AllowsTransparency="True"
-                                               local:FocusElementProperty.Value="{Binding ElementName=ImageExtension}">
+                                               local:PopupInitialFocusProperty.Value="{Binding ElementName=ImageExtension}">
                                             <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
                                                     Padding="10" Background="Black" CornerRadius="6">
                                                 <StackPanel>
