@@ -8,8 +8,6 @@ namespace WikiUpload
     [AddINotifyPropertyChangedInterface]
     public class SkinResourceDictionary : ResourceDictionary, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public SkinResourceDictionary() : base()
         {
             PropertyChanged += UpdateSource;
@@ -35,11 +33,6 @@ namespace WikiUpload
         public Uri RakdosSource { get; set; }
 
         public Uri MidnightLightsSource { get; set; }
-
-        public void OnPropertyChanged(string name)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(name));
-        }
 
         private Uri AppSkinResource()
         {
@@ -70,5 +63,10 @@ namespace WikiUpload
             }
             return thisSource;
         }
+
+        // disable never used warning, Fody will use it
+        #pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+        #pragma warning restore CS0067
     }
 }
