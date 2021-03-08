@@ -171,6 +171,7 @@
     <Compile Include="Utilities\DialogManager.cs" />
     <Compile Include="Utilities\Encryption.cs" />
     <Compile Include="Utilities\Entropy.cs" />
+    <Compile Include="Utilities\ExtensionValidater.cs" />
     <Compile Include="Utilities\Helpers.cs" />
     <Compile Include="Utilities\IDialogManager.cs" />
     <Compile Include="Utilities\IHelpers.cs" />
@@ -191,6 +192,8 @@
     <Compile Include="Utilities\WindowManager.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
+    <Compile Include="ViewModel\ApplicationColorThemes.cs" />
+    <Compile Include="ViewModel\ApplicationLanguages.cs" />
     <Compile Include="ViewModel\ColorTheme.cs" />
     <Compile Include="ViewModel\NewVersionViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
@@ -372,6 +375,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Resource Include="Fonts\SaucerBB.ttf" />
     <Resource Include="Fonts\Exo-Black.ttf" />

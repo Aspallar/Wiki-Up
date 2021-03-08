@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using WikiUpload.Properties;
@@ -13,23 +14,8 @@ namespace WikiUpload
         private IAppSettings _appSettings;
         private IWindowManager _windowManager;
         private IUpdateCheck _updateCheck;
-
-        public List<Language> Languages { get; } = new List<Language>
-        {
-            new Language("English", "en-US"),
-            new Language("Deutsch (German)", "de-DE"),
-            new Language("Eesti (Estonian)", "et-EE"),
-        };
-
-        public List<ColorTheme> ColorThemes { get; } = new List<ColorTheme>
-        {
-           new ColorTheme(Skin.PurpleOverload, Resources.PutpleOverloadText),
-           new ColorTheme(Skin.PurpleHaze, Resources.PutpleHazeText),
-           new ColorTheme(Skin.GreenForest, Resources.GreenForestText),
-           new ColorTheme(Skin.BlueLight, Resources.BlueLightText),
-           new ColorTheme(Skin.Solarized, Resources.SolarizedText),
-           new ColorTheme(Skin.Rakdos, Resources.RakdosText),
-        };
+        private string _newExtensionText;
+        private ExtensionValidater _extensionValidater;
 
         public SettingsViewModel(
             IAppSettings appSettings,
@@ -38,6 +24,7 @@ namespace WikiUpload
             IWindowManager windowManager,
             IHelpers helpers) : base()
         {
+            _extensionValidater = new ExtensionValidater();
             _navigatorService = navigatorService;
             _helpers = helpers;
             _appSettings = appSettings;
@@ -56,16 +43,19 @@ namespace WikiUpload
             RestoreDefaultsCommand = new RelayCommand(RestoreDefaults);
             RemoveImageExtensionCommand = new RelayParameterizedCommand(item => ImageFileExtensions.Remove((string)item));
             OpenAddImageExtensionCommand = new RelayCommand(() => IsAddingImageExtension = true);
-            AddImageEtensionCommand = new RelayParameterizedCommand(text => AddImageExtension((string)text));
+            AddImageEtensionCommand = new RelayCommand(AddImageExtension);
             CloseImageFileExtensopnPopupCommand = new RelayCommand(() => IsAddingImageExtension = false);
         }
 
-        private void AddImageExtension(string text)
+        private void AddImageExtension()
         {
             IsAddingImageExtension = false;
-            text = text.Replace(";", "").ToLower();
-            if (!string.IsNullOrEmpty(text) && !ImageFileExtensions.Contains(text))
-                ImageFileExtensions.Add(text);
+            if (!string.IsNullOrWhiteSpace(_newExtensionText)
+                && _extensionValidater.IsValid(_newExtensionText)
+                && !ImageFileExtensions.Contains(_newExtensionText))
+            {
+                ImageFileExtensions.Add(_newExtensionText);
+            }
         }
 
         private void SetPropeertiesFromAppSettings()
@@ -123,7 +113,11 @@ namespace WikiUpload
         public ICommand OpenAddImageExtensionCommand { get; }
         public ICommand AddImageEtensionCommand { get; }
         public ICommand CloseImageFileExtensopnPopupCommand { get; }
-        
+
+        public ApplicationLanguages Languages { get; } = new ApplicationLanguages();
+
+        public ApplicationColorThemes ColorThemes { get; } = new ApplicationColorThemes();
+
         public int Delay { get; set; }
 
         public Language SelectedLanguage { get; set; }
@@ -141,6 +135,22 @@ namespace WikiUpload
         public FileExensionsCollection ImageFileExtensions { get; set; }
 
         public bool IsAddingImageExtension { get; set; }
+
+        public bool IsValidImageFileExtension { get; set; } = true;
+
+        public string NewExtensionText
+        {
+            get => _newExtensionText;
+            set
+            {
+                if (_newExtensionText != value)
+                {
+                    _newExtensionText = value;
+                    IsValidImageFileExtension = _extensionValidater.IsValid(value);
+                }
+            }
+        }
+
     }
 
 }

@@ -32,7 +32,7 @@ namespace Tests
         {
             _model.SelectedLanguage = _model.Languages[0];
             _model.Delay = 666;
-            _model.ImageFileExtensions = new FileExensionsCollection("fooo");
+            _model.ImageFileExtensions = new FileExensionsCollection("foo");
             _model.CheckForUpdates = true;
 
             _model.SaveSettingsCommand.Execute(null);

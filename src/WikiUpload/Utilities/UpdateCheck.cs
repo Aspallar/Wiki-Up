@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 
 namespace WikiUpload
 {
@@ -13,15 +12,6 @@ namespace WikiUpload
 
         public async Task CheckForUpdates(string userAgent, int delay)
         {
-            //var e = new CheckForUpdatesEventArgs
-            //{
-            //    IsNewerVersion = true,
-            //    LatestVersion = "2.0.0",
-            //    Url = "http://localhost:10202",
-            //};
-            //await Task.Delay(600);
-            //OnCheckForUpdatesCompleted(e);
-
             var eventArgs = new CheckForUpdatesEventArgs { IsNewerVersion = false };
             try
             {

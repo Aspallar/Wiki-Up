@@ -278,10 +278,10 @@ namespace WikiUpload
                     return $"[{(int)statusCode} {reason}] {Resources.NoVideoUploadSupport} ";
 
                 case HttpStatusCode.BadRequest:
-                    return $"[{(int)statusCode} {reason}] ";
+                    return $"[{(int)statusCode} {reason}] {Resources.BadVideoUploadRequest}";
 
                 default:
-                    return $"[{(int)statusCode}] {reason}] {Resources.BadVideoUploadRequest}";
+                    return $"[{(int)statusCode}] {reason}]";
             }
         }
 

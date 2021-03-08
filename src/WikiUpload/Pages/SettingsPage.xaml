@@ -73,7 +73,7 @@
                                     FontWeight="Bold"
                                     Foreground="{StaticResource PrimaryTextBrush}"/>
                                 <ComboBox Margin="{StaticResource SeparatorMargin}"
-                                        ItemsSource="{Binding Languages}"
+                                        ItemsSource="{Binding Languages, Mode=OneTime}"
                                         DisplayMemberPath="Name"
                                         SelectedItem="{Binding SelectedLanguage}"
                                         Width="240"
@@ -90,7 +90,7 @@
                                        FontWeight="Bold"
                                        Foreground="{StaticResource PrimaryTextBrush}"/>
                                 <ComboBox Margin="{StaticResource SeparatorMargin}"
-                                      ItemsSource="{Binding ColorThemes}"
+                                      ItemsSource="{Binding ColorThemes, Mode=OneTime}"
                                       DisplayMemberPath="Name"
                                       SelectedItem="{Binding SelectedColorTheme}"
                                       Width="240"
@@ -163,20 +163,26 @@
                                                     Padding="10" Background="Black" CornerRadius="6">
                                                 <StackPanel>
                                                     <TextBlock Text="{x:Static p:Resources.EnterFileExtension}" 
-                                                               FontSize="{StaticResource FontSizeSmall}"
-                                                               Margin="0 0 0 5"/>
+                                                               FontSize="{StaticResource FontSizeRegular}"
+                                                               Margin="0 0 0 5"
+                                                               HorizontalAlignment="Center"/>
                                                     <TextBox x:Name="ImageExtension"
-                                                             MaxLength="254"
+                                                             MaxLength="32"
                                                              Width="100"
-                                                             Background="{StaticResource ControlBackgroundBrush}">
+                                                             Background="{StaticResource ControlBackgroundBrush}"
+                                                             Text="{Binding NewExtensionText, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
                                                         <TextBox.InputBindings>
                                                             <KeyBinding Key="Return"
-                                                                        Command="{Binding AddImageEtensionCommand}"
-                                                                        CommandParameter="{Binding ElementName=ImageExtension, Path=Text}"/>
+                                                                        Command="{Binding AddImageEtensionCommand}"/>
                                                             <KeyBinding Key="Esc"
                                                                         Command="{Binding CloseImageFileExtensopnPopupCommand}"/>
                                                         </TextBox.InputBindings>
                                                     </TextBox>
+                                                    <TextBlock Text="{x:Static p:Resources.InvalidExtension}"
+                                                               Foreground="{StaticResource ErrorColorBrush}"
+                                                               HorizontalAlignment="Center"
+                                                               FontSize="{StaticResource FontSizeRegular}"
+                                                               Visibility="{Binding IsValidImageFileExtension, Converter={local:BooleanToVisiblityConverter}}"/>
                                                 </StackPanel>
                                             </Border>
                                         </Popup>

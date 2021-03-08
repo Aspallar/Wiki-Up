@@ -601,4 +601,8 @@
     <value>Remove extension</value>
   </data>
 
+  <data name="InvalidExtension" xml:space="preserve">
+    <value>Invalid extension</value>
+  </data>
+
 </root>

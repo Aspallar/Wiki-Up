@@ -592,6 +592,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid extension.
+        /// </summary>
+        public static string InvalidExtension {
+            get {
+                return ResourceManager.GetString("InvalidExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Make sure the above details are correct..
         /// </summary>
         public static string InvalidLoginDetailsMessage {
