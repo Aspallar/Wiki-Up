@@ -1,93 +1,44 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace WikiUpload
 {
-    public class SkinResourceDictionary : ResourceDictionary
+    [AddINotifyPropertyChangedInterface]
+    public class SkinResourceDictionary : ResourceDictionary, INotifyPropertyChanged
     {
-        private Uri _purpleHazeSource;
-        private Uri _purpleOverloadSource;
-        private Uri _greenForestSource;
-        private Uri _blueLightSource;
-        private Uri _solarizedSource;
-        private Uri _rakdosSource;
-        private Uri _midnightLights;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public Uri PurpleHazeSource
+        public SkinResourceDictionary() : base()
         {
-            get { return _purpleHazeSource; }
-            set
-            {
-                _purpleHazeSource = value;
-                UpdateSource();
-            }
+            PropertyChanged += UpdateSource;
         }
 
-        public Uri BlueLightSource
-        {
-            get { return _blueLightSource; }
-            set
-            {
-                _blueLightSource = value;
-                UpdateSource();
-            }
-        }
-
-        public Uri PurpleOverloadSource
-        {
-            get { return _purpleOverloadSource; }
-            set
-            {
-                _purpleOverloadSource = value;
-                UpdateSource();
-            }
-        }
-
-        public Uri GreenForestSource
-        {
-            get { return _greenForestSource; }
-            set
-            {
-                _greenForestSource = value;
-                UpdateSource();
-            }
-        }
-
-        public Uri SolarizedSource
-        {
-            get { return _solarizedSource; }
-            set
-            {
-                _solarizedSource = value;
-                UpdateSource();
-            }
-        }
-
-        public Uri RakdosSource
-        {
-            get { return _rakdosSource; }
-            set
-            {
-                _rakdosSource = value;
-                UpdateSource();
-            }
-        }
-
-        public Uri MidnightLightsSource
-        {
-            get { return _midnightLights; }
-            set
-            {
-                _midnightLights = value;
-                UpdateSource();
-            }
-        }
-
-        private void UpdateSource()
+        private void UpdateSource(object sender, PropertyChangedEventArgs e)
         {
             Uri source = AppSkinResource();
-            if (source != null && base.Source != source)
-                base.Source = source;
+            if (source != null && Source != source)
+                Source = source;
+        }
+
+        public Uri PurpleHazeSource { get; set; }
+
+        public Uri BlueLightSource { get; set; }
+
+        public Uri PurpleOverloadSource { get; set; }
+
+        public Uri GreenForestSource { get; set; }
+
+        public Uri SolarizedSource { get; set; }
+
+        public Uri RakdosSource { get; set; }
+
+        public Uri MidnightLightsSource { get; set; }
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
         private Uri AppSkinResource()
@@ -96,25 +47,25 @@ namespace WikiUpload
             switch (App.Skin)
             {
                 case Skin.PurpleHaze:
-                    thisSource = _purpleHazeSource;
+                    thisSource = PurpleHazeSource;
                     break;
                 case Skin.PurpleOverload:
-                    thisSource = _purpleOverloadSource;
+                    thisSource = PurpleOverloadSource;
                     break;
                 case Skin.GreenForest:
-                    thisSource = _greenForestSource;
+                    thisSource = GreenForestSource;
                     break;
                 case Skin.BlueLight:
-                    thisSource = _blueLightSource;
+                    thisSource = BlueLightSource;
                     break;
                 case Skin.Solarized:
-                    thisSource = _solarizedSource;
+                    thisSource = SolarizedSource;
                     break;
                 case Skin.Rakdos:
-                    thisSource = _rakdosSource;
+                    thisSource = RakdosSource;
                     break;
                 case Skin.MidnightLights:
-                    thisSource = _midnightLights;
+                    thisSource = MidnightLightsSource;
                     break;
             }
             return thisSource;
