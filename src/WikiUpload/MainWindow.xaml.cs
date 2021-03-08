@@ -22,14 +22,14 @@ namespace WikiUpload
             if (Properties.Settings.Default.CheckForUpdates)
             {
                 _updateCheck = new UpdateCheck();
-                _updateCheck.CheckForUpdateCompleted += updateCheck_CheckForUpdateCompleted;
+                _updateCheck.CheckForUpdateCompleted += UpdateCheck_CheckForUpdateCompleted;
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 _updateCheck.CheckForUpdates(App.UserAgent, 3000);
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed 
             }
         }
 
-        private void updateCheck_CheckForUpdateCompleted(object sender, CheckForUpdatesEventArgs e)
+        private void UpdateCheck_CheckForUpdateCompleted(object sender, CheckForUpdatesEventArgs e)
         {
             if (e.IsNewerVersion)
                 new WindowManager().ShowNewVersionWindow(e);

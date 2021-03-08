@@ -29,16 +29,5 @@ namespace WikiUpload
             foreach (var item in items)
                 AddIfNotDuplicate(item);
         }
-
-#if DEBUG
-        //public new void Add(UploadFile file) 
-        //    => throw new InvalidOperationException("Use AddIfNotDuplicate instead.");
-
-        //public new UploadFile this[int i]
-        //{
-        //    get => base[i];
-        //    set => throw new InvalidOperationException("Use AddIfNotDuplicate instead.");
-        //}
-#endif
     }
 }

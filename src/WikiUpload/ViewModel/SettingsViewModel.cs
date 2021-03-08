@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Input;
 using WikiUpload.Properties;
 
@@ -16,7 +13,7 @@ namespace WikiUpload
         private readonly IUpdateCheck _updateCheck;
 
         private string _newExtensionText;
-        private ExtensionValidater _extensionValidater;
+        private readonly ExtensionValidater _extensionValidater;
 
         public SettingsViewModel(
             IAppSettings appSettings,
@@ -31,7 +28,7 @@ namespace WikiUpload
             _appSettings = appSettings;
             _windowManager = windowManager;
             _updateCheck = updateCheck;
-            _updateCheck.CheckForUpdateCompleted += updateCheck_CheckForUpdateCompleted;
+            _updateCheck.CheckForUpdateCompleted += UpdateCheck_CheckForUpdateCompleted;
 
             SetPropeertiesFromAppSettings();
 
@@ -97,7 +94,7 @@ namespace WikiUpload
             _updateCheck.CheckForUpdates(_helpers.UserAgent, 200);
         }
 
-        private void updateCheck_CheckForUpdateCompleted(object sender, CheckForUpdatesEventArgs e)
+        private void UpdateCheck_CheckForUpdateCompleted(object sender, CheckForUpdatesEventArgs e)
         {
             UpdateCheckIsRunning = false;
             if (e.IsNewerVersion)
