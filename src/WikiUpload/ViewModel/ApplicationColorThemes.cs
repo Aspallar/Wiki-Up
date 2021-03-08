@@ -14,6 +14,7 @@ namespace WikiUpload
                new ColorTheme(Skin.BlueLight, Resources.BlueLightText),
                new ColorTheme(Skin.Solarized, Resources.SolarizedText),
                new ColorTheme(Skin.Rakdos, Resources.RakdosText),
+               new ColorTheme(Skin.MidnightLights, Resources.MidnightLightsText),
             })
         {
         }

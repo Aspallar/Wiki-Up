@@ -308,6 +308,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Themes\MidnightLights.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Themes\Solarized.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

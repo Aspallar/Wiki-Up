@@ -11,6 +11,7 @@ namespace WikiUpload
         private Uri _blueLightSource;
         private Uri _solarizedSource;
         private Uri _rakdosSource;
+        private Uri _midnightLights;
 
         public Uri PurpleHazeSource
         {
@@ -72,6 +73,16 @@ namespace WikiUpload
             }
         }
 
+        public Uri MidnightLightsSource
+        {
+            get { return _midnightLights; }
+            set
+            {
+                _midnightLights = value;
+                UpdateSource();
+            }
+        }
+
         private void UpdateSource()
         {
             Uri source = AppSkinResource();
@@ -101,6 +112,9 @@ namespace WikiUpload
                     break;
                 case Skin.Rakdos:
                     thisSource = _rakdosSource;
+                    break;
+                case Skin.MidnightLights:
+                    thisSource = _midnightLights;
                     break;
             }
             return thisSource;

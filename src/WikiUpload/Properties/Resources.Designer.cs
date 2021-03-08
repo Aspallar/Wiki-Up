@@ -718,6 +718,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Midnight Lights.
+        /// </summary>
+        public static string MidnightLightsText {
+            get {
+                return ResourceManager.GetString("MidnightLightsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Minimize.
         /// </summary>
         public static string MiximizeText {

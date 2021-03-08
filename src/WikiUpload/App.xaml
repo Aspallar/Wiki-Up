@@ -14,7 +14,8 @@
                     BlueLightSource="Styles\Themes\BrightBlue.xaml" 
                     GreenForestSource="Styles\Themes\GreenForest.xaml"
                     SolarizedSource="Styles\Themes\Solarized.xaml"
-                    RakdosSource="Styles\Themes\Rakdos.xaml"/>
+                    RakdosSource="Styles\Themes\Rakdos.xaml"
+                    MidnightLightsSource="Styles\Themes\MidnightLights.xaml"/>
                 <ResourceDictionary Source="Styles/Fonts.xaml"/>
                 <ResourceDictionary Source="Styles/Icons.xaml"/>
                 <ResourceDictionary Source="Styles/Buttons.xaml"/>

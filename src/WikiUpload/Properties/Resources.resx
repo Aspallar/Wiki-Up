@@ -605,4 +605,8 @@
     <value>Invalid extension</value>
   </data>
 
+  <data name="MidnightLightsText" xml:space="preserve">
+    <value>Midnight Lights</value>
+  </data>
+
 </root>

@@ -14,5 +14,6 @@ namespace WikiUpload
         BlueLight = 3,
         Solarized = 4,
         Rakdos = 5,
+        MidnightLights = 6,
     }
 }

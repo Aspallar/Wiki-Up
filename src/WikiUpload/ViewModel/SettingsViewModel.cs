@@ -9,11 +9,12 @@ namespace WikiUpload
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private INavigatorService _navigatorService;
-        private IHelpers _helpers;
-        private IAppSettings _appSettings;
-        private IWindowManager _windowManager;
-        private IUpdateCheck _updateCheck;
+        private readonly INavigatorService _navigatorService;
+        private readonly IHelpers _helpers;
+        private readonly IAppSettings _appSettings;
+        private readonly IWindowManager _windowManager;
+        private readonly IUpdateCheck _updateCheck;
+
         private string _newExtensionText;
         private ExtensionValidater _extensionValidater;
 
