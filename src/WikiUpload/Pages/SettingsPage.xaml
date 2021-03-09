@@ -36,7 +36,7 @@
             </StackPanel>
 
             <!--Bottom button controls (save etc) -->
-            <Grid DockPanel.Dock="Bottom" Background="{StaticResource PrimaryDarkBrush}">
+            <Grid DockPanel.Dock="Bottom" Background="{StaticResource PrimaryDarkBrush}" MaxWidth="1024">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="{StaticResource BorderMargin}">
                     <Button Content="{x:Static p:Resources.RestoreDefaultsText}" FontSize="{StaticResource FontSizeRegular}"
                             Command="{Binding RestoreDefaultsCommand}"/>
@@ -47,7 +47,7 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Background="{StaticResource PrimaryDarkBrush}">
+            <Grid Background="{StaticResource PrimaryDarkBrush}" MaxWidth="1024">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="{StaticResource BorderMargin}">
                         
