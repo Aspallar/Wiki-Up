@@ -245,28 +245,30 @@ namespace WikiUpload
                 { "url", fullPath },
                 { "token", _editToken },
             };
-            var req = new HttpRequestMessage(HttpMethod.Post, uploadVideoUri);
-            req.Content = new FormUrlEncodedContent(formParams);
 
             IngestionControllerResponse videoUploadResponse;
-            using (HttpResponseMessage response = await _client.SendAsync(req, cancelToken).ConfigureAwait(false))
+            using (var request = new HttpRequestMessage(HttpMethod.Post, uploadVideoUri))
             {
-                if (response.IsSuccessStatusCode)
-                {
-                    string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    videoUploadResponse = JsonConvert.DeserializeObject<IngestionControllerResponse>(responseContent);
-                }
-                else
-                {
-                    videoUploadResponse = new IngestionControllerResponse
-                    {
-                        Status = VideoUploadResponseMessage(response.StatusCode, response.ReasonPhrase),
-                        Success = false
-                    };
-                }
-                videoUploadResponse.HttpStatusCode = response.StatusCode;
-            }
+                request.Content = new FormUrlEncodedContent(formParams);
 
+                using (HttpResponseMessage response = await _client.SendAsync(request, cancelToken).ConfigureAwait(false))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        videoUploadResponse = JsonConvert.DeserializeObject<IngestionControllerResponse>(responseContent);
+                    }
+                    else
+                    {
+                        videoUploadResponse = new IngestionControllerResponse
+                        {
+                            Status = VideoUploadResponseMessage(response.StatusCode, response.ReasonPhrase),
+                            Success = false
+                        };
+                    }
+                    videoUploadResponse.HttpStatusCode = response.StatusCode;
+                }
+            }
             return videoUploadResponse;
         }
 
