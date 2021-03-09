@@ -1,10 +1,11 @@
 ﻿using PropertyChanged;
+using System.ComponentModel;
 using System.IO;
 
 namespace WikiUpload
 {
     [AddINotifyPropertyChangedInterface]
-    public class UploadFile
+    public class UploadFile : INotifyPropertyChanged
     {
 
         [DoNotNotify]
@@ -51,5 +52,7 @@ namespace WikiUpload
             Status = UploadFileStatus.Uploading;
             Message = UploadMessages.Uploading;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
