@@ -86,10 +86,10 @@
                                         </Grid>
                                         <StackPanel Margin="5 0 0 0">
                                             <Button Style="{StaticResource FilenamePlainButton}"
-                                                Content="{Binding FileName}"
+                                                Content="{Binding FileName, Mode=OneTime}"
                                                 Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
                                                 CommandParameter="{Binding FullPath}"/>
-                                            <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="{Binding Folder}"/>
+                                            <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="{Binding Folder, Mode=OneTime}"/>
                                             <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="{Binding Message}"
                                                        FontStyle="Italic" >
                                                 <TextBlock.ContextMenu>

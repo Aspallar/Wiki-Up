@@ -1,23 +1,26 @@
 ﻿using PropertyChanged;
-using System;
-using System.ComponentModel;
 using System.IO;
 
 namespace WikiUpload
 {
     [AddINotifyPropertyChangedInterface]
-    public class UploadFile : INotifyPropertyChanged
+    public class UploadFile
     {
+
+        [DoNotNotify]
         public string FullPath { get; set; }
 
         public UploadFileStatus Status { get; set; }
 
         public string Message { get; set; }
 
+        [DoNotNotify]
         public string FileName => Path.GetFileName(FullPath);
 
+        [DoNotNotify]
         public string Folder => Path.GetDirectoryName(FullPath);
 
+        [DoNotNotify]
         public bool IsVideo => FullPath.StartsWith("https://");
 
         public UploadFile()
@@ -48,13 +51,5 @@ namespace WikiUpload
             Status = UploadFileStatus.Uploading;
             Message = UploadMessages.Uploading;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
-
-        public void OnPropertyChanged(string name)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(name));
-        }
-
     }
 }
