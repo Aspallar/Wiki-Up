@@ -66,16 +66,5 @@ namespace Tests
             Assert.That(file.Folder, Is.EqualTo(@"c:\a"));
         }
 
-        [Test]
-        public void When_PropertyChangedIsSubcribedTo_Then_EventsAreReceived()
-        {
-            var file = new UploadFile();
-            string name = null;
-            file.PropertyChanged += (s, e) => name = e.PropertyName;
-
-            file.FullPath = "foo";
-
-            Assert.That(name, Is.EqualTo(nameof(file.FullPath)));
-        }
     }
 }

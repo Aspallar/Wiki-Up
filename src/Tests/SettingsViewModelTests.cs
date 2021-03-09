@@ -100,16 +100,15 @@ namespace Tests
         }
 
         [Test]
-        public void When_ExtensionIsAdded_Then_SemiColonsAreStripped()
+        public void When_ExtensionIsInvalid_Then_ExtensaionIsNotAddedd()
         {
-            List<string> expected = new List<string> { "foo", "bar", "foobar" };
             _model.ImageFileExtensions = new FileExensionsCollection();
 
             _model.AddImageEtensionCommand.Execute("fo;o");
             _model.AddImageEtensionCommand.Execute("bar;");
-            _model.AddImageEtensionCommand.Execute(";foobar");
+            _model.AddImageEtensionCommand.Execute("foo>bar");
 
-            Assert.That(_model.ImageFileExtensions, Is.EquivalentTo(expected));
+            Assert.That(_model.ImageFileExtensions, Is.Empty);
         }
 
         [Test]
