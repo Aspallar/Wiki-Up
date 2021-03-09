@@ -94,7 +94,7 @@
                                                        FontStyle="Italic" >
                                                 <TextBlock.ContextMenu>
                                                     <ContextMenu>
-                                                        <MenuItem Header="Copy to clipboard" Click="ErrorContextMenu_CopyToClipboard_Click"/>
+                                                        <MenuItem Header="{x:Static p:Resources.CopyToClipboard}" Click="ErrorContextMenu_CopyToClipboard_Click"/>
                                                     </ContextMenu>
                                                 </TextBlock.ContextMenu>
                                                 <TextBlock.ToolTip>
