@@ -236,7 +236,6 @@
                                     Background="{StaticResource ControlBackgroundBrush}"
                                     BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                                     Text="{Binding PageContent}"
-                                    local:SelectAndFocus.Selection="{Binding PageContentSelection}"
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                     ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 

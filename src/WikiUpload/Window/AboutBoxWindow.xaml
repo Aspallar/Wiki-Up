@@ -34,7 +34,7 @@
 
                                 <!-- Window border and dropshadown -->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
-                                        Background="{Binding PrimaryBrush, FallbackValue={StaticResource PrimaryDarkBrush}}" 
+                                        Background="{StaticResource PrimaryDarkBrush}" 
                                         BorderThickness="1"
                                         BorderBrush="{StaticResource PrimaryLightBrush}">
                                     <Border.Effect>
@@ -225,8 +225,10 @@
             </StackPanel>
         </StackPanel>
 
-        <Button Content="{x:Static p:Resources.ButtonOkText}" x:Name="OkButton" HorizontalAlignment="Center" Margin="20" Width="200"
-                Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=AboutBox}"/>
+        <Button x:Name="OkButton"
+                Content="{x:Static p:Resources.ButtonOkText}" 
+                HorizontalAlignment="Center" Margin="20" Width="200"
+                Command="{Binding CloseCommand}"/>
 
     </StackPanel>
 

@@ -35,7 +35,7 @@
 
                                 <!-- Window border and dropshadown -->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
-                                        Background="{Binding PrimaryBrush, FallbackValue={StaticResource PrimaryDarkBrush}}" 
+                                        Background="{StaticResource PrimaryDarkBrush}" 
                                         BorderThickness="1"
                                         BorderBrush="{StaticResource PrimaryBrush}">
                                     <Border.Effect>
@@ -45,11 +45,6 @@
 
                                 <!-- The window content -->
                                 <Grid>
-
-                                    <!-- Corner clipping -->
-                                    <Grid.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=Container}" />
-                                    </Grid.OpacityMask>
 
                                     <Grid.RowDefinitions>
 

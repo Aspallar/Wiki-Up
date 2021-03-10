@@ -36,7 +36,7 @@
 
                                 <!-- Window border and dropshadown -->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
-                                        Background="{Binding PrimaryBrush, FallbackValue={StaticResource PrimaryDarkBrush}}" 
+                                        Background="{StaticResource PrimaryDarkBrush}" 
                                         BorderThickness="1"
                                         BorderBrush="{StaticResource PrimaryLightBrush}">
                                     <Border.Effect>
@@ -46,11 +46,6 @@
 
                                 <!-- The window content -->
                                 <Grid>
-
-                                    <!-- Corner clipping -->
-                                    <Grid.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=Container}" />
-                                    </Grid.OpacityMask>
 
                                     <Grid.RowDefinitions>
 
@@ -73,11 +68,6 @@
                                             <ColumnDefinition Width="Auto" />
 
                                         </Grid.ColumnDefinitions>
-
-                                        <!-- Icon -->
-                                        <!--<Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
-                                            <Image Source="{StaticResource LogoImage}" />
-                                        </Button>-->
 
                                         <!-- Title -->
                                         <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="10 2" HorizontalAlignment="Left">
