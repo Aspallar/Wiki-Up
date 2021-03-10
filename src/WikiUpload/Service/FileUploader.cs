@@ -283,7 +283,7 @@ namespace WikiUpload
                     return $"[{(int)statusCode} {reason}] {Resources.BadVideoUploadRequest}";
 
                 default:
-                    return $"[{(int)statusCode}] {reason}]";
+                    return $"[{(int)statusCode} {reason}]";
             }
         }
 
