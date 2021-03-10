@@ -45,11 +45,6 @@
                                 <!-- The window content -->
                                 <Grid>
 
-                                    <!-- Corner clipping -->
-                                    <Grid.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=Container}" />
-                                    </Grid.OpacityMask>
-
                                     <Grid.RowDefinitions>
 
                                         <!-- Title Bar -->
