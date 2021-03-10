@@ -20,10 +20,12 @@ namespace WikiUpload
 
         public override string ReadJson(JsonReader reader, Type objectType, string existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            var nodes = _parser.ParseFragment((string)reader.Value, _parseContext.Body);
-            var text = nodes[0].TextContent;
-            if (text.EndsWith("\n"))
-                text = text.Substring(0, text.Length - 1);
+            var text = (string)reader.Value;
+            var nodes = _parser.ParseFragment(text, _parseContext.Body);
+
+            if (nodes != null && nodes.Length > 0)
+                text = nodes[0].TextContent.Trim();
+
             return text;
         }
 
