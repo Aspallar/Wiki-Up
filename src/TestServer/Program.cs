@@ -16,6 +16,7 @@ namespace TestServer
 
         static readonly object randLock = new object();
         static readonly Random rand = new Random();
+        static long videoUploadCount = 0;
 
         static void Main(string[] args)
         {
@@ -48,14 +49,23 @@ namespace TestServer
             string reply; ;
             var request = context.Request;
             var response = context.Response;
+            int statusCode = 200;
 
             if (request.HasEntityBody)
             {
                 if (request.ContentType == "application/x-www-form-urlencoded")
                 {
-                    if (options.LoginTimeout)
-                        return;
-                    reply = LoginReply(options, request);
+                    if (request.RawUrl.IndexOf("ingestion", StringComparison.InvariantCultureIgnoreCase) == -1)
+                    {
+                        if (options.LoginTimeout)
+                            return;
+                        reply = LoginReply(options, request);
+                    }
+                    else
+                    {
+                        reply = "";
+                        VideoUploadReply(ref reply, ref statusCode);
+                    }
                 }
                 else if (request.ContentType.StartsWith("multipart/form-data"))
                 {
@@ -77,13 +87,36 @@ namespace TestServer
                     return;
             }
 
-            response.StatusCode = 200;
+            response.StatusCode = statusCode;
             byte[] buffer = Encoding.UTF8.GetBytes(reply);
             response.ContentLength64 = buffer.Length;
             response.OutputStream.Write(buffer, 0, buffer.Length);
             response.OutputStream.Close();
             if (options.ShowReply)
                 Console.WriteLine($"\nResponse Sent:\n{reply}\n");
+        }
+
+        private static void VideoUploadReply(ref string reply, ref int statusCode)
+        {
+            var count = Interlocked.Increment(ref videoUploadCount) % 5;
+            switch (count)
+            {
+                case 0:
+                    reply = "{\"success\": true, \"status\": \"\"}";
+                    break;
+                case 1:
+                    reply = "{\"success\": false, \"status\": \"Video already exists\"}";
+                    break;
+                case 2:
+                    statusCode = 400;
+                    break;
+                case 3:
+                    statusCode = 404;
+                    break;
+                case 4:
+                    statusCode = 500;
+                    break;
+            }
         }
 
         private static string NoRequestBodyReply(Options options, HttpListenerRequest request)
