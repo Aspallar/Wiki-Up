@@ -1,7 +1,6 @@
 ﻿using CommandLine;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -11,15 +10,14 @@ using System.Web;
 
 namespace TestServer
 {
-    class Program
+    internal class Program
     {
-        const string loginToken = "123456+\\";
+        private const string loginToken = "123456+\\";
+        private static readonly object randLock = new object();
+        private static readonly Random rand = new Random();
+        private static long videoUploadCount = 0;
 
-        static readonly object randLock = new object();
-        static readonly Random rand = new Random();
-        static long videoUploadCount = 0;
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(options => Run(options));
@@ -49,7 +47,7 @@ namespace TestServer
             string reply; ;
             var request = context.Request;
             var response = context.Response;
-            int statusCode = 200;
+            var statusCode = 200;
 
             Console.WriteLine($"[{Thread.CurrentThread.ManagedThreadId}] {context.Request.RawUrl}");
             if (request.HasEntityBody)
@@ -89,7 +87,7 @@ namespace TestServer
             }
 
             response.StatusCode = statusCode;
-            byte[] buffer = Encoding.UTF8.GetBytes(reply);
+            var buffer = Encoding.UTF8.GetBytes(reply);
             response.ContentLength64 = buffer.Length;
             response.OutputStream.Write(buffer, 0, buffer.Length);
             response.OutputStream.Close();

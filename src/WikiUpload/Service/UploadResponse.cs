@@ -40,29 +40,29 @@ namespace WikiUpload
             if (retryAfter != "")
             {
                 Result = ResponseCodes.MaxlagThrottle;
-                _ = int.TryParse(retryAfter, out int retryValue);
+                _ = int.TryParse(retryAfter, out var retryValue);
                 RetryDelay = Math.Max(5, retryValue);
             }
             else
             {
-                XmlDocument doc = new XmlDocument();
+                var doc = new XmlDocument();
                 doc.LoadXml(xml);
 
-                XmlNode upload = doc.SelectSingleNode("/api/upload");
+                var upload = doc.SelectSingleNode("/api/upload");
                 if (upload != null)
                 {
                     Result = upload.Attributes["result"].Value;
 
                     if (Result == ResponseCodes.Warning)
                     {
-                        XmlNode warnings = upload.SelectSingleNode("warnings");
+                        var warnings = upload.SelectSingleNode("warnings");
                         foreach (XmlNode attribute in warnings.Attributes)
                             _warnings.Add(attribute.Name);
 
                         if (warnings.Attributes["duplicate-archive"] != null)
                             ArchiveDuplicate = warnings.Attributes["duplicate-archive"].Value;
 
-                        XmlNodeList duplicates = warnings.SelectNodes("duplicate/duplicate");
+                        var duplicates = warnings.SelectNodes("duplicate/duplicate");
                         foreach (XmlNode node in duplicates)
                             Duplicates.Add(node.InnerText);
                     }
@@ -72,7 +72,7 @@ namespace WikiUpload
                     Result = ResponseCodes.NoResult;
                 }
 
-                XmlNodeList errors = doc.SelectNodes("/api/error");
+                var errors = doc.SelectNodes("/api/error");
                 foreach (XmlNode node in errors)
                     _errors.Add(new ApiError(node.Attributes["code"]?.Value, node.Attributes["info"]?.Value));
 
@@ -116,11 +116,11 @@ namespace WikiUpload
         {
             get
             {
-                StringBuilder text = new StringBuilder();
+                var text = new StringBuilder();
 
                 foreach (var warning in _warnings)
                 {
-                    if (friendlyWarnings.TryGetValue(warning, out string friendlyText))
+                    if (friendlyWarnings.TryGetValue(warning, out var friendlyText))
                         text.Append(friendlyText);
                     else
                         text.Append(warning);
@@ -132,7 +132,7 @@ namespace WikiUpload
                 if (IsDuplicate)
                 {
                     text.Append(Resources.UploadResponseDuplicateOf);
-                    foreach (string duplicate in Duplicates)
+                    foreach (var duplicate in Duplicates)
                         text.Append($" [{duplicate}]");
                     text.Append('.');
                 }
@@ -150,7 +150,7 @@ namespace WikiUpload
             get
             {
                 var text = new StringBuilder();
-                foreach (ApiError error in _errors)
+                foreach (var error in _errors)
                 {
                     text.Append('[');
                     text.Append(error.Code);

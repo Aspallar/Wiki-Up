@@ -24,7 +24,7 @@ namespace WikiUpload
             base.OnStartup(e);
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            GetCommandLineArguments(e.Args, out int timeout);
+            GetCommandLineArguments(e.Args, out var timeout);
             Timewout = timeout;
         }
 
@@ -46,7 +46,7 @@ namespace WikiUpload
             timeout = 0;
             foreach (var arg in args)
             {
-                if (int.TryParse(arg, out int value))
+                if (int.TryParse(arg, out var value))
                     timeout = value;
             }
         }
@@ -55,10 +55,10 @@ namespace WikiUpload
         {
             get
             {
-                Assembly assembly = Assembly.GetEntryAssembly();
-                AssemblyTitleAttribute title = (AssemblyTitleAttribute)Attribute.GetCustomAttribute(
+                var assembly = Assembly.GetEntryAssembly();
+                var title = (AssemblyTitleAttribute)Attribute.GetCustomAttribute(
                     assembly, typeof(AssemblyTitleAttribute));
-                string userAgent = $"{title.Title}/{Utils.GetApplicationVersion(assembly)}";
+                var userAgent = $"{title.Title}/{Utils.GetApplicationVersion(assembly)}";
                 return userAgent;
             }
         }

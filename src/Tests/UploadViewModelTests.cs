@@ -517,7 +517,7 @@ namespace Tests
 
         private void AddThreeUploadFiles()
         {
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
                 _model.UploadFiles.AddIfNotDuplicate(new UploadFile() { FullPath = $"BazFoo{i}.jpg" });
         }
 
@@ -668,7 +668,7 @@ namespace Tests
         {
             AlllFilesPermitted();
             var foo = AddSingleUploadFile();
-            bool wasSetToUnloading = false;
+            var wasSetToUnloading = false;
             foo.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(foo.Status) && foo.Status == UploadFileStatus.Uploading)

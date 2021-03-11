@@ -31,8 +31,8 @@ namespace WikiUpload
         {
             get
             {
-                Assembly assembly = Assembly.GetEntryAssembly();
-                object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                var assembly = Assembly.GetEntryAssembly();
+                var attributes = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 var copyright = ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
                 var version = Utils.GetApplicationVersion(assembly);
                 return (copyright, version);

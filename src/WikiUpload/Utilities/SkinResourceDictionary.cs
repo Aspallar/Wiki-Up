@@ -15,7 +15,7 @@ namespace WikiUpload
 
         private void UpdateSource(object sender, PropertyChangedEventArgs e)
         {
-            Uri source = AppSkinResource();
+            var source = AppSkinResource();
             if (source != null && Source != source)
                 Source = source;
         }

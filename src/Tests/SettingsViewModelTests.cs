@@ -1,6 +1,5 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
-using System.Collections.Generic;
 using WikiUpload;
 using WikiUpload.Properties;
 

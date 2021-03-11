@@ -63,7 +63,7 @@ namespace WikiUpload
                 string url;
                 if ((url = await Validate()) != null)
                 {
-                    SecureString password = SavedPassword.Length > 0 ?
+                    var password = SavedPassword.Length > 0 ?
                         SavedPassword : ((IHavePassword)securePassword).SecurePassword;
                     await DoLogin(password, url);
                 }
@@ -74,7 +74,7 @@ namespace WikiUpload
         {
             try
             {
-                bool loggedIn = await _fileUploader.LoginAsync(url, Username, password, false);
+                var loggedIn = await _fileUploader.LoginAsync(url, Username, password, false);
 
                 if (loggedIn)
                 {
@@ -131,7 +131,7 @@ namespace WikiUpload
                 return null;
             }
 
-            string url = WikiUrl.ToLowerInvariant();
+            var url = WikiUrl.ToLowerInvariant();
             if (!url.StartsWith("http://") && !url.StartsWith("https://"))
                 url = "https://" + url;
 

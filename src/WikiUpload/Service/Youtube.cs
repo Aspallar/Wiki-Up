@@ -34,7 +34,7 @@ namespace WikiUpload
 
         public async Task<IEnumerable<string>> FetchPlasylistViedeoLinksAsync(string playlistId, int maxPlaylistLength)
         {
-            List<string> videoLinks = new List<string>();
+            var videoLinks = new List<string>();
             PlaylistItemListResponse results;
 
             _playlistItems.PlaylistId = playlistId;
@@ -57,7 +57,7 @@ namespace WikiUpload
         {
             string playlistId = null;
 
-            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
+            if (Uri.TryCreate(url, UriKind.Absolute, out var uri))
             {
                 if (uri.Scheme == "https" && uri.Host.EndsWith("youtube.com"))
                 {

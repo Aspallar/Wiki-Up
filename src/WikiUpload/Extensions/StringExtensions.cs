@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace WikiUpload.Extensions
 {
@@ -21,7 +15,7 @@ namespace WikiUpload.Extensions
                 var strArray = str.ToCharArray();
                 try
                 {
-                    for (int i = 0; i < array.Length; i++)
+                    for (var i = 0; i < array.Length; i++)
                     {
                         if (strArray[i] != array[i])
                             return false;

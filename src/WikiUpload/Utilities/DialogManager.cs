@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace WikiUpload
 {
@@ -18,7 +17,7 @@ namespace WikiUpload
                 CheckFileExists = true,
                 Filter = AddFilesFilter(permittedExtensions, imageExtensions),
             };
-            bool result = (bool)openFileDialog.ShowDialog();
+            var result = (bool)openFileDialog.ShowDialog();
             fileNames = openFileDialog.FileNames.ToList();
             return result;
         }
@@ -59,7 +58,7 @@ namespace WikiUpload
                 CheckPathExists = true,
                 CheckFileExists = true,
             };
-            bool result = (bool)openFileDialog.ShowDialog();
+            var result = (bool)openFileDialog.ShowDialog();
             fileName = openFileDialog.FileName;
             return result;
         }
@@ -75,7 +74,7 @@ namespace WikiUpload
                 CheckPathExists = true,
                 OverwritePrompt = true,
             };
-            bool result = (bool)saveFileDialog.ShowDialog();
+            var result = (bool)saveFileDialog.ShowDialog();
             fileName = saveFileDialog.FileName;
             return result;
         }
@@ -89,7 +88,7 @@ namespace WikiUpload
                 CheckPathExists = true,
                 CheckFileExists = true,
             };
-            bool result = (bool)openFileDialog.ShowDialog();
+            var result = (bool)openFileDialog.ShowDialog();
             fileName = openFileDialog.FileName;
             return result;
         }
@@ -105,7 +104,7 @@ namespace WikiUpload
                 CheckPathExists = true,
                 OverwritePrompt = true,
             };
-            bool result = (bool)saveFileDialog.ShowDialog();
+            var result = (bool)saveFileDialog.ShowDialog();
             fileName = saveFileDialog.FileName;
             return result;
         }

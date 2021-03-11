@@ -22,7 +22,7 @@ namespace WikiUpload
 
         public SecureCharArray GetPassword(string site, string username)
         {
-            string key = MakeKey(site, username);
+            var key = MakeKey(site, username);
             var password = GetPasswordFromKey(key);
             return password;
         }
@@ -33,7 +33,7 @@ namespace WikiUpload
         private SecureCharArray GetPasswordFromKey(string key)
         {
             SecureCharArray password = null;
-            if (_passwords.TryGetValue(key, out string encryptedPassword))
+            if (_passwords.TryGetValue(key, out var encryptedPassword))
                 password = Encryption.Decrypt(encryptedPassword);
             return password;
         }
@@ -41,7 +41,7 @@ namespace WikiUpload
         public void SavePassword(string site, string username, SecureString passsword)
         {
             string encryptedPassword;
-            string key = MakeKey(site, username);
+            var key = MakeKey(site, username);
             using (var currentPassword = GetPasswordFromKey(key))
             {
                 encryptedPassword = passsword.UseUnsecuredString<string>(unsecuredPassword =>

@@ -26,7 +26,7 @@ namespace WikiUpload
 
             if (d.GetValue(DropFileTargetProperty.ValueProperty) is IFileDropTarget target)
             {
-                string[] paths = GetDragData(dragEventArgs.Data);
+                var paths = GetDragData(dragEventArgs.Data);
                 if (paths != null)
                 {
                     var controlKeyPressed = (dragEventArgs.KeyStates & DragDropKeyStates.ControlKey) == DragDropKeyStates.ControlKey;

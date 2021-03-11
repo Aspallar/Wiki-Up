@@ -17,7 +17,7 @@ namespace WikiUpload
 
         private void UploadPage_Loaded(object sender, RoutedEventArgs e)
         {
-            string cultureName = Thread.CurrentThread.CurrentUICulture.Name;
+            var cultureName = Thread.CurrentThread.CurrentUICulture.Name;
 
             if (cultureName == "de-DE")
             {

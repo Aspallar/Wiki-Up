@@ -5,10 +5,10 @@ namespace WikiUpload
 {
     internal class NativeMethods
     {
-        internal const Int32 WM_SYSCOMMAND = 0x112;
-        internal const Int32 MF_SEPARATOR = 0x800;
-        internal const Int32 MF_BYPOSITION = 0x400;
-        internal const Int32 MF_STRING = 0x0;
+        internal const int WM_SYSCOMMAND = 0x112;
+        internal const int MF_SEPARATOR = 0x800;
+        internal const int MF_BYPOSITION = 0x400;
+        internal const int MF_STRING = 0x0;
 
         private NativeMethods() { }
 

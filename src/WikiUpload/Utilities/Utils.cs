@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
 
 namespace WikiUpload
@@ -16,7 +15,7 @@ namespace WikiUpload
 
         public static string GetApplicationVersion(Assembly assembly)
         {
-            Version version = assembly.GetName().Version;
+            var version = assembly.GetName().Version;
             return $"{version.Major}.{version.Minor}.{version.Build}";
         }
 

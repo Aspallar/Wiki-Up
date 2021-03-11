@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Cryptography.Pkcs;
-using System.Windows.Documents;
 using System.Xml;
 
 namespace WikiUpload
@@ -15,11 +13,11 @@ namespace WikiUpload
         {
             var result = new SearchResponse();
 
-            XmlNodeList categories = doc.SelectNodes("/api/query/allcategories/c");
+            var categories = doc.SelectNodes("/api/query/allcategories/c");
             foreach (XmlNode node in categories)
                 result.Categories.Add(node.InnerText);
 
-            XmlNode continueNode = doc.SelectSingleNode("/api/query-continue/allcategories");
+            var continueNode = doc.SelectSingleNode("/api/query-continue/allcategories");
             if (continueNode != null)
             {
                 if (continueNode.Attributes["acfrom"] != null)
@@ -35,7 +33,7 @@ namespace WikiUpload
         {
             var result = new SearchResponse();
 
-            XmlNodeList pages = doc.SelectNodes("/api/query/allpages/p");
+            var pages = doc.SelectNodes("/api/query/allpages/p");
             foreach (XmlNode node in pages)
             {
                 var title = node.Attributes["title"].Value;
@@ -43,7 +41,7 @@ namespace WikiUpload
                     result.Categories.Add(title.Substring(9));
             }
 
-            XmlNode continueNode = doc.SelectSingleNode("/api/query-continue/allpages");
+            var continueNode = doc.SelectSingleNode("/api/query-continue/allpages");
             if (continueNode != null)
             {
                 if (continueNode.Attributes["apfrom"] != null)

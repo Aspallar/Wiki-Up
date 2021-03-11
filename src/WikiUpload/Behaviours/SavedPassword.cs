@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security;
+﻿using System.Security;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,9 +17,9 @@ namespace WikiUpload
                 new UIPropertyMetadata(null, OnUsernameChanged)
             );
 
-        public static String GetUsername(DependencyObject obj)
+        public static string GetUsername(DependencyObject obj)
         {
-            return obj.GetValue(UsernameProperty) as String;
+            return obj.GetValue(UsernameProperty) as string;
         }
 
         public static void SetUsername(DependencyObject obj, string value)
@@ -59,7 +58,7 @@ namespace WikiUpload
             DependencyProperty.RegisterAttached
             (
                 "Site",
-                typeof(String),
+                typeof(string),
                 typeof(SavedPassword),
                 new UIPropertyMetadata(null, OnSiteChanged)
             );
@@ -73,12 +72,12 @@ namespace WikiUpload
                 UpdatePassword(passwordBox, (string)e.NewValue, GetUsername(passwordBox));
         }
 
-        public static String GetSite(DependencyObject obj)
+        public static string GetSite(DependencyObject obj)
         {
-            return (String)obj.GetValue(SiteProperty);
+            return (string)obj.GetValue(SiteProperty);
         }
 
-        public static void SetSite(DependencyObject obj, String value)
+        public static void SetSite(DependencyObject obj, string value)
         {
             obj.SetValue(SiteProperty, value);
         }
@@ -100,7 +99,7 @@ namespace WikiUpload
             return (IPasswordManager)obj.GetValue(PasswordManagerProperty);
         }
 
-        public static void SetPasswordManager(DependencyObject obj, String value)
+        public static void SetPasswordManager(DependencyObject obj, string value)
         {
             obj.SetValue(PasswordManagerProperty, value);
         }
@@ -144,7 +143,7 @@ namespace WikiUpload
         public static SecureString GetPassword(DependencyObject obj)
             => (SecureString)obj.GetValue(PasswordProperty);
 
-        public static void SetPassword(DependencyObject obj, String value)
+        public static void SetPassword(DependencyObject obj, string value)
             => obj.SetValue(PasswordProperty, value);
 
         #endregion

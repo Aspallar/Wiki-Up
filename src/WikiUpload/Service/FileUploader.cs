@@ -40,7 +40,7 @@ namespace WikiUpload
         public bool CanUploadVideos => _isFandomDomainMatch.IsMatch(Site);
 
         public IReadOnlyPermittedFiles PermittedFiles
-            => (IReadOnlyPermittedFiles)_permittedFiles;
+            => _permittedFiles;
 
         public FileUploader(string userAgent, int timeoutSeconds = 0)
         {
@@ -89,7 +89,7 @@ namespace WikiUpload
                     { "lgname", username },
                 };
 
-                string loginToken = await GetLoginTokenAsync().ConfigureAwait(false);
+                var loginToken = await GetLoginTokenAsync().ConfigureAwait(false);
                 _useDeprecatedLogin = (loginToken == null);
                 if (_useDeprecatedLogin)
                 {
@@ -120,10 +120,10 @@ namespace WikiUpload
                 if (response.Result != ResponseCodes.Success)
                     return false;
 
-                Task<string> editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
-                Task<bool> userConfirmedTask = IsUserConfirmedAsync(username);
-                Task<bool> authorizedTask = IsAuthorizedForUploadFilesAsync(username);
-                Task<SiteInfo> siteInfoTask = GeSiteInfoAsync();
+                var editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
+                var userConfirmedTask = IsUserConfirmedAsync(username);
+                var authorizedTask = IsAuthorizedForUploadFilesAsync(username);
+                var siteInfoTask = GeSiteInfoAsync();
 
                 await Task.WhenAll(userConfirmedTask, authorizedTask, editTokenTask, siteInfoTask)
                     .ConfigureAwait(false);
@@ -155,7 +155,7 @@ namespace WikiUpload
 
                 if (!allFilesPermitted)
                 {
-                    foreach (string ext in siteInfoTask.Result.Extensions)
+                    foreach (var ext in siteInfoTask.Result.Extensions)
                         _permittedFiles.Add(ext);
                 }
 
@@ -195,11 +195,11 @@ namespace WikiUpload
 
         public async Task<IUploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false, bool includeInWatchlist = false)
         {
-            string fileName = Path.GetFileName(fullPath);
+            var fileName = Path.GetFileName(fullPath);
 
             // Open file 1st before we allocate any disposable resources to avoid leaks if
             // the file has become inaccesible and an exception is thrown
-            FileStream file = File.OpenRead(fullPath);
+            var file = File.OpenRead(fullPath);
 
             // we don't need to dispose any of these or close the stream
             // as _client.PostAsync will do it
@@ -222,12 +222,12 @@ namespace WikiUpload
 
             uploadFormData.Add(new StringContent(_editToken), "token");
 
-            using (HttpResponseMessage response = await _client.PostAsync(_api, uploadFormData, cancelToken).ConfigureAwait(false))
+            using (var response = await _client.PostAsync(_api, uploadFormData, cancelToken).ConfigureAwait(false))
             {
-                string retryAfter = "";
-                if (response.Headers.TryGetValues("Retry-After", out IEnumerable<string> retryValues))
+                var retryAfter = "";
+                if (response.Headers.TryGetValues("Retry-After", out var retryValues))
                     retryAfter = retryValues.ElementAt(0);
-                string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return new UploadResponse(responseContent, retryAfter);
             }
         }
@@ -243,7 +243,7 @@ namespace WikiUpload
             using (var request = new HttpRequestMessage(HttpMethod.Post, UploadVideoUri()))
             {
                 request.Content = new FormUrlEncodedContent(formParams);
-                using (HttpResponseMessage response = await _client.SendAsync(request, cancelToken).ConfigureAwait(false))
+                using (var response = await _client.SendAsync(request, cancelToken).ConfigureAwait(false))
                     return await ProcessUploadVideoResponse(response);
             }
         }
@@ -254,7 +254,7 @@ namespace WikiUpload
 
             if (response.IsSuccessStatusCode)
             {
-                string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 videoUploadResponse = JsonConvert.DeserializeObject<IngestionControllerResponse>(responseContent);
             }
             else
@@ -298,81 +298,81 @@ namespace WikiUpload
 
         public async Task RefreshTokenAsync()
         {
-            Task<string> editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
+            var editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
             _editToken = await editTokenTask.ConfigureAwait(false);
         }
 
         private async Task<bool> IsUserConfirmedAsync(string username)
         {
-            Uri uri = _api.ApiQuery(new RequestParameters
+            var uri = _api.ApiQuery(new RequestParameters
             {
                 { "list", "users" },
                 { "usprop", "groups" },
                 { "ususers", username },
             });
-            XmlNode node = await GetSingleNode(uri, "/api/query/users/user/groups/g[.=\"autoconfirmed\"]").ConfigureAwait(false);
+            var node = await GetSingleNode(uri, "/api/query/users/user/groups/g[.=\"autoconfirmed\"]").ConfigureAwait(false);
             return node != null;
         }
 
         private async Task<string> GetEditTokenViaIntokenAsync()
         {
-            Uri uri = _api.ApiQuery(new RequestParameters
+            var uri = _api.ApiQuery(new RequestParameters
             {
                 { "prop", "info" },
                 { "intoken", "edit" },
                 { "titles", "6EA4096B-EBD2-4B9D-9025-2BA38D336E43" },
                 { "indexpageids", "1" },
             });
-            XmlNode node = await GetSingleNode(uri, "/api/query/pages/page").ConfigureAwait(false);
+            var node = await GetSingleNode(uri, "/api/query/pages/page").ConfigureAwait(false);
             return node?.Attributes["edittoken"]?.Value;
         }
 
         private async Task<string> GetEditTokenAsync()
         {
-            Uri uri = _api.ApiQuery(new RequestParameters
+            var uri = _api.ApiQuery(new RequestParameters
             {
                 { "meta", "tokens" },
                 { "type", "csrf" },
             });
-            XmlNode node = await GetSingleNode(uri, "/api/query/tokens").ConfigureAwait(false);
+            var node = await GetSingleNode(uri, "/api/query/tokens").ConfigureAwait(false);
             return node?.Attributes["csrftoken"]?.Value;
         }
 
         private async Task<string> GetLoginTokenAsync()
         {
-            Uri uri = _api.ApiQuery(new RequestParameters
+            var uri = _api.ApiQuery(new RequestParameters
             {
                 { "meta", "tokens" },
                 { "type", "login" },
             });
-            XmlNode node = await GetSingleNode(uri, "/api/query/tokens").ConfigureAwait(false);
+            var node = await GetSingleNode(uri, "/api/query/tokens").ConfigureAwait(false);
             return node?.Attributes["logintoken"]?.Value;
         }
 
         private async Task<SiteInfo> GeSiteInfoAsync()
         {
-            Uri uri = _api.ApiQuery(new RequestParameters
+            var uri = _api.ApiQuery(new RequestParameters
             {
                 { "meta", "siteinfo" },
                 { "siprop", "general|fileextensions" },
             });
-            XmlDocument doc = await GetXmlResponse(uri).ConfigureAwait(false);
+            var doc = await GetXmlResponse(uri).ConfigureAwait(false);
             return new SiteInfo(doc);
         }
 
         private async Task<bool> IsAuthorizedForUploadFilesAsync(string username)
         {
             const char comment = '$';
-            Regex tagRegex = new Regex(@"<.*>");
+            var tagRegex = new Regex(@"<.*>");
 
-            Uri uri = _api.ApiQuery(new RequestParameters
+            var uri = _api.ApiQuery(new RequestParameters
             {
                 { "prop", "revisions" },
                 { "titles", "MediaWiki:Custom-WikiUpUsers" },
                 { "rvprop", "content" },
                 { "rvlimit", "1" },
             });
-            XmlNode revision = await GetSingleNode(uri, "/api/query/pages/page/revisions/rev").ConfigureAwait(false);
+            var revision = await GetSingleNode(uri, "/api/query/pages/page/revisions/rev").ConfigureAwait(false);
 
             return revision == null ||
                 revision.InnerText.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
@@ -385,10 +385,10 @@ namespace WikiUpload
         {
             using (var formParams = new FormUrlEncodedContent(loginParams))
             {
-                using (HttpResponseMessage response = await _client.PostAsync(_api, formParams).ConfigureAwait(false))
+                using (var response = await _client.PostAsync(_api, formParams).ConfigureAwait(false))
                 {
-                    XmlDocument xml = await GetXml(response.Content).ConfigureAwait(false);
-                    XmlNode login = xml.SelectSingleNode("/api/login");
+                    var xml = await GetXml(response.Content).ConfigureAwait(false);
+                    var login = xml.SelectSingleNode("/api/login");
                     return new LoginResponse
                     {
                         Result = login?.Attributes["result"]?.Value,
@@ -399,21 +399,21 @@ namespace WikiUpload
         }
         public async Task<SearchResponse> FetchCategories(string from)
         {
-            Uri uri = _api.ApiQuery(new RequestParameters
+            var uri = _api.ApiQuery(new RequestParameters
             {
                 { "list", "allcategories" },
                 { "acfrom", from },
                 { "aclimit", "50" },
                 { "rawcontinue", "" },
             });
-            XmlDocument doc = await GetXmlResponse(uri).ConfigureAwait(false);
+            var doc = await GetXmlResponse(uri).ConfigureAwait(false);
             return SearchResponse.FromCategoryXml(doc);
         }
 
         public async Task<SearchResponse> FetchTemplates(string from)
         {
             const string templateNamespace = "10";
-            Uri uri = _api.ApiQuery(new RequestParameters
+            var uri = _api.ApiQuery(new RequestParameters
             {
                 { "list", "allpages" },
                 { "apnamespace", templateNamespace },
@@ -421,33 +421,33 @@ namespace WikiUpload
                 { "aplimit", "100" },
                 { "rawcontinue", "" },
             });
-            XmlDocument doc = await GetXmlResponse(uri).ConfigureAwait(false);
+            var doc = await GetXmlResponse(uri).ConfigureAwait(false);
             return SearchResponse.FromTemplateXml(doc);
         }
 
         private async Task<XmlNodeList> GetNodes(Uri uri, string path)
         {
-            XmlDocument xml = await GetXmlResponse(uri).ConfigureAwait(false);
+            var xml = await GetXmlResponse(uri).ConfigureAwait(false);
             return xml.SelectNodes(path);
         }
 
         private async Task<XmlNode> GetSingleNode(Uri uri, string path)
         {
-            XmlDocument xml = await GetXmlResponse(uri).ConfigureAwait(false);
+            var xml = await GetXmlResponse(uri).ConfigureAwait(false);
             return xml.SelectSingleNode(path);
         }
 
         private async Task<XmlDocument> GetXmlResponse(Uri uri)
         {
-            string response = await _client.GetStringAsync(uri).ConfigureAwait(false);
-            XmlDocument xml = new XmlDocument();
+            var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
+            var xml = new XmlDocument();
             xml.LoadXml(response);
             return xml;
         }
 
         private static async Task<XmlDocument> GetXml(HttpContent content)
         {
-            string response = await content.ReadAsStringAsync().ConfigureAwait(false);
+            var response = await content.ReadAsStringAsync().ConfigureAwait(false);
             var doc = new XmlDocument();
             doc.LoadXml(response);
             return doc;

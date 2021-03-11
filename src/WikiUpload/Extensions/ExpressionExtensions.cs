@@ -27,7 +27,7 @@ namespace WikiUpload
         public static void SetPropertyValue<T>(this Expression<Func<T>> lamba, T value)
         {
             // Converts a lamba () => some.Property, to some.Property
-            var expression = (lamba as LambdaExpression).Body as MemberExpression;
+            var expression = lamba.Body as MemberExpression;
 
             // Get the property information so we can set it
             var propertyInfo = (PropertyInfo)expression.Member;

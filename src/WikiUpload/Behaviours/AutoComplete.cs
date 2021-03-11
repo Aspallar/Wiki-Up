@@ -134,7 +134,7 @@ namespace WikiUpload
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        static void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        private static void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter)
                 return;
@@ -150,12 +150,12 @@ namespace WikiUpload
             }
         }
 
-		/// <summary>
-		/// Search for auto-completion suggestions.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-        static void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// Search for auto-completion suggestions.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (e.Changes.Any(x => x.RemovedLength > 0) && !e.Changes.Any(x => x.AddedLength > 0))
                 return;
@@ -163,15 +163,15 @@ namespace WikiUpload
             if (!(e.OriginalSource is TextBox tb))
                 return;
 
-            IEnumerable<string> values = GetItemsSource(tb);
-            string searchTarget = tb.Text;
+            var values = GetItemsSource(tb);
+            var searchTarget = tb.Text;
 
             //No reason to search if we don't have any values or there's nothing to search for.
             if (values == null || string.IsNullOrEmpty(searchTarget))
                 return;
 
-            string indicator = GetIndicator(tb);
-            int startIndex = 0; 
+            var indicator = GetIndicator(tb);
+            var startIndex = 0; 
 
             //If we have a trigger string, make sure that it has been typed before
             //giving auto-completion suggestions.
@@ -190,9 +190,9 @@ namespace WikiUpload
             if (string.IsNullOrEmpty(searchTarget))
                 return;
 
-            int searchTargetLength = searchTarget.Length;
+            var searchTargetLength = searchTarget.Length;
 
-			StringComparison compareType = GetStringComparison(tb);
+			var compareType = GetStringComparison(tb);
 
             var match = values.Where(x => x.StartsWith(searchTarget, compareType))
                 .Select(x => x.Substring(searchTargetLength, x.Length - searchTargetLength))
@@ -201,7 +201,7 @@ namespace WikiUpload
             if (string.IsNullOrEmpty(match))
 				return;
 
-            int matchStart = startIndex + searchTargetLength;
+            var matchStart = startIndex + searchTargetLength;
             tb.TextChanged -= TextBox_TextChanged;
             tb.Text += match;
             tb.CaretIndex = matchStart;

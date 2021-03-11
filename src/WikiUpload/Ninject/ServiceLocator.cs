@@ -1,6 +1,5 @@
 ﻿using Ninject;
 using Ninject.Parameters;
-using System;
 using System.Windows;
 
 namespace WikiUpload

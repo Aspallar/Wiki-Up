@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
 using WikiUpload.Properties;
-using Newtonsoft.Json;
 
 namespace WikiUpload
 {
@@ -119,7 +118,7 @@ namespace WikiUpload
             {
                 using (_cancelSource = new CancellationTokenSource())
                 {
-                    CancellationToken cancelToken = _cancelSource.Token;
+                    var cancelToken = _cancelSource.Token;
                     var filesToUpload = UploadFiles.Select(x => x).ToList();
                     _editTokenRefreshed = false;
                     _fileUploader.Summary = AddAppName(UploadSummary);
@@ -232,7 +231,7 @@ namespace WikiUpload
 
         private async Task UploadFile(UploadFile file, CancellationToken cancelToken)
         {
-            int maxLagRetries = 3;
+            var maxLagRetries = 3;
             while (true)
             {
                 cancelToken.ThrowIfCancellationRequested();
@@ -326,7 +325,7 @@ namespace WikiUpload
         {
             if (_dialogs.AddFilesDialog(_fileUploader.PermittedFiles.GetExtensions(),
                 _appSettings.ImageExtensions,
-                out IList<string> fileNames))
+                out var fileNames))
             {
                 UploadFiles.AddNewRange(fileNames);
             }
@@ -344,7 +343,7 @@ namespace WikiUpload
         public ICommand LoadListCommand { get; }
         private void LoadList()
         {
-            if (_dialogs.LoadUploadListDialog(out string fileName))
+            if (_dialogs.LoadUploadListDialog(out var fileName))
             {
                 try
                 {
@@ -360,7 +359,7 @@ namespace WikiUpload
         public ICommand SaveListCommand { get; }
         private void SaveList()
         {
-            if (_dialogs.SaveUploadListDialog(out string fileName))
+            if (_dialogs.SaveUploadListDialog(out var fileName))
             {
                 try
                 {
@@ -383,7 +382,7 @@ namespace WikiUpload
             {
                 if (filepaths.Length == 1 && !controlKeyPressed)
                 {
-                    string youtubePlaylistId = _youtube.ExtractPlaylistId(filepaths[0]);
+                    var youtubePlaylistId = _youtube.ExtractPlaylistId(filepaths[0]);
                     if (youtubePlaylistId != null)
                         AddYoutubePlaylistVideos(youtubePlaylistId);
                     else
@@ -427,7 +426,7 @@ namespace WikiUpload
         public ICommand LoadContentCommand { get; }
         private void LoadContent()
         {
-            if (_dialogs.LoadContentDialog(out string fileName))
+            if (_dialogs.LoadContentDialog(out var fileName))
             {
                 try
                 {
@@ -443,7 +442,7 @@ namespace WikiUpload
         public ICommand SaveContentCommand { get; }
         private void SaveContent()
         {
-            if (_dialogs.SaveContentDialog(out string fileName))
+            if (_dialogs.SaveContentDialog(out var fileName))
             {
                 try
                 {
@@ -481,8 +480,8 @@ namespace WikiUpload
             var itemString = (string)item;
             if (!string.IsNullOrWhiteSpace(itemString))
             {
-                bool needNewline = PageContent != "" && !PageContent.EndsWith("\n");
-                string newLine = needNewline ? "\n" : "";
+                var needNewline = PageContent != "" && !PageContent.EndsWith("\n");
+                var newLine = needNewline ? "\n" : "";
                 PageContent += newLine + CurrentSearch.FullItemString(itemString);
                 _navigatorService.NavigateToUploadPage();
             }

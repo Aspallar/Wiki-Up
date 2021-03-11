@@ -106,7 +106,7 @@ namespace Tests
             password.AppendChar('a');
             _manager.SavePassword("foo", "bar", password);
 
-            bool result = _manager.HasPassword("foo", "bar");
+            var result = _manager.HasPassword("foo", "bar");
 
             Assert.That(result, Is.True);
         }
@@ -114,7 +114,7 @@ namespace Tests
         [Test]
         public void When_PasswordDoesNotExist_Then_HasPasswordReturnsFalse()
         {
-            bool result = _manager.HasPassword("foo", "ba;");
+            var result = _manager.HasPassword("foo", "ba;");
 
             Assert.That(result, Is.False);
         }

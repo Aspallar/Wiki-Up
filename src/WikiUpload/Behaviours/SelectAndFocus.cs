@@ -1,6 +1,4 @@
-﻿using System;
-using System.Security;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace WikiUpload

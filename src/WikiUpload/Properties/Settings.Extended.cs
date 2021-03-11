@@ -21,7 +21,7 @@ namespace WikiUpload.Properties
                 var sites = new ObservableCollection<string>();
                 if (PreviousSites != null)
                 {
-                    foreach (string site in PreviousSites)
+                    foreach (var site in PreviousSites)
                         sites.Add(site);
                 }
                 return sites;

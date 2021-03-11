@@ -7,7 +7,7 @@ namespace WikiUpload
     /// </summary>
     public partial class MainWindow : Window
     {
-        UpdateCheck _updateCheck;
+        private UpdateCheck _updateCheck;
 
         public MainWindow()
         {

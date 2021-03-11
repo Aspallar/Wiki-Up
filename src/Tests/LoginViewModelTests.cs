@@ -17,7 +17,7 @@ namespace Tests
         private IHavePassword _password;
         private IFileUploader _fileUploader;
         private IHelpers _helpers;
-        LoginViewModel _model;
+        private LoginViewModel _model;
 
         [SetUp]
         public void Setup()
@@ -147,7 +147,7 @@ namespace Tests
         [Test]
         public void When_SavedPasswordHasNoPassword_Then_FormPasswordIsUsedForLogin()
         {
-            SecureString password = new SecureString();
+            var password = new SecureString();
             A.CallTo(() => _password.SecurePassword).Returns(password);
             _model.WikiUrl = "Bar";
             _model.Username = "Foo";

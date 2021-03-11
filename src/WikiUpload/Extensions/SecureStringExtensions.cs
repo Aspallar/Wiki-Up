@@ -18,14 +18,14 @@ namespace WikiUpload
         /// </remarks>
         public static T UseUnsecuredString<T>(this SecureString secureString, Func<string, T> action)
         {
-            int length = secureString.Length;
-            IntPtr sourceStringPointer = IntPtr.Zero;
+            var length = secureString.Length;
+            var sourceStringPointer = IntPtr.Zero;
 
             // Create an empty string of the correct size and pin it so that the GC can't move it around.
-            string insecureString = new string('\0', length);
+            var insecureString = new string('\0', length);
             var insecureStringHandler = GCHandle.Alloc(insecureString, GCHandleType.Pinned);
 
-            IntPtr insecureStringPointer = insecureStringHandler.AddrOfPinnedObject();
+            var insecureStringPointer = insecureStringHandler.AddrOfPinnedObject();
 
             try
             {
@@ -33,9 +33,9 @@ namespace WikiUpload
                 sourceStringPointer = Marshal.SecureStringToBSTR(secureString);
 
                 // Use the pointers to copy from the unmanaged to managed string.
-                for (int i = 0; i < secureString.Length; i++)
+                for (var i = 0; i < secureString.Length; i++)
                 {
-                    short unicodeChar = Marshal.ReadInt16(sourceStringPointer, i * 2);
+                    var unicodeChar = Marshal.ReadInt16(sourceStringPointer, i * 2);
                     Marshal.WriteInt16(insecureStringPointer, i * 2, unicodeChar);
                 }
 

@@ -13,7 +13,7 @@ namespace WikiUpload
 
         public SiteInfo(XmlDocument doc)
         {
-            XmlNode general = doc.SelectSingleNode("/api/query/general");
+            var general = doc.SelectSingleNode("/api/query/general");
 
             if (general != null)
             {
@@ -22,7 +22,7 @@ namespace WikiUpload
             }
 
             Extensions = new List<string>();
-            XmlNodeList fileExtensions = doc.SelectNodes("/api/query/fileextensions/fe");
+            var fileExtensions = doc.SelectNodes("/api/query/fileextensions/fe");
             if (fileExtensions != null)
             {
                 foreach (XmlNode fe in fileExtensions)
