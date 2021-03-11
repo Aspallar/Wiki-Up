@@ -53,6 +53,9 @@ namespace WikiUpload
             Message = UploadMessages.Uploading;
         }
 
+#pragma warning disable CS0067 // The event is never used - Fody will use it
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
     }
 }
