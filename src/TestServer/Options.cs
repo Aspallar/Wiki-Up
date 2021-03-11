@@ -37,5 +37,8 @@ namespace TestServer
 
         [Option("noperm", HelpText = "Don'treturn a permitted file types list")]
         public bool NoPermittedFiles { get; set; }
+
+        [Option]
+        public bool VideoErrors { get; set; }
     }
 }

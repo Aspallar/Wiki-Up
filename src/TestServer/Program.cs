@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -34,7 +35,6 @@ namespace TestServer
             while (true)
             {
                 var context = listener.GetContext();
-                Console.WriteLine(context.Request.RawUrl);
                 ThreadPool.QueueUserWorkItem(x => HandleRequest(context, options));
             }
         }
@@ -51,6 +51,7 @@ namespace TestServer
             var response = context.Response;
             int statusCode = 200;
 
+            Console.WriteLine($"[{Thread.CurrentThread.ManagedThreadId}] {context.Request.RawUrl}");
             if (request.HasEntityBody)
             {
                 if (request.ContentType == "application/x-www-form-urlencoded")
@@ -64,7 +65,7 @@ namespace TestServer
                     else
                     {
                         reply = "";
-                        VideoUploadReply(ref reply, ref statusCode);
+                        VideoUploadReply(ref reply, ref statusCode, options);
                     }
                 }
                 else if (request.ContentType.StartsWith("multipart/form-data"))
@@ -96,9 +97,9 @@ namespace TestServer
                 Console.WriteLine($"\nResponse Sent:\n{reply}\n");
         }
 
-        private static void VideoUploadReply(ref string reply, ref int statusCode)
+        private static void VideoUploadReply(ref string reply, ref int statusCode, Options options)
         {
-            var count = Interlocked.Increment(ref videoUploadCount) % 5;
+            var count = options.VideoErrors ? Interlocked.Increment(ref videoUploadCount) % 5 : 0;
             switch (count)
             {
                 case 0:
