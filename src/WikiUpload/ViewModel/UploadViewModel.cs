@@ -132,16 +132,13 @@ namespace WikiUpload
                         }
                         else
                         {
+                            ViewedFile = file;
                             try
                             {
                                 if (file.IsVideo)
-                                {
                                     await UploadVideo(file, cancelToken);
-                                }
                                 else
-                                {
                                     await UploadFile(file, cancelToken);
-                                }
                             }
                             catch (HttpRequestException ex)
                             {
@@ -202,7 +199,6 @@ namespace WikiUpload
         private async Task UploadVideo(UploadFile file, CancellationToken cancelToken)
         {
             file.SetUploading();
-            ViewedFile = file;
             while (true)
             {
                 IngestionControllerResponse response;
@@ -242,7 +238,6 @@ namespace WikiUpload
                 cancelToken.ThrowIfCancellationRequested();
 
                 file.SetUploading();
-                ViewedFile = file;
 
                 IUploadResponse response;
                 try

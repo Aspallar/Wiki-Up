@@ -198,7 +198,7 @@ namespace WikiUpload
             string fileName = Path.GetFileName(fullPath);
 
             // Open file 1st before we allocate any disposable resources to avoid leaks if
-            // the file has be come inaccesible and an exception is thrown
+            // the file has become inaccesible and an exception is thrown
             FileStream file = File.OpenRead(fullPath);
 
             // we don't need to dispose any of these or close the stream
@@ -234,42 +234,50 @@ namespace WikiUpload
 
         public async Task<IngestionControllerResponse> UpLoadVideoAsync(string fullPath, CancellationToken cancelToken)
         {
-            var queryParams = new RequestParameters
-            {
-                {  "controller", @"Fandom\Video\IngestionController" },
-                {  "method", "uploadVideo" },
-            };
-            var uploadVideoUri = new Uri(Site + "/wikia.php" + queryParams.ToString());
             var formParams = new RequestParameters
             {
                 { "url", fullPath },
                 { "token", _editToken },
             };
 
-            IngestionControllerResponse videoUploadResponse;
-            using (var request = new HttpRequestMessage(HttpMethod.Post, uploadVideoUri))
+            using (var request = new HttpRequestMessage(HttpMethod.Post, UploadVideoUri()))
             {
                 request.Content = new FormUrlEncodedContent(formParams);
-
                 using (HttpResponseMessage response = await _client.SendAsync(request, cancelToken).ConfigureAwait(false))
-                {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        videoUploadResponse = JsonConvert.DeserializeObject<IngestionControllerResponse>(responseContent);
-                    }
-                    else
-                    {
-                        videoUploadResponse = new IngestionControllerResponse
-                        {
-                            Status = VideoUploadResponseMessage(response.StatusCode, response.ReasonPhrase),
-                            Success = false
-                        };
-                    }
-                    videoUploadResponse.HttpStatusCode = response.StatusCode;
-                }
+                    return await ProcessUploadVideoResponse(response);
             }
+        }
+
+        private async Task<IngestionControllerResponse> ProcessUploadVideoResponse(HttpResponseMessage response)
+        {
+            IngestionControllerResponse videoUploadResponse;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                videoUploadResponse = JsonConvert.DeserializeObject<IngestionControllerResponse>(responseContent);
+            }
+            else
+            {
+                videoUploadResponse = new IngestionControllerResponse
+                {
+                    Status = VideoUploadResponseMessage(response.StatusCode, response.ReasonPhrase),
+                    Success = false
+                };
+            }
+            videoUploadResponse.HttpStatusCode = response.StatusCode;
             return videoUploadResponse;
+        }
+
+
+        private Uri UploadVideoUri()
+        {
+            var queryParams = new RequestParameters
+            {
+                {  "controller", @"Fandom\Video\IngestionController" },
+                {  "method", "uploadVideo" },
+            };
+            return new Uri(Site + "/wikia.php" + queryParams.ToString());
         }
 
         private string VideoUploadResponseMessage(HttpStatusCode statusCode, string reason)
