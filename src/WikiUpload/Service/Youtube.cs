@@ -34,8 +34,9 @@ namespace WikiUpload
 
         public async Task<IEnumerable<string>> FetchPlasylistViedeoLinksAsync(string playlistId, int maxPlaylistLength)
         {
-            List<string> videos = new List<string>();
+            List<string> videoLinks = new List<string>();
             PlaylistItemListResponse results;
+
             _playlistItems.PlaylistId = playlistId;
             _playlistItems.PageToken = null;
 
@@ -45,11 +46,11 @@ namespace WikiUpload
                 if (results.PageInfo.TotalResults > maxPlaylistLength)
                     throw new TooManyVideosException();
                 foreach (var item in results.Items)
-                    videos.Add("https://youtube.com/watch?v=" + item.ContentDetails.VideoId);
+                    videoLinks.Add("https://youtube.com/watch?v=" + item.ContentDetails.VideoId);
                 _playlistItems.PageToken = results.NextPageToken;
             } while (results.NextPageToken != null);
 
-            return videos;
+            return videoLinks;
         }
 
         public string ExtractPlaylistId(string url)
