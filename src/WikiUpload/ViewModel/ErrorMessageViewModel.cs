@@ -13,9 +13,5 @@ namespace WikiUpload
         public string ErrorMessage { get; set; }
         
         public string SubMessage { get; set; }
-
-        public Visibility ExceptionVisibility
-            => string.IsNullOrEmpty(SubMessage) ? Visibility.Collapsed : Visibility.Visible;
-
     }
 }
