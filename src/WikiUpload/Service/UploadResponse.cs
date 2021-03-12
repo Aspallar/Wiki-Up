@@ -15,6 +15,7 @@ namespace WikiUpload
 
         public UploadResponse() { }
 
+        private const string duplicateArchiveCode = "duplicate-archive";
         public static void Initialize()
         {
             friendlyWarnings = new Dictionary<string, string>
@@ -24,7 +25,7 @@ namespace WikiUpload
                 { "filetype-unwanted-type", Resources.UploadErrorUnwantedType },
                 { "large-file", Resources.UploadErrorLargeFile },
                 { "emptyfile", Resources.UploadErrorEmptyFile },
-                { "duplicate-archive", Resources.UploadErrorDuplicateArchive },
+                { duplicateArchiveCode, Resources.UploadErrorDuplicateArchive },
                 { "was-deleted", Resources.UploadErrorDeletedFile },
             };
         }
@@ -59,8 +60,8 @@ namespace WikiUpload
                         foreach (XmlNode attribute in warnings.Attributes)
                             _warnings.Add(attribute.Name);
 
-                        if (warnings.Attributes["duplicate-archive"] != null)
-                            ArchiveDuplicate = warnings.Attributes["duplicate-archive"].Value;
+                        if (warnings.Attributes[duplicateArchiveCode] != null)
+                            ArchiveDuplicate = warnings.Attributes[duplicateArchiveCode].Value;
 
                         var duplicates = warnings.SelectNodes("duplicate/duplicate");
                         foreach (XmlNode node in duplicates)
@@ -116,17 +117,31 @@ namespace WikiUpload
         {
             get
             {
+                const string separator = ". ";
                 var text = new StringBuilder();
 
                 foreach (var warning in _warnings)
                 {
                     if (friendlyWarnings.TryGetValue(warning, out var friendlyText))
-                        text.Append(friendlyText);
+                    {
+                        if (warning == duplicateArchiveCode)
+                        {
+                            text.Append(friendlyText);
+                            text.Append($" [{ArchiveDuplicate}]");
+                            text.Append(separator);
+                        }
+                        else
+                        {
+                            if (text.Length != 0)
+                                text.Insert(0, separator);
+                            text.Insert(0, friendlyText);
+                        }
+                    }
                     else
+                    {
                         text.Append(warning);
-                    if (warning == "duplicate-archive")
-                        text.Append($" [{ArchiveDuplicate}]");
-                    text.Append(". ");
+                        text.Append(separator);
+                    }
                 }
 
                 if (IsDuplicate)

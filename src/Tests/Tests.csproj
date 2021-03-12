@@ -67,6 +67,7 @@
     <Compile Include="UploadFileTests.cs" />
     <Compile Include="AboutBoxViewModelTests.cs" />
     <Compile Include="UploadListTests.cs" />
+    <Compile Include="UploadResponseTests.cs" />
     <Compile Include="UploadViewModelTests.cs" />
     <Compile Include="PasswordManagerTests.cs" />
     <Compile Include="LoginViewModelTests.cs" />
