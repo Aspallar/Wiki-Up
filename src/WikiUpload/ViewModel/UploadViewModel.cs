@@ -131,7 +131,7 @@ namespace WikiUpload
                         }
                         else
                         {
-                            ViewedFile = file;
+                            SetViewdFile(file);
                             try
                             {
                                 if (file.IsVideo)
@@ -193,6 +193,12 @@ namespace WikiUpload
                     }
                 }
             });
+        }
+
+        private void SetViewdFile(UploadFile file)
+        {
+            if (_appSettings.FollowUploadFile)
+                ViewedFile = file;
         }
 
         private async Task UploadVideo(UploadFile file, CancellationToken cancelToken)

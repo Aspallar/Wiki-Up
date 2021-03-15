@@ -209,41 +209,67 @@
                             </ItemsControl>
                         </Grid>
 
-                        <!--Updates -->
-                        <TextBlock Text="{x:Static p:Resources.UpdatesText}"
-                            Margin="{StaticResource ItemSeparatorMargin}"
-                            FontSize="{StaticResource FontSizeRegular}"
-                            FontWeight="Bold"
-                            Foreground="{StaticResource PrimaryTextBrush}"/>
-                        <TextBlock Text="{x:Static p:Resources.UpdatesDetailsText}"
-                            TextWrapping="Wrap"
-                            Margin="{StaticResource SeparatorMargin}"
-                            FontSize="{StaticResource FontSizeSmall}"/>
-                        <StackPanel Orientation="Horizontal">
-                            <ToggleSwitch:HorizontalToggleSwitch
-                                Margin="0 0 10 0"
-                                HorizontalAlignment="Left"
-                                IsChecked="{Binding CheckForUpdates, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Button Content="{x:Static p:Resources.CheckNowText}"
-                                Command="{Binding CheckForUpdatesNowCommand}"
-                                Style="{StaticResource BusyButton}"
-                                local:IsBusyProperty.Value="{Binding UpdateCheckIsRunning}"
-                                Height="34"
-                                FontSize="{StaticResource FontSizeSmall}"/>
-                            <StackPanel Orientation="Horizontal">
-                                <iconPacks:PackIconFontAwesome Kind="CheckSolid"
-                                    VerticalAlignment="Center"
-                                    Margin="10 0 0 0"
-                                    FontSize="{StaticResource FontSizeLarge}"
-                                    Style="{StaticResource FontSizeIcon}"
-                                    Visibility="{Binding IsCheckForUpdateMessage, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
-                                    Foreground="Green" />
-                                <TextBlock Text="{Binding CheckUpdateMessage}"
+                        <!--Updates and follow upload file-->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Updates -->
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="{x:Static p:Resources.UpdatesText}"
+                                    Margin="{StaticResource ItemSeparatorMargin}"
                                     FontSize="{StaticResource FontSizeRegular}"
-                                    Margin="10 0 0 0"
-                                    VerticalAlignment="Center" />
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="{x:Static p:Resources.UpdatesDetailsText}"
+                                    TextWrapping="Wrap"
+                                    Margin="{StaticResource SeparatorMargin}"
+                                    FontSize="{StaticResource FontSizeSmall}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <ToggleSwitch:HorizontalToggleSwitch
+                                        Margin="0 0 10 0"
+                                        HorizontalAlignment="Left"
+                                        IsChecked="{Binding CheckForUpdates, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Content="{x:Static p:Resources.CheckNowText}"
+                                        Command="{Binding CheckForUpdatesNowCommand}"
+                                        Style="{StaticResource BusyButton}"
+                                        local:IsBusyProperty.Value="{Binding UpdateCheckIsRunning}"
+                                        Height="34"
+                                        FontSize="{StaticResource FontSizeSmall}"/>
+                                    <iconPacks:PackIconFontAwesome Kind="CheckSolid"
+                                            VerticalAlignment="Center"
+                                            FontSize="{StaticResource FontSizeLarge}"
+                                            Style="{StaticResource FontSizeIcon}"
+                                            Margin="10 0 0 0"
+                                            Visibility="{Binding IsCheckForUpdateMessage, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
+                                            Foreground="Green" />
+                                </StackPanel>
+                                <TextBlock Text="{Binding CheckUpdateMessage}"
+                                        FontSize="{StaticResource FontSizeRegular}"
+                                        VerticalAlignment="Center" />
+                               
                             </StackPanel>
-                        </StackPanel>
+
+                            <!--Follow Upload File-->
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{x:Static p:Resources.FollowUploadFileHeader}"
+                                    Margin="{StaticResource ItemSeparatorMargin}"
+                                    FontSize="{StaticResource FontSizeRegular}"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="{x:Static p:Resources.FollowUploadFileText}"
+                                    TextWrapping="Wrap"
+                                    Margin="{StaticResource SeparatorMargin}"
+                                    FontSize="{StaticResource FontSizeSmall}"/>
+                                <ToggleSwitch:HorizontalToggleSwitch
+                                        Margin="{StaticResource SeparatorMargin}"
+                                        HorizontalAlignment="Left"
+                                        IsChecked="{Binding FollowUploadFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            
+                        </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

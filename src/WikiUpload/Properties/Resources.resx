@@ -613,4 +613,15 @@
     <value>Copy to clipboard</value>
   </data>
 
+  <!-- ***************************************************************** -->
+  <!-- Not yet translated -->
+  <!--TODO: translate these -->
+  <data name="FollowUploadFileHeader" xml:space="preserve">
+    <value>Follow Uploading File</value>
+  </data>
+
+  <data name="FollowUploadFileText" xml:space="preserve">
+    <value>Automatically scroll to the uploading file when it starts uploading.</value>
+  </data>
+
 </root>

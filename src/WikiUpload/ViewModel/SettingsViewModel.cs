@@ -60,6 +60,7 @@ namespace WikiUpload
         {
             Delay = _appSettings.UploadDelay;
             CheckForUpdates = _appSettings.CheckForUpdates;
+            FollowUploadFile = _appSettings.FollowUploadFile;
             ImageFileExtensions = new FileExensionsCollection(_appSettings.ImageExtensions);
         }
 
@@ -74,6 +75,7 @@ namespace WikiUpload
             _appSettings.UploadDelay = Delay;
             _appSettings.CheckForUpdates = CheckForUpdates;
             _appSettings.ImageExtensions = ImageFileExtensions.ToString();
+            _appSettings.FollowUploadFile = FollowUploadFile;
             if (SelectedColorTheme != null)
                 _appSettings.Theme = SelectedColorTheme.Id;
             if (SelectedLanguage != null)
@@ -133,6 +135,8 @@ namespace WikiUpload
         public FileExensionsCollection ImageFileExtensions { get; set; }
 
         public bool IsAddingImageExtension { get; set; }
+
+        public bool FollowUploadFile { get; set; }
 
         public bool IsValidImageFileExtension { get; set; } = true;
 

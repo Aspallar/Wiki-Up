@@ -44,6 +44,8 @@ namespace Tests
                 .MustHaveHappened(1, Times.Exactly);
             A.CallToSet(() => _appSettings.CheckForUpdates).To(() => _model.CheckForUpdates)
                 .MustHaveHappened(1, Times.Exactly);
+            A.CallToSet(()=>_appSettings.FollowUploadFile).To(() => _model.FollowUploadFile)
+                .MustHaveHappened(1, Times.Exactly);
             A.CallTo(()=>_appSettings.Save())
                 .MustHaveHappened(1, Times.Exactly);
         }
@@ -65,6 +67,8 @@ namespace Tests
             A.CallToSet(() => _appSettings.ImageExtensions).To(() => A<string>._)
                 .MustNotHaveHappened();
             A.CallToSet(() => _appSettings.CheckForUpdates).To(() => A<bool>._)
+                .MustNotHaveHappened();
+            A.CallToSet(() => _appSettings.FollowUploadFile).To(() => _model.FollowUploadFile)
                 .MustNotHaveHappened();
             A.CallTo(() => _appSettings.Save())
                 .MustNotHaveHappened();

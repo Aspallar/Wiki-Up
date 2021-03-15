@@ -39,6 +39,7 @@ namespace WikiUpload.Properties
             get => Settings.Default.WikiUrl;
             set => Settings.Default.WikiUrl = value;
         }
+        
         public string Language
         {
             get => Settings.Default.Language;
@@ -55,6 +56,21 @@ namespace WikiUpload.Properties
         {
             get => (Skin)Settings.Default.Theme;
             set => Settings.Default.Theme = (int)value;
+        }
+
+        private readonly object _lock = new object();
+        public bool FollowUploadFile
+        {
+            get
+            {
+                lock (_lock)
+                    return Settings.Default.FollowUploadFile;
+            }
+            set
+            {
+                lock (_lock)
+                    Settings.Default.FollowUploadFile = value;
+            }
         }
 
         public void AddMostRecentlyUsedSite(string site)
@@ -83,6 +99,11 @@ namespace WikiUpload.Properties
                     case nameof(Settings.Default.ImageExtensions):
                         attribute = DefaultValueAttribute(property);
                         Settings.Default.ImageExtensions = attribute.Value;
+                        break;
+
+                    case nameof(Settings.Default.FollowUploadFile):
+                        attribute = DefaultValueAttribute(property);
+                        Settings.Default.FollowUploadFile = bool.Parse(attribute.Value);
                         break;
                 }
             }

@@ -758,7 +758,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_Uploading_Then_UploadingFileIsBroughtIntoView()
+        public void When_UploadingAndFollowEnabled_Then_UploadingFileIsBroughtIntoView()
         {
             AlllFilesPermitted();
             var files = new List<UploadFile>
@@ -766,8 +766,10 @@ namespace Tests
                 new UploadFile { FullPath = "foo.jpg" },
                 new UploadFile { FullPath = "bar.jpg" },
                 new UploadFile { FullPath = "baz.jpg" },
+                new UploadFile { FullPath = "https://foobar/fklfk" },
             };
             _model.UploadFiles.AddRange(files);
+            A.CallTo(() => _appSetttings.FollowUploadFile).Returns(true);
             var viewdFiles = new List<UploadFile>();
             _model.PropertyChanged += (s, e) =>
             {
@@ -779,6 +781,32 @@ namespace Tests
 
             Assert.That(viewdFiles, Is.EqualTo(files));
         }
+
+        [Test]
+        public void When_UploadingAndFollowDisabled_Then_UploadingFileIsNotBroughtIntoView()
+        {
+            AlllFilesPermitted();
+            var files = new List<UploadFile>
+            {
+                new UploadFile { FullPath = "foo.jpg" },
+                new UploadFile { FullPath = "bar.jpg" },
+                new UploadFile { FullPath = "baz.jpg" },
+                new UploadFile { FullPath = "https://foobar/fklfk" },
+            };
+            _model.UploadFiles.AddRange(files);
+            A.CallTo(() => _appSetttings.FollowUploadFile).Returns(false);
+            var viewdFiles = new List<UploadFile>();
+            _model.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_model.ViewedFile) && _model.ViewedFile != null)
+                    viewdFiles.Add(_model.ViewedFile);
+            };
+
+            _model.UploadCommand.Execute(null);
+
+            Assert.That(viewdFiles, Is.Empty);
+        }
+
 
         [Test]
         public void When_InvalidTokenResponse_Then_OneAttemptIsMadeToRefreshToken()

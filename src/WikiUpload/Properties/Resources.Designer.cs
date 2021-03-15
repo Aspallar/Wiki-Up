@@ -529,6 +529,24 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Follow Uploading File.
+        /// </summary>
+        public static string FollowUploadFileHeader {
+            get {
+                return ResourceManager.GetString("FollowUploadFileHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically scroll to the uploading file when it starts uploading..
+        /// </summary>
+        public static string FollowUploadFileText {
+            get {
+                return ResourceManager.GetString("FollowUploadFileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to German translation by.
         /// </summary>
         public static string GermanTrsnslationText {
