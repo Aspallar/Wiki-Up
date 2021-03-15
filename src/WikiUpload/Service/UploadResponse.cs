@@ -132,8 +132,7 @@ namespace WikiUpload
                         }
                         else
                         {
-                            if (text.Length != 0)
-                                text.Insert(0, separator);
+                            text.Insert(0, separator);
                             text.Insert(0, friendlyText);
                         }
                     }
