@@ -217,7 +217,7 @@ namespace WikiUpload
                     break;
             }
 
-            return (IntPtr)0;
+            return IntPtr.Zero;
         }
 
         #endregion
