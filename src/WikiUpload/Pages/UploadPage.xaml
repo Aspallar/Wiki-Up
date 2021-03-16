@@ -77,7 +77,7 @@
                                                    HorizontalAlignment="Center"
                                                    FontSize="{StaticResource FontSizeLarge}"
                                                    Foreground="{Binding Status, Converter={local:UploadFileStatusToColorConverter}}"/>
-                                            <iconPacks:PackIconFontAwesome Kind="{Binding Status, Converter={local:UploadFileStatusToKindConverter}}"
+                                            <iconPacks:PackIconFontAwesome Kind="{Binding Converter={local:UploadFileStatusToKindConverter}}"
                                                    Style="{Binding Status, Converter={local:UploadStatusToStyleConverter}}"
                                                    FontSize="{StaticResource FontSizeRegular}"
                                                    Foreground="{StaticResource SecondaryTextBrush}"
