@@ -610,5 +610,13 @@
   <data name="CopyToClipboard" xml:space="preserve">
     <value>In die Zwischenablage kopieren</value>
   </data>  
-  
+
+  <data name="FollowUploadFileHeader" xml:space="preserve">
+    <value>`Der hochgeladenen Datei folgen</value>
+  </data>
+
+  <data name="FollowUploadFileText" xml:space="preserve">
+    <value>Automatisch zur hochgeladenen Datei scrollen, wenn sie anfängt hochzuladen.</value>
+  </data>
+
 </root>
