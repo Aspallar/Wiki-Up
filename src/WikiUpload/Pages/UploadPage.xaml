@@ -77,12 +77,19 @@
                                                    HorizontalAlignment="Center"
                                                    FontSize="{StaticResource FontSizeLarge}"
                                                    Foreground="{Binding Status, Converter={local:UploadFileStatusToColorConverter}}"/>
-                                            <iconPacks:PackIconFontAwesome Kind="{Binding Converter={local:UploadFileStatusToKindConverter}}"
+                                            <iconPacks:PackIconFontAwesome 
                                                    Style="{Binding Status, Converter={local:UploadStatusToStyleConverter}}"
                                                    FontSize="{StaticResource FontSizeRegular}"
                                                    Foreground="{StaticResource SecondaryTextBrush}"
                                                    VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"/>
+                                                   HorizontalAlignment="Center">
+                                                <iconPacks:PackIconFontAwesome.Kind>
+                                                    <MultiBinding Converter="{local:UploadFileStatusToKindConverter}">
+                                                        <Binding Path="Status"/>
+                                                        <Binding Path="IsVideo"/>
+                                                    </MultiBinding>
+                                                </iconPacks:PackIconFontAwesome.Kind>
+                                            </iconPacks:PackIconFontAwesome>
                                         </Grid>
                                         <StackPanel Margin="5 0 0 0">
                                             <Button Style="{StaticResource FilenamePlainButton}"
