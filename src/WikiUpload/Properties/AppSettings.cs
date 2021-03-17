@@ -6,6 +6,8 @@ namespace WikiUpload.Properties
 {
     public class AppSettings : IAppSettings
     {
+        private readonly object _lock = new object();
+
         public string ImageExtensions
         {
             get => Settings.Default.ImageExtensions;
@@ -24,8 +26,16 @@ namespace WikiUpload.Properties
 
         public int UploadDelay
         {
-            get => Settings.Default.UploadDelay;
-            set => Settings.Default.UploadDelay = value;
+            get
+            {
+                lock (_lock)
+                    return Settings.Default.UploadDelay;
+            }
+            set
+            {
+                lock (_lock)
+                    Settings.Default.UploadDelay = value;
+            }
         }
 
         public string Username
@@ -58,7 +68,6 @@ namespace WikiUpload.Properties
             set => Settings.Default.Theme = (int)value;
         }
 
-        private readonly object _lock = new object();
         public bool FollowUploadFile
         {
             get
@@ -88,22 +97,22 @@ namespace WikiUpload.Properties
                 {
                     case nameof(Settings.Default.UploadDelay):
                         attribute = DefaultValueAttribute(property);
-                        Settings.Default.UploadDelay = int.Parse(attribute.Value);
+                        UploadDelay = int.Parse(attribute.Value);
                         break;
 
                     case nameof(Settings.Default.CheckForUpdates):
                         attribute = DefaultValueAttribute(property);
-                        Settings.Default.CheckForUpdates = bool.Parse(attribute.Value);
+                        CheckForUpdates = bool.Parse(attribute.Value);
                         break;
 
                     case nameof(Settings.Default.ImageExtensions):
                         attribute = DefaultValueAttribute(property);
-                        Settings.Default.ImageExtensions = attribute.Value;
+                        ImageExtensions = attribute.Value;
                         break;
 
                     case nameof(Settings.Default.FollowUploadFile):
                         attribute = DefaultValueAttribute(property);
-                        Settings.Default.FollowUploadFile = bool.Parse(attribute.Value);
+                        FollowUploadFile = bool.Parse(attribute.Value);
                         break;
                 }
             }
