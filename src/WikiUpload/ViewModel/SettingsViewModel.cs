@@ -28,7 +28,6 @@ namespace WikiUpload
             _appSettings = appSettings;
             _windowManager = windowManager;
             _updateCheck = updateCheck;
-            _updateCheck.CheckForUpdateCompleted += UpdateCheck_CheckForUpdateCompleted;
 
             SetPropeertiesFromAppSettings();
 
@@ -89,18 +88,14 @@ namespace WikiUpload
             _navigatorService.LeaveSettingsPage();
         }
 
-        private void CheckForUpdatesNow()
+        private async void CheckForUpdatesNow()
         {
             UpdateCheckIsRunning = true;
             CheckUpdateMessage = "";
-            _updateCheck.CheckForUpdates(_helpers.UserAgent, 200);
-        }
-
-        private void UpdateCheck_CheckForUpdateCompleted(object sender, CheckForUpdatesEventArgs e)
-        {
+            var response = await _updateCheck.CheckForUpdates(_helpers.UserAgent, 200);
             UpdateCheckIsRunning = false;
-            if (e.IsNewerVersion)
-                _windowManager.ShowNewVersionWindow(e);
+            if (response.IsNewerVersion)
+                _windowManager.ShowNewVersionWindow(response);
             else
                 CheckUpdateMessage = Resources.UpToDateText;
         }

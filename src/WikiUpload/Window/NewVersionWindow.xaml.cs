@@ -4,7 +4,7 @@ namespace WikiUpload
 {
     public partial class NewVersionWindow : Window
     {
-        public NewVersionWindow(CheckForUpdatesEventArgs e)
+        public NewVersionWindow(UpdateCheckResponse e)
         {
             InitializeComponent();
             var newVersionViewModel = App.ServiceLocator.NewVersionViewModel(this);

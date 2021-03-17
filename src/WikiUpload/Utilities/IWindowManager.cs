@@ -2,6 +2,6 @@
 {
     public interface IWindowManager
     {
-        void ShowNewVersionWindow(CheckForUpdatesEventArgs checkUpdateEventArrgs);
+        void ShowNewVersionWindow(UpdateCheckResponse checkUpdateEventArrgs);
     }
 }

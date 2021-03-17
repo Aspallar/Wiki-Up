@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
+using System.Threading.Tasks;
 using WikiUpload;
 using WikiUpload.Properties;
 
@@ -138,12 +139,15 @@ namespace Tests
         [Test]
         public void When_UpdateCheckAndUpToDate_Then_UpToDateMessageIsShown()
         {
-            var checkForUpdatesEventArgs = new CheckForUpdatesEventArgs
+            var checkForUpdatesResponse = new UpdateCheckResponse
             {
                 IsNewerVersion = false,
             };
+            A.CallTo(() => _updateCheck.CheckForUpdates(A<string>._, A<int>._))
+                .Returns(Task.FromResult(checkForUpdatesResponse));
             _model.CheckUpdateMessage = "";
-            _updateCheck.CheckForUpdateCompleted += Raise.With(checkForUpdatesEventArgs);
+
+            _model.CheckForUpdatesNowCommand.Execute(null);
 
             Assert.That(_model.CheckUpdateMessage, Is.EqualTo(WikiUpload.Properties.Resources.UpToDateText));
             Assert.That(_model.IsCheckForUpdateMessage, Is.True);
@@ -152,12 +156,15 @@ namespace Tests
         [Test]
         public void When_UpdateCheckAndBewerVersion_Then_NoMessageIsShown()
         {
-            var checkForUpdatesEventArgs = new CheckForUpdatesEventArgs
+            var checkForUpdatesResponse = new UpdateCheckResponse
             {
                 IsNewerVersion = true,
             };
+            A.CallTo(() => _updateCheck.CheckForUpdates(A<string>._, A<int>._))
+                .Returns(Task.FromResult(checkForUpdatesResponse));
             _model.CheckUpdateMessage = "";
-            _updateCheck.CheckForUpdateCompleted += Raise.With(checkForUpdatesEventArgs);
+
+            _model.CheckForUpdatesNowCommand.Execute(null);
 
             Assert.That(_model.CheckUpdateMessage, Is.Empty);
             Assert.That(_model.IsCheckForUpdateMessage, Is.False);
@@ -166,14 +173,17 @@ namespace Tests
         [Test]
         public void When_UpdateCheckAndBewerVersion_Then_NewVersionWindowIsShown()
         {
-            var checkForUpdatesEventArgs = new CheckForUpdatesEventArgs
+            var checkForUpdatesResponse = new UpdateCheckResponse
             {
                 IsNewerVersion = true,
             };
+            A.CallTo(() => _updateCheck.CheckForUpdates(A<string>._, A<int>._))
+                .Returns(Task.FromResult(checkForUpdatesResponse));
             _model.CheckUpdateMessage = "";
-            _updateCheck.CheckForUpdateCompleted += Raise.With(checkForUpdatesEventArgs);
 
-            A.CallTo(() => _windowManager.ShowNewVersionWindow(checkForUpdatesEventArgs))
+            _model.CheckForUpdatesNowCommand.Execute(null);
+
+            A.CallTo(() => _windowManager.ShowNewVersionWindow(checkForUpdatesResponse))
                 .MustHaveHappened(1, Times.Exactly);
         }
 

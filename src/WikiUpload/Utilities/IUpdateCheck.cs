@@ -5,8 +5,6 @@ namespace WikiUpload
 {
     public interface IUpdateCheck
     {
-        event EventHandler<CheckForUpdatesEventArgs> CheckForUpdateCompleted;
-
-        Task CheckForUpdates(string userAgent, int delay);
+        Task<UpdateCheckResponse> CheckForUpdates(string userAgent, int delay);
     }
 }

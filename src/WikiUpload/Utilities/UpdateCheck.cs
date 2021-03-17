@@ -8,11 +8,9 @@ namespace WikiUpload
 {
     public sealed class UpdateCheck : IUpdateCheck
     {
-        public event EventHandler<CheckForUpdatesEventArgs> CheckForUpdateCompleted;
-
-        public async Task CheckForUpdates(string userAgent, int delay)
+        public async Task<UpdateCheckResponse> CheckForUpdates(string userAgent, int delay)
         {
-            var eventArgs = new CheckForUpdatesEventArgs { IsNewerVersion = false };
+            var response = new UpdateCheckResponse { IsNewerVersion = false };
             try
             {
                 await Task.Delay(delay);
@@ -21,29 +19,25 @@ namespace WikiUpload
                 {
                     client.DefaultRequestHeaders.Add("User-Agent", userAgent);
                     client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
-                    result = await client.GetStringAsync("https://api.github.com/repos/Aspallar/Wiki-Up/releases?per_page=1");
+                    result = await client.GetStringAsync("https://api.github.com/repos/Aspallar/Wiki-Up/releases?per_page=1")
+                        .ConfigureAwait(false);
                 }
                 var match = Regex.Match(result, @"""tag_name""\:\s*""v(\d+\.\d+\.\d+)""");
                 if (match.Success)
                 {
                     var latestVersion = new Version(match.Groups[1].Value + ".0");
                     var thisVersion = Assembly.GetExecutingAssembly().GetName().Version;
-                    eventArgs.IsNewerVersion = latestVersion > thisVersion;
-                    eventArgs.LatestVersion = match.Groups[1].Value;
+                    response.IsNewerVersion = latestVersion > thisVersion;
+                    response.LatestVersion = match.Groups[1].Value;
                     var htmlUrlMatch = Regex.Match(result, @"""html_url""\:\s*""([^""]+)");
                     if (htmlUrlMatch.Success)
-                        eventArgs.Url = htmlUrlMatch.Groups[1].Value;
+                        response.Url = htmlUrlMatch.Groups[1].Value;
                     else
-                        eventArgs.Url = "https://github.com/Aspallar/Wiki-Up/releases";
+                        response.Url = "https://github.com/Aspallar/Wiki-Up/releases";
                 }
             }
             catch (Exception) { }
-            OnCheckForUpdatesCompleted(eventArgs);
-        }
-
-        private void OnCheckForUpdatesCompleted(CheckForUpdatesEventArgs e)
-        {
-            CheckForUpdateCompleted?.Invoke(this, e);
+            return response;
         }
     }
 }
