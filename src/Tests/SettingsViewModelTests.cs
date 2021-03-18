@@ -154,7 +154,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_UpdateCheckAndBewerVersion_Then_NoMessageIsShown()
+        public void When_UpdateCheckAndNewerVersion_Then_NoMessageIsShown()
         {
             var checkForUpdatesResponse = new UpdateCheckResponse
             {
