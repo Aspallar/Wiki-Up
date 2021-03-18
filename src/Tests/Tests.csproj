@@ -64,6 +64,7 @@
     <Compile Include="IngestionControllerResponseTests.cs" />
     <Compile Include="SynchonousSynchronizationContext.cs" />
     <Compile Include="SettingsViewModelTests.cs" />
+    <Compile Include="UpdateCheckTests.cs" />
     <Compile Include="UploadFileTests.cs" />
     <Compile Include="AboutBoxViewModelTests.cs" />
     <Compile Include="UploadListTests.cs" />

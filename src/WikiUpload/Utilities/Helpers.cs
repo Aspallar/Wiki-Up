@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -23,7 +24,10 @@ namespace WikiUpload
 
         public void SignalCancel(CancellationTokenSource tokenSource) => tokenSource.Cancel();
 
-        public string ApplicationVersion => Utils.ApplicationVersion;
+        public string ApplicationVersionString => Utils.ApplicationVersion;
+
+        public Version ApplicationVersion
+            => Assembly.GetExecutingAssembly().GetName().Version;
 
         public string UserAgent => App.UserAgent;
 

@@ -312,8 +312,8 @@ namespace WikiUpload
                 ? "[[w:c:dev:Wiki-Up|Wiki-Up]]" : "Wiki-Up";
 
             return uploadSummary == ""
-                ? $"{Resources.UploadViaText} {appName} {_helpers.ApplicationVersion}"
-                : $"{uploadSummary} ({Resources.ViaText} {appName} {_helpers.ApplicationVersion})";
+                ? $"{Resources.UploadViaText} {appName} {_helpers.ApplicationVersionString}"
+                : $"{uploadSummary} ({Resources.ViaText} {appName} {_helpers.ApplicationVersionString})";
         }
 
         public ICommand CancelCommand { get; }

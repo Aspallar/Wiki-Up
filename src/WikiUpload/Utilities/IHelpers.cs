@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,7 +7,8 @@ namespace WikiUpload
 {
     public interface IHelpers
     {
-        string ApplicationVersion { get; }
+        string ApplicationVersionString { get; }
+        Version ApplicationVersion { get; }
         string UserAgent { get; }
         Process LaunchProcess(string path);
         string ReadAllText(string path);

@@ -21,7 +21,7 @@ namespace WikiUpload
         {
             if (Properties.Settings.Default.CheckForUpdates)
             {
-                _updateCheck = new UpdateCheck();
+                _updateCheck = new UpdateCheck(new Helpers(), new GithubProvider());
                 var response = await _updateCheck.CheckForUpdates(App.UserAgent, 3000);
                 if (response.IsNewerVersion)
                     new WindowManager().ShowNewVersionWindow(response);

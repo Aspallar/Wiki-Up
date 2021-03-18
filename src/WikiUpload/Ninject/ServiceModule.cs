@@ -49,6 +49,10 @@ namespace WikiUpload
 
             Bind<IYoutube>()
                 .To<Youtube>();
+
+            Bind<IGithubProvider>()
+                .To<GithubProvider>()
+                .InTransientScope();
         }
     }
 }
