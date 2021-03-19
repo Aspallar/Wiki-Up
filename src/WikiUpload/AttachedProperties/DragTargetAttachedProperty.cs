@@ -9,14 +9,30 @@ namespace WikiUpload
         void OnFileDrop(string[] filepaths, bool controlKeyPressed );
     }
 
-    public class DropFileTargetProperty : BaseAttachedProperty<DropFileTargetProperty, object>  { }
-
-    public class IsDropFileEnabledProperty : BaseAttachedProperty<IsDropFileEnabledProperty, bool>
+    public class DropFileTargetProperty : BaseAttachedProperty<DropFileTargetProperty, object>
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue != e.OldValue && sender is DependencyObject d && d is Control control)
-                control.Drop += OnDrop;
+            if (!(sender is Control control))
+                throw new NotSupportedException($"{nameof(DropFileTargetProperty)} may only be attached to controls");
+
+            if (e.NewValue != null)
+            {
+                if (e.NewValue is IFileDropTarget)
+                {
+                    if (e.OldValue == null)
+                        control.Drop += OnDrop;
+                }
+                else
+                {
+                    throw new NotSupportedException($"{nameof(DropFileTargetProperty)} value must implement {nameof(IFileDropTarget)}");
+                }
+            }
+            else
+            {
+                control.Drop -= OnDrop;
+            }
+
         }
 
         private static void OnDrop(object sender, DragEventArgs dragEventArgs)
@@ -24,7 +40,8 @@ namespace WikiUpload
             if (!(sender is DependencyObject d))
                 return;
 
-            if (d.GetValue(DropFileTargetProperty.ValueProperty) is IFileDropTarget target)
+            var target = (IFileDropTarget)d.GetValue(DropFileTargetProperty.ValueProperty);
+            if (target != null)
             {
                 var paths = GetDragData(dragEventArgs.Data);
                 if (paths != null)
@@ -32,10 +49,6 @@ namespace WikiUpload
                     var controlKeyPressed = (dragEventArgs.KeyStates & DragDropKeyStates.ControlKey) == DragDropKeyStates.ControlKey;
                     target.OnFileDrop(paths, controlKeyPressed);
                 }
-            } 
-            else
-            {
-                throw new NotSupportedException($"{nameof(DropFileTargetProperty)} value must implement {nameof(IFileDropTarget)}");
             }
         }
 

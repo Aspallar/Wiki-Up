@@ -63,7 +63,6 @@
                                  SelectionMode="Extended"
                                  BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
                                  ItemsSource="{Binding UploadFiles}"
-                                 local:IsDropFileEnabledProperty.Value="True"
                                  local:DropFileTargetProperty.Value="{Binding}"
                                  local:ViewedItemProperty.Value="{Binding ViewedFile}"
                                  Style="{StaticResource UploadFilesListBox}">

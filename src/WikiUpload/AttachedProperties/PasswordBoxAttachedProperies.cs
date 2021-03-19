@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace WikiUpload
@@ -10,12 +11,8 @@ namespace WikiUpload
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            // Get the caller
-            var passwordBox = sender as PasswordBox;
-
-            // Make sure it is a password box
-            if (passwordBox == null)
-                return;
+            if (!(sender is PasswordBox passwordBox))
+                throw new NotSupportedException($"{nameof(MonitorPasswordProperty)} may only be attached to a PasswordBox");
 
             // Remove any previous events
             passwordBox.PasswordChanged -= PasswordBox_PasswordChanged;

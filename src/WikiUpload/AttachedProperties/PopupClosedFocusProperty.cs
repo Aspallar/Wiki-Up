@@ -9,8 +9,25 @@ namespace WikiUpload
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue != e.OldValue && sender is Popup popup)
-                popup.Closed += Popup_Closed;
+            if (!(sender is Popup popup))
+                throw new NotSupportedException($"{nameof(PopupClosedFocusProperty)} may only be attached to a Popup ccontroll");
+
+            if (e.NewValue != null)
+            {
+                if (e.NewValue is Control)
+                {
+                    if (e.OldValue == null)
+                        popup.Closed += Popup_Closed;
+                }
+                else
+                {
+                    throw new NotSupportedException($"{nameof(PopupClosedFocusProperty)} value must be a control");
+                }
+            }
+            else
+            {
+                popup.Closed -= Popup_Closed;
+            }
         }
 
         private void Popup_Closed(object sender, EventArgs e)
