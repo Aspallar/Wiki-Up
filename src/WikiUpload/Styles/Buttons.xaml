@@ -217,6 +217,7 @@
     <Style TargetType="ToolTip" BasedOn="{StaticResource {x:Type ToolTip}}">
         <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
         <Setter Property="Foreground" Value="{StaticResource HighlightTextCBrush}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
     </Style>
 
 </ResourceDictionary>
