@@ -94,6 +94,20 @@ namespace Tests
             Assert.That(result.IsNewerVersion, Is.False);
         }
 
+        [Test]
+        public async Task When_DelayIsSupplied_Then_CheckIsDelayed()
+        {
+            A.CallTo(() => _gitbubPrevider.FetchLatestRelease(A<string>._))
+                .Returns(@"{
+                    ""tag_name"": ""v1.1.0"",
+                 }");
+            int delay = 666;
+
+            _ = await _updateCheck.CheckForUpdates("", delay);
+
+            A.CallTo(() => _helpers.Wait(delay))
+                .MustHaveHappened(1, Times.Exactly);
+        }
 
     }
 }
