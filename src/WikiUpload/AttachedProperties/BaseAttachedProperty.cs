@@ -15,7 +15,6 @@ namespace WikiUpload
         /// <summary>
         /// Fired when the value changes
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event Action<DependencyObject, DependencyPropertyChangedEventArgs> ValueChanged = (sender, e) => { };
 
         /// <summary>
