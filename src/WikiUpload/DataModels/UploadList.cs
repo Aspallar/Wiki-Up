@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WikiUpload
 {
@@ -22,6 +23,20 @@ namespace WikiUpload
         {
             foreach (var item in items)
                 AddIfNotDuplicate(new UploadFile { FullPath = item });
+        }
+
+        public async Task AddNewRangeAsync(IList<string> items)
+        {
+            var k = 0;
+            foreach (var item in items)
+            {
+                AddIfNotDuplicate(new UploadFile { FullPath = item });
+                if (++k == 50)
+                {
+                    k = 0;
+                    await Task.Delay(10);
+                }
+            }
         }
 
         public void AddRange(IList<UploadFile> items)

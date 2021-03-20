@@ -327,13 +327,13 @@ namespace WikiUpload
         #region Mamage upload file list
 
         public ICommand AddFilesCommand { get; }
-        private void AddFiles()
+        private async void AddFiles()
         {
             if (_dialogs.AddFilesDialog(_fileUploader.PermittedFiles.GetExtensions(),
                 _appSettings.ImageExtensions,
                 out var fileNames))
             {
-                UploadFiles.AddNewRange(fileNames);
+                await UploadFiles.AddNewRangeAsync(fileNames);
             }
         }
 
@@ -382,7 +382,7 @@ namespace WikiUpload
 
         #region File drag drop
 
-        public void OnFileDrop(string[] filepaths, bool controlKeyPressed)
+        public async void OnFileDrop(string[] filepaths, bool controlKeyPressed)
         {
             if (!UploadIsRunning)
             {
@@ -390,39 +390,34 @@ namespace WikiUpload
                 {
                     var youtubePlaylistId = _youtube.ExtractPlaylistId(filepaths[0]);
                     if (youtubePlaylistId != null)
-                        AddYoutubePlaylistVideos(youtubePlaylistId);
+                        await AddYoutubePlaylistVideos(youtubePlaylistId);
                     else
                         UploadFiles.AddNewRange(filepaths);
                 }
                 else
                 {
-                    UploadFiles.AddNewRange(filepaths);
+                    await UploadFiles.AddNewRangeAsync(filepaths);
                 }
             }
         }
 
-        private void AddYoutubePlaylistVideos(string youtubePlaylistId)
+        private async Task AddYoutubePlaylistVideos(string youtubePlaylistId)
         {
             const int maxPlayllistLength = 200;
-            _youtube.FetchPlasylistViedeoLinksAsync(youtubePlaylistId, maxPlayllistLength)
-                .ContinueWith(t =>
-                {
-                    if (t.Exception == null)
-                    {
-                        UploadFiles.AddNewRange(t.Result.ToArray());
-                    }
-                    else if (t.Exception.InnerException is TooManyVideosException)
-                    {
-                        _dialogs.ErrorMessage(Resources.PlalistTooBig,
-                            string.Format(Resources.PlalistMaximumLength, maxPlayllistLength));
-                    }
-                    else
-                    {
-                        _dialogs.ErrorMessage(Resources.YoutubeError);
-                    }
-                },
-                TaskScheduler.FromCurrentSynchronizationContext()
-            );
+            try
+            {
+                var videoLinks = await _youtube.FetchPlasylistViedeoLinksAsync(youtubePlaylistId, maxPlayllistLength);
+                UploadFiles.AddNewRange(videoLinks.ToList());
+            }
+            catch (TooManyVideosException)
+            {
+                _dialogs.ErrorMessage(Resources.PlalistTooBig,
+                    string.Format(Resources.PlalistMaximumLength, maxPlayllistLength));
+            }
+            catch (Exception)
+            {
+                _dialogs.ErrorMessage(Resources.YoutubeError);
+            }
         }
 
         #endregion
