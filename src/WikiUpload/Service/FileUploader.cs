@@ -377,7 +377,7 @@ namespace WikiUpload
             return revision == null ||
                 revision.InnerText.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => x.Trim().ToUpperInvariant())
-                .Where(x => x[0] != comment && !tagRegex.IsMatch(x))
+                .Where(x => x.Length > 0 && x[0] != comment && !tagRegex.IsMatch(x))
                 .Contains(username.ToUpperInvariant());
         }
 
