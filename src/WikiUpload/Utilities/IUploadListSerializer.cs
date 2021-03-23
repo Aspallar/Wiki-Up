@@ -1,12 +1,15 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace WikiUpload
 {
     public interface IUploadListSerializer
     {
-        void Add(string fileName, UploadList uploadList);
-        void Add(TextReader textReader, UploadList uploadList);
-        void Save(string fileName, UploadList uploadList);
-        void Save(TextWriter textWriter, UploadList uploadList);
+        List<UploadFile> Deserialize(TextReader textReader);
+        List<UploadFile> Deserialize(string fileName);
+
+        void Serialize(string fileName, UploadList uploadList);
+
+        void Serialize(TextWriter textWriter, UploadList uploadList);
     }
 }

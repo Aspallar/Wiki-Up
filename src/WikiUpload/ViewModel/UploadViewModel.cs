@@ -50,6 +50,7 @@ namespace WikiUpload
             _youtube = youtube;
             _wikiSearchFactory = wikiSearchFactory;
 
+            UploadFiles = new UploadList(_helpers);
             ResetViewModel();
 
             LaunchSiteCommand = new RelayCommand(() => _helpers.LaunchProcess(_fileUploader.HomePage));
@@ -91,9 +92,10 @@ namespace WikiUpload
         public bool UploadIsRunning { get; set; }
         public bool SearchFetchInProgress { get; set; }
         public IWikiSearch CurrentSearch { get; set; }
-        public UploadList UploadFiles { get; } = new UploadList();
+        public UploadList UploadFiles { get; }
         public UploadFile ViewedFile { get; set; }
         public bool IncludeInWatchlist { get; set; }
+        public bool AddingFiles { get; set; } = false;
 
         public string Site
         {
@@ -114,6 +116,9 @@ namespace WikiUpload
         public ICommand UploadCommand { get; }
         private async Task Upload()
         {
+            if (AddingFiles)
+                return;
+
             await RunCommand(() => UploadIsRunning, async () =>
             {
                 using (_cancelSource = new CancellationTokenSource())
@@ -329,11 +334,16 @@ namespace WikiUpload
         public ICommand AddFilesCommand { get; }
         private async void AddFiles()
         {
+            if (AddingFiles)
+                return;
+
             if (_dialogs.AddFilesDialog(_fileUploader.PermittedFiles.GetExtensions(),
                 _appSettings.ImageExtensions,
                 out var fileNames))
             {
+                AddingFiles = true;
                 await UploadFiles.AddNewRangeAsync(fileNames);
+                AddingFiles = false;
             }
         }
 
@@ -347,17 +357,26 @@ namespace WikiUpload
         }
 
         public ICommand LoadListCommand { get; }
-        private void LoadList()
+        private async void LoadList()
         {
+            if (AddingFiles)
+                return;
+
             if (_dialogs.LoadUploadListDialog(out var fileName))
             {
+                AddingFiles = true;
                 try
                 {
-                    _uploadFileSerializer.Add(fileName, UploadFiles);
+                    var newFiles = _uploadFileSerializer.Deserialize(fileName);
+                    await UploadFiles.AddRangeAsync(newFiles);
                 }
                 catch (Exception ex)
                 {
                     _dialogs.ErrorMessage(Resources.CantReadUploadListMessage, ex);
+                }
+                finally
+                {
+                    AddingFiles = false;
                 }
             }
         }
@@ -369,7 +388,7 @@ namespace WikiUpload
             {
                 try
                 {
-                    _uploadFileSerializer.Save(fileName, UploadFiles);
+                    _uploadFileSerializer.Serialize(fileName, UploadFiles);
                 }
                 catch (Exception ex)
                 {
@@ -384,8 +403,9 @@ namespace WikiUpload
 
         public async void OnFileDrop(string[] filepaths, bool controlKeyPressed)
         {
-            if (!UploadIsRunning)
+            if (!UploadIsRunning && !AddingFiles)
             {
+                AddingFiles = true;
                 if (filepaths.Length == 1 && !controlKeyPressed)
                 {
                     var youtubePlaylistId = _youtube.ExtractPlaylistId(filepaths[0]);
@@ -398,6 +418,7 @@ namespace WikiUpload
                 {
                     await UploadFiles.AddNewRangeAsync(filepaths);
                 }
+                AddingFiles = false;
             }
         }
 

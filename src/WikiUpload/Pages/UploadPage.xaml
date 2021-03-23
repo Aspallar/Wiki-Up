@@ -152,6 +152,10 @@
                                 <TextBlock Text="{Binding UploadFiles.Count}" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}"/>
                                 <TextBlock Text="{x:Static p:Resources.FilesText}" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}"/>
                             </StackPanel>
+                            <ProgressBar Style="{StaticResource ThinProgressBar}"
+                                         Width="200"
+                                         Height="5"
+                                         Visibility="{Binding AddingFiles, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"/>                            
                         </StackPanel>
                         <StackPanel Margin="10" Grid.Column="2" VerticalAlignment="Bottom">
                             <Grid>
@@ -184,6 +188,7 @@
                                      ToolTip="{x:Static p:Resources.ButtonStopUploadTooltipText}"/>
                             <Button Content="{x:Static p:Resources.ButtonUploadText}"
                                     Margin="0"
+                                    IsEnabled="{Binding AddingFiles, Converter={local:NotConverter}}"
                                     Style="{StaticResource BusyButton}"
                                     Command="{Binding UploadCommand}"
                                     local:IsBusyProperty.Value="{Binding UploadIsRunning}"

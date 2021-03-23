@@ -7,6 +7,16 @@ namespace WikiUpload
 {
     public class UploadList : ObservableCollection<UploadFile>
     {
+        private const int chunkSize = 30;
+        private const int chunkDelay = 1;
+        
+        private readonly IHelpers _helpers;
+
+        public UploadList(IHelpers helpers) : base()
+        {
+            _helpers = helpers;
+        }
+
         public void RemoveRange(IList<UploadFile> itemsToRemove)
         {
             foreach (var item in itemsToRemove)
@@ -19,30 +29,46 @@ namespace WikiUpload
                 base.Add(file);
         }
 
-        public void AddNewRange(IList<string> items)
+        public void AddNewRange(IEnumerable<string> items)
         {
             foreach (var item in items)
-                AddIfNotDuplicate(new UploadFile { FullPath = item });
+                AddIfNotDuplicate(new UploadFile(item));
         }
 
-        public async Task AddNewRangeAsync(IList<string> items)
+        public async Task AddNewRangeAsync(IEnumerable<string> items)
         {
             var k = 0;
             foreach (var item in items)
             {
-                AddIfNotDuplicate(new UploadFile { FullPath = item });
-                if (++k == 50)
+                AddIfNotDuplicate(new UploadFile(item));
+                if (++k == chunkSize)
                 {
                     k = 0;
-                    await Task.Delay(10);
+                    await _helpers.Wait(chunkDelay);
                 }
             }
         }
 
-        public void AddRange(IList<UploadFile> items)
+        public void AddRange(IEnumerable<UploadFile> items)
         {
             foreach (var item in items)
                 AddIfNotDuplicate(item);
         }
+
+        public async Task AddRangeAsync(IEnumerable<UploadFile> items)
+        {
+            var k = 0;
+            foreach (var item in items)
+            {
+                AddIfNotDuplicate(item);
+                if (++k == chunkSize)
+                {
+                    k = 0;
+                    await _helpers.Wait(chunkDelay);
+                }
+            }
+        }
+
+
     }
 }

@@ -187,16 +187,26 @@ namespace Tests
         public void When_LoadUploadFilesIsExecutedAndFileIsChosen_Then_UploadFilesIsAppenedFromFile()
         {
             string path;
-            const string thePath = "foobar.wul";
+            const string loadFilePath = "foobar.wul";
+            const string filePath = "foobar.jpg";
 
             A.CallTo(() => _dialogs.LoadUploadListDialog(out path))
                 .Returns(true)
-                .AssignsOutAndRefParameters(thePath);
+                .AssignsOutAndRefParameters(loadFilePath);
+
+            A.CallTo(() => _uploadListSerializer.Deserialize(loadFilePath)).
+                Returns(new List<UploadFile>
+                {
+                    new UploadFile
+                    {
+                        FullPath = filePath,
+                    }
+                }) ;
 
             _model.LoadListCommand.Execute(null);
 
-            A.CallTo(() => _uploadListSerializer.Add(thePath, _model.UploadFiles))
-                .MustHaveHappened(1, Times.Exactly);
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(1));
+            Assert.That(_model.UploadFiles[0].FullPath, Is.EqualTo(filePath));
         }
 
         [Test]
@@ -209,8 +219,9 @@ namespace Tests
 
             _model.LoadListCommand.Execute(null);
 
-            A.CallTo(() => _uploadListSerializer.Add(A<string>._, _model.UploadFiles))
+            A.CallTo(() => _uploadListSerializer.Deserialize(A<string>._))
                 .MustNotHaveHappened();
+
             Assert.That(_model.UploadFiles.Count, Is.Zero);
         }
 
@@ -226,7 +237,7 @@ namespace Tests
 
             _model.SaveListCommand.Execute(null);
 
-            A.CallTo(() => _uploadListSerializer.Save(thePath, _model.UploadFiles))
+            A.CallTo(() => _uploadListSerializer.Serialize(thePath, _model.UploadFiles))
                 .MustHaveHappened(1, Times.Exactly);
         }
 
@@ -240,7 +251,7 @@ namespace Tests
 
             _model.SaveListCommand.Execute(null);
 
-            A.CallTo(() => _uploadListSerializer.Save(A<string>._, _model.UploadFiles))
+            A.CallTo(() => _uploadListSerializer.Serialize(A<string>._, _model.UploadFiles))
                 .MustNotHaveHappened();
         }
 
@@ -250,7 +261,7 @@ namespace Tests
             string path;
             const string thePath = "foobar.wul";
 
-            A.CallTo(() => _uploadListSerializer.Add(A<string>._, A<UploadList>._))
+            A.CallTo(() => _uploadListSerializer.Deserialize(A<string>._))
                 .Throws(new Exception());
             A.CallTo(() => _dialogs.LoadUploadListDialog(out path))
                 .Returns(true)
@@ -268,7 +279,7 @@ namespace Tests
             string path;
             const string thePath = "foobar.wul";
 
-            A.CallTo(() => _uploadListSerializer.Save(A<string>._, A<UploadList>._))
+            A.CallTo(() => _uploadListSerializer.Serialize(A<string>._, A<UploadList>._))
                 .Throws(new Exception());
             A.CallTo(() => _dialogs.SaveUploadListDialog(out path))
                 .Returns(true)

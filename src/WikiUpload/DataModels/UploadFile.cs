@@ -7,27 +7,48 @@ namespace WikiUpload
     [AddINotifyPropertyChangedInterface]
     public class UploadFile : INotifyPropertyChanged
     {
+        private string _fullPath;
+        private string _fileName;
+        private string _folder;
+        private bool _isVideo;
 
-        [DoNotNotify]
-        public string FullPath { get; set; }
-
-        public UploadFileStatus Status { get; set; }
-
-        public string Message { get; set; }
-
-        [DoNotNotify]
-        public string FileName => Path.GetFileName(FullPath);
-
-        [DoNotNotify]
-        public string Folder => Path.GetDirectoryName(FullPath);
-
-        [DoNotNotify]
-        public bool IsVideo => FullPath.StartsWith("https://");
 
         public UploadFile()
         {
             SetDefault();
         }
+
+        public UploadFile(string fullPath)
+        {
+            FullPath = fullPath;
+            SetDefault();
+        }
+
+        [DoNotNotify]
+        public string FullPath
+        {
+            get => _fullPath;
+            set
+            {
+                _fullPath = value;
+                _fileName = Path.GetFileName(FullPath); ;
+                _folder = Path.GetDirectoryName(FullPath);
+                _isVideo = FullPath.StartsWith("https://");
+            }
+        }
+     
+        public UploadFileStatus Status { get; set; }
+
+        public string Message { get; set; }
+
+        [DoNotNotify]
+        public string FileName => _fileName;
+
+        [DoNotNotify]
+        public string Folder =>  _folder;
+
+        [DoNotNotify]
+        public bool IsVideo => _isVideo;
 
         public void SetDefault()
         {

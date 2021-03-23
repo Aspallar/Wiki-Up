@@ -6,30 +6,30 @@ namespace WikiUpload
 {
     public class UploadListSerializer : IUploadListSerializer
     {
-        public void Add(TextReader textReader, UploadList uploadList)
+        public List<UploadFile> Deserialize(TextReader textReader)
         {
             List<UploadFile> files;
             var serializer = new XmlSerializer(typeof(List<UploadFile>));
             files = (List<UploadFile>)serializer.Deserialize(textReader);
-            uploadList.AddRange(files);
+            return files;
         }
 
-        public void Add(string fileName, UploadList uploadList)
+        public List<UploadFile> Deserialize(string fileName)
         {
             using (var sr = new StreamReader(fileName))
-                Add(sr, uploadList);
+                return Deserialize(sr);
         }
 
-        public void Save(TextWriter textWriter, UploadList uploadList)
+        public void Serialize(TextWriter textWriter, UploadList uploadList)
         {
             var serializer = new XmlSerializer(typeof(UploadList));
             serializer.Serialize(textWriter, uploadList);
         }
 
-        public void Save(string fileName, UploadList uploadList)
+        public void Serialize(string fileName, UploadList uploadList)
         {
             using (var sw = new StreamWriter(fileName))
-                Save(sw, uploadList);
+                Serialize(sw, uploadList);
         }
     }
 }
