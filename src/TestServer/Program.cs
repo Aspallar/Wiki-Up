@@ -13,6 +13,8 @@ namespace TestServer
     internal class Program
     {
         private const string loginToken = "123456+\\";
+
+
         private static readonly object randLock = new object();
         private static readonly Random rand = new Random();
         private static long videoUploadCount = 0;
@@ -43,6 +45,18 @@ namespace TestServer
         }
 
         private static void HandleRequest(HttpListenerContext context, Options options)
+        {
+            try
+            {
+                DoHandleRequest(context, options);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private static void DoHandleRequest(HttpListenerContext context, Options options)
         {
             string reply; ;
             var request = context.Request;
@@ -92,7 +106,10 @@ namespace TestServer
             response.OutputStream.Write(buffer, 0, buffer.Length);
             response.OutputStream.Close();
             if (options.ShowReply)
-                Console.WriteLine($"\nResponse Sent:\n{reply}\n");
+            {
+
+                Console.WriteLine($"{request.RawUrl}\nResponse:\n{reply}\n");
+            }
         }
 
         private static void VideoUploadReply(ref string reply, ref int statusCode, Options options)
@@ -122,26 +139,26 @@ namespace TestServer
         {
             string reply;
             if (request.RawUrl.IndexOf("list=users&usprop=groups&ususers") != -1)
-                reply = QueryReply("<users><user><groups><g>autoconfirmed</g></groups></user></users>");
+                reply = QueryReply(Replies.UserGroups);
 
             else if (request.RawUrl.IndexOf("6EA4096B-EBD2-4B9D-9025-2BA38D336E43") != -1)
-                reply = QueryReply("<pages><page edittoken=\"666+\\\"></page></pages>");
+                reply = QueryReply(Replies.EditTokenPage);
 
             else if (HttpUtility.UrlDecode(request.RawUrl).IndexOf("MediaWiki:Custom-WikiUpUsers") != -1)
-                reply = QueryReply("<pages><page><revisions><rev xml:space=\"preserve\">a\nb\nc\naspallar\nfoo\nbar\n</rev></revisions></page></pages>");
+                reply = QueryReply(Replies.AuthorizedUsers);
 
-            else if (request.RawUrl.IndexOf("meta=siteinfo&siprop=fileextensions") != -1)
+            else if (request.RawUrl.IndexOf("meta=siteinfo") != -1)
                 reply = options.NoPermittedFiles
                     ? ApiReply("")
-                    : QueryReply("<fileextensions><fe ext=\"png\" /><fe ext=\"jpg\" /><fe ext=\"foo\" /></fileextensions>");
+                    : QueryReply(Replies.SiteInfo);
 
             else if (request.RawUrl.ContainsAll(new List<string> { "meta=tokens", "type=login" }))
                 reply = options.OldLogin
-                    ? QueryReply("<warnings><query xml:space=\"preserve\">Unrecognized value for parameter 'meta': tokens</query></warnings>")
-                    : QueryReply($"<tokens logintoken=\"{loginToken}\" />");
+                    ? QueryReply(Replies.NoMetaTokenSupport)
+                    : QueryReply(string.Format(Replies.LoginToken, loginToken));
 
             else if (request.RawUrl.IndexOf("meta=tokens&type=csrf") != -1)
-                reply = QueryReply("<tokens csrftoken=\"666+\\\" />");
+                reply = QueryReply(Replies.EditToken);
 
             else if (request.RawUrl.IndexOf("allcategories") != -1)
                 reply = null;
