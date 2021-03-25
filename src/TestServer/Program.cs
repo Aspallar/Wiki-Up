@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,6 +19,8 @@ namespace TestServer
         private static readonly object randLock = new object();
         private static readonly Random rand = new Random();
         private static long videoUploadCount = 0;
+        private static long fileUploadCount = 0;
+
 
         private static void Main(string[] args)
         {
@@ -106,10 +109,7 @@ namespace TestServer
             response.OutputStream.Write(buffer, 0, buffer.Length);
             response.OutputStream.Close();
             if (options.ShowReply)
-            {
-
                 Console.WriteLine($"{request.RawUrl}\nResponse:\n{reply}\n");
-            }
         }
 
         private static void VideoUploadReply(ref string reply, ref int statusCode, Options options)
@@ -138,6 +138,7 @@ namespace TestServer
         private static string NoRequestBodyReply(Options options, HttpListenerRequest request)
         {
             string reply;
+
             if (request.RawUrl.IndexOf("list=users&usprop=groups&ususers") != -1)
                 reply = QueryReply(Replies.UserGroups);
 
@@ -172,18 +173,22 @@ namespace TestServer
         private static string UploadReply(Options options, HttpListenerResponse response)
         {
             string reply;
-            if (options.MaxLag == -1)
+
+            var count = Interlocked.Increment(ref fileUploadCount);
+            if (options.BadTokens > 0 && count % options.BadTokens == 0)
+                reply = ApiReply(Replies.BadToken);
+            else if (options.MaxLag == -1)
                 reply = MaxLagReply(response);
             else if (options.Exists > 0 && GetRandom(100) < options.Exists)
-                reply = ApiReply("<upload result=\"Warning\"><warnings exists=\"\"></warnings></upload>");
+                reply = ApiReply(Replies.AlreadyExists);
             else if (options.InvalidXml > 0 && GetRandom(100) < options.InvalidXml)
                 reply = "Hey this is not xml";
             else if (options.MaxLag > 0 && GetRandom(100) < options.MaxLag)
                 reply = MaxLagReply(response);
             else if (options.LongError > 0 && GetRandom(100) < options.LongError)
-                reply = ApiReply("<error code=\"foobar\" info=\"This os a long error message. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Vivamus pretium neque et arcu scelerisque, vel accumsan ipsum elementum.Sed in convallis tortor.Morbi mollis nunc et felis pharetra, a pellentesque lectus volutpat.Aliquam eleifend purus purus, nec laoreet mi vestibulum. Once upon a time. And then there wrere none. The end.\"></error>");
+                reply = ApiReply(Replies.LongErrorMessasge);
             else
-                reply = ApiReply("<upload result=\"Success\"></upload>");
+                reply = ApiReply(Replies.UploadSuccess);
 
             if (options.Delay > 0)
                 Thread.Sleep(options.Delay);
@@ -205,13 +210,13 @@ namespace TestServer
                     CheckLoginToken(loginToken, content);
                     var password = Regex.Match(content, @"lgpassword=([^&$]*)").Groups[1].Value;
                     if (password == "" | password == "a")
-                        reply = ApiReply("<login result=\"Success\" />");
+                        reply = ApiReply(Replies.LpginSuccess);
                     else
-                        reply = ApiReply("<login result=\"WrongPass\" />");
+                        reply = ApiReply(Replies.LoginFail);
                 }
                 else
                 {
-                    reply = ApiReply($"<login result=\"NeedToken\" token=\"{loginToken}\" />");
+                    reply = ApiReply(string.Format(Replies.LoginNeedToken, loginToken));
                 }
             }
 
@@ -235,7 +240,7 @@ namespace TestServer
         private static string MaxLagReply(HttpListenerResponse response)
         {
             response.AddHeader("Retry-After", "5");
-            return ApiReply("<error code=\"maxlag\" info=\"Waiting for a database server: 6 seconds lagged.\" host=\"foobar\" lag=\"6\" type=\"db\"></error>");
+            return ApiReply(Replies.MaxLag);
         }
 
         private static string ApiReply(string content)

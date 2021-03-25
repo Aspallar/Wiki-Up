@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using System.Collections.Generic;
 
 namespace TestServer
 {
@@ -31,7 +32,6 @@ namespace TestServer
         [Option]
         public bool ShowReply { get; set; }
 
-
         [Option]
         public bool OldLogin { get; set; }
 
@@ -40,5 +40,8 @@ namespace TestServer
 
         [Option]
         public bool VideoErrors { get; set; }
+
+        [Option]
+        public int BadTokens { get; set; }
     }
 }
