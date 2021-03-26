@@ -64,7 +64,7 @@ namespace Tests
             var uploadList = new UploadList(_helpers);
             var addFiles = new List<UploadFile>();
 
-            for (int k = 0; k < 500; k++)
+            for (var k = 0; k < 500; k++)
                 addFiles.Add(new UploadFile(k.ToString()));
 
             await uploadList.AddRangeAsync(addFiles);
@@ -137,7 +137,7 @@ namespace Tests
             var uploadList = new UploadList(_helpers);
             var addFiles = new List<string>();
 
-            for (int k = 0; k < 500; k++)
+            for (var k = 0; k < 500; k++)
                 addFiles.Add(k.ToString());
 
             await uploadList.AddNewRangeAsync(addFiles);

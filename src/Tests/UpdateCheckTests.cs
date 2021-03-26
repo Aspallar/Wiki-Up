@@ -1,9 +1,6 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WikiUpload;
 
@@ -101,7 +98,7 @@ namespace Tests
                 .Returns(@"{
                     ""tag_name"": ""v1.1.0"",
                  }");
-            int delay = 666;
+            var delay = 666;
 
             _ = await _updateCheck.CheckForUpdates("", delay);
 
