@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using System.Collections.Generic;
 
 namespace TestServer
 {
@@ -42,5 +43,11 @@ namespace TestServer
 
         [Option]
         public int BadTokens { get; set; }
+
+        [Option(Default = 10202)]
+        public int Port { get; set; }
+
+        [Option]
+        public IEnumerable<string> Prefixes { get; set; }
     }
 }

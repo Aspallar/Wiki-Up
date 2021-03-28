@@ -51,6 +51,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Replies.cs" />
+    <Compile Include="ServerResponse.cs" />
+    <Compile Include="ServerResponseHeader.cs" />
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
