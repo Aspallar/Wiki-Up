@@ -121,7 +121,7 @@ namespace Tests
 
             var result = await _updateCheck.CheckForUpdates("", 0);
 
-            Assert.That(result.LatestVersion, Is.EqualTo("2.0.0");
+            Assert.That(result.LatestVersion, Is.EqualTo("2.0.0"));
         }
 
         [Test]
