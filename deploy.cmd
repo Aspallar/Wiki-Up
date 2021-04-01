@@ -11,7 +11,6 @@ del Deploy\et-EE\*.* /q
 set src=src\WikiUpload\bin\release
 copy %src%\WikiUp.exe Deploy\.
 copy %src%\WikiUp.exe.config Deploy\.
-copy %src%\Microsoft.Windows.Shell.dll Deploy\.
 copy %src%\MahApps.Metro.IconPacks.Core.dll Deploy\.
 copy %src%\MahApps.Metro.IconPacks.FontAwesome.dll Deploy\.
 copy %src%\Ninject.dll Deploy\.

@@ -66,11 +66,6 @@
         <File Id="WikiUp.exe.config" Name="WikiUp.exe.config" Source="$(var.WikiUpload_TargetDir)WikiUp.exe.config" KeyPath="yes" />
       </Component>
 
-      <!-- custom chrome dll -->
-      <Component Id="Microsoft.Windows.Shell.dll" Guid="82564700-855B-4664-9A4F-2BC425189D24">
-        <File Id="Microsoft.Windows.Shell.dll" Name="Microsoft.Windows.Shell.dll" Source="$(var.WikiUpload_TargetDir)Microsoft.Windows.Shell.dll" KeyPath="yes" />
-      </Component>
-
       <!-- Mahapps icon pack -->
       <Component Id="MahApps.Metro.IconPacks.Core.dll" Guid="a16aa7ff-e6a3-4368-b4e3-855b1031e053">
         <File Id="MahApps.Metro.IconPacks.Core.dll" Name="MahApps.Metro.IconPacks.Core.dll" Source="$(var.WikiUpload_TargetDir)MahApps.Metro.IconPacks.Core.dll" KeyPath="yes"/>
