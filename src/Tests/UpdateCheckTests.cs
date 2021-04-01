@@ -1,6 +1,8 @@
 ﻿using FakeItEasy;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WikiUpload;
 
@@ -19,15 +21,16 @@ namespace Tests
             _gitbubPrevider = A.Fake<IGithubProvider>();
             _helpers = A.Fake<IHelpers>();
             A.CallTo(() => _helpers.ApplicationVersion)
-                .Returns(new Version("1.0.0.0"));
+                .Returns(new Version("1.1.1.0"));
             _updateCheck = new UpdateCheck(_helpers, _gitbubPrevider);
         }
 
         [Test]
-        public async Task When_ResponseIsGarbage_Then_NotNewerVersion()
+        public async Task When_NoVersionsAvailable_Then_NotNewerVerrsion()
         {
-            A.CallTo(() => _gitbubPrevider.FetchLatestRelease(A<string>._))
-                .Returns("Garbage");
+            var githubResponse = JsonConvert.SerializeObject(new List<GithubRelease>());
+            A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
+                .Returns(githubResponse);
 
             var result = await _updateCheck.CheckForUpdates("", 0);
 
@@ -35,69 +38,115 @@ namespace Tests
         }
 
         [Test]
-        public async Task When_IsNewerVersion_Then_VersionReturned()
+        public async Task When_VersionIsNewer_Then_NewerVerrsion()
         {
-            A.CallTo(() => _gitbubPrevider.FetchLatestRelease(A<string>._))
-                .Returns(@"{
-                    ""tag_name"": ""v1.0.1""
-                 }");
+            var versions = new List<string>
+            {
+                "v1.1.2",
+                "v1.2.0",
+                "v2.0.0",
+            };
 
-            var result = await _updateCheck.CheckForUpdates("", 0);
+            foreach (var version in versions)
+            {
+                var githubResponse = JsonConvert.SerializeObject(new List<GithubRelease> {
+                    new GithubRelease
+                    {
+                        TagName = version, HtmlUrl = "url", Prerelease = false,
+                    }
+                });
+                A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
+                    .Returns(githubResponse);
 
-            Assert.That(result.IsNewerVersion, Is.True);
-            Assert.That(result.LatestVersion, Is.EqualTo("1.0.1"));
+                var result = await _updateCheck.CheckForUpdates("", 0);
+
+                Assert.That(result.IsNewerVersion, Is.True, $"{version} should be a newer varsion");
+            }
         }
 
         [Test]
-        public async Task When_IsNewerVersion_Then_UrlReturned()
+        public async Task When_VersionIsOlderOrTheSame_Then_NotewerVerrsion()
         {
-            A.CallTo(() => _gitbubPrevider.FetchLatestRelease(A<string>._))
-                .Returns(@"{
-                    ""tag_name"": ""v1.0.1"",
-                    ""html_url"": ""foobar""
-                 }");
+            var versions = new List<string>
+            {
+                "v1.1.1", // current version
+                "v1.1.0",
+                "v1.0.1",
+                "v0.1.1",
+            };
 
-            var result = await _updateCheck.CheckForUpdates("", 0);
+            foreach (var version in versions)
+            {
+                var githubResponse = JsonConvert.SerializeObject(new List<GithubRelease> {
+                    new GithubRelease
+                    {
+                        TagName = version, HtmlUrl = "url", Prerelease = false,
+                    }
+                });
+                A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
+                    .Returns(githubResponse);
 
-            Assert.That(result.IsNewerVersion, Is.True);
-            Assert.That(result.Url, Is.EqualTo("foobar"));
+                var result = await _updateCheck.CheckForUpdates("", 0);
+
+                Assert.That(result.IsNewerVersion, Is.False, $"{version} should not ne a newer varsion");
+            }
         }
 
         [Test]
-        public async Task When_IsSameVersion_Then_IsNewerVersionIsFalse()
+        public async Task NonReleaseTagsAreIgnored()
         {
-            A.CallTo(() => _gitbubPrevider.FetchLatestRelease(A<string>._))
-                .Returns(@"{
-                    ""tag_name"": ""v1.0.0"",
-                    ""html_url"": ""foobar""
-                 }");
+            var response = JsonConvert.SerializeObject(new List<GithubRelease>
+            {
+                new GithubRelease { TagName = "beta1.0.1", HtmlUrl = "", Prerelease=false },
+                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "", Prerelease=false },
+            });
+            A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
+                .Returns(response);
 
             var result = await _updateCheck.CheckForUpdates("", 0);
 
-            Assert.That(result.IsNewerVersion, Is.False);
+            Assert.That(result.LatestVersion, Is.EqualTo("2.0.0"));
         }
 
         [Test]
-        public async Task When_InvalidTag_Then_IsNewerVersionIsFalse()
+        public async Task PrereleasesAreIgnored()
         {
-            A.CallTo(() => _gitbubPrevider.FetchLatestRelease(A<string>._))
-                .Returns(@"{
-                    ""tag_name"": ""v1.foo.0"",
-                    ""html_url"": ""foobar""
-                 }");
+            var response = JsonConvert.SerializeObject(new List<GithubRelease>
+            {
+                new GithubRelease { TagName = "v3.0.0", HtmlUrl = "", Prerelease = true },
+                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "", Prerelease = false },
+            });
+            A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
+                .Returns(response);
 
             var result = await _updateCheck.CheckForUpdates("", 0);
 
-            Assert.That(result.IsNewerVersion, Is.False);
+            Assert.That(result.LatestVersion, Is.EqualTo("2.0.0");
+        }
+
+        [Test]
+        public async Task When_NewerVersion_Then_DetailsAreReturned()
+        {
+            var response = JsonConvert.SerializeObject(new List<GithubRelease>
+            {
+                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "alpha", Prerelease = false },
+            });
+            A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
+                .Returns(response);
+
+            var result = await _updateCheck.CheckForUpdates("", 0);
+
+            Assert.That(result.Url, Is.EqualTo("alpha"));
+            Assert.That(result.LatestVersion, Is.EqualTo("2.0.0"));
         }
 
         [Test]
         public async Task When_DelayIsSupplied_Then_CheckIsDelayed()
         {
-            A.CallTo(() => _gitbubPrevider.FetchLatestRelease(A<string>._))
-                .Returns(@"{
-                    ""tag_name"": ""v1.1.0"",
-                 }");
+            var response = JsonConvert.SerializeObject(new List<GithubRelease>
+            {
+                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "alpha", Prerelease = false },
+            });
             var delay = 666;
 
             _ = await _updateCheck.CheckForUpdates("", delay);

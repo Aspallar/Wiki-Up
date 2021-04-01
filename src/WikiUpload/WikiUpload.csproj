@@ -168,6 +168,7 @@
     <Compile Include="Service\Youtube.cs" />
     <Compile Include="Service\YoutubeSecrets.cs" />
     <Compile Include="Utilities\GithubProvider.cs" />
+    <Compile Include="Utilities\GithubRelease.cs" />
     <Compile Include="Utilities\IGithubProvider.cs" />
     <Compile Include="Utilities\UpdateCheckResponse.cs" />
     <Compile Include="Utilities\DialogManager.cs" />

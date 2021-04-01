@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -8,7 +12,7 @@ namespace WikiUpload
    {
         private readonly IHelpers _helpers;
         private readonly IGithubProvider _githubProvider;
-
+        
         public UpdateCheck(IHelpers helpers, IGithubProvider githubProvider)
         {
             _helpers = helpers;
@@ -21,24 +25,31 @@ namespace WikiUpload
             try
             {
                 await _helpers.Wait(delay);
-                var result = await _githubProvider.FetchLatestRelease(userAgent).ConfigureAwait(false);
-
-                var match = Regex.Match(result, @"""tag_name""\:\s*""v(\d+\.\d+\.\d+)""");
-                if (match.Success)
+                var json = await _githubProvider.FetchLatestReleases(userAgent).ConfigureAwait(false);
+                var releases = JsonConvert.DeserializeObject<List<GithubRelease>>(json);
+                var releastVersionMatch = new Regex(@"^v\d+\.\d+\.\d+$");
+                var latest = releases.Where(x => !x.Prerelease && releastVersionMatch.IsMatch(x.TagName)).FirstOrDefault();
+                if (latest != null)
                 {
-                    var latestVersion = new Version(match.Groups[1].Value + ".0");
-                    var thisVersion = _helpers.ApplicationVersion;
-                    response.IsNewerVersion = latestVersion > thisVersion;
-                    response.LatestVersion = match.Groups[1].Value;
-                    var htmlUrlMatch = Regex.Match(result, @"""html_url""\:\s*""([^""]+)");
-                    if (htmlUrlMatch.Success)
-                        response.Url = htmlUrlMatch.Groups[1].Value;
-                    else
-                        response.Url = "https://github.com/Aspallar/Wiki-Up/releases";
+                    var versionString = latest.TagName.Substring(1);
+                    var latestVersion = new Version( versionString + ".0");
+                    response.IsNewerVersion = latestVersion > _helpers.ApplicationVersion;
+                    response.LatestVersion = versionString;
+                    response.Url = latest.HtmlUrl;
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                DebugHandleException(ex);
+            }
             return response;
+        }
+
+        [Conditional("DEBUG")]
+        private void DebugHandleException(Exception ex)
+        {
+            Debugger.Break();
+            throw ex,
         }
     }
 

@@ -1,9 +1,12 @@
 ﻿using PropertyChanged;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 
 namespace WikiUpload
 {
+
+    [DebuggerDisplay("{FileName, nq}")]
     [AddINotifyPropertyChangedInterface]
     public class UploadFile : INotifyPropertyChanged
     {

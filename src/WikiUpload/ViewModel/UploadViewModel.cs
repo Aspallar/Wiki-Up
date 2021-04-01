@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -124,7 +125,7 @@ namespace WikiUpload
                 using (_cancelSource = new CancellationTokenSource())
                 {
                     var cancelToken = _cancelSource.Token;
-                    var filesToUpload = UploadFiles.Select(x => x).ToList();
+                    var filesToUpload = new List<UploadFile>(UploadFiles);
                     _editTokenRefreshed = false;
                     _fileUploader.Summary = AddAppName(UploadSummary);
                     _fileUploader.PageContent = PageContent;
