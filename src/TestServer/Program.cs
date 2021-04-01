@@ -131,6 +131,9 @@ namespace TestServer
 
         private static ServerResponse VideoUploadReply(Options options)
         {
+            if (options.Delay > 0)
+                Thread.Sleep(options.Delay);
+
             var serverResponse = new ServerResponse();
             var count = options.VideoErrors ? Interlocked.Increment(ref videoUploadCount) % 5 : 0;
             switch (count)
