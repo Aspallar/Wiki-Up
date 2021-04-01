@@ -49,7 +49,6 @@ namespace WikiUpload
         private void DebugHandleException(Exception ex)
         {
             Debugger.Break();
-            throw ex,
         }
     }
 
