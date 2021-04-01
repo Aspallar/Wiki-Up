@@ -201,7 +201,7 @@
     <value>The server did not respond.</value>
   </data>
   <data name="LoginExceptionUnexpectedError" xml:space="preserve">
-    <value>An unexpected error occured.</value>
+    <value>An unexpected error occurred.</value>
   </data>
   <data name="LoginExceptionNotAutoConfirmed" xml:space="preserve">
     <value>That account is not autoconfirmed.</value>
@@ -230,7 +230,7 @@
   </data>
   
   <!-- ***************************************************************** -->
-  <!-- Categoty and Termplate search page -->
+  <!-- Category and Template search page -->
     
   <data name="SearchErrorText" xml:space="preserve">
     <value>Error while probing the wiki.</value>
@@ -386,13 +386,13 @@
     <value>Unable to read file.</value>
   </data>
   <data name="UploadMessageCancelled" xml:space="preserve">
-    <value>Upload cancelled.</value>
+    <value>Upload canceled.</value>
   </data>
   <data name="UploadMessageServerBusy" xml:space="preserve">
-    <value>Server is too busy. Uploads cancelled. Try again later.</value>
+    <value>Server is too busy. Uploads canceled. Try again later.</value>
   </data>
   <data name="UploadMessageNoEditToken" xml:space="preserve">
-    <value>Unable to obtain valid edit token. Uploads cancelled. You may have to restart Wiki-Up to resolve this error.</value>
+    <value>Unable to obtain valid edit token. Uploads canceled. You may have to restart Wiki-Up to resolve this error.</value>
   </data>
   <data name="UploadMessageNetworkError" xml:space="preserve">
     <value>Network error. Unable to upload.</value>
@@ -578,7 +578,7 @@
   </data>
 
   <data name="YoutubeError" xml:space="preserve">
-    <value>An error occured while communicating with youtube.</value>
+    <value>An error occurred while communicating with Youtube.</value>
   </data>
 
   <data name="PlalistTooBig" xml:space="preserve">

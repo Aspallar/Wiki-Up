@@ -718,7 +718,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occured..
+        ///   Looks up a localized string similar to An unexpected error occurred..
         /// </summary>
         public static string LoginExceptionUnexpectedError {
             get {
@@ -1096,7 +1096,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload cancelled..
+        ///   Looks up a localized string similar to Upload canceled..
         /// </summary>
         public static string UploadMessageCancelled {
             get {
@@ -1141,7 +1141,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to obtain valid edit token. Uploads cancelled. You may have to restart Wiki-Up to resolve this error..
+        ///   Looks up a localized string similar to Unable to obtain valid edit token. Uploads canceled. You may have to restart Wiki-Up to resolve this error..
         /// </summary>
         public static string UploadMessageNoEditToken {
             get {
@@ -1159,7 +1159,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server is too busy. Uploads cancelled. Try again later..
+        ///   Looks up a localized string similar to Server is too busy. Uploads canceled. Try again later..
         /// </summary>
         public static string UploadMessageServerBusy {
             get {
@@ -1285,7 +1285,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured while communicating with youtube..
+        ///   Looks up a localized string similar to An error occurred while communicating with Youtube..
         /// </summary>
         public static string YoutubeError {
             get {
