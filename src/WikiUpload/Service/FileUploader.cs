@@ -19,7 +19,7 @@ namespace WikiUpload
         private ApiUri _api;
         private string _editToken;
         private HttpClient _client;
-        private PermittedFiles _permittedFiles;
+        private readonly PermittedFiles _permittedFiles;
         private bool _useDeprecatedLogin;
         private CookieContainer _cookies;
         private readonly string _userAgent;
@@ -280,7 +280,7 @@ namespace WikiUpload
             return new Uri(Site + "/wikia.php" + queryParams.ToString());
         }
 
-        private string VideoUploadResponseMessage(HttpStatusCode statusCode, string reason)
+        private static string VideoUploadResponseMessage(HttpStatusCode statusCode, string reason)
         {
             switch (statusCode)
             {
@@ -310,7 +310,8 @@ namespace WikiUpload
                 { "usprop", "groups" },
                 { "ususers", username },
             });
-            var node = await GetSingleNode(uri, "/api/query/users/user/groups/g[.=\"autoconfirmed\"]").ConfigureAwait(false);
+            var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
+            var node = GetSingleNode(response, "/api/query/users/user/groups/g[.=\"autoconfirmed\"]");
             return node != null;
         }
 
@@ -323,7 +324,8 @@ namespace WikiUpload
                 { "titles", "6EA4096B-EBD2-4B9D-9025-2BA38D336E43" },
                 { "indexpageids", "1" },
             });
-            var node = await GetSingleNode(uri, "/api/query/pages/page").ConfigureAwait(false);
+            var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
+            var node = GetSingleNode(response, "/api/query/pages/page");
             return node?.Attributes["edittoken"]?.Value;
         }
 
@@ -334,7 +336,8 @@ namespace WikiUpload
                 { "meta", "tokens" },
                 { "type", "csrf" },
             });
-            var node = await GetSingleNode(uri, "/api/query/tokens").ConfigureAwait(false);
+            var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
+            var node = GetSingleNode(response, "/api/query/tokens");
             return node?.Attributes["csrftoken"]?.Value;
         }
 
@@ -345,7 +348,8 @@ namespace WikiUpload
                 { "meta", "tokens" },
                 { "type", "login" },
             });
-            var node = await GetSingleNode(uri, "/api/query/tokens").ConfigureAwait(false);
+            var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
+            var node = GetSingleNode(response, "/api/query/tokens");
             return node?.Attributes["logintoken"]?.Value;
         }
 
@@ -356,8 +360,9 @@ namespace WikiUpload
                 { "meta", "siteinfo" },
                 { "siprop", "general|fileextensions" },
             });
-            var doc = await GetXmlResponse(uri).ConfigureAwait(false);
-            return new SiteInfo(doc);
+            var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
+            var xml = CreateXmlDocument(response);
+            return new SiteInfo(xml);
         }
 
         private async Task<bool> IsAuthorizedForUploadFilesAsync(string username)
@@ -372,7 +377,8 @@ namespace WikiUpload
                 { "rvprop", "content" },
                 { "rvlimit", "1" },
             });
-            var revision = await GetSingleNode(uri, "/api/query/pages/page/revisions/rev").ConfigureAwait(false);
+            var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
+            var revision = GetSingleNode(response, "/api/query/pages/page/revisions/rev");
 
             return revision == null ||
                 revision.InnerText.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
@@ -387,13 +393,15 @@ namespace WikiUpload
             {
                 using (var response = await _client.PostAsync(_api, formParams).ConfigureAwait(false))
                 {
-                    var xml = await GetXml(response.Content).ConfigureAwait(false);
-                    var login = xml.SelectSingleNode("/api/login");
-                    return new LoginResponse
+                    var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var login = GetSingleNode(responseContent, "/api/login");
+                    var loginResponse = new LoginResponse();
+                    if (login != null)
                     {
-                        Result = login?.Attributes["result"]?.Value,
-                        Token = login?.Attributes["token"]?.Value,
-                    };
+                        loginResponse.Result = login.Attributes["result"]?.Value;
+                        loginResponse.Token = login.Attributes["token"]?.Value;
+                    }
+                    return loginResponse;
                 }
             }
         }
@@ -406,8 +414,9 @@ namespace WikiUpload
                 { "aclimit", "50" },
                 { "rawcontinue", "" },
             });
-            var doc = await GetXmlResponse(uri).ConfigureAwait(false);
-            return SearchResponse.FromCategoryXml(doc);
+            var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
+            var xml = CreateXmlDocument(response);
+            return SearchResponse.FromCategoryXml(xml);
         }
 
         public async Task<SearchResponse> FetchTemplates(string from)
@@ -421,35 +430,18 @@ namespace WikiUpload
                 { "aplimit", "100" },
                 { "rawcontinue", "" },
             });
-            var doc = await GetXmlResponse(uri).ConfigureAwait(false);
-            return SearchResponse.FromTemplateXml(doc);
-        }
-
-        private async Task<XmlNodeList> GetNodes(Uri uri, string path)
-        {
-            var xml = await GetXmlResponse(uri).ConfigureAwait(false);
-            return xml.SelectNodes(path);
-        }
-
-        private async Task<XmlNode> GetSingleNode(Uri uri, string path)
-        {
-            var xml = await GetXmlResponse(uri).ConfigureAwait(false);
-            return xml.SelectSingleNode(path);
-        }
-
-        private async Task<XmlDocument> GetXmlResponse(Uri uri)
-        {
             var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
-            var xml = new XmlDocument();
-            xml.LoadXml(response);
-            return xml;
+            var xml = CreateXmlDocument(response);
+            return SearchResponse.FromTemplateXml(xml);
         }
 
-        private static async Task<XmlDocument> GetXml(HttpContent content)
+        private XmlNode GetSingleNode(string xmlString, string path)
+            => CreateXmlDocument(xmlString).SelectSingleNode(path);
+
+        private static XmlDocument CreateXmlDocument(string xmlString)
         {
-            var response = await content.ReadAsStringAsync().ConfigureAwait(false);
             var doc = new XmlDocument();
-            doc.LoadXml(response);
+            doc.LoadXml(xmlString);
             return doc;
         }
 
