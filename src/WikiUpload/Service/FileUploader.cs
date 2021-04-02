@@ -108,8 +108,6 @@ namespace WikiUpload
                     return AttemptLoginAsync(loginParams);
                 });
 
-                password.Clear();
-
                 if (response.Result == ResponseCodes.Aborted)
                     throw new LoginException(Resources.LoginExceptionAborted);
 
