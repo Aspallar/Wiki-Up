@@ -75,7 +75,7 @@ namespace WikiUpload
                 LogOff();
         }
 
-        public async Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted = false)
+        public async Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted)
         {
             try
             {
@@ -102,17 +102,13 @@ namespace WikiUpload
 
                 loginParams.Add("lgtoken", loginToken);
 
-                var response = password.UseUnsecuredString<LoginResponse>(unsecuredPassword =>
+                var response = await password.UseUnsecuredStringAsync<LoginResponse>((unsecuredPassword) =>
                 {
-                    // I can;t help feeling that all this effort to keep the password out of
-                    // managed memory is pointless, HttpClient probably needs toplace it in
-                    // managed memory anyway when it builds the request  <sigh>
                     loginParams.Add("lgpassword", unsecuredPassword);
-                    var result = AttemptLoginAsync(loginParams).GetAwaiter().GetResult();
-                    loginParams.Clear();
-                    loginParams = null;
-                    return result;
+                    return AttemptLoginAsync(loginParams);
                 });
+
+                password.Clear();
 
                 if (response.Result == ResponseCodes.Aborted)
                     throw new LoginException(Resources.LoginExceptionAborted);
@@ -150,16 +146,15 @@ namespace WikiUpload
                     throw new LoginException(Resources.LoginExceptionNoEditToken);
                 }
 
+                _editToken = editTokenTask.Result;
                 HomePage = siteInfoTask.Result.BaseUrl;
                 ScriptPath = siteInfoTask.Result.ScriptPath;
-
                 if (!allFilesPermitted)
                 {
                     foreach (var ext in siteInfoTask.Result.Extensions)
                         _permittedFiles.Add(ext);
                 }
 
-                _editToken = editTokenTask.Result;
                 return true;
             }
             catch (XmlException)

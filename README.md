@@ -13,14 +13,14 @@ Initially written for use on the fandom [Magic Arena](https://magicarena.fandom.
 
 * Go to [releases](https://github.com/Aspallar/Wiki-Up/releases).
 * Click on the latest release.
-* Download the **WikiUpInstaller.msi** file in the assets section.
+* in the assets section download the **WikiUpInstaller.msi** file for the desired language.
 * Run the downloaded installer by double clicking on it or right click and choose install.
 
 Alternatively you can install Wiki-Up manually by downloading the WikiUp zip file and extracting its contents.
 
 ### Logging In
 
-On startup you will be asked to log into a wiki. You should specify the wiki url without 
+On startup you will be asked to log into a wiki. You should specify the wiki URL without 
 the <code>https://</code> part (e.g. mywiki.fandom.com).
 
 If you need to login to a wiki that does not use https then
@@ -32,11 +32,9 @@ then you must use the *alternate format* of the bot password i.e. your username 
 
 ### Uploading Files
 
-Click on the "Add Files" button to add files to the upload list.
+Click on the "Add Files" button to add files to the upload list. Alternatively you can drag and drop files from File Manager to the upload list.
 
-To remove files from the upload list, select files the files to remove an click the "Remove Files"
-button or press the *Delete* key. You can select multiple files to remove using the *shift* and *control*
-keys.
+To remove files from the upload list, select files the files to remove an click the "Remove Files" button or press the *Delete* key. You can select multiple files to remove using the *shift* and *control* keys.
 
 You can save and load upload lists using the "Save" and "Load" buttons.
 
@@ -44,14 +42,14 @@ When you are ready to upload click the "Upload" button.
 
 ### Upload Summary and Initial Page Content
 
-You can specify an upload summary and the initial wikitext content for all the uploaded
-files by clicking on the "Content" tab at the top of the window.
+You can specify an upload summary and the initial wikitext content for all the uploaded files by clicking on the "Content" tab at the top of the window.
 
-Note that any content supplied will only apply to **new** images/files, if you are overwriting
-an existing image/file the contents of the file page will be left untouched.
+Note that any content supplied will only apply to **new** images/files, if you are overwriting an existing image/file the contents of the file page will be left untouched.
 
-You can add categories for the uploaded image by specifying the <code>[[Category:My Category]]</code> wikitext
-in the content.
+### Uploading Videos
+
+Wiki-Ip can "Upload" videos to Fandom wikis. To add videos drag a link to them from your browser to the upload list. If you drag and drop a playlist from Youtube then all videos in the playlist will be added to the upload list. Hold down the Ctrl key while dropping to just add a single video from a Youtube playlist.
+
 
 ### Required Bot Privileges
 

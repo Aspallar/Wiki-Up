@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Threading.Tasks;
 
 namespace WikiUpload
 {
@@ -52,6 +53,45 @@ namespace WikiUpload
                 Marshal.ZeroFreeBSTR(sourceStringPointer);
             }
         }
+
+
+        public static async Task<T> UseUnsecuredStringAsync<T>(this SecureString secureString, Func<string, Task<T>> action)
+        {
+            var length = secureString.Length;
+            var sourceStringPointer = IntPtr.Zero;
+
+            // Create an empty string of the correct size and pin it so that the GC can't move it around.
+            var insecureString = new string('\0', length);
+            var insecureStringHandler = GCHandle.Alloc(insecureString, GCHandleType.Pinned);
+
+            var insecureStringPointer = insecureStringHandler.AddrOfPinnedObject();
+
+            try
+            {
+                // Create an unmanaged copy of the secure string.
+                sourceStringPointer = Marshal.SecureStringToBSTR(secureString);
+
+                // Use the pointers to copy from the unmanaged to managed string.
+                for (var i = 0; i < secureString.Length; i++)
+                {
+                    var unicodeChar = Marshal.ReadInt16(sourceStringPointer, i * 2);
+                    Marshal.WriteInt16(insecureStringPointer, i * 2, unicodeChar);
+                }
+
+                return await action(insecureString);
+            }
+            finally
+            {
+                // Zero the managed string so that the string is erased. Then unpin it to allow the
+                // GC to take over.
+                Marshal.Copy(new byte[length * 2], 0, insecureStringPointer, length * 2);
+                insecureStringHandler.Free();
+
+                // Zero and free the unmanaged string.
+                Marshal.ZeroFreeBSTR(sourceStringPointer);
+            }
+        }
+
 
         /// <summary>
         /// Allows a decrypted secure string to be used whilst minimising the exposure of the
