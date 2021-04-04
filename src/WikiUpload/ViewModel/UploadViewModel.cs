@@ -126,9 +126,9 @@ namespace WikiUpload
                 {
                     var cancelToken = _cancelSource.Token;
                     var filesToUpload = new List<UploadFile>(UploadFiles);
+                    var variableSummary = new VariableContent(AddAppName(UploadSummary));
+                    var variablePageContent = new VariableContent(PageContent);
                     _editTokenRefreshed = false;
-                    _fileUploader.Summary = AddAppName(UploadSummary);
-                    _fileUploader.PageContent = PageContent;
                     foreach (var file in filesToUpload)
                     {
                         if (!file.IsVideo && !_fileUploader.PermittedFiles.IsPermitted(file.FileName))
@@ -138,6 +138,8 @@ namespace WikiUpload
                         else
                         {
                             SetViewdFile(file);
+                            _fileUploader.PageContent = variablePageContent.ExpandedContent(file);
+                            _fileUploader.Summary = variableSummary.ExpandedContent(file);
                             try
                             {
                                 if (file.IsVideo)

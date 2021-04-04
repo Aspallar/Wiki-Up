@@ -73,6 +73,7 @@
     <Compile Include="PasswordManagerTests.cs" />
     <Compile Include="LoginViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VariableContentTests.cs" />
     <Compile Include="YoutubeTests.cs" />
   </ItemGroup>
   <ItemGroup>

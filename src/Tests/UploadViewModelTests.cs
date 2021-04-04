@@ -709,6 +709,32 @@ namespace Tests
         }
 
         [Test]
+        public void When_SummaryHasVariablea_Then_SimmaryIsExpanded()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            _model.UploadSummary = "<%filename>";
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallToSet(() => _fileUploader.Summary).To(() => A<string>.That.StartsWith("Foobar"))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_ContentHasVariablea_Then_ContentIsExpanded()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            _model.PageContent = "<%filename>";
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallToSet(() => _fileUploader.PageContent).To(() => A<string>.That.StartsWith("Foobar"))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
         public void When_ForceUploadsIsOn_Then_UploadIsDoneWithIgnoreWarnings()
         {
             AlllFilesPermitted();

@@ -193,6 +193,7 @@
     <Compile Include="ValueConverters\BaseMulriValueConverter.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
+    <Compile Include="VariableContent.cs" />
     <Compile Include="ViewModel\ApplicationColorThemes.cs" />
     <Compile Include="ViewModel\ApplicationLanguages.cs" />
     <Compile Include="ViewModel\ColorTheme.cs" />
