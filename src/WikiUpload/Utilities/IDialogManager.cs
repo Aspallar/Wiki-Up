@@ -9,7 +9,7 @@ namespace WikiUpload
         bool ConfirmInsecureLoginDialog();
         void ErrorMessage(string message);
         void ErrorMessage(string message, Exception ex);
-        void ErrorMessage(string message, string subMessage);
+        bool ErrorMessage(string message, string subMessage, bool hasCancelButton = false);
         bool LoadContentDialog(out string fileName);
         bool LoadUploadListDialog(out string fileName);
         bool SaveContentDialog(out string fileName);

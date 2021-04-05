@@ -441,7 +441,7 @@ namespace Tests
             _model.OnFileDrop(dropFiles, false);
 
             var expectedMessage = Resources.PlalistTooBig;
-            A.CallTo(() => _dialogs.ErrorMessage(expectedMessage, A<string>._))
+            A.CallTo(() => _dialogs.ErrorMessage(expectedMessage, A<string>._, A<bool>._))
                 .MustHaveHappened(1, Times.Exactly);
         }
 
@@ -587,10 +587,12 @@ namespace Tests
             AddSingleUploadFile();
             A.CallTo(() => _uploadResponse.IsMutsBeLoggedInError).Returns(true);
             A.CallTo(() => _uploadResponse.IsError).Returns(true);
+            A.CallTo(() => _dialogs.ErrorMessage(A<string>._, A<string>._, A<bool>._))
+                .Returns(true);
 
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _dialogs.ErrorMessage(Resources.LoginExpiredText, Resources.LoginExpiredSubtext))
+            A.CallTo(() => _dialogs.ErrorMessage(Resources.LoginExpiredText, Resources.LoginExpiredSubtext, true))
                 .MustHaveHappened(1, Times.Exactly);
             A.CallTo(() => _navigationService.NavigateToLoginPage())
                 .MustHaveHappened(1, Times.Exactly);

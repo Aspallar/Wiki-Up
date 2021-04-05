@@ -109,12 +109,10 @@ namespace WikiUpload
             return result;
         }
 
-
-
-        public void ErrorMessage(string message, string subMessage)
+        public bool ErrorMessage(string message, string subMessage, bool hasCancelButton = false)
         {
-             var dlg = new ErrorMessageWindow(message, subMessage);
-            dlg.ShowDialog();
+            var dlg = new ErrorMessageWindow(message, subMessage, hasCancelButton);
+            return (bool)dlg.ShowDialog();
         }
 
         public void ErrorMessage(string message, Exception ex) => ErrorMessage(message, ex?.Message);

@@ -12,5 +12,7 @@ namespace WikiUpload
         public string ErrorMessage { get; set; }
         
         public string SubMessage { get; set; }
+
+        public bool HasCancelButton { get; set; }
     }
 }

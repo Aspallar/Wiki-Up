@@ -111,7 +111,7 @@
 
     <!-- window content start here -->
     <Grid>
-        <Grid Margin="0,8,0,-8">
+        <Grid Margin="0 8 0 -8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -123,20 +123,30 @@
             <StackPanel Grid.Column="1" Margin="0 10 10 0">
                 <TextBlock FontSize="{StaticResource FontSizeRegular}"
                            TextWrapping="Wrap"
-                           Text="{Binding ErrorMessage}"
+                           Text="{Binding ErrorMessage, Mode=OneTime}"
                            Foreground="{StaticResource ErrorColorBrush}"
                            FontWeight="Bold"/>
                 <TextBlock FontSize="{StaticResource FontSizeSmall}"
                            Margin="0 10 00 0"
-                           Text="{Binding SubMessage}"
+                           Text="{Binding SubMessage, Mode=OneTime}"
                            TextWrapping="Wrap"/>
-                <Button x:Name="OkButton"
-                        Content="{x:Static p:Resources.ButtonOkText}"
-                        Width="100" Height="30"
-                        Margin="0 20 20 20"  
-                        HorizontalAlignment="Right"
-                        Padding="2" FontSize="18"
-                        IsCancel="True"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="Width" Value="100"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="Margin" Value="0 20 20 20"/>
+                            <Setter Property="Padding" Value="2"/>
+                            <Setter Property="FontSize" Value="18"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button Content="{x:Static p:Resources.ButtonCancelText}"
+                            Visibility="{Binding HasCancelButton, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True, Mode=OneTime}"
+                            IsCancel="True" />
+                    <Button x:Name="OkButton"
+                            Click="OkButton_Click"
+                            Content="{x:Static p:Resources.ButtonOkText}"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>

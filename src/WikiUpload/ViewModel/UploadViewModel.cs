@@ -601,10 +601,12 @@ namespace WikiUpload
 
         public void LoginAgain()
         {
-            _dialogs.ErrorMessage(Resources.LoginExpiredText, Resources.LoginExpiredSubtext);
-            _fileUploader.LogOff();
-            _navigatorService.NewUploadPage();
-            _navigatorService.NavigateToLoginPage();
+            if(_dialogs.ErrorMessage(Resources.LoginExpiredText, Resources.LoginExpiredSubtext, true))
+            {
+                _fileUploader.LogOff();
+                _navigatorService.NewUploadPage();
+                _navigatorService.NavigateToLoginPage();
+            }
         }
 
         #endregion
