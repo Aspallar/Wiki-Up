@@ -629,7 +629,7 @@
   </data>
   
   <data name="LoginExpiredSubtext" xml:space="preserve">
-    <value>You will need to login again to continue with the download, click on ok to log in again.</value>
+    <value>You will need to login again to continue with the upload, click on OK to log in.</value>
   </data>
 
 </root>

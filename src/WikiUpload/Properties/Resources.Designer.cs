@@ -727,7 +727,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You will need to login again to continue with the download, click on ok to log in again..
+        ///   Looks up a localized string similar to You will need to login again to continue with the upload, click on OK to log in..
         /// </summary>
         public static string LoginExpiredSubtext {
             get {
