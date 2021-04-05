@@ -120,6 +120,7 @@ namespace WikiUpload
             if (AddingFiles)
                 return;
 
+            var needsLogin = false;
             await RunCommand(() => UploadIsRunning, async () =>
             {
                 using (_cancelSource = new CancellationTokenSource())
@@ -197,10 +198,17 @@ namespace WikiUpload
                                 file.SetError(UploadMessages.NoEditToken);
                                 break; // foreach
                             }
+                            catch (MustBeLoggedInException)
+                            {
+                                needsLogin = true;
+                                break;
+                            }
                         }
                     }
                 }
             });
+            if (needsLogin)
+                LoginAgain();
         }
 
         private void SetViewdFile(UploadFile file)
@@ -294,6 +302,11 @@ namespace WikiUpload
                             await RefreshEditeToken();
                             continue;
                         }
+                    }
+                    else if (response.IsMutsBeLoggedInError)
+                    {
+                        file.SetError(response.ErrorsText);
+                        throw new MustBeLoggedInException();
                     }
                     else
                     {
@@ -584,6 +597,14 @@ namespace WikiUpload
             UploadFiles.Clear();
             _templateSearch = _wikiSearchFactory.CreateTemplateSearch(_fileUploader);
             _categorySearch = _wikiSearchFactory.CreateCategorySearch(_fileUploader);
+        }
+
+        public void LoginAgain()
+        {
+            _dialogs.ErrorMessage(Resources.LoginExpiredText, Resources.LoginExpiredSubtext);
+            _fileUploader.LogOff();
+            _navigatorService.NewUploadPage();
+            _navigatorService.NavigateToLoginPage();
         }
 
         #endregion

@@ -727,6 +727,24 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You will need to login again to continue with the download, click on ok to log in again..
+        /// </summary>
+        public static string LoginExpiredSubtext {
+            get {
+                return ResourceManager.GetString("LoginExpiredSubtext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your login credetials have expired..
+        /// </summary>
+        public static string LoginExpiredText {
+            get {
+                return ResourceManager.GetString("LoginExpiredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login Failed.
         /// </summary>
         public static string LoginFailedMessage {

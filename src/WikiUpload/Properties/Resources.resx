@@ -624,4 +624,12 @@
     <value>Automatically scroll to the uploading file when it starts uploading.</value>
   </data>
 
+  <data name="LoginExpiredText" xml:space="preserve">
+    <value>Your login credetials have expired.</value>
+  </data>
+  
+  <data name="LoginExpiredSubtext" xml:space="preserve">
+    <value>You will need to login again to continue with the download, click on ok to log in again.</value>
+  </data>
+
 </root>

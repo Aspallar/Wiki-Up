@@ -12,6 +12,7 @@ namespace WikiUpload
         bool IsDuplicateOfArchive { get; }
         bool IsError { get; }
         bool IsTokenError { get; }
+        bool IsMutsBeLoggedInError { get; }
         string Result { get; }
         int RetryDelay { get; }
         IReadOnlyList<string> Warnings { get; }

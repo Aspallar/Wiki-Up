@@ -179,5 +179,8 @@ namespace WikiUpload
         }
 
         public bool IsTokenError => _errors.Count == 1 && _errors[0].Code == "badtoken";
+        
+        public bool IsMutsBeLoggedInError => _errors.Count == 1 && _errors[0].Code == "mustbeloggedin";
+
     }
 }

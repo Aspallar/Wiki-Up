@@ -581,6 +581,36 @@ namespace Tests
         }
 
         [Test]
+        public void When_MustBeLoggedInError_Then_MessageIsShownAndLoginNavigatedTo()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            A.CallTo(() => _uploadResponse.IsMutsBeLoggedInError).Returns(true);
+            A.CallTo(() => _uploadResponse.IsError).Returns(true);
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.ErrorMessage(Resources.LoginExpiredText, Resources.LoginExpiredSubtext))
+                .MustHaveHappened(1, Times.Exactly);
+            A.CallTo(() => _navigationService.NavigateToLoginPage())
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_MustBeLoggedInError_Then_UploadDoesNotContinue()
+        {
+            AlllFilesPermitted();
+            AddThreeUploadFiles();
+            A.CallTo(() => _uploadResponse.IsMutsBeLoggedInError).Returns(true);
+            A.CallTo(() => _uploadResponse.IsError).Returns(true);
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<bool>._, A<bool>._))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
         public void When_UploadIsDoneToFandom_Then_SummaryIsSetWithLinkToDev()
         {
             AlllFilesPermitted();

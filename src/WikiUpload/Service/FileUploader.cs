@@ -113,7 +113,7 @@ namespace WikiUpload
 
                 if (response.Result != ResponseCodes.Success)
                     return false;
-
+                
                 var editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
                 var userConfirmedTask = IsUserConfirmedAsync(username);
                 var authorizedTask = IsAuthorizedForUploadFilesAsync(username);
