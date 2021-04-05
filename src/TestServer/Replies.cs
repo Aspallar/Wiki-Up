@@ -92,5 +92,11 @@ nbar
   info=""Invalid token."">
 </error>";
 
+        public const string MustBeLoggedIn = @"
+<error
+  code=""mustbeloggedin""
+  info=""You must be logged in ya bam"">
+</error>";
+
     }
 }

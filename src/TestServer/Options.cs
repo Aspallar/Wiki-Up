@@ -49,5 +49,8 @@ namespace TestServer
 
         [Option]
         public IEnumerable<string> Prefixes { get; set; }
+
+        [Option]
+        public int MustBeLoggedIn { get; set; }
     }
 }

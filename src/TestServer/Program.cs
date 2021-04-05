@@ -209,6 +209,10 @@ namespace TestServer
             {
                 serverResponse.Reply = ApiReply(Replies.BadToken);
             }
+            else if (options.MustBeLoggedIn > 0 && count % options.MustBeLoggedIn == 0)
+            {
+                serverResponse.Reply = ApiReply(Replies.MustBeLoggedIn);
+            }
             else if (options.MaxLag == -1 || (options.MaxLag > 0 && GetRandom(100) < options.MaxLag))
             {
                 serverResponse.Reply = Replies.MaxLag;
