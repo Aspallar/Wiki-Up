@@ -619,4 +619,12 @@
     <value>Automatisch zur hochgeladenen Datei scrollen, wenn sie anfängt hochzuladen.</value>
   </data>
 
+  <data name="LoginExpiredText" xml:space="preserve">
+    <value>Deine Anmeldedaten sind abgelaufen.</value>
+  </data>
+
+  <data name="LoginExpiredSubtext" xml:space="preserve">
+    <value>Du musst Dich nochmals anmelden um den Upload fortzusetzen. Klicke OK zum Anmelden.</value>
+  </data>
+
 </root>

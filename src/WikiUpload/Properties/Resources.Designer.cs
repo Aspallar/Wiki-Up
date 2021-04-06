@@ -736,7 +736,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your login credetials have expired..
+        ///   Looks up a localized string similar to Your login credentials have expired..
         /// </summary>
         public static string LoginExpiredText {
             get {

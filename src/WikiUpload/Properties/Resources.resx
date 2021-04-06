@@ -625,7 +625,7 @@
   </data>
 
   <data name="LoginExpiredText" xml:space="preserve">
-    <value>Your login credetials have expired.</value>
+    <value>Your login credentials have expired.</value>
   </data>
   
   <data name="LoginExpiredSubtext" xml:space="preserve">
