@@ -27,15 +27,15 @@ namespace WikiUpload
 
         private readonly Regex _isFandomDomainMatch = new Regex(@"^https://.+?\.fandom.com/", RegexOptions.IgnoreCase);
 
-        public string PageContent { get; set; }
-
-        public string Summary { get; set; }
-
         public string Site { get; set; }
 
         public string HomePage { get; set; }
 
         public string ScriptPath { get; set; }
+
+        public bool IncludeInWatchList { get; set; }
+
+        public bool IgnoreWarnings { get; set; }
 
         public bool CanUploadVideos => _isFandomDomainMatch.IsMatch(Site);
 
@@ -44,8 +44,6 @@ namespace WikiUpload
 
         public FileUploader(string userAgent, int timeoutSeconds = 0)
         {
-            PageContent = "";
-            Summary = "";
             _permittedFiles = new PermittedFiles();
             _timeoutSeconds = timeoutSeconds;
             _userAgent = userAgent;
@@ -186,7 +184,10 @@ namespace WikiUpload
             }
         }
 
-        public async Task<IUploadResponse> UpLoadAsync(string fullPath, CancellationToken cancelToken, bool ignoreWarnings = false, bool includeInWatchlist = false)
+        public async Task<IUploadResponse> UpLoadAsync(string fullPath,
+            CancellationToken cancelToken,
+            string summary,
+            string newPageContent)
         {
             var fileName = Path.GetFileName(fullPath);
 
@@ -201,14 +202,14 @@ namespace WikiUpload
             {
                 { new StringContent("upload"), "action" },
                 { new StringContent("5"), "maxlag" },
-                { new StringContent(includeInWatchlist ? "watch" : "nochange"), "watchlist" },
+                { new StringContent(IncludeInWatchList ? "watch" : "nochange"), "watchlist" },
                 { new StringContent(fileName), "filename" },
                 { new StringContent("xml"), "format" },
-                { new StringContent(PageContent), "text" },
-                { new StringContent(Summary), "comment" },
+                { new StringContent(newPageContent), "text" },
+                { new StringContent(summary), "comment" },
             };
 
-            if (ignoreWarnings)
+            if (IgnoreWarnings)
                 uploadFormData.Add(new StringContent("1"), "ignorewarnings");
 
             uploadFormData.Add(new StreamContent(file), "file", fileName);

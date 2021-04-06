@@ -129,6 +129,8 @@ namespace WikiUpload
                     var filesToUpload = new List<UploadFile>(UploadFiles);
                     var variableSummary = new VariableContent(AddAppName(UploadSummary));
                     var variablePageContent = new VariableContent(PageContent);
+                    _fileUploader.IncludeInWatchList = IncludeInWatchlist;
+                    _fileUploader.IgnoreWarnings = ForceUpload;
                     _editTokenRefreshed = false;
                     foreach (var file in filesToUpload)
                     {
@@ -139,14 +141,16 @@ namespace WikiUpload
                         else
                         {
                             SetViewdFile(file);
-                            _fileUploader.PageContent = variablePageContent.ExpandedContent(file);
-                            _fileUploader.Summary = variableSummary.ExpandedContent(file);
                             try
                             {
                                 if (file.IsVideo)
                                     await UploadVideo(file, cancelToken);
                                 else
-                                    await UploadFile(file, cancelToken);
+                                    await UploadFile(
+                                        file,
+                                        variableSummary.ExpandedContent(file),
+                                        variablePageContent.ExpandedContent(file),
+                                        cancelToken);
                             }
                             catch (HttpRequestException ex)
                             {
@@ -251,7 +255,7 @@ namespace WikiUpload
             }
         }
 
-        private async Task UploadFile(UploadFile file, CancellationToken cancelToken)
+        private async Task UploadFile(UploadFile file, string summary, string newPageContent, CancellationToken cancelToken)
         {
             var maxLagRetries = 3;
             while (true)
@@ -263,7 +267,11 @@ namespace WikiUpload
                 IUploadResponse response;
                 try
                 {
-                    response = await _fileUploader.UpLoadAsync(file.FullPath, cancelToken, ForceUpload, IncludeInWatchlist);
+                    response = await _fileUploader.UpLoadAsync(
+                        file.FullPath,
+                        cancelToken,
+                        summary,
+                        newPageContent);
                 }
                 finally
                 {
