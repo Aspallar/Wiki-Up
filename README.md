@@ -50,7 +50,7 @@ Both the summary and content can contain variables.
 
 
 Variable | Expands To 
- - | -
+-------- | ---------
 <%0> | The full path of the file being uploaded
 <%n> | The nth part of the files path counting from the left and starting at 1.
 <%-n> | The nth part of the files path counting from the right.
