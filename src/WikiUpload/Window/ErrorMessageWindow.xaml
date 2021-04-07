@@ -141,7 +141,9 @@
                         </Style>
                     </StackPanel.Resources>
                     <Button Content="{x:Static p:Resources.ButtonCancelText}"
-                            Visibility="{Binding HasCancelButton, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True, Mode=OneTime}"
+                            Visibility="{Binding HasCancelButton,
+                                Converter={local:BooleanToVisiblityConverter},
+                                ConverterParameter=True, Mode=OneTime}"
                             IsCancel="True" />
                     <Button x:Name="OkButton"
                             Click="OkButton_Click"

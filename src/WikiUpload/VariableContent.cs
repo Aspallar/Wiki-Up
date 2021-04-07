@@ -29,7 +29,7 @@ namespace WikiUpload
             return _filepartRegex.Replace(_content, (match) =>
             {
                 var what = match.Groups[1].Value;
-                if (int.TryParse(what, out int index))
+                if (int.TryParse(what, out var index))
                     return PathPart(file, pathParts, index);
                 else if (what == "filename")
                     return fileName;
