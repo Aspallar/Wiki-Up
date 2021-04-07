@@ -42,9 +42,33 @@ When you are ready to upload click the "Upload" button.
 
 ### Upload Summary and Initial Page Content
 
-You can specify an upload summary and the initial wikitext content for all the uploaded files by clicking on the "Content" tab at the top of the window.
+You can specify an upload summary/comment and the initial wikitext content for all the uploaded files by clicking on the "Content" tab at the top of the window.
 
 Note that any content supplied will only apply to **new** images/files, if you are overwriting an existing image/file the contents of the file page will be left untouched.
+
+Both the summary and content can contain variables.
+
+
+| Variable | Expands To |
+| - |- ||
+|<%0>|The full path of the file being uploaded|
+|<%n>|The nth part of the files path counting from the left and starting at 1.
+|<%-n>|The nth part of the files path counting from the right.|
+|<%filename>| The file name without the extension.
+
+For example if the path is **c:\one\two\three.png** then the following expansions will be made.
+
+* <%0> = c:\one\two\three.png
+* <%1> = c:
+* <%2> = one
+* <%3> = two
+* <%4> = three.png
+* <%-1> = three.png
+* <%-2> = two
+* <%-3> = one
+* <%-4> = c:
+* <%filename%> = three
+
 
 ### Uploading Videos
 
@@ -56,7 +80,7 @@ Wiki-Ip can "Upload" videos to Fandom wikis. To add videos drag a link to them f
 If you are using a bot password the bot account should be assigned the following privileges
 * Basic Rights
 * Edit existing pages
-* Create, edit, and move pages
+* Create, edt, and move pages
 * Upload new files
 * Upload, replace, and move files
 
