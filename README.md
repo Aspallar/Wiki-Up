@@ -49,12 +49,12 @@ Note that any content supplied will only apply to **new** images/files, if you a
 Both the summary and content can contain variables.
 
 
-| Variable | Expands To |
-| - |- ||
-|<%0>|The full path of the file being uploaded|
-|<%n>|The nth part of the files path counting from the left and starting at 1.
-|<%-n>|The nth part of the files path counting from the right.|
-|<%filename>| The file name without the extension.
+Variable | Expands To 
+ - | -
+<%0> | The full path of the file being uploaded
+<%n> | The nth part of the files path counting from the left and starting at 1.
+<%-n> | The nth part of the files path counting from the right.
+<%filename> | The file name without the extension.
 
 For example if the path is **c:\one\two\three.png** then the following expansions will be made.
 
