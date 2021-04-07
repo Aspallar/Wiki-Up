@@ -5,7 +5,7 @@ namespace WikiUpload
 {
     public class CategorySearch : WikiSearch
     {
-        private IFileUploader _fileUploader;
+        private readonly IFileUploader _fileUploader;
 
         public CategorySearch(IFileUploader fileUploader)
         {

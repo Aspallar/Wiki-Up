@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
+using WikiUpload.Properties;
 
 namespace WikiUpload
 {
     [AddINotifyPropertyChangedInterface]
-    public abstract class WikiSearch : INotifyPropertyChanged, IWikiSearch
+    public abstract class WikiSearch :  IWikiSearch
     {
-        private Stack<string> _history = new Stack<string>();
+        private readonly Stack<string> _history = new Stack<string>();
         private string _nextFrom = "";
         private int _multipleRequestGuard = 0;
 
@@ -19,43 +20,40 @@ namespace WikiUpload
 
         public async Task Start(string from)
         {
-            if (_multipleRequestGuard == 0)
+            try
             {
-                Interlocked.Increment(ref _multipleRequestGuard);
-                try
+                if (Interlocked.Increment(ref _multipleRequestGuard) == 1)
                 {
                     _history.Clear();
                     _nextFrom = from;
                     await DoNext();
                 }
-                catch (Exception ex)
-                {
-                    HandleError(ex);
-                }
-                finally
-                {
-                    Interlocked.Decrement(ref _multipleRequestGuard);
-                }
             }
+            catch (Exception ex)
+            {
+                HandleError(ex);
+            }
+            finally
+            {
+                Interlocked.Decrement(ref _multipleRequestGuard);
+            }
+
         }
 
         public async Task Next()
         {
-            if (_multipleRequestGuard == 0)
+            try
             {
-                Interlocked.Increment(ref _multipleRequestGuard);
-                try
-                {
+                if (Interlocked.Increment(ref _multipleRequestGuard) == 1)
                     await DoNext();
-                }
-                catch (Exception ex)
-                {
-                    HandleError(ex);
-                }
-                finally
-                {
-                    Interlocked.Decrement(ref _multipleRequestGuard);
-                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(ex);
+            }
+            finally
+            {
+                Interlocked.Decrement(ref _multipleRequestGuard);
             }
         }
 
@@ -72,10 +70,9 @@ namespace WikiUpload
 
         public async Task Previous()
         {
-            if (_multipleRequestGuard == 0)
+            try
             {
-                Interlocked.Increment(ref _multipleRequestGuard);
-                try
+                if (Interlocked.Increment(ref _multipleRequestGuard) == 1)
                 {
                     IsError = false;
                     _history.Pop();
@@ -86,21 +83,21 @@ namespace WikiUpload
                     HasNext = true;
                     CalculateHasPrevious();
                 }
-                catch (Exception ex)
-                {
-                    HandleError(ex);
-                }
-                finally
-                {
-                    Interlocked.Decrement(ref _multipleRequestGuard);
-                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(ex);
+            }
+            finally
+            {
+                Interlocked.Decrement(ref _multipleRequestGuard);
             }
         }
 
         private void HandleError(Exception ex)
         {
             if (ex is TaskCanceledException)
-                ErrorMessage = "The server took too long to respond.";
+                ErrorMessage = Resources.LoginExceptionTimeout;
             else if (ex.InnerException == null)
                 ErrorMessage = ex.Message;
             else
@@ -119,12 +116,5 @@ namespace WikiUpload
         public string ErrorMessage { get; private set; }
 
         public List<string> Data { get; private set; }
-
-        public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
-
-        public void OnPropertyChanged(string name)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(name));
-        }
     }
 }
