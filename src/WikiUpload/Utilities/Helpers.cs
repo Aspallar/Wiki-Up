@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -23,6 +24,10 @@ namespace WikiUpload
         public bool IsCancellationRequested(CancellationToken token) => token.IsCancellationRequested;
 
         public void SignalCancel(CancellationTokenSource tokenSource) => tokenSource.Cancel();
+
+        public IEnumerable<string> EnumerateFiles(string rootPath)
+            // TODO: when ported to .net5 use EnumerationOptions IgnoreInaccessible 
+            => Directory.EnumerateFiles(rootPath, "*", SearchOption.AllDirectories);
 
         public string ApplicationVersionString => Utils.ApplicationVersion;
 

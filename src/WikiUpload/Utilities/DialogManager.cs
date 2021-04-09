@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,14 @@ namespace WikiUpload
             };
             var result = (bool)openFileDialog.ShowDialog();
             fileNames = openFileDialog.FileNames.ToList();
+            return result;
+        }
+
+        public bool AddFolderDialog(out string folder)
+        {
+            var folderDialog = new VistaFolderBrowserDialog();
+            var result = (bool)folderDialog.ShowDialog();
+            folder = folderDialog.SelectedPath;
             return result;
         }
 

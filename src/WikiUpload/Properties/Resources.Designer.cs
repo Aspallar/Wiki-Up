@@ -169,6 +169,24 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Folder.
+        /// </summary>
+        public static string ButtonAddFolderText {
+            get {
+                return ResourceManager.GetString("ButtonAddFolderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add all files in a folder and all sub-folders to the upload list..
+        /// </summary>
+        public static string ButtonAddFolderTooltipText {
+            get {
+                return ResourceManager.GetString("ButtonAddFolderTooltipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Template.
         /// </summary>
         public static string ButtonAddTemplateText {
@@ -993,6 +1011,15 @@ namespace WikiUpload.Properties {
         public static string ToggleSwitchYesText {
             get {
                 return ResourceManager.GetString("ToggleSwitchYesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to add files..
+        /// </summary>
+        public static string UnableToAddFiles {
+            get {
+                return ResourceManager.GetString("UnableToAddFiles", resourceCulture);
             }
         }
         

@@ -77,6 +77,9 @@
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="Ookii.Dialogs.Wpf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=66aa232afad40158, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ookii.Dialogs.Wpf.3.1.0\lib\net45\Ookii.Dialogs.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PropertyChanged, Version=3.2.9.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.3.2.9\lib\net40\PropertyChanged.dll</HintPath>
@@ -84,6 +87,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>

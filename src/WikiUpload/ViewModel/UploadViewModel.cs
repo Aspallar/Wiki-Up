@@ -58,8 +58,9 @@ namespace WikiUpload
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
             SignOutCommand = new RelayCommand(SignOut);
 
-            // Mamage upload file list commands
+            // Manage upload file list commands
             AddFilesCommand = new RelayCommand(AddFiles);
+            AddFolderCommand = new RelayCommand(AddFolder);
             RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
             LoadListCommand = new RelayCommand(LoadList);
             SaveListCommand = new RelayCommand(SaveList);
@@ -72,11 +73,11 @@ namespace WikiUpload
             LoadContentCommand = new RelayCommand(LoadContent);
             SaveContentCommand = new RelayCommand(SaveContent);
 
-            // Catgory and Template commands (UploadPage)
+            // Category and Template commands (UploadPage)
             PickCategoryCommand = new RelayCommand(PickCategory);
             PickTemplateCommand = new RelayCommand(PickTemplate);
 
-            // Catgory and Template commands (SearchPage)
+            // Category and Template commands (SearchPage)
             CancelSearchCommand = new RelayCommand(() => _navigatorService.NavigateToUploadPage());
             AddSearchItemCommand = new RelayParameterizedCommand(AddSearchItem);
             NextSearchCommand = new RelayCommand(async () => await NextSearch());
@@ -353,7 +354,7 @@ namespace WikiUpload
 
         #endregion
 
-        #region Mamage upload file list
+        #region Manage upload file list
 
         public ICommand AddFilesCommand { get; }
         private async void AddFiles()
@@ -368,6 +369,33 @@ namespace WikiUpload
                 AddingFiles = true;
                 await UploadFiles.AddNewRangeAsync(fileNames);
                 AddingFiles = false;
+            }
+        }
+
+        public ICommand AddFolderCommand { get; }
+        private async void AddFolder()
+        {
+            if (AddingFiles)
+                return;
+
+            if (_dialogs.AddFolderDialog(out var folderPath))
+            {
+                try
+                {
+                    AddingFiles = true;
+                    // TODO: add a dialog to prompt for include sub-folders and file types
+                    var fileNames = _helpers.EnumerateFiles(folderPath)
+                        .Where(x => _fileUploader.PermittedFiles.IsPermitted(x));
+                    await UploadFiles.AddNewRangeAsync(fileNames);
+                }
+                catch (Exception ex)
+                {
+                    _dialogs.ErrorMessage(Resources.UnableToAddFiles, ex);
+                }
+                finally
+                {
+                    AddingFiles = false;
+                }
             }
         }
 
@@ -427,6 +455,7 @@ namespace WikiUpload
 
         public async void OnFileDrop(string[] filepaths, bool controlKeyPressed)
         {
+            // TODO: OnFileDrop fix dropping folders being allowed
             if (!UploadIsRunning && !AddingFiles)
             {
                 AddingFiles = true;

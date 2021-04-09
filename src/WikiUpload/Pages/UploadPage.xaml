@@ -16,10 +16,10 @@
     <Page.Resources>
         <Style x:Key="UploadFilesListBox">
             <Style.Resources>
-                <!-- Background of selected item when focussed -->
+                <!-- Background of selected item when focused -->
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
                                  Color="{StaticResource PrimaryColor}" />
-                <!-- Background of selected item when not focussed -->
+                <!-- Background of selected item when not focused -->
                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
                                  Color="{StaticResource PrimaryColor}" />
             </Style.Resources>
@@ -125,6 +125,11 @@
                                 x:Name="AddFiles"
                                 ToolTip="{x:Static p:Resources.ButtonAddFilesTooltipText}"
                                 Command="{Binding AddFilesCommand}"
+                                IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
+                            <Button Content="{x:Static p:Resources.ButtonAddFolderText}"
+                                Margin="0 10 0 0"
+                                ToolTip="{x:Static p:Resources.ButtonAddFolderTooltipText}"
+                                Command="{Binding AddFolderCommand}"
                                 IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
                             <Button Content="{x:Static p:Resources.ButtonRemoveFilesText}" 
                                 ToolTip="{x:Static p:Resources.ButtonRemoveFilesTooltipText}"

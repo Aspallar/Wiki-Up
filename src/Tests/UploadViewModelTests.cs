@@ -314,6 +314,30 @@ namespace Tests
             Assert.That(_model.UploadFiles.Any(x => x.FullPath == file3), Is.True);
         }
 
+        public void When_AddFolderIsExecutedAndFilesChosen_Then_FilesAreAddedToUploadFiles()
+        {
+            const string folderName = "foobar";
+            string folder;
+            const string file1 = "foobar.jpg";
+            const string file2 = "foo.jpg";
+            const string file3 = "bar.jpg";
+
+            AlllFilesPermitted();
+            _model.UploadFiles.AddIfNotDuplicate(new UploadFile { FullPath = file1 });
+            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
+                .Returns(true)
+                .AssignsOutAndRefParameters(folderName);
+            A.CallTo(() => _helpers.EnumerateFiles(folderName))
+                .Returns(new List<string> { file1, file2, file3 });
+
+            _model.AddFolderCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(3));
+            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file1), Is.True);
+            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file2), Is.True);
+            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file3), Is.True);
+        }
+
         [Test]
         public void When_AddFilesIsExecutedAndFilesChosen_Then_DuplicateFilesAreANotddedToUploadFiles()
         {
@@ -344,6 +368,29 @@ namespace Tests
 
             _model.AddFilesCommand.Execute(null);
 
+            Assert.That(_model.UploadFiles.Count, Is.Zero);
+        }
+
+        [Test]
+        public void When_AddFolderIsExecutedAndCancelled_Then_UploadFilesIsUnchanged()
+        {
+            const string folderName = "foobar";
+            string folder;
+            const string file1 = "foobar.jpg";
+            const string file2 = "foo.jpg";
+            const string file3 = "bar.jpg";
+
+            AlllFilesPermitted();
+            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
+                .Returns(false)
+                .AssignsOutAndRefParameters(folderName);
+            A.CallTo(() => _helpers.EnumerateFiles(folderName))
+                .Returns(new List<string> { file1, file2, file3 });
+
+            _model.AddFilesCommand.Execute(null);
+
+            A.CallTo(() => _helpers.EnumerateFiles(A<string>.Ignored))
+                .MustNotHaveHappened();
             Assert.That(_model.UploadFiles.Count, Is.Zero);
         }
 
