@@ -64,6 +64,7 @@ namespace WikiUpload
         public void LogOff()
         {
             _client.Dispose();
+            _permittedFiles.Clear();
             CreateClient();
         }
 

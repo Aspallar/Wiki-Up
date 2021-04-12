@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace WikiUpload
 {
     public class PermittedFiles : IReadOnlyPermittedFiles
     {
-        private object _copyLock = new object();
-        private List<string> _extensions = new List<string>();
+        private readonly object _copyLock = new object();
+        private readonly List<string> _extensions = new List<string>();
 
         public PermittedFiles Add(string extension)
         {
@@ -25,6 +26,11 @@ namespace WikiUpload
                 _extensions.CopyTo(result);
                 return result;
             }
+        }
+
+        public void Clear()
+        {
+            _extensions.Clear();
         }
     }
 }
