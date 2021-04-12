@@ -26,6 +26,7 @@ namespace Tests
         private IWikiSearch _categorySearch;
         private IWikiSearch _templateSearch;
         private IYoutube _youtube;
+        private IFileFinder _fileFinder;
         private IUploadListSerializer _uploadListSerializer;
         private IReadOnlyPermittedFiles _permittedFiles;
         private UploadViewModel _model;
@@ -46,6 +47,7 @@ namespace Tests
             _categorySearch = A.Fake<IWikiSearch>();
             _templateSearch = A.Fake<IWikiSearch>();
             _youtube = A.Fake<IYoutube>();
+            _fileFinder = A.Fake<IFileFinder>();
 
             A.CallTo(() => _fileUploader.PermittedFiles)
                 .Returns(_permittedFiles);
@@ -64,7 +66,8 @@ namespace Tests
                 _uploadListSerializer,
                 _navigationService,
                 _wikiSearchFactory,
-                _youtube, 
+                _youtube,
+                _fileFinder,
                 _appSetttings);
         }
 
@@ -314,30 +317,6 @@ namespace Tests
             Assert.That(_model.UploadFiles.Any(x => x.FullPath == file3), Is.True);
         }
 
-        public void When_AddFolderIsExecutedAndFilesChosen_Then_FilesAreAddedToUploadFiles()
-        {
-            const string folderName = "foobar";
-            string folder;
-            const string file1 = "foobar.jpg";
-            const string file2 = "foo.jpg";
-            const string file3 = "bar.jpg";
-
-            AlllFilesPermitted();
-            _model.UploadFiles.AddIfNotDuplicate(new UploadFile { FullPath = file1 });
-            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
-                .Returns(true)
-                .AssignsOutAndRefParameters(folderName);
-            A.CallTo(() => _helpers.EnumerateFiles(folderName))
-                .Returns(new List<string> { file1, file2, file3 });
-
-            _model.AddFolderCommand.Execute(null);
-
-            Assert.That(_model.UploadFiles.Count, Is.EqualTo(3));
-            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file1), Is.True);
-            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file2), Is.True);
-            Assert.That(_model.UploadFiles.Any(x => x.FullPath == file3), Is.True);
-        }
-
         [Test]
         public void When_AddFilesIsExecutedAndFilesChosen_Then_DuplicateFilesAreANotddedToUploadFiles()
         {
@@ -368,29 +347,6 @@ namespace Tests
 
             _model.AddFilesCommand.Execute(null);
 
-            Assert.That(_model.UploadFiles.Count, Is.Zero);
-        }
-
-        [Test]
-        public void When_AddFolderIsExecutedAndCancelled_Then_UploadFilesIsUnchanged()
-        {
-            const string folderName = "foobar";
-            string folder;
-            const string file1 = "foobar.jpg";
-            const string file2 = "foo.jpg";
-            const string file3 = "bar.jpg";
-
-            AlllFilesPermitted();
-            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
-                .Returns(false)
-                .AssignsOutAndRefParameters(folderName);
-            A.CallTo(() => _helpers.EnumerateFiles(folderName))
-                .Returns(new List<string> { file1, file2, file3 });
-
-            _model.AddFilesCommand.Execute(null);
-
-            A.CallTo(() => _helpers.EnumerateFiles(A<string>.Ignored))
-                .MustNotHaveHappened();
             Assert.That(_model.UploadFiles.Count, Is.Zero);
         }
 
@@ -519,6 +475,96 @@ namespace Tests
             _model.OnFileDrop(dropFiles, false);
 
             Assert.That(_model.UploadFiles.Count, Is.Zero);
+        }
+
+        #endregion
+
+        #region Add Folder
+
+        [Test]
+        public void When_AddFolderIsExecuted_Then_AddFolderDialogIsShown()
+        {
+            string folder;
+
+            _model.AddFolderCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.AddFolderDialog(out folder)).MustHaveHappened();
+        }
+
+        [Test]
+        public void When_AddFolderIsExecutedAndFolderSelected_Then_AddFolderOptionsDialogIsShown()
+        {
+            string folder;
+            bool includeSubfolders;
+            IncludeFiles includeFiles;
+            string extension;
+
+            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
+                .Returns(true);
+
+            _model.AddFolderCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
+                .MustHaveHappened();
+        }
+
+        [Test]
+        public void When_AddFolderIsExecutedAndNoFolderSelected_Then_AddFolderOptionsDialogIsNotShown()
+        {
+            string folder;
+            bool includeSubfolders;
+            IncludeFiles includeFiles;
+            string extension;
+
+            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
+                .Returns(false);
+
+            _model.AddFolderCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
+                .MustNotHaveHappened();
+        }
+
+        [Test]
+        public void When_AddFolderIsExecuted_Then_MatchingFilesAreAdded()
+        {
+            string folder;
+            bool includeSubfolders;
+            IncludeFiles includeFiles;
+            string extension;
+
+            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
+                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
+                .Returns(true);
+            var files = new List<string> { "foo", "bar" };
+            A.CallTo(() => _fileFinder.GetFiles(A<string>._, A<bool>._, A<IncludeFiles>._, A<string>._))
+                .Returns(files);
+
+            _model.AddFolderCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles.Select(x => x.FullPath), Is.EquivalentTo(files));
+        }
+
+        [Test]
+        public void When_AddFolderIsExecutedAndCancelledAtOptions_ThenNoFilesAreAdded()
+        {
+            string folder;
+            bool includeSubfolders;
+            IncludeFiles includeFiles;
+            string extension;
+
+            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
+                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
+                .Returns(false);
+            var files = new List<string> { "foo", "bar" };
+            A.CallTo(() => _fileFinder.GetFiles(A<string>._, A<bool>._, A<IncludeFiles>._, A<string>._))
+                .Returns(files);
+
+            _model.AddFolderCommand.Execute(null);
+
+            Assert.That(_model.UploadFiles, Is.Empty);
         }
 
         #endregion

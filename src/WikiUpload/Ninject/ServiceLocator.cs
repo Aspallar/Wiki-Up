@@ -19,8 +19,11 @@ namespace WikiUpload
 
         public SettingsViewModel SettingsViewModel => _kernel.Get<SettingsViewModel>();
 
-        internal ErrorMessageViewModel ErrorMessageViewModel(Window window)
+        public ErrorMessageViewModel ErrorMessageViewModel(Window window)
             => _kernel.Get<ErrorMessageViewModel>(new ConstructorArgument("window", window));
+
+        public AddFolderOptionsViewModel AddFolderOptionsViewModel(Window window)
+            => _kernel.Get<AddFolderOptionsViewModel>(new ConstructorArgument("window", window));
 
         public AboutBoxViewModel AboutBoxViewModel(Window window) 
             => _kernel.Get<AboutBoxViewModel>(new ConstructorArgument("window", window));

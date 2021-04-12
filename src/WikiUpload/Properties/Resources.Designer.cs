@@ -619,6 +619,51 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All files.
+        /// </summary>
+        public static string IncludeAllFiles {
+            get {
+                return ResourceManager.GetString("IncludeAllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include files of type.
+        /// </summary>
+        public static string IncludeFilesOfType {
+            get {
+                return ResourceManager.GetString("IncludeFilesOfType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All image files.
+        /// </summary>
+        public static string IncludeImageFiles {
+            get {
+                return ResourceManager.GetString("IncludeImageFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include sub-folders.
+        /// </summary>
+        public static string IncludeSubfolders {
+            get {
+                return ResourceManager.GetString("IncludeSubfolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All uploadable files.
+        /// </summary>
+        public static string IncludeUploadableFiles {
+            get {
+                return ResourceManager.GetString("IncludeUploadableFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Http connections are not secure. Signing in using http will result in your user name and password being sent in unencrypted plain text..
         /// </summary>
         public static string InsecureConnectionMessage {

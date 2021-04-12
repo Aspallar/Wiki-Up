@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,6 +20,6 @@ namespace WikiUpload
         bool IsCancellationRequested(CancellationToken token);
         void SignalCancel(CancellationTokenSource tokenSource);
         (string copyright, string version) ApplicationInformation { get; }
-        IEnumerable<string> EnumerateFiles(string rootPath);
+        IEnumerable<string> EnumerateFiles(string rootPath, string pattern, SearchOption searchOption);
     }
 }

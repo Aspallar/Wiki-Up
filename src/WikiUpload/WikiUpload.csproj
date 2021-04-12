@@ -169,8 +169,10 @@
     <Compile Include="Service\UploadMessages.cs" />
     <Compile Include="Service\Youtube.cs" />
     <Compile Include="Service\YoutubeSecrets.cs" />
+    <Compile Include="Utilities\FileFinder.cs" />
     <Compile Include="Utilities\GithubProvider.cs" />
     <Compile Include="Utilities\GithubRelease.cs" />
+    <Compile Include="Utilities\IFileFinder.cs" />
     <Compile Include="Utilities\IGithubProvider.cs" />
     <Compile Include="Utilities\UpdateCheckResponse.cs" />
     <Compile Include="Utilities\DialogManager.cs" />
@@ -202,6 +204,8 @@
     <Compile Include="ViewModel\ApplicationColorThemes.cs" />
     <Compile Include="ViewModel\ApplicationLanguages.cs" />
     <Compile Include="ViewModel\ColorTheme.cs" />
+    <Compile Include="ViewModel\AddFolderOptionsViewModel.cs" />
+    <Compile Include="ViewModel\IncludeFiles.cs" />
     <Compile Include="ViewModel\MustBeLoggedInException.cs" />
     <Compile Include="ViewModel\NewVersionViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
@@ -243,6 +247,9 @@
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\UploadViewModel.cs" />
     <Compile Include="ViewModel\WindowViewModel.cs" />
+    <Compile Include="Window\AddFolderWinsow.xaml.cs">
+      <DependentUpon>AddFolderWinsow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\NewVersionWindow.xaml.cs">
       <DependentUpon>NewVersionWindow.xaml</DependentUpon>
     </Compile>
@@ -359,6 +366,10 @@
     <Page Include="Styles\ToggleSwitch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\AddFolderWinsow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Window\NewVersionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

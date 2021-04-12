@@ -60,7 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFolderOptionsViewModelTests.cs" />
     <Compile Include="FileExtensionsCollectionTests.cs" />
+    <Compile Include="FileFinderTests.cs" />
     <Compile Include="IngestionControllerResponseTests.cs" />
     <Compile Include="SynchonousSynchronizationContext.cs" />
     <Compile Include="SettingsViewModelTests.cs" />

@@ -23,13 +23,6 @@ namespace WikiUpload
             return result;
         }
 
-        public bool AddFolderDialog(out string folder)
-        {
-            var folderDialog = new VistaFolderBrowserDialog();
-            var result = (bool)folderDialog.ShowDialog();
-            folder = folderDialog.SelectedPath;
-            return result;
-        }
 
         private string AddFilesFilter(string[] permittedExtensions, string imageExtensionsString)
         {
@@ -133,5 +126,29 @@ namespace WikiUpload
             var dlg = new InsecureWarningWindow();
             return (bool)dlg.ShowDialog();
         }
+
+        public bool AddFolderDialog(out string folder)
+        {
+            var folderDialog = new VistaFolderBrowserDialog();
+            var result = (bool)folderDialog.ShowDialog();
+            folder = folderDialog.SelectedPath;
+            return result;
+        }
+
+        public bool AddFolderOptionsDialog(
+            string folderPath,
+            out bool includeSubfolders,
+            out IncludeFiles includeFiles,
+            out string extension)
+        {
+            var dlg = new AddFolderWindow(folderPath);
+            var result = (bool)dlg.ShowDialog();
+            var data = (AddFolderOptionsViewModel)dlg.DataContext;
+            includeSubfolders = data.IncludeSubfolders;
+            includeFiles = data.GetIncludeFiles();
+            extension = data.GetExtension();
+            return result;
+        }
+
     }
 }

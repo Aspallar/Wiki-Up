@@ -643,5 +643,25 @@
   <data name="UnableToAddFiles" xml:space="preserve">
     <value>Unable to add files.</value>
   </data>
+
+  <data name="IncludeAllFiles" xml:space="preserve">
+    <value>All files</value>
+  </data>
   
+  <data name="IncludeUploadableFiles" xml:space="preserve">
+    <value>All uploadable files</value>
+  </data>
+  
+  <data name="IncludeImageFiles" xml:space="preserve">
+    <value>All image files</value>
+  </data>
+ 
+  <data name="IncludeSubfolders" xml:space="preserve">
+    <value>Include sub-folders</value>
+  </data>
+
+  <data name="IncludeFilesOfType" xml:space="preserve">
+    <value>Include files of type</value>
+  </data>
+
 </root>

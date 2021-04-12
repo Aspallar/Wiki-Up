@@ -53,6 +53,9 @@ namespace WikiUpload
             Bind<IGithubProvider>()
                 .To<GithubProvider>()
                 .InTransientScope();
+
+            Bind<IFileFinder>()
+                .To<FileFinder>();
         }
     }
 }

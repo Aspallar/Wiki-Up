@@ -29,6 +29,7 @@ namespace WikiUpload
         private readonly INavigatorService _navigatorService;
         private readonly IUploadListSerializer _uploadFileSerializer;
         private readonly IYoutube _youtube;
+        private readonly IFileFinder _fileFinder;
         private readonly IWikiSearchFactory _wikiSearchFactory;
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;
@@ -40,6 +41,7 @@ namespace WikiUpload
             INavigatorService navigatorService,
             IWikiSearchFactory wikiSearchFactory,
             IYoutube youtube,
+            IFileFinder fileFinder,
             IAppSettings appSettings)
         {
             _fileUploader = fileUploader;
@@ -49,6 +51,7 @@ namespace WikiUpload
             _navigatorService = navigatorService;
             _uploadFileSerializer = uploadFileSerializer;
             _youtube = youtube;
+            _fileFinder = fileFinder;
             _wikiSearchFactory = wikiSearchFactory;
 
             UploadFiles = new UploadList(_helpers);
@@ -380,21 +383,25 @@ namespace WikiUpload
 
             if (_dialogs.AddFolderDialog(out var folderPath))
             {
-                try
+                if (_dialogs.AddFolderOptionsDialog(folderPath,
+                    out bool includeSunfolder,
+                    out IncludeFiles includeFiles,
+                    out string extension))
                 {
-                    AddingFiles = true;
-                    // TODO: add a dialog to prompt for include sub-folders and file types
-                    var fileNames = _helpers.EnumerateFiles(folderPath)
-                        .Where(x => _fileUploader.PermittedFiles.IsPermitted(x));
-                    await UploadFiles.AddNewRangeAsync(fileNames);
-                }
-                catch (Exception ex)
-                {
-                    _dialogs.ErrorMessage(Resources.UnableToAddFiles, ex);
-                }
-                finally
-                {
-                    AddingFiles = false;
+                    try
+                    {
+                        AddingFiles = true;
+                        var fileNames = _fileFinder.GetFiles(folderPath, includeSunfolder, includeFiles, extension);
+                        await UploadFiles.AddNewRangeAsync(fileNames);
+                    }
+                    catch (Exception ex)
+                    {
+                        _dialogs.ErrorMessage(Resources.UnableToAddFiles, ex);
+                    }
+                    finally
+                    {
+                        AddingFiles = false;
+                    }
                 }
             }
         }

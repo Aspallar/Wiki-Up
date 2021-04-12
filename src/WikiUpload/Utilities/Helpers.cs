@@ -25,9 +25,9 @@ namespace WikiUpload
 
         public void SignalCancel(CancellationTokenSource tokenSource) => tokenSource.Cancel();
 
-        public IEnumerable<string> EnumerateFiles(string rootPath)
+        public IEnumerable<string> EnumerateFiles(string rootPath, string pattern, SearchOption searchOption)
             // TODO: when ported to .net5 use EnumerationOptions IgnoreInaccessible 
-            => Directory.EnumerateFiles(rootPath, "*", SearchOption.AllDirectories);
+            => Directory.EnumerateFiles(rootPath, pattern, searchOption);
 
         public string ApplicationVersionString => Utils.ApplicationVersion;
 
