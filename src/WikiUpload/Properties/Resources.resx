@@ -637,7 +637,7 @@
   </data>
 
   <data name="ButtonAddFolderTooltipText" xml:space="preserve">
-    <value>Add all files in a folder and all sub-folders to the upload list.</value>
+    <value>Add all files in a folder and sub-folders to the upload list.</value>
   </data>
   
   <data name="UnableToAddFiles" xml:space="preserve">

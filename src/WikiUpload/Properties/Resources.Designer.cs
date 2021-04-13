@@ -178,7 +178,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add all files in a folder and all sub-folders to the upload list..
+        ///   Looks up a localized string similar to Add all files in a folder and sub-folders to the upload list..
         /// </summary>
         public static string ButtonAddFolderTooltipText {
             get {

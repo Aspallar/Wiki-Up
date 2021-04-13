@@ -14,7 +14,7 @@
         WindowStartupLocation="CenterOwner"
         Icon="{StaticResource LogoImage}"
         ResizeMode="NoResize"
-        Width="680"
+        Width="800"
         SizeToContent="Height"
         Title="{x:Static p:Resources.ButtonAddFolderText}" >
 
@@ -154,7 +154,7 @@
                               ItemsSource="{Binding FileTypes}"
                               SelectedIndex="{Binding SelectedFileTypeIndex}"
                               Margin="{StaticResource SeparatorMargin}"
-                              Width="220">
+                              Width="280">
                         <ComboBox.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource PrimaryColor}" />
                         </ComboBox.Resources>

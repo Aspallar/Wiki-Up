@@ -627,4 +627,36 @@
     <value>Du musst Dich nochmals anmelden um den Upload fortzusetzen. Klicke OK zum Anmelden.</value>
   </data>
 
+  <data name="ButtonAddFolderText" xml:space="preserve">
+    <value>Ordner hinzufügen</value>
+  </data>
+
+  <data name="ButtonAddFolderTooltipText" xml:space="preserve">
+    <value>Alle Dateien in einem Ordner und Unterordner zur Uploadliste hinzufügen.</value>
+  </data>
+
+  <data name="UnableToAddFiles" xml:space="preserve">
+    <value>Dateien hinzufügen nicht möglich.</value>
+  </data>
+
+  <data name="IncludeAllFiles" xml:space="preserve">
+    <value>Alle Dateien</value>
+  </data>
+
+  <data name="IncludeUploadableFiles" xml:space="preserve">
+    <value>Alle hochladbaren Dateien</value>
+  </data>
+
+  <data name="IncludeImageFiles" xml:space="preserve">
+    <value>Alle Bilddateien</value>
+  </data>
+
+  <data name="IncludeSubfolders" xml:space="preserve">
+    <value>Unterordner einschließen</value>
+  </data>
+
+  <data name="IncludeFilesOfType" xml:space="preserve">
+    <value>Dateien vom folgendem Typ einschließen</value>
+  </data>
+  
 </root>
