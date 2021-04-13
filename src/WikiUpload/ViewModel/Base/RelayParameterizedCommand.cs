@@ -10,7 +10,7 @@ namespace WikiUpload
         /// <summary>
         /// The action to run
         /// </summary>
-        private Action<object> _action;
+        private readonly Action<object> _action;
 
         #endregion
 

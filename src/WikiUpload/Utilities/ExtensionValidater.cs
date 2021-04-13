@@ -5,7 +5,7 @@ namespace WikiUpload
 {
     public class ExtensionValidater
     {
-        private char[] _invalidExtensionCharacters;
+        private readonly char[] _invalidExtensionCharacters;
 
         public ExtensionValidater()
         {

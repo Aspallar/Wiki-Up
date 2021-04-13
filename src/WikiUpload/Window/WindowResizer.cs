@@ -35,7 +35,7 @@ namespace WikiUpload
         /// <summary>
         /// The window to handle the resizing for
         /// </summary>
-        private Window _window;
+        private readonly Window _window;
 
         /// <summary>
         /// The last calculated available screen size
@@ -45,7 +45,7 @@ namespace WikiUpload
         /// <summary>
         /// How close to the edge the window has to be to be detected as at the edge of the screen
         /// </summary>
-        private int _edgeTolerance = 2;
+        private readonly int _edgeTolerance = 2;
 
         /// <summary>
         /// The transform matrix used to convert WPF sizes to screen pixels

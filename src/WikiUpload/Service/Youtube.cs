@@ -10,8 +10,8 @@ namespace WikiUpload
 {
     public sealed partial class Youtube : IYoutube, IDisposable
     {
-        private YouTubeService _youtubeService;
-        private PlaylistItemsResource.ListRequest _playlistItems;
+        private readonly YouTubeService _youtubeService;
+        private readonly PlaylistItemsResource.ListRequest _playlistItems;
 
         public Youtube(IHelpers helpers)
         {

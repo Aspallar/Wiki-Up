@@ -6,7 +6,7 @@ namespace WikiUpload
 {
     public class NewVersionViewModel : WindowViewModel
     {
-        private IHelpers _helpers;
+        private readonly IHelpers _helpers;
 
         public NewVersionViewModel(Window window, IHelpers helpers) : base(window)
         {

@@ -8,7 +8,7 @@ namespace WikiUpload
 {
     public class PasswordStore : IPasswordStore
     {
-        private string _fileName;
+        private readonly string _fileName;
 
         public PasswordStore()
         {

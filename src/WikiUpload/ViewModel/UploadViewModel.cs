@@ -384,9 +384,9 @@ namespace WikiUpload
             if (_dialogs.AddFolderDialog(out var folderPath))
             {
                 if (_dialogs.AddFolderOptionsDialog(folderPath,
-                    out bool includeSunfolder,
-                    out IncludeFiles includeFiles,
-                    out string extension))
+                    out var includeSunfolder,
+                    out var includeFiles,
+                    out var extension))
                 {
                     try
                     {
