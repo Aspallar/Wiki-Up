@@ -25,6 +25,7 @@ copy %src%\Google.Apis.dll Deploy\.
 copy %src%\Google.Apis.PlatformServices.dll Deploy\.
 copy %src%\Google.Apis.YouTube.v3.dll Deploy\.
 copy %src%\Newtonsoft.Json.dll Deploy\.
+copy %src%\Ookii.Dialogs.Wpf.dll Deploy\.
 copy %src%\de-DE\WikiUp.resources.dll Deploy\de-DE\.
 copy %src%\et-EE\WikiUp.resources.dll Deploy\et-EE\.
 

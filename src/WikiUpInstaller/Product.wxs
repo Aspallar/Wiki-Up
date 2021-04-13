@@ -95,6 +95,7 @@
         <File Id="System.Text.Encoding.CodePages.dll" Name="System.Text.Encoding.CodePages.dll" Source="$(var.WikiUpload_TargetDir)System.Text.Encoding.CodePages.dll" KeyPath="yes"/>
       </Component>
 
+      <!-- Google (Youtube) -->
       <Component Id="Google.Apis.Auth.dll" Guid="{94FA5A54-DCA3-4F83-9CFB-9E458EF644BC}">
         <File Id="Google.Apis.Auth.dll" Name="Google.Apis.Auth.dll" Source="$(var.WikiUpload_TargetDir)Google.Apis.Auth.dll" KeyPath="yes"/>
       </Component>
@@ -117,6 +118,11 @@
       <!-- Newtonsoft JSON -->  
       <Component Id="Newtonsoft.Json.dll" Guid="{CB1AA7E3-4321-4A0C-A417-05E57136088F}">
         <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.WikiUpload_TargetDir)Newtonsoft.Json.dll" KeyPath="yes"/>
+      </Component>
+      
+      <!--  Ookii.Dialogs.Wpf.dll (Select Folder Dialog) -->
+      <Component Id="Ookii.Dialogs.Wpf.dll" Guid="{ADE05561-8F44-4F68-9E13-37DA37ED9096}">
+        <File Id="Ookii.Dialogs.Wpf.dll" Name="Ookii.Dialogs.Wpf.dll" Source="$(var.WikiUpload_TargetDir)Ookii.Dialogs.Wpf.dll" KeyPath="yes"/>
       </Component>
 
     </ComponentGroup>
