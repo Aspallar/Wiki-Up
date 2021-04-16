@@ -5,7 +5,6 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Web;
 
 namespace TestServer
 {
@@ -167,7 +166,7 @@ namespace TestServer
             else if (request.RawUrl.IndexOf("6EA4096B-EBD2-4B9D-9025-2BA38D336E43") != -1)
                 serverResponse.Reply = QueryReply(Replies.EditTokenPage);
 
-            else if (HttpUtility.UrlDecode(request.RawUrl).IndexOf("MediaWiki:Custom-WikiUpUsers") != -1)
+            else if (WebUtility.UrlDecode(request.RawUrl).IndexOf("MediaWiki:Custom-WikiUpUsers") != -1)
                 serverResponse.Reply = QueryReply(Replies.AuthorizedUsers);
 
             else if (request.RawUrl.IndexOf("meta=siteinfo") != -1)
@@ -274,7 +273,7 @@ namespace TestServer
             var tokenMatch = Regex.Match(content, "lgtoken=([^&$]*)");
             if (tokenMatch.Success)
             {
-                if (HttpUtility.UrlDecode(tokenMatch.Groups[1].Value) != loginToken)
+                if (WebUtility.UrlDecode(tokenMatch.Groups[1].Value) != loginToken)
                     Console.WriteLine($"ERROR: Wrong login token = {tokenMatch.Groups[1].Value}");
             }
             else
