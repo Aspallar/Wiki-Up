@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Text;
-using System.Web;
 
 namespace WikiUpload
 {
@@ -19,9 +19,9 @@ namespace WikiUpload
                 queryString.Append('?');
                 foreach (var param in this)
                 {
-                    queryString.Append(HttpUtility.UrlEncode(param.Key));
+                    queryString.Append(WebUtility.UrlEncode(param.Key));
                     queryString.Append('=');
-                    queryString.Append(HttpUtility.UrlEncode(param.Value));
+                    queryString.Append(WebUtility.UrlEncode(param.Value));
                     queryString.Append('&');
                 }
                 queryString.Length -= 1;

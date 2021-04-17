@@ -1,10 +1,10 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
+using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace WikiUpload
 {
@@ -61,8 +61,8 @@ namespace WikiUpload
             {
                 if (uri.Scheme == "https" && uri.Host.EndsWith("youtube.com"))
                 {
-                    var queryParams = HttpUtility.ParseQueryString(uri.Query);
-                    playlistId = queryParams.Get("list");
+                    var queryParams = QueryHelpers.ParseQuery(uri.Query);
+                    playlistId = queryParams.GetValueOrDefault("list");
                 }
             }
 

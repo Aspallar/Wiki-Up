@@ -24,7 +24,7 @@ namespace WikiUpload
         }
 
 
-        private string AddFilesFilter(string[] permittedExtensions, string imageExtensionsString)
+        private static string AddFilesFilter(string[] permittedExtensions, string imageExtensionsString)
         {
             const string othersPrefix = "|Other Files|*";
             const string imagesPrefix = "|Image Files|*";

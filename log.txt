@@ -1,0 +1,107 @@
+2021-04-17 21:36:47.959 +01:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.202\
+2021-04-17 21:36:47.998 +01:00 [INF] Registered 1 extensions:
+	Default extension
+2021-04-17 21:36:51.645 +01:00 [INF] Initializing upgrade step Select an entrypoint
+2021-04-17 21:36:51.648 +01:00 [INF] Setting entrypoint to only project in solution: D:\T\1\Wiki-Up\src\WikiUpload\WikiUpload.csproj
+2021-04-17 21:36:51.658 +01:00 [INF] Initializing upgrade step Select project to upgrade
+2021-04-17 21:36:51.732 +01:00 [INF] Initializing upgrade step Back up project
+2021-04-17 21:36:51.734 +01:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-04-17 21:36:51.769 +01:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-04-17 21:36:51.771 +01:00 [INF] Converting project file format with try-convert, version 0.7.217901
+2021-04-17 21:36:52.840 +01:00 [INF] [try-convert] D:\T\1\Wiki-Up\src\WikiUpload\WikiUpload.csproj contains a reference to System.Web, which is not supported on .NET Core. You may have significant work ahead of you to fully port this project.
+2021-04-17 21:36:52.841 +01:00 [INF] [try-convert] D:\T\1\Wiki-Up\src\WikiUpload\WikiUpload.csproj contains an App.config file. App.config is replaced by appsettings.json in .NET Core. You will need to delete App.config and migrate to appsettings.json if it's applicable to your project.
+2021-04-17 21:36:55.305 +01:00 [INF] [try-convert] This project has an unrecognized custom import which may need reviewed after conversion: NUnit3TestAdapter.props
+2021-04-17 21:36:55.306 +01:00 [INF] [try-convert] This project has an unrecognized custom import which may need reviewed after conversion: PropertyChanged.Fody.props
+2021-04-17 21:36:55.306 +01:00 [INF] [try-convert] This project has an unrecognized custom import which may need reviewed after conversion: Fody.targets
+2021-04-17 21:36:57.056 +01:00 [INF] [try-convert] Conversion complete!
+2021-04-17 21:36:57.383 +01:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-04-17 21:37:01.375 +01:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-04-17 21:37:03.378 +01:00 [INF] Initializing upgrade step Clean up NuGet package references
+2021-04-17 21:37:04.456 +01:00 [INF] Marking package Google.Apis for removal because it appears to be a transitive dependency
+2021-04-17 21:37:04.458 +01:00 [INF] Marking package Google.Apis.Auth for removal because it appears to be a transitive dependency
+2021-04-17 21:37:04.460 +01:00 [INF] Marking package Google.Apis.Core for removal because it appears to be a transitive dependency
+2021-04-17 21:37:04.464 +01:00 [INF] Marking package Newtonsoft.Json for removal because it appears to be a transitive dependency
+2021-04-17 21:37:04.494 +01:00 [INF] Marking package System.Runtime.CompilerServices.Unsafe for removal because it appears to be a transitive dependency
+2021-04-17 21:37:04.496 +01:00 [INF] Marking package System.Text.Encoding.CodePages for removal because it appears to be a transitive dependency
+2021-04-17 21:37:04.541 +01:00 [INF] Marking assembly reference System.Configuration for removal based on package mapping configuration System.Configuration
+2021-04-17 21:37:04.545 +01:00 [INF] Adding package System.Configuration.ConfigurationManager based on package mapping configuration System.Configuration
+2021-04-17 21:37:08.351 +01:00 [INF] Marking package NUnit3TestAdapter, Version=3.17.0 for removal because it doesn't support the target framework but a newer version (4.0.0-beta.2) does
+2021-04-17 21:37:08.352 +01:00 [WRN] Package NUnit3TestAdapter has been upgraded across major versions (3.17.0 -> 4.0.0-beta.2) which may introduce breaking changes
+2021-04-17 21:37:09.673 +01:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.220602) needs added
+2021-04-17 21:37:09.683 +01:00 [INF] References to be removed:
+System.Configuration
+2021-04-17 21:37:09.684 +01:00 [INF] Packages to be removed:
+Google.Apis, Version=1.50.0
+Google.Apis.Auth, Version=1.50.0
+Google.Apis.Core, Version=1.50.0
+Newtonsoft.Json, Version=12.0.3
+System.Runtime.CompilerServices.Unsafe, Version=4.5.0
+System.Text.Encoding.CodePages, Version=4.5.0
+NUnit3TestAdapter, Version=3.17.0
+2021-04-17 21:37:09.684 +01:00 [INF] Packages to be addded:
+System.Configuration.ConfigurationManager, Version=5.0.0
+NUnit3TestAdapter, Version=4.0.0-beta.2
+Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.220602
+2021-04-17 21:37:09.701 +01:00 [INF] Applying upgrade step Clean up NuGet package references
+2021-04-17 21:37:09.705 +01:00 [INF] Removing outdated assembly reference: System.Configuration
+2021-04-17 21:37:09.707 +01:00 [INF] Removing outdated package reference: Google.Apis, Version=1.50.0
+2021-04-17 21:37:09.708 +01:00 [INF] Removing outdated package reference: Google.Apis.Auth, Version=1.50.0
+2021-04-17 21:37:09.709 +01:00 [INF] Removing outdated package reference: Google.Apis.Core, Version=1.50.0
+2021-04-17 21:37:09.709 +01:00 [INF] Removing outdated package reference: Newtonsoft.Json, Version=12.0.3
+2021-04-17 21:37:09.710 +01:00 [INF] Removing outdated package reference: NUnit3TestAdapter, Version=3.17.0
+2021-04-17 21:37:09.711 +01:00 [INF] Removing outdated package reference: System.Runtime.CompilerServices.Unsafe, Version=4.5.0
+2021-04-17 21:37:09.711 +01:00 [INF] Removing outdated package reference: System.Text.Encoding.CodePages, Version=4.5.0
+2021-04-17 21:37:09.713 +01:00 [INF] Adding package reference: System.Configuration.ConfigurationManager, Version=5.0.0
+2021-04-17 21:37:09.714 +01:00 [INF] Adding package reference: NUnit3TestAdapter, Version=4.0.0-beta.2
+2021-04-17 21:37:09.715 +01:00 [INF] Adding package reference: Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.220602
+2021-04-17 21:37:16.170 +01:00 [INF] Upgrade step Clean up NuGet package references applied successfully
+2021-04-17 21:37:18.182 +01:00 [INF] Initializing upgrade step Update TFM
+2021-04-17 21:37:18.199 +01:00 [INF] TFM needs updated to net5.0-windows
+2021-04-17 21:37:18.227 +01:00 [INF] Applying upgrade step Update TFM
+2021-04-17 21:37:24.741 +01:00 [INF] Updated TFM to net5.0-windows
+2021-04-17 21:37:24.742 +01:00 [INF] Upgrade step Update TFM applied successfully
+2021-04-17 21:37:26.746 +01:00 [INF] Initializing upgrade step Update NuGet Packages
+2021-04-17 21:37:27.997 +01:00 [INF] Marking assembly reference System.Web for removal based on package mapping configuration ASP.NET
+2021-04-17 21:37:27.998 +01:00 [INF] Adding framework reference Microsoft.AspNetCore.App based on package mapping configuration ASP.NET
+2021-04-17 21:37:31.006 +01:00 [INF] Marking package ToggleSwitch, Version=1.1.2 for removal because it doesn't support the target framework but a newer version (1.2.0) does
+2021-04-17 21:37:32.669 +01:00 [INF] Adding Microsoft.Windows.Compatibility 5.0.2
+2021-04-17 21:37:32.676 +01:00 [INF] References to be removed:
+System.Web
+2021-04-17 21:37:32.677 +01:00 [INF] Packages to be removed:
+ToggleSwitch, Version=1.1.2
+2021-04-17 21:37:32.678 +01:00 [INF] Packages to be addded:
+ToggleSwitch, Version=1.2.0
+Microsoft.Windows.Compatibility, Version=5.0.2
+2021-04-17 21:37:32.678 +01:00 [INF] Framework references to be addded:
+Microsoft.AspNetCore.App
+2021-04-17 21:37:32.738 +01:00 [INF] Applying upgrade step Update NuGet Packages
+2021-04-17 21:37:32.739 +01:00 [INF] Removing outdated assembly reference: System.Web
+2021-04-17 21:37:32.740 +01:00 [INF] Removing outdated package reference: ToggleSwitch, Version=1.1.2
+2021-04-17 21:37:32.740 +01:00 [INF] Adding package reference: ToggleSwitch, Version=1.2.0
+2021-04-17 21:37:32.741 +01:00 [INF] Adding package reference: Microsoft.Windows.Compatibility, Version=5.0.2
+2021-04-17 21:37:32.741 +01:00 [INF] Adding framework reference: Microsoft.AspNetCore.App
+2021-04-17 21:37:45.056 +01:00 [INF] Marking package System.Data.DataSetExtensions for removal because it appears to be a transitive dependency
+2021-04-17 21:37:45.061 +01:00 [INF] Marking package System.Configuration.ConfigurationManager for removal because it appears to be a transitive dependency
+2021-04-17 21:37:46.340 +01:00 [INF] Removing outdated package reference: System.Data.DataSetExtensions, Version=4.5.0
+2021-04-17 21:37:46.341 +01:00 [INF] Removing outdated package reference: System.Configuration.ConfigurationManager, Version=5.0.0
+2021-04-17 21:37:49.490 +01:00 [INF] Upgrade step Update NuGet Packages applied successfully
+2021-04-17 21:37:51.503 +01:00 [INF] Initializing upgrade step Add template files
+2021-04-17 21:37:51.548 +01:00 [INF] 0 expected template items needed
+2021-04-17 21:37:51.549 +01:00 [INF] Initializing upgrade step Upgrade app config files
+2021-04-17 21:37:51.561 +01:00 [INF] Found 0 app settings for upgrade: 
+2021-04-17 21:37:51.566 +01:00 [INF] 0 web page namespace imports need upgraded: 
+2021-04-17 21:37:51.580 +01:00 [INF] Initializing upgrade step Update C# source
+2021-04-17 21:37:54.235 +01:00 [INF] Applying upgrade step Apply fix for UA0001: ASP.NET Core projects should not reference ASP.NET namespaces
+2021-04-17 21:37:54.416 +01:00 [INF] Diagnostic UA0001 fixed in D:\T\1\Wiki-Up\src\WikiUpload\Service\RequestParameters.cs
+2021-04-17 21:37:54.434 +01:00 [INF] Diagnostic UA0001 fixed in D:\T\1\Wiki-Up\src\WikiUpload\Service\Youtube.cs
+2021-04-17 21:37:54.670 +01:00 [INF] Applying upgrade step Update C# source
+2021-04-17 21:37:55.031 +01:00 [INF] Upgrade step Update C# source applied successfully
+2021-04-17 21:37:55.032 +01:00 [INF] Upgrade step Apply fix for UA0001: ASP.NET Core projects should not reference ASP.NET namespaces applied successfully
+2021-04-17 21:37:57.272 +01:00 [INF] Initializing upgrade step Move to next project
+2021-04-17 21:37:57.348 +01:00 [INF] Applying upgrade step Move to next project
+2021-04-17 21:37:57.348 +01:00 [INF] Upgrade step Move to next project applied successfully
+2021-04-17 21:37:59.379 +01:00 [INF] Initializing upgrade step Finalize upgrade
+2021-04-17 21:37:59.388 +01:00 [INF] Applying upgrade step Finalize upgrade
+2021-04-17 21:37:59.388 +01:00 [INF] Upgrade step Finalize upgrade applied successfully
+2021-04-17 21:38:01.393 +01:00 [INF] Upgrade has completed. Please review any changes.
+2021-04-17 21:38:01.395 +01:00 [INF] Saving upgrade progress file at D:\T\1\Wiki-Up\src\WikiUpload\.upgrade-assistant
