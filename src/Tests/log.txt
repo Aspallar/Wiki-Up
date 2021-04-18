@@ -1,0 +1,74 @@
+2021-04-18 00:49:33.407 +01:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.202\
+2021-04-18 00:49:33.434 +01:00 [INF] Registered 1 extensions:
+	Default extension
+2021-04-18 00:49:35.924 +01:00 [INF] Initializing upgrade step Select an entrypoint
+2021-04-18 00:49:35.927 +01:00 [INF] Setting entrypoint to user selected project: D:\T\1\Wiki-Up\src\Tests\Tests.csproj
+2021-04-18 00:49:35.935 +01:00 [INF] Initializing upgrade step Select project to upgrade
+2021-04-18 00:49:36.249 +01:00 [INF] Initializing upgrade step Back up project
+2021-04-18 00:49:36.251 +01:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-04-18 00:49:36.269 +01:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-04-18 00:49:36.271 +01:00 [INF] Converting project file format with try-convert, version 0.7.217901
+2021-04-18 00:49:38.450 +01:00 [INF] [try-convert] This project has an unrecognized custom import which may need reviewed after conversion: NUnit3TestAdapter.props
+2021-04-18 00:49:38.450 +01:00 [INF] [try-convert] This project has an unrecognized custom import which may need reviewed after conversion: NUnit.props
+2021-04-18 00:49:39.452 +01:00 [INF] [try-convert] Conversion complete!
+2021-04-18 00:49:40.040 +01:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-04-18 00:49:41.763 +01:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-04-18 00:49:43.770 +01:00 [INF] Initializing upgrade step Clean up NuGet package references
+2021-04-18 00:49:45.265 +01:00 [INF] Marking package Castle.Core for removal because it appears to be a transitive dependency
+2021-04-18 00:49:45.313 +01:00 [INF] Marking assembly reference System.Configuration for removal based on package mapping configuration System.Configuration
+2021-04-18 00:49:45.316 +01:00 [INF] Adding package System.Configuration.ConfigurationManager based on package mapping configuration System.Configuration
+2021-04-18 00:49:47.321 +01:00 [INF] Marking package NUnit3TestAdapter, Version=3.17.0 for removal because it doesn't support the target framework but a newer version (4.0.0-beta.2) does
+2021-04-18 00:49:47.323 +01:00 [WRN] Package NUnit3TestAdapter has been upgraded across major versions (3.17.0 -> 4.0.0-beta.2) which may introduce breaking changes
+2021-04-18 00:49:48.625 +01:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.220602) needs added
+2021-04-18 00:49:48.633 +01:00 [INF] References to be removed:
+System.Configuration
+2021-04-18 00:49:48.634 +01:00 [INF] Packages to be removed:
+Castle.Core, Version=4.3.1
+NUnit3TestAdapter, Version=3.17.0
+2021-04-18 00:49:48.635 +01:00 [INF] Packages to be addded:
+System.Configuration.ConfigurationManager, Version=5.0.0
+NUnit3TestAdapter, Version=4.0.0-beta.2
+Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.220602
+2021-04-18 00:49:48.684 +01:00 [INF] Applying upgrade step Clean up NuGet package references
+2021-04-18 00:49:48.688 +01:00 [INF] Removing outdated assembly reference: System.Configuration
+2021-04-18 00:49:48.690 +01:00 [INF] Removing outdated package reference: Castle.Core, Version=4.3.1
+2021-04-18 00:49:48.691 +01:00 [INF] Removing outdated package reference: NUnit3TestAdapter, Version=3.17.0
+2021-04-18 00:49:48.692 +01:00 [INF] Adding package reference: System.Configuration.ConfigurationManager, Version=5.0.0
+2021-04-18 00:49:48.693 +01:00 [INF] Adding package reference: NUnit3TestAdapter, Version=4.0.0-beta.2
+2021-04-18 00:49:48.694 +01:00 [INF] Adding package reference: Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.220602
+2021-04-18 00:49:50.544 +01:00 [INF] Upgrade step Clean up NuGet package references applied successfully
+2021-04-18 00:49:52.550 +01:00 [INF] Initializing upgrade step Update TFM
+2021-04-18 00:49:52.626 +01:00 [INF] TFM needs updated to net5.0-windows
+2021-04-18 00:49:52.640 +01:00 [INF] Applying upgrade step Update TFM
+2021-04-18 00:49:57.672 +01:00 [INF] Updated TFM to net5.0-windows
+2021-04-18 00:49:57.673 +01:00 [INF] Upgrade step Update TFM applied successfully
+2021-04-18 00:49:59.682 +01:00 [INF] Initializing upgrade step Update NuGet Packages
+2021-04-18 00:50:01.145 +01:00 [INF] Marking package Microsoft.CSharp for removal because it appears to be a transitive dependency
+2021-04-18 00:50:01.149 +01:00 [INF] Marking package System.Data.DataSetExtensions for removal because it appears to be a transitive dependency
+2021-04-18 00:50:01.153 +01:00 [INF] Marking package System.Configuration.ConfigurationManager for removal because it appears to be a transitive dependency
+2021-04-18 00:50:01.167 +01:00 [INF] Marking package NUnit3TestAdapter for removal because it appears to be a transitive dependency
+2021-04-18 00:50:01.183 +01:00 [INF] Marking package Newtonsoft.Json for removal because it appears to be a transitive dependency
+2021-04-18 00:50:01.203 +01:00 [INF] Packages to be removed:
+Microsoft.CSharp, Version=4.7.0
+System.Data.DataSetExtensions, Version=4.5.0
+System.Configuration.ConfigurationManager, Version=5.0.0
+NUnit3TestAdapter, Version=4.0.0-beta.2
+Newtonsoft.Json, Version=12.0.3
+2021-04-18 00:50:01.258 +01:00 [INF] Applying upgrade step Update NuGet Packages
+2021-04-18 00:50:01.258 +01:00 [INF] Removing outdated package reference: Microsoft.CSharp, Version=4.7.0
+2021-04-18 00:50:01.259 +01:00 [INF] Removing outdated package reference: System.Data.DataSetExtensions, Version=4.5.0
+2021-04-18 00:50:01.259 +01:00 [INF] Removing outdated package reference: System.Configuration.ConfigurationManager, Version=5.0.0
+2021-04-18 00:50:01.260 +01:00 [INF] Removing outdated package reference: NUnit3TestAdapter, Version=4.0.0-beta.2
+2021-04-18 00:50:01.260 +01:00 [INF] Removing outdated package reference: Newtonsoft.Json, Version=12.0.3
+2021-04-18 00:50:03.590 +01:00 [INF] Upgrade step Update NuGet Packages applied successfully
+2021-04-18 00:50:05.591 +01:00 [INF] Initializing upgrade step Add template files
+2021-04-18 00:50:05.649 +01:00 [INF] 0 expected template items needed
+2021-04-18 00:50:05.650 +01:00 [INF] Initializing upgrade step Update C# source
+2021-04-18 00:50:07.806 +01:00 [INF] Initializing upgrade step Move to next project
+2021-04-18 00:50:07.861 +01:00 [INF] Applying upgrade step Move to next project
+2021-04-18 00:50:07.861 +01:00 [INF] Upgrade step Move to next project applied successfully
+2021-04-18 00:50:09.963 +01:00 [INF] Initializing upgrade step Finalize upgrade
+2021-04-18 00:50:09.974 +01:00 [INF] Applying upgrade step Finalize upgrade
+2021-04-18 00:50:09.975 +01:00 [INF] Upgrade step Finalize upgrade applied successfully
+2021-04-18 00:50:11.988 +01:00 [INF] Upgrade has completed. Please review any changes.
+2021-04-18 00:50:11.990 +01:00 [INF] Saving upgrade progress file at D:\T\1\Wiki-Up\src\Tests\.upgrade-assistant
