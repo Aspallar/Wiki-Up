@@ -52,5 +52,8 @@ namespace TestServer
 
         [Option]
         public int MustBeLoggedIn { get; set; }
+
+        [Option]
+        public bool NoLog { get; internal set; }
     }
 }

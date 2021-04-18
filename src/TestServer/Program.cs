@@ -13,11 +13,12 @@ namespace TestServer
         private const string loginToken = "123456+\\";
 
 
-        private static readonly object randLock = new object();
-        private static readonly Random rand = new Random();
+        private static readonly object randLock = new();
+        private static readonly Random rand = new();
         private static long videoUploadCount = 0;
         private static long fileUploadCount = 0;
-
+        private static Options options;
+        private static ILog log;
 
         private static void Main(string[] args)
         {
@@ -25,15 +26,17 @@ namespace TestServer
                 .WithParsed(options => Run(options));
         }
 
-        private static void Run(Options options)
+        private static void Run(Options o)
         {
-            var listener = CreateListener(options);
+            options = o;
+            log = Logging.Create(options.NoLog);
+            var listener = CreateListener();
             WriteStartupMessage(listener);
             listener.Start();
             while (true)
             {
                 var context = listener.GetContext();
-                ThreadPool.QueueUserWorkItem(x => HandleRequest(context, options));
+                ThreadPool.QueueUserWorkItem(HandleRequest, context);
             }
         }
 
@@ -44,7 +47,7 @@ namespace TestServer
                 Console.WriteLine($"  {prefix}");
         }
 
-        private static HttpListener CreateListener(Options options)
+        private static HttpListener CreateListener()
         {
             var listener = new HttpListener();
 
@@ -65,11 +68,11 @@ namespace TestServer
             lock (randLock) return rand.Next(max);
         }
 
-        private static void HandleRequest(HttpListenerContext context, Options options)
+        private static void HandleRequest(object context)
         {
             try
             {
-                DoHandleRequest(context, options);
+                DoHandleRequest((HttpListenerContext)context);
             }
             catch (Exception ex)
             {
@@ -77,27 +80,27 @@ namespace TestServer
             }
         }
 
-        private static void DoHandleRequest(HttpListenerContext context, Options options)
+        private static void DoHandleRequest(HttpListenerContext context)
         {
             var request = context.Request;
             ServerResponse serverResponse;
 
-            Console.WriteLine($"[{Thread.CurrentThread.ManagedThreadId}] {request.RawUrl}");
+            log.Log($"[{Thread.CurrentThread.ManagedThreadId}] {request.RawUrl}");
 
             if (request.HasEntityBody)
-                serverResponse = RequestBodyReply(options, request);
+                serverResponse = RequestBodyReply(request);
             else
-                serverResponse = NoRequestBodyReply(options, request);
+                serverResponse = NoRequestBodyReply(request);
 
             if (!serverResponse.TimeoutRequest)
                 serverResponse.Send(context.Response);
 
             if (options.ShowReply)
-                Console.WriteLine($"{request.RawUrl}\nResponse:\n{serverResponse.Reply}\n");
+                log.Log($"{request.RawUrl}\nResponse:\n{serverResponse.Reply}\n");
         }
 
 
-        private static ServerResponse RequestBodyReply(Options options, HttpListenerRequest request)
+        private static ServerResponse RequestBodyReply(HttpListenerRequest request)
         {
             ServerResponse serverResponse;
 
@@ -105,14 +108,14 @@ namespace TestServer
             {
                 if (request.ContentType == "application/x-www-form-urlencoded")
                 {
-                    if (request.RawUrl.IndexOf("ingestion", StringComparison.InvariantCultureIgnoreCase) == -1)
-                        serverResponse = LoginReply(options, request);
+                    if (request.RawUrl.Contains("ingestion", StringComparison.InvariantCultureIgnoreCase))
+                        serverResponse = VideoUploadReply();
                     else
-                        serverResponse = VideoUploadReply(options);
-                }
+                        serverResponse = LoginReply(request);
+                }   
                 else if (request.ContentType.StartsWith("multipart/form-data"))
                 {
-                    serverResponse = UploadReply(options);
+                    serverResponse = UploadReply();
                 }
                 else
                 {
@@ -128,7 +131,7 @@ namespace TestServer
             return serverResponse;
         }
 
-        private static ServerResponse VideoUploadReply(Options options)
+        private static ServerResponse VideoUploadReply()
         {
             if (options.Delay > 0)
                 Thread.Sleep(options.Delay);
@@ -156,20 +159,20 @@ namespace TestServer
             return serverResponse;
         }
 
-        private static ServerResponse NoRequestBodyReply(Options options, HttpListenerRequest request)
+        private static ServerResponse NoRequestBodyReply(HttpListenerRequest request)
         {
             var serverResponse = new ServerResponse();
 
-            if (request.RawUrl.IndexOf("list=users&usprop=groups&ususers") != -1)
+            if (request.RawUrl.Contains("list=users&usprop=groups&ususers"))
                 serverResponse.Reply = QueryReply(Replies.UserGroups);
 
-            else if (request.RawUrl.IndexOf("6EA4096B-EBD2-4B9D-9025-2BA38D336E43") != -1)
+            else if (request.RawUrl.Contains("6EA4096B-EBD2-4B9D-9025-2BA38D336E43"))
                 serverResponse.Reply = QueryReply(Replies.EditTokenPage);
 
-            else if (WebUtility.UrlDecode(request.RawUrl).IndexOf("MediaWiki:Custom-WikiUpUsers") != -1)
+            else if (WebUtility.UrlDecode(request.RawUrl).Contains("MediaWiki:Custom-WikiUpUsers"))
                 serverResponse.Reply = QueryReply(Replies.AuthorizedUsers);
 
-            else if (request.RawUrl.IndexOf("meta=siteinfo") != -1)
+            else if (request.RawUrl.Contains("meta=siteinfo"))
                 serverResponse.Reply = options.NoPermittedFiles
                     ? ApiReply("")
                     : QueryReply(Replies.SiteInfo);
@@ -179,10 +182,10 @@ namespace TestServer
                     ? QueryReply(Replies.NoMetaTokenSupport)
                     : QueryReply(string.Format(Replies.LoginToken, loginToken));
 
-            else if (request.RawUrl.IndexOf("meta=tokens&type=csrf") != -1)
+            else if (request.RawUrl.Contains("meta=tokens&type=csrf"))
                 serverResponse.Reply = QueryReply(Replies.EditToken);
 
-            else if (request.RawUrl.IndexOf("allcategories") != -1)
+            else if (request.RawUrl.Contains("allcategories"))
                 serverResponse.TimeoutRequest = true;
 
             else
@@ -191,7 +194,7 @@ namespace TestServer
             return serverResponse;
         }
 
-        private static ServerResponse UploadReply(Options options)
+        private static ServerResponse UploadReply()
         {
             if (options.Delay > 0)
                 Thread.Sleep(options.Delay);
@@ -237,7 +240,7 @@ namespace TestServer
             return serverResponse;
         }
 
-        private static ServerResponse LoginReply(Options options, HttpListenerRequest request)
+        private static ServerResponse LoginReply(HttpListenerRequest request)
         {
             string reply;
             
@@ -250,7 +253,7 @@ namespace TestServer
                 string content;
                 using (var sr = new StreamReader(request.InputStream, request.ContentEncoding))
                     content = sr.ReadToEnd();
-                if (content.IndexOf("lgpassword=") != -1)
+                if (content.Contains("lgpassword="))
                 {
                     CheckLoginToken(loginToken, content);
                     var password = Regex.Match(content, @"lgpassword=([^&$]*)").Groups[1].Value;
