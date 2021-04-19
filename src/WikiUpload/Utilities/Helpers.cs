@@ -19,15 +19,21 @@ namespace WikiUpload
         public Task Wait(int ms, CancellationToken token)
             => token.IsCancellationRequested ? Task.CompletedTask : Task.Delay(ms, token);
 
-        public Process LaunchProcess(string path) => Process.Start(path);
+        public Process LaunchProcess(string path) => Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
 
         public bool IsCancellationRequested(CancellationToken token) => token.IsCancellationRequested;
 
         public void SignalCancel(CancellationTokenSource tokenSource) => tokenSource.Cancel();
 
         public IEnumerable<string> EnumerateFiles(string rootPath, string pattern, SearchOption searchOption)
-            // TODO: when ported to .net5 use EnumerationOptions IgnoreInaccessible 
-            => Directory.EnumerateFiles(rootPath, pattern, searchOption);
+        {
+            var options = new EnumerationOptions
+            {
+                RecurseSubdirectories = searchOption == SearchOption.AllDirectories,
+                IgnoreInaccessible = true,
+            };
+            return Directory.EnumerateFiles(rootPath, pattern, options);
+        }
 
         public string ApplicationVersionString => Utils.ApplicationVersion;
 
