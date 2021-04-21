@@ -273,9 +273,9 @@ namespace WikiUpload
                 {
                     response = await _fileUploader.UpLoadAsync(
                         file.FullPath,
-                        cancelToken,
                         summary,
-                        newPageContent);
+                        newPageContent,
+                        cancelToken);
                 }
                 finally
                 {

@@ -186,9 +186,9 @@ namespace WikiUpload
         }
 
         public async Task<IUploadResponse> UpLoadAsync(string fullPath,
-            CancellationToken cancelToken,
             string summary,
-            string newPageContent)
+            string newPageContent,
+            CancellationToken cancelToken)
         {
             var fileName = Path.GetFileName(fullPath);
 

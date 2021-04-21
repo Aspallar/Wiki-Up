@@ -19,9 +19,9 @@ namespace WikiUpload
         Task RefreshTokenAsync();
         Task<IUploadResponse> UpLoadAsync(
             string fullPath,
-            CancellationToken cancelToken,
             string summary,
-            string newPageContent);
+            string newPageContent,
+            CancellationToken cancelToken);
         Task<IngestionControllerResponse> UpLoadVideoAsync(string fullPath, CancellationToken cancelToken);
         Task<SearchResponse> FetchCategories(string from);
         Task<SearchResponse> FetchTemplates(string from);

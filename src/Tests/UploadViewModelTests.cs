@@ -57,7 +57,7 @@ namespace Tests
             A.CallTo(() => _wikiSearchFactory.CreateTemplateSearch(A<IFileUploader>._))
                 .Returns(_templateSearch);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<string>._, A<string>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<string>._, A<string>._, A<CancellationToken>._))
                 .Returns(_uploadResponse);
 
             _model = new UploadViewModel(_fileUploader,
@@ -637,7 +637,7 @@ namespace Tests
             
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<string>._, A<string>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<string>._, A<string>._, A<CancellationToken>._))
                 .MustNotHaveHappened();
         }
 
@@ -654,9 +654,9 @@ namespace Tests
 
             A.CallTo(() => _fileUploader.UpLoadAsync(
                 A<string>.Ignored,
-                A<CancellationToken>.Ignored,
                 A<string>.Ignored,
-                content)).MustHaveHappened(1, Times.Exactly);
+                content,
+                A<CancellationToken>.Ignored)).MustHaveHappened(1, Times.Exactly);
         }
 
         [Test]
@@ -672,9 +672,9 @@ namespace Tests
 
             A.CallTo(() => _fileUploader.UpLoadAsync(
                 A<string>.Ignored,
-                A<CancellationToken>.Ignored,
                 A<string>.That.Contains("via Wiki-Up"),
-                A<string>.Ignored)).MustHaveHappened(1, Times.Exactly);
+                A<string>.Ignored,
+                A<CancellationToken>.Ignored)).MustHaveHappened(1, Times.Exactly);
         }
 
         [Test]
@@ -707,9 +707,9 @@ namespace Tests
 
             A.CallTo(() => _fileUploader.UpLoadAsync(
                 A<string>.Ignored,
-                A<CancellationToken>.Ignored,
                 A<string>.Ignored,
-                A<string>.Ignored)).MustHaveHappened(1, Times.Exactly);
+                A<string>.Ignored,
+                A<CancellationToken>.Ignored)).MustHaveHappened(1, Times.Exactly);
         }
 
 
@@ -729,9 +729,9 @@ namespace Tests
 
             A.CallTo(() => _fileUploader.UpLoadAsync(
                 A<string>.Ignored,
-                A<CancellationToken>.Ignored,
                 A<string>.That.Contains("[[w:c:dev:Wiki-Up|Wiki-Up]]"),
-                A<string>.Ignored)).MustHaveHappened(1, Times.Exactly);
+                A<string>.Ignored,
+                A<CancellationToken>.Ignored)).MustHaveHappened(1, Times.Exactly);
         }
 
 
@@ -793,9 +793,9 @@ namespace Tests
 
             A.CallTo(() => _fileUploader.UpLoadAsync(
                 A<string>.Ignored,
-                A<CancellationToken>.Ignored,
                 A<string>.Ignored,
-                A<string>.Ignored)).MustNotHaveHappened();
+                A<string>.Ignored,
+                A<CancellationToken>.Ignored)).MustNotHaveHappened();
         }
 
         [Test]
@@ -856,9 +856,9 @@ namespace Tests
 
             A.CallTo(() => _fileUploader.UpLoadAsync(
                 A<string>.Ignored,
-                A<CancellationToken>.Ignored,
                 A<string>.That.StartsWith("Foobar"),
-                A<string>.Ignored)).MustHaveHappened(1, Times.Exactly);
+                A<string>.Ignored,
+                A<CancellationToken>.Ignored)).MustHaveHappened(1, Times.Exactly);
         }
 
         [Test]
@@ -872,9 +872,9 @@ namespace Tests
 
             A.CallTo(() => _fileUploader.UpLoadAsync(
                 A<string>.Ignored,
-                A<CancellationToken>.Ignored,
                 A<string>.Ignored,
-                A<string>.That.StartsWith("Foobar"))).MustHaveHappened(1, Times.Exactly);
+                A<string>.That.StartsWith("Foobar"),
+                A<CancellationToken>.Ignored)).MustHaveHappened(1, Times.Exactly);
         }
 
         [Test]
@@ -1057,7 +1057,7 @@ namespace Tests
 
             A.CallTo(() => _fileUploader.UpLoadVideoAsync(A<string>._, A<CancellationToken>._))
                 .MustHaveHappened(2, Times.Exactly);
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<string>._, A<string>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<string>._, A<string>._, A<CancellationToken>._))
                 .MustNotHaveHappened();
         }
 
@@ -1069,7 +1069,7 @@ namespace Tests
         {
             AlllFilesPermitted();
             AddThreeUploadFiles();
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<string>._,  A<string>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<string>._, A<string>._, A<CancellationToken>._))
                 .Throws(errorException);
 
             _model.UploadCommand.Execute(null);
@@ -1151,7 +1151,7 @@ namespace Tests
 
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<string>._, A<string>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<string>._, A<string>._, A<CancellationToken>._))
                 .MustHaveHappened(2, Times.Exactly);
         }
 
@@ -1165,7 +1165,7 @@ namespace Tests
 
             _model.UploadCommand.Execute(null);
 
-            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<string>._, A<string>._))
+            A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<string>._, A<string>._, A<CancellationToken>._))
                 .MustHaveHappened(4, Times.Exactly);
         }
 
