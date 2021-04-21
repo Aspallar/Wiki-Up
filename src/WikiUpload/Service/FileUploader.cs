@@ -25,7 +25,7 @@ namespace WikiUpload
         private readonly string _userAgent;
         private readonly int _timeoutSeconds;
 
-        private readonly Regex _isFandomDomainMatch = new Regex(@"^https://.+?\.fandom.com/", RegexOptions.IgnoreCase);
+        private readonly Regex _isFandomDomainMatch = new(@"^https://.+?\.fandom.com/", RegexOptions.IgnoreCase);
 
         public string Site { get; set; }
 
@@ -217,14 +217,12 @@ namespace WikiUpload
 
             uploadFormData.Add(new StringContent(_editToken), "token");
 
-            using (var response = await _client.PostAsync(_api, uploadFormData, cancelToken).ConfigureAwait(false))
-            {
-                var retryAfter = "";
-                if (response.Headers.TryGetValues("Retry-After", out var retryValues))
-                    retryAfter = retryValues.ElementAt(0);
-                var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                return new UploadResponse(responseContent, retryAfter);
-            }
+            using var response = await _client.PostAsync(_api, uploadFormData, cancelToken).ConfigureAwait(false);
+            var retryAfter = "";
+            if (response.Headers.TryGetValues("Retry-After", out var retryValues))
+                retryAfter = retryValues.ElementAt(0);
+            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return new UploadResponse(responseContent, retryAfter);
         }
 
         public async Task<IngestionControllerResponse> UpLoadVideoAsync(string fullPath, CancellationToken cancelToken)
@@ -235,15 +233,13 @@ namespace WikiUpload
                 { "token", _editToken },
             };
 
-            using (var request = new HttpRequestMessage(HttpMethod.Post, UploadVideoUri()))
-            {
-                request.Content = new FormUrlEncodedContent(formParams);
-                using (var response = await _client.SendAsync(request, cancelToken).ConfigureAwait(false))
-                    return await ProcessUploadVideoResponse(response);
-            }
+            using var request = new HttpRequestMessage(HttpMethod.Post, UploadVideoUri());
+            request.Content = new FormUrlEncodedContent(formParams);
+            using var response = await _client.SendAsync(request, cancelToken).ConfigureAwait(false);
+            return await ProcessUploadVideoResponse(response);
         }
 
-        private async Task<IngestionControllerResponse> ProcessUploadVideoResponse(HttpResponseMessage response)
+        private static async Task<IngestionControllerResponse> ProcessUploadVideoResponse(HttpResponseMessage response)
         {
             IngestionControllerResponse videoUploadResponse;
 
@@ -277,17 +273,14 @@ namespace WikiUpload
 
         private static string VideoUploadResponseMessage(HttpStatusCode statusCode, string reason)
         {
-            switch (statusCode)
+            return statusCode switch
             {
-                case HttpStatusCode.NotFound:
-                    return $"[{(int)statusCode} {reason}] {Resources.NoVideoUploadSupport} ";
-
-                case HttpStatusCode.BadRequest:
-                    return $"[{(int)statusCode} {reason}] {Resources.BadVideoUploadRequest}";
-
-                default:
-                    return $"[{(int)statusCode} {reason}]";
-            }
+                HttpStatusCode.NotFound
+                    => $"[{(int)statusCode} {reason}] {Resources.NoVideoUploadSupport} ",
+                HttpStatusCode.BadRequest
+                    => $"[{(int)statusCode} {reason}] {Resources.BadVideoUploadRequest}",
+                _ => $"[{(int)statusCode} {reason}]",
+            };
         }
 
 
@@ -384,21 +377,17 @@ namespace WikiUpload
 
         private async Task<LoginResponse> AttemptLoginAsync(List<KeyValuePair<string, string>> loginParams)
         {
-            using (var formParams = new FormUrlEncodedContent(loginParams))
+            using var formParams = new FormUrlEncodedContent(loginParams);
+            using var response = await _client.PostAsync(_api, formParams).ConfigureAwait(false);
+            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var login = GetSingleNode(responseContent, "/api/login");
+            var loginResponse = new LoginResponse();
+            if (login != null)
             {
-                using (var response = await _client.PostAsync(_api, formParams).ConfigureAwait(false))
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    var login = GetSingleNode(responseContent, "/api/login");
-                    var loginResponse = new LoginResponse();
-                    if (login != null)
-                    {
-                        loginResponse.Result = login.Attributes["result"]?.Value;
-                        loginResponse.Token = login.Attributes["token"]?.Value;
-                    }
-                    return loginResponse;
-                }
+                loginResponse.Result = login.Attributes["result"]?.Value;
+                loginResponse.Token = login.Attributes["token"]?.Value;
             }
+            return loginResponse;
         }
         public async Task<SearchResponse> FetchCategories(string from)
         {
@@ -430,7 +419,7 @@ namespace WikiUpload
             return SearchResponse.FromTemplateXml(xml);
         }
 
-        private XmlNode GetSingleNode(string xmlString, string path)
+        private static XmlNode GetSingleNode(string xmlString, string path)
             => CreateXmlDocument(xmlString).SelectSingleNode(path);
 
         private static XmlDocument CreateXmlDocument(string xmlString)

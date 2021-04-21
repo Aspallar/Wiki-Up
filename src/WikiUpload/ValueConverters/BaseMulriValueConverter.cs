@@ -18,7 +18,7 @@ namespace WikiUpload
         public abstract object Convert(object[] values, Type targetType, object parameter, CultureInfo culture);
         public abstract object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture);
         public override object ProvideValue(IServiceProvider serviceProvider)
-            => convertorInstance ?? (convertorInstance = new T());
+            => convertorInstance ??= new T();
 
     }
 }

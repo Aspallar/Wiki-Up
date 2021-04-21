@@ -7,7 +7,7 @@ namespace WikiUpload
     {
         public string NextFrom { get; set; }
 
-        public List<string> Categories { get; set; } = new List<string>();
+        public List<string> Categories { get; set; } = new();
 
         public static SearchResponse FromCategoryXml(XmlDocument doc)
         {
@@ -38,7 +38,7 @@ namespace WikiUpload
             {
                 var title = node.Attributes["title"].Value;
                 if (!(title.EndsWith("/doc") || title.Contains("/doc/")))
-                    result.Categories.Add(title.Substring(9));
+                    result.Categories.Add(title[9..]);
             }
 
             var continueNode = doc.SelectSingleNode("/api/query-continue/allpages");

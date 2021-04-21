@@ -22,20 +22,14 @@ namespace WikiUpload
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch ((UploadFileStatus)value)
+            return (UploadFileStatus)value switch
             {
-                case UploadFileStatus.Waiting:
-                    return _waitingBrush;
-                case UploadFileStatus.Uploading:
-                    return _uploadingBrush;
-                case UploadFileStatus.Warning:
-                    return _warningBrush;
-                case UploadFileStatus.Error:
-                    return _errorBrush;
-                default:
-                    System.Diagnostics.Debugger.Break();
-                    throw new ArgumentException("Invalid UploadFileStatus", nameof(value));
-            }
+                UploadFileStatus.Waiting => _waitingBrush,
+                UploadFileStatus.Uploading => _uploadingBrush,
+                UploadFileStatus.Warning => _warningBrush,
+                UploadFileStatus.Error => _errorBrush,
+                _ => throw new ArgumentException("Invalid UploadFileStatus", nameof(value)),
+            };
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

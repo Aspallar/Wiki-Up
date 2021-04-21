@@ -4,25 +4,29 @@ using System.Globalization;
 
 namespace WikiUpload
 {
+    using static UploadFileStatus;
+
     internal class UploadFileStatusToKindConverter : BaseMultiValueConverter<UploadFileStatusToKindConverter>
     {
         public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            switch ((UploadFileStatus)values[0])
+            const int statusIndex = 0;
+            const int isVideoIndex = 1;
+
+            var status = (UploadFileStatus)values[statusIndex];
+
+            return status switch
             {
-                case UploadFileStatus.Waiting:
-                    return (bool)values[1] ? PackIconFontAwesomeKind.FilmSolid : PackIconFontAwesomeKind.AngleUpSolid;
-                case UploadFileStatus.Uploading:
-                    return PackIconFontAwesomeKind.SpinnerSolid;
-                case UploadFileStatus.Warning:
-                    return PackIconFontAwesomeKind.ExclamationTriangleSolid;
-                case UploadFileStatus.Error:
-                    return PackIconFontAwesomeKind.TimesCircleRegular;
-                default:
-                    System.Diagnostics.Debugger.Break();
-                    throw new ArgumentException("Invalid UploadFileStatus", nameof(values));
-            }
+                Waiting => WaitingIcon((bool)values[isVideoIndex]),
+                Uploading => PackIconFontAwesomeKind.SpinnerSolid,
+                Warning => PackIconFontAwesomeKind.ExclamationTriangleSolid,
+                Error => PackIconFontAwesomeKind.TimesCircleRegular,
+                _ => throw new ArgumentException("Invalid UploadFileStatus", nameof(values)),
+            };
         }
+
+        private static PackIconFontAwesomeKind WaitingIcon(bool isVideo)
+            => isVideo ? PackIconFontAwesomeKind.FilmSolid : PackIconFontAwesomeKind.AngleUpSolid;
 
         public override object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
             => throw new NotImplementedException();

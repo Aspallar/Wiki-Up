@@ -16,7 +16,7 @@ namespace WikiUpload
         private static T convertorInstance = null;
 
         public override object ProvideValue(IServiceProvider serviceProvider)
-            => convertorInstance ?? (convertorInstance = new T());
+            => convertorInstance ??= new T();
 
         public abstract object Convert(object value, Type targetType, object parameter, CultureInfo culture);
 

@@ -8,10 +8,13 @@ namespace WikiUpload
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter == null)
-                return (bool)value ? Visibility.Hidden : Visibility.Visible;
-            else
-                return (bool)value ? Visibility.Visible : Visibility.Hidden;
+            return (parameter, (bool)value) switch
+            {
+                (null, true) => Visibility.Hidden,
+                (null, false) => Visibility.Visible,
+                (not null, true) => Visibility.Visible,
+                (not null, false) => Visibility.Hidden,
+            };
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
