@@ -211,7 +211,7 @@ namespace WikiUpload
             {
                 // Handle the GetMinMaxInfo of the Window
                 case 0x0024:/* WM_GETMINMAXINFO */
-                    WmGetMinMaxInfo(hwnd, lParam);
+                    WmGetMinMaxInfo(lParam);
                     handled = true;
                     break;
             }
@@ -225,9 +225,9 @@ namespace WikiUpload
         /// Get the min/max window size for this window
         /// Correctly accounting for the taskbar size and position
         /// </summary>
-        /// <param name="hwnd"></param>
         /// <param name="lParam"></param>
-        private void WmGetMinMaxInfo(System.IntPtr hwnd, System.IntPtr lParam)
+        /// 
+        private void WmGetMinMaxInfo(System.IntPtr lParam)
         {
             // Get the point position to determine what screen we are on
             NativeMethods.GetCursorPos(out var lMousePosition);
