@@ -40,7 +40,7 @@ namespace WikiUpload
         /// <summary>
         /// The last calculated available screen size
         /// </summary>
-        private Rect _screenSize = new Rect();
+        private Rect _screenSize = new();
 
         /// <summary>
         /// How close to the edge the window has to be to be detected as at the edge of the screen
@@ -70,7 +70,6 @@ namespace WikiUpload
         /// <summary>
         /// Called when the window dock position changes
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event Action<WindowDockPosition> WindowDockChanged = (dock) => { };
 
         #endregion
@@ -109,7 +108,7 @@ namespace WikiUpload
             var source = PresentationSource.FromVisual(_window);
 
             // Reset the transform to default
-            _transformToDevice = default(Matrix);
+            _transformToDevice = default;
 
             // If we cannot get the source, ignore
             if (source == null)
@@ -150,7 +149,7 @@ namespace WikiUpload
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             // We cannot find positioning until the window transform has been established
-            if (_transformToDevice == default(Matrix))
+            if (_transformToDevice == default)
                 return;
 
             // Get the WPF size
@@ -173,7 +172,7 @@ namespace WikiUpload
             var edgedRight = windowBottomRight.X >= (_screenSize.Right - _edgeTolerance);
 
             // Get docked position
-            var dock = WindowDockPosition.Undocked;
+            WindowDockPosition dock;
 
             // Left docking
             if (edgedTop && edgedBottom && edgedLeft)
@@ -231,8 +230,7 @@ namespace WikiUpload
         private void WmGetMinMaxInfo(System.IntPtr hwnd, System.IntPtr lParam)
         {
             // Get the point position to determine what screen we are on
-            POINT lMousePosition;
-            NativeMethods.GetCursorPos(out lMousePosition);
+            NativeMethods.GetCursorPos(out var lMousePosition);
 
             // Get the primary monitor at cursor position 0,0
             var lPrimaryScreen = NativeMethods.MonitorFromPoint(new POINT(0, 0), MonitorOptions.MONITOR_DEFAULTTOPRIMARY);
@@ -246,7 +244,7 @@ namespace WikiUpload
             var lCurrentScreen = NativeMethods.MonitorFromPoint(lMousePosition, MonitorOptions.MONITOR_DEFAULTTONEAREST);
 
             // If this has changed from the last one, update the transform
-            if (lCurrentScreen != _lastScreen || _transformToDevice == default(Matrix))
+            if (lCurrentScreen != _lastScreen || _transformToDevice == default)
                 GetTransform();
 
             // Store last know screen
@@ -300,8 +298,8 @@ namespace WikiUpload
     public class MONITORINFO
     {
         public int cbSize = Marshal.SizeOf(typeof(MONITORINFO));
-        public Rectangle rcMonitor = new Rectangle();
-        public Rectangle rcWork = new Rectangle();
+        public Rectangle rcMonitor = new();
+        public Rectangle rcWork = new();
         public int dwFlags = 0;
     }
 

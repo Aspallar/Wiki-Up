@@ -62,7 +62,7 @@ namespace WikiUpload
 
         private static void OnItemsSourceChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is TextBox tb))
+            if (sender is not TextBox tb)
                 return;
 
             //If we're being removed, remove the callbacks
@@ -139,7 +139,7 @@ namespace WikiUpload
             if (e.Key != Key.Enter)
                 return;
 
-            if (!(e.OriginalSource is TextBox tb))
+            if (e.OriginalSource is not TextBox tb)
                 return;
 
             //If we pressed enter and if the selected text goes all the way to the end, move our caret position to the end
@@ -160,7 +160,7 @@ namespace WikiUpload
             if (e.Changes.Any(x => x.RemovedLength > 0) && !e.Changes.Any(x => x.AddedLength > 0))
                 return;
 
-            if (!(e.OriginalSource is TextBox tb))
+            if (e.OriginalSource is not TextBox tb)
                 return;
 
             var values = GetItemsSource(tb);
@@ -183,7 +183,7 @@ namespace WikiUpload
                     return;
 
                 startIndex += indicator.Length;
-                searchTarget = searchTarget.Substring(startIndex, searchTarget.Length - startIndex);
+                searchTarget = searchTarget[startIndex..];
             }
 
             //If we don't have anything after the trigger string, return.
@@ -195,7 +195,7 @@ namespace WikiUpload
 			var compareType = GetStringComparison(tb);
 
             var match = values.Where(x => x.StartsWith(searchTarget, compareType))
-                .Select(x => x.Substring(searchTargetLength, x.Length - searchTargetLength))
+                .Select(x => x[searchTargetLength..])
                 .FirstOrDefault();
 
             if (string.IsNullOrEmpty(match))

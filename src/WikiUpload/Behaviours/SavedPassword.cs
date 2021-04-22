@@ -29,7 +29,7 @@ namespace WikiUpload
 
         private static void OnUsernameChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is PasswordBox passwordBox))
+            if (sender is not PasswordBox passwordBox)
                 return;
 
             if (e.OldValue == null)
@@ -65,7 +65,7 @@ namespace WikiUpload
 
         private static void OnSiteChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is PasswordBox passwordBox))
+            if (sender is not PasswordBox passwordBox)
                 return;
 
             if (e.OldValue != null)

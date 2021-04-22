@@ -10,7 +10,7 @@ namespace WikiUpload
     [AddINotifyPropertyChangedInterface]
     public abstract class WikiSearch :  IWikiSearch
     {
-        private readonly Stack<string> _history = new Stack<string>();
+        private readonly Stack<string> _history = new();
         private string _nextFrom = "";
         private int _multipleRequestGuard = 0;
 

@@ -18,8 +18,8 @@ namespace WikiUpload
         public void Save(PasswordDictionary passwords)
         {
             var serializer = new XmlSerializer(typeof(PasswordDictionary));
-            using (var sw = new StreamWriter(_fileName))
-                serializer.Serialize(sw, passwords);
+            using var sw = new StreamWriter(_fileName);
+            serializer.Serialize(sw, passwords);
         }
 
         public PasswordDictionary Load()
@@ -31,8 +31,8 @@ namespace WikiUpload
             try
             {
                 var serializer = new XmlSerializer(typeof(PasswordDictionary));
-                using (var sr = new StreamReader(_fileName))
-                    passwords = (PasswordDictionary)serializer.Deserialize(sr);
+                using var sr = new StreamReader(_fileName);
+                passwords = (PasswordDictionary)serializer.Deserialize(sr);
             }
             catch (InvalidOperationException ex) when (ex.InnerException is XmlException)
             {

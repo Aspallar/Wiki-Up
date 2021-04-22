@@ -26,7 +26,7 @@ namespace WikiUpload
 
         private static void OnSelectionChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is TextBox textBox))
+            if (sender is not TextBox textBox)
                 return;
 
             if (e.NewValue != null)

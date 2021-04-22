@@ -16,8 +16,8 @@ namespace WikiUpload
 
         public List<UploadFile> Deserialize(string fileName)
         {
-            using (var sr = new StreamReader(fileName))
-                return Deserialize(sr);
+            using var sr = new StreamReader(fileName);
+            return Deserialize(sr);
         }
 
         public void Serialize(TextWriter textWriter, UploadList uploadList)
@@ -28,8 +28,8 @@ namespace WikiUpload
 
         public void Serialize(string fileName, UploadList uploadList)
         {
-            using (var sw = new StreamWriter(fileName))
-                Serialize(sw, uploadList);
+            using var sw = new StreamWriter(fileName);
+            Serialize(sw, uploadList);
         }
     }
 }

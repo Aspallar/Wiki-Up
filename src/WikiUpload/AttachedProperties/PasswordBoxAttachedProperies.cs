@@ -11,7 +11,7 @@ namespace WikiUpload
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is PasswordBox passwordBox))
+            if (sender is not PasswordBox passwordBox)
                 throw new NotSupportedException($"{nameof(MonitorPasswordProperty)} may only be attached to a PasswordBox");
 
             // Remove any previous events

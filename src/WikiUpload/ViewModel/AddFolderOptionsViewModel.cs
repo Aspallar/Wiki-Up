@@ -16,7 +16,7 @@ namespace WikiUpload
                 Resources.IncludeUploadableFiles,
                 Resources.IncludeImageFiles
             };
-            foreach (var item in permittedFiles.Select(x => x.Substring(1).ToUpper()).OrderBy(x => x))
+            foreach (var item in permittedFiles.Select(x => x[1..].ToUpper()).OrderBy(x => x))
                 fileTypes.Add(item);
 
             FileTypes = fileTypes;
@@ -34,17 +34,13 @@ namespace WikiUpload
 
         public IncludeFiles GetIncludeFiles()
         {
-            switch (SelectedFileTypeIndex)
+            return SelectedFileTypeIndex switch
             {
-                case 0:
-                    return IncludeFiles.All;
-                case 1:
-                    return IncludeFiles.Uploadable;
-                case 2:
-                    return IncludeFiles.Image;
-                default:
-                    return IncludeFiles.SingleExtension;
-            }
+                0 => IncludeFiles.All,
+                1 => IncludeFiles.Uploadable,
+                2 => IncludeFiles.Image,
+                _ => IncludeFiles.SingleExtension,
+            };
         }
 
         public string GetExtension()

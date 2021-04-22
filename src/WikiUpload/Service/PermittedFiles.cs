@@ -5,8 +5,8 @@ namespace WikiUpload
 {
     public class PermittedFiles : IReadOnlyPermittedFiles
     {
-        private readonly object _copyLock = new object();
-        private readonly List<string> _extensions = new List<string>();
+        private readonly object _copyLock = new();
+        private readonly List<string> _extensions = new();
 
         public PermittedFiles Add(string extension)
         {

@@ -6,7 +6,7 @@ namespace WikiUpload.Properties
 {
     public class AppSettings : IAppSettings
     {
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
 
         public string ImageExtensions
         {

@@ -19,9 +19,11 @@ namespace Tests
         [Test]
         public void When_ConvertedToString_The_SemicolonSeparatedStringIsReturned()
         {
-            var fe = new FileExensionsCollection();
-            fe.Add("foo");
-            fe.Add("bar");
+            var fe = new FileExensionsCollection
+            {
+                "foo",
+                "bar"
+            };
 
             var result = fe.ToString();
 

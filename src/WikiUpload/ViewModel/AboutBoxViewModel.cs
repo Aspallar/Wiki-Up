@@ -10,7 +10,7 @@ namespace WikiUpload
         public AboutBoxViewModel(Window window, IHelpers helpers) : base(window)
         {
             var (copyright, version) = helpers.ApplicationInformation;
-            CopyrightText = Resources.CopyrightText + copyright.Substring(copyright.IndexOf(' '));
+            CopyrightText = Resources.CopyrightText + copyright[copyright.IndexOf(' ')..];
             VersionText = $"{Resources.VersionText} {version}";
             LaunchWebSiteCommand = new RelayParameterizedCommand((uri) => helpers.LaunchProcess(((Uri)uri).AbsoluteUri));
         }

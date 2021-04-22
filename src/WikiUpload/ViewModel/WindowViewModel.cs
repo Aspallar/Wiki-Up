@@ -57,15 +57,19 @@ namespace WikiUpload
 
         private WindowDockPosition _dockPosition = WindowDockPosition.Undocked;
 
+#pragma warning disable CA1822 // Mark members as static
+
         public double WindowMinimumWidth => 423;
 
         public double WindowMinimumHeight => 64;
+
+#pragma warning restore CA1822 // Mark members as static
 
         private bool Borderless => _window.WindowState == WindowState.Maximized || _dockPosition != WindowDockPosition.Undocked;
 
         public int ResizeBorder => Borderless ? 0 : 4;
 
-        public Thickness ResizeBorderThickness => new Thickness(ResizeBorder + OuterMarginSize);
+        public Thickness ResizeBorderThickness => new(ResizeBorder + OuterMarginSize);
 
         public Thickness InnerContentPadding { get; } = new Thickness(0);
 

@@ -9,7 +9,7 @@ namespace WikiUpload
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is Popup popup))
+            if (sender is not Popup popup)
                 throw new NotSupportedException($"{nameof(PopupInitialFocusProperty)} may only be attached to a Popup ccontroll");
 
             if (e.NewValue != null)

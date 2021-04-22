@@ -31,7 +31,7 @@ namespace WikiUpload
                 var latest = releases.Where(x => !x.Prerelease && releastVersionMatch.IsMatch(x.TagName)).FirstOrDefault();
                 if (latest != null)
                 {
-                    var versionString = latest.TagName.Substring(1);
+                    var versionString = latest.TagName[1..];
                     var latestVersion = new Version( versionString + ".0");
                     response.IsNewerVersion = latestVersion > _helpers.ApplicationVersion;
                     response.LatestVersion = versionString;
@@ -46,10 +46,7 @@ namespace WikiUpload
         }
 
         [Conditional("DEBUG")]
-        private void DebugHandleException(Exception ex)
-        {
-            Debugger.Break();
-        }
+        private static void DebugHandleException(Exception ex) => Debugger.Break();
     }
 
 }

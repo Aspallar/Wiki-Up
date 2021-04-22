@@ -56,7 +56,9 @@ namespace Tests
         [Test]
         public void GetIncludeFiles_Returns_CorrectValue()
         {
+#pragma warning disable IDE0017 // Simplify object initialization
             var model = new AddFolderOptionsViewModel(_window, _fileUploader);
+#pragma warning restore IDE0017 // Simplify object initialization
 
             model.SelectedFileTypeIndex = 0;
             Assert.That(model.GetIncludeFiles(), Is.EqualTo(IncludeFiles.All));
@@ -74,7 +76,9 @@ namespace Tests
         [Test]
         public void GetExtension_Returns_CorrectValue()
         {
+#pragma warning disable IDE0017 // Simplify object initialization
             var model = new AddFolderOptionsViewModel(_window, _fileUploader);
+#pragma warning restore IDE0017 // Simplify object initialization
 
             model.SelectedFileTypeIndex = 0;
             Assert.That(model.GetExtension(), Is.Empty);

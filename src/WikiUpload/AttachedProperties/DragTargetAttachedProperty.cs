@@ -13,7 +13,7 @@ namespace WikiUpload
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(sender is Control control))
+            if (sender is not Control control)
                 throw new NotSupportedException($"{nameof(DropFileTargetProperty)} may only be attached to controls");
 
             if (e.NewValue != null)
@@ -37,7 +37,7 @@ namespace WikiUpload
 
         private static void OnDrop(object sender, DragEventArgs dragEventArgs)
         {
-            if (!(sender is DependencyObject d))
+            if (sender is not DependencyObject d)
                 return;
 
             var target = (IFileDropTarget)d.GetValue(DropFileTargetProperty.ValueProperty);

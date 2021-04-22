@@ -12,7 +12,7 @@ namespace WikiUpload
             var invalidChars = Path.GetInvalidFileNameChars();
             _invalidExtensionCharacters = new char[invalidChars.Length + 1];
             Array.Copy(invalidChars, _invalidExtensionCharacters, invalidChars.Length);
-            _invalidExtensionCharacters[_invalidExtensionCharacters.Length - 1] = ';';
+            _invalidExtensionCharacters[^1] = ';';
         }
 
         public bool IsValid(string extension)
