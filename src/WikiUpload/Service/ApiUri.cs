@@ -12,7 +12,7 @@ namespace WikiUpload
         {
             var url = new StringBuilder(parameters.ToString());
             url.Append("&action=query&format=xml&cb=");
-            url.Append(DateTime.Now.Ticks.ToString());
+            url.Append(DateTime.Now.Ticks);
             return new Uri(this, url.ToString());
         }
 

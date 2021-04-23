@@ -220,8 +220,8 @@ namespace WikiUpload
             using var response = await _client.PostAsync(_api, uploadFormData, cancelToken).ConfigureAwait(false);
             var retryAfter = "";
             if (response.Headers.TryGetValues("Retry-After", out var retryValues))
-                retryAfter = retryValues.ElementAt(0);
-            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                retryAfter = retryValues.First();
+            var responseContent = await response.Content.ReadAsStringAsync(cancelToken).ConfigureAwait(false);
             return new UploadResponse(responseContent, retryAfter);
         }
 

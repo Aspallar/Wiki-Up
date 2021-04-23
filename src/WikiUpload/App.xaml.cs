@@ -41,7 +41,7 @@ namespace WikiUpload
             Environment.Exit(1);
         }
 
-        private void GetCommandLineArguments(string[] args, out int timeout)
+        private static void GetCommandLineArguments(string[] args, out int timeout)
         {
             timeout = 0;
             foreach (var arg in args)
