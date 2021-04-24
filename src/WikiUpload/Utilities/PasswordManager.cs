@@ -1,5 +1,5 @@
-﻿using System.Security;
-using WikiUpload.Extensions;
+﻿using System.Linq;
+using System.Security;
 using WikiUpload.Utilities;
 
 namespace WikiUpload
@@ -46,10 +46,8 @@ namespace WikiUpload
             {
                 encryptedPassword = passsword.UseUnsecuredString<string>(unsecuredPassword =>
                 {
-                    if (currentPassword == null || !unsecuredPassword.IsEquivalentTo(currentPassword.Data))
-                        return Encryption.Encrypt(unsecuredPassword);
-                    else
-                        return null;
+                    var hasChanged = currentPassword == null || !Enumerable.SequenceEqual(unsecuredPassword, currentPassword.Data);
+                    return hasChanged ? Encryption.Encrypt(unsecuredPassword) : null;
                 });
             }
 
