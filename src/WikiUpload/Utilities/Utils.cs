@@ -18,10 +18,5 @@ namespace WikiUpload
             var version = assembly.GetName().Version;
             return $"{version.Major}.{version.Minor}.{version.Build}";
         }
-
-        public static void ErrorMessage(string message)
-        {
-            MessageBox.Show(message, "Wiki-Up Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
     }
 }
