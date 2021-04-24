@@ -23,7 +23,7 @@ namespace WikiUpload
         }
 
         public PasswordDictionary Load()
-            => File.Exists(_fileName) ? LoadFromFile() : new PasswordDictionary();
+            => File.Exists(_fileName) ? LoadFromFile() : new();
 
         private PasswordDictionary LoadFromFile()
         {

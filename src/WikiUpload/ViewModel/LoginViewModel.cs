@@ -90,10 +90,7 @@ namespace WikiUpload
             }
             catch (LoginException ex)
             {
-                if (ex.InnerException is null)
-                    LoginError(ex.Message);
-                else
-                    LoginError(ex.InnerException.Message);
+                LoginError(ex.InnerException?.Message ?? ex.Message);
             }
         }
 
