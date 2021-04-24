@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Windows;
 
 namespace WikiUpload
 {
