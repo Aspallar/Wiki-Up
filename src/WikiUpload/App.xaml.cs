@@ -20,7 +20,6 @@ namespace WikiUpload
             var language = WikiUpload.Properties.Settings.Default.Language;
             if (!string.IsNullOrEmpty(language) && language != "Default")
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
-            UploadResponse.Initialize();
             base.OnStartup(e);
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
