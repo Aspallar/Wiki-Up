@@ -28,9 +28,16 @@ namespace WikiUpload
         public static string Encrypt(string text)
         {
             var data = Encode(text);
-            var encrypted = ProtectedData.Protect(data, entropy, DataProtectionScope.CurrentUser);
-            Array.Clear(data, 0, data.Length);
-            return Convert.ToBase64String(encrypted);
+            try
+            {
+                var encrypted = ProtectedData.Protect(data, entropy, DataProtectionScope.CurrentUser);
+                return Convert.ToBase64String(encrypted);
+
+            }
+            finally
+            {
+                Array.Clear(data, 0, data.Length);
+            }
         }
 
         private static byte[] Encode(string data)
