@@ -60,8 +60,8 @@ namespace WikiUpload
             IsLoginError = false;
             await RunCommand(() => LoginIsRunning, async () =>
             {
-                string url;
-                if ((url = await Validate()) != null)
+                string url = await Validate();
+                if (url != null)
                 {
                     var password = SavedPassword.Length > 0 ?
                         SavedPassword : ((IHavePassword)securePassword).SecurePassword;
