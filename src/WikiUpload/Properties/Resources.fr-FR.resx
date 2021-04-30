@@ -164,7 +164,7 @@
     <value>Se déconnecter</value>
   </data>
   <data name="WikiUrlPlaceholder" xml:space="preserve">
-    <value>url du wiki</value>
+    <value>URL du wiki</value>
   </data>
   <data name="UsernamePlaceholder" xml:space="preserve">
     <value>Nom d'utilisateur</value>
@@ -352,7 +352,7 @@
     <value>Ajouter</value>
   </data>
   <data name="ButtonFindText" xml:space="preserve">
-    <value>Trouver</value>
+    <value>Chercher</value>
   </data>
   <data name="ButtonNextText" xml:space="preserve">
     <value>Suivant</value>
@@ -454,7 +454,7 @@
     <value>Traduction allemande par</value>
   </data>
   <data name="FrenchTrsnslationText" xml:space="preserve">
-    <value>Traduction français par</value>
+    <value>Traduction française par</value>
   </data>
 
   <!-- ***************************************************************** -->
@@ -498,7 +498,7 @@
     <value>Délai de mise en ligne</value>
   </data>
   <data name="UploadDelayDetailsText" xml:space="preserve">
-    <value>Le temps (en millisecondes) que Wiki-Up attend entre chaque mise en ligne de fichier.</value>
+    <value>Le temps (en millisecondes) entre chaque mise en ligne de fichier.</value>
   </data>
   <data name="ImageFilesText" xml:space="preserve">
     <value>Extensions de fichier d'image</value>
