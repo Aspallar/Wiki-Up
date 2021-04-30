@@ -487,5 +487,46 @@
   <data name="RakdosText" xml:space="preserve">
     <value>Rakdos</value>
   </data>
-
+  <data name="NoVideoUploadSupport" xml:space="preserve">
+    <value>Wiki ei toeta video üleslaadimist</value>
+  </data>
+  <data name="BadVideoUploadRequest" xml:space="preserve">
+    <value>MPõhjuseks võib olla, video üleslaadimine meie poolt mitte toetatud kodulehelt</value>
+  </data>
+  <data name="UploadMesageInvalidJson" xml:space="preserve">
+    <value>Server vastas vigase JSON teatega</value>
+  </data>
+  <data name="YoutubeError" xml:space="preserve">
+    <value>Tekkis viga youtube’iga suhtlemisel</value>
+  </data>
+  <data name="PlalistTooBig" xml:space="preserve">
+    <value>Esitlusloend on liiga mahukas importimiseks.</value>
+  </data>
+  <data name="PlalistMaximumLength" xml:space="preserve">
+    <value>Maksimum pikkuseks on {0} videot.</value>
+  </data>
+  <data name="EnterFileExtension" xml:space="preserve">
+    <value>Sisesta faili laiend</value>
+  </data>
+  <data name="NewImageExtension" xml:space="preserve">
+    <value>Uue pildi laiend.</value>
+  </data>
+  <data name="RemoveExtension" xml:space="preserve">
+    <value>Eemalda laiend.</value>
+  </data>
+  <data name="InvalidExtension" xml:space="preserve">
+    <value>Vigane laiend</value>
+  </data>
+  <data name="MidnightLightsText" xml:space="preserve">
+    <value>Südaöö tuled</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopeeri töölauale</value>
+  </data>
+  <data name="FollowUploadFileHeader" xml:space="preserve">
+    <value>Jälgi üleslaetavat faili</value>
+  </data>
+  <data name="FollowUploadFileText" xml:space="preserve">
+    <value>Automaatselt keri üles üleslaetava faili juurde, kui antud fail alustab üleslaadimist.</value>
+  </data>
 </root>
