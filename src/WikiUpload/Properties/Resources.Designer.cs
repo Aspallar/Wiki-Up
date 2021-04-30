@@ -565,6 +565,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to French translatio by.
+        /// </summary>
+        public static string FrenchTrsnslationText {
+            get {
+                return ResourceManager.GetString("FrenchTrsnslationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to German translation by.
         /// </summary>
         public static string GermanTrsnslationText {

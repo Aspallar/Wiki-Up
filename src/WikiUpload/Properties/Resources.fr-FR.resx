@@ -133,107 +133,107 @@
     <value>Wiki-Up</value>
   </data>
   <data name="AppByLineText" xml:space="preserve">
-    <value>by Aspallar</value>
+    <value>par Aspallar</value>
   </data>
   <data name="AboutMenuItemText" xml:space="preserve">
-    <value>About...</value>
+    <value>À propos...</value>
   </data>
   <data name="ManimizeRestoreText" xml:space="preserve">
-    <value>Maximize/Restore</value>
+    <value>Maximiser/Restaurer</value>
   </data>
   <data name="MiximizeText" xml:space="preserve">
-    <value>Minimize</value>
+    <value>Réduire</value>
   </data>
   <data name="CloseText" xml:space="preserve">
-    <value>Close</value>
+    <value>Fermer</value>
   </data>
   <data name="ErrorTitleText" xml:space="preserve">
-    <value>Error</value>
+    <value>Erreur</value>
   </data>
   <data name="AboutTitleText" xml:space="preserve">
-    <value>About Wiki-Up</value>
+    <value>À propos de Wiki-Up</value>
   </data>
   
   <!-- ***************************************************************** -->
   <!-- Login / Logoff -->
   
   <data name="SignIn" xml:space="preserve">
-    <value>Sign In</value>
+    <value>S'identifier</value>
   </data>
   <data name="SignOut" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Se déconnecter</value>
   </data>
   <data name="WikiUrlPlaceholder" xml:space="preserve">
-    <value>wiki url</value>
+    <value>url du wiki</value>
   </data>
   <data name="UsernamePlaceholder" xml:space="preserve">
-    <value>User name</value>
+    <value>Nom d'utilisateur</value>
   </data>
   <data name="PasswordPlaceholder" xml:space="preserve">
-    <value>Password</value>
+    <value>Mot de passe</value>
   </data>
   <data name="RememberPassword" xml:space="preserve">
-    <value>Remember Password</value>
+    <value>Mémoriser le mot de passe</value>
   </data>
   <data name="ButtonLogin" xml:space="preserve">
-    <value>Login</value>
+    <value>Connexion</value>
   </data>
   <data name="LoginFailedMessage" xml:space="preserve">
-    <value>Login Failed</value>
+    <value>Échec de la connexion</value>
   </data>
   <data name="InvalidLoginDetailsMessage" xml:space="preserve">
-    <value>Make sure the above details are correct.</value>
+    <value>Assurez-vous que les détails ci-dessus soient corrects.</value>
   </data>
   <data name="LoginErrorNoWikiOrUsername" xml:space="preserve">
-    <value>You must supply a wiki url and username.</value>
+    <value>Vous devez fournir une URL de wiki et un nom d'utilisateur.</value>
   </data>
   <data name="LoginErrorInvalidWikiUrl" xml:space="preserve">
-    <value>Invalid wiki url.</value>
+    <value>URL du wiki non valide.</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Login Exceptions -->
   
   <data name="LoginExceptionInvalidResponse" xml:space="preserve">
-    <value>The server returned an invalid response.</value>
+    <value>Le serveur a renvoyé une réponse non valide.</value>
   </data>
   <data name="LoginExceptionTimeout" xml:space="preserve">
-    <value>The server did not respond.</value>
+    <value>Le serveur n'a pas répondu.</value>
   </data>
   <data name="LoginExceptionUnexpectedError" xml:space="preserve">
-    <value>An unexpected error occurred.</value>
+    <value>Une erreur inattendue est apparue.</value>
   </data>
   <data name="LoginExceptionNotAutoConfirmed" xml:space="preserve">
-    <value>That account is not autoconfirmed.</value>
+    <value>Ce compte n'a pas le status "autoconfirmed".</value>
   </data>
   <data name="LoginExceptionNotAuthorized" xml:space="preserve">
-    <value>You are not authorized to use Wiki-Up on this wiki.</value>
+    <value>Vous n'êtes pas autorisé à utiliser Wiki-Up sur ce wiki.</value>
   </data>
   <data name="LoginExceptionNoEditToken" xml:space="preserve">
-    <value>Unable to obtain edit token.</value>
+    <value>Impossible d'obtenir le jeton de modification.</value>
   </data>
   <data name="LoginExceptionAborted" xml:space="preserve">
-    <value>The server aborted the login (you may need to use a BOT password)</value>
+    <value>Le serveur a interrompu la connexion (vous devrez peut-être utiliser un mot de passe BOT)</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Insecure connection dialog -->  
   
   <data name="InsecureConnectionTitleText" xml:space="preserve">
-    <value>Insecure Connection</value>
+    <value>Connexion non sécurisée</value>
   </data>
   <data name="InsecureConnectionMessage" xml:space="preserve">
-    <value>Http connections are not secure. Signing in using http will result in your user name and password being sent in unencrypted plain text.</value>
+    <value>Les connexions HTTP ne sont pas sécurisées. La connexion via HTTP entraînera l'envoi de votre nom d'utilisateur et de votre mot de passe en texte brut non chiffré.</value>
   </data>
   <data name="ContiuePrompt" xml:space="preserve">
-    <value>Are you sure you want to continue?</value>
+    <value>Êtes-vous sûr de vouloir continuer ?</value>
   </data>
   
   <!-- ***************************************************************** -->
   <!-- Category and Template search page -->
     
   <data name="SearchErrorText" xml:space="preserve">
-    <value>Error while probing the wiki.</value>
+    <value>Erreur lors de l'exploration du wiki.</value>
   </data>
   <data name="CategoryTemplate" xml:space="preserve">
     <value>[[Category:{0}]]</value>
@@ -244,87 +244,87 @@
   <!--Upload page - tabs -->  
   
   <data name="ContentTabText" xml:space="preserve">
-    <value>Content</value>
+    <value>Contenu</value>
   </data>
   <data name="UploadTabText" xml:space="preserve">
-    <value>Upload</value>
+    <value>Mise en ligne</value>
   </data>
   
   <!-- ***************************************************************** -->
   <!-- Upload Page - Upload Tab -->  
   
   <data name="FilesText" xml:space="preserve">
-    <value> Files</value>
+    <value> Fichiers</value>
   </data>
   <data name="IgnoreWarningsLabelText" xml:space="preserve">
-    <value>Ignore warnings</value>
+    <value>Ignorer les avertissements</value>
   </data>
   <data name="IgnoreWarningsTooltipText" xml:space="preserve">
-    <value>Ignore warnings and upload files even if they already exist or are duplicates.</value>
+    <value>Ignorer les avertissements et mettre en ligne les fichiers même s'ils existent déjà ou même s'ils sont des doublons.</value>
   </data>
   <data name="AddToWatchlistLabelText" xml:space="preserve">
-    <value>Add to watch list</value>
+    <value>Ajouter à votre liste de suivi</value>
   </data>
   <data name="AddToWatchlistTooltipText" xml:space="preserve">
-    <value>Add the uploaded files to your watch list.</value>
+    <value>Ajouter les fichiers mis en ligne à votre liste de suivi.</value>
   </data>
   <data name="ButtonLoadContentTooltipText" xml:space="preserve">
-    <value>Load content from file.</value>
+    <value>Charger le contenu d'un fichier.</value>
   </data>
   <data name="ButtonSaveContentTooltipText" xml:space="preserve">
-    <value>Save content to file.</value>
+    <value>Enregistrer le contenu vers un fichier.</value>
   </data>
   <data name="ButtonUploadText" xml:space="preserve">
-    <value>Upload</value>
+    <value>Mettre en ligne</value>
   </data>
   <data name="ButtonUploadTooltipText" xml:space="preserve">
-    <value>Start uploading files. (Ctrl+U)</value>
+    <value>Commencer à mettre en ligne les fichiers. (Ctrl+U)</value>
   </data>
   <data name="ButtonStopUploadText" xml:space="preserve">
-    <value>Stop Upload</value>
+    <value>Arrêter la mise en ligne</value>
   </data>
   <data name="ButtonStopUploadTooltipText" xml:space="preserve">
-    <value>Cancel running upload.</value>
+    <value>Annuler la mise en ligne en cours.</value>
   </data>
   <data name="ButtonAddFilesText" xml:space="preserve">
-    <value>Add Files</value>
+    <value>Ajouter des fichiers</value>
   </data>
   <data name="ButtonAddFilesTooltipText" xml:space="preserve">
-    <value>Add files to the upload list (Ctrl+A)</value>
+    <value>Ajouter des fichiers à la liste de mise en ligne (Ctrl+A)</value>
   </data>
   <data name="ButtonRemoveFilesText" xml:space="preserve">
-    <value>Remove Files</value>
+    <value>Enlever des fichiers</value>
   </data>
   <data name="ButtonRemoveFilesTooltipText" xml:space="preserve">
-    <value>Remove selected files from the upload list.</value>
+    <value>Enlever les fichiers sélectionnés de la liste de mise en ligne.</value>
   </data>
   <data name="ButtonLoadFilesTooltipText" xml:space="preserve">
-    <value>Add files from a previously saved upload list.</value>
+    <value>Ajouter des fichiers d'une liste de mise en ligne précédemment enregistrée.</value>
   </data>
   <data name="ButtonSaveFilesTooltipText" xml:space="preserve">
-    <value>Save the upload list.</value>
+    <value>Enregistrer la liste de mise en ligne.</value>
   </data>  
   
   <!-- ***************************************************************** -->
   <!-- Upload Page - Content tab -->
     
   <data name="SummaryLabelText" xml:space="preserve">
-    <value>Summary</value>
+    <value>Sommaire</value>
   </data>
   <data name="SummaryDescriptionText" xml:space="preserve">
-    <value>This is the summary for the upload in the wiki's activity log.</value>
+    <value>Ceci est le sommaire de la mise en ligne dans les "Modifications récentes" du wiki.</value>
   </data>
   <data name="ContentLabelText" xml:space="preserve">
-    <value>Content</value>
+    <value>Contenu</value>
   </data>
   <data name="ContentDescriptionText" xml:space="preserve">
-    <value>Enter the wikitext to use as the initial page content for new images below. This will be only used for new images, it will not replace any existing page content.</value>
+    <value>Entrez le wikitext à utiliser comme contenu initial de page pour les nouvelles images. Cela ne sera utilisé que pour les nouvelles images et ne remplacera aucun contenu existant de page.</value>
   </data>
   <data name="ButtonAddCategoryText" xml:space="preserve">
-    <value>Add Category</value>
+    <value>Ajouter une catégorie</value>
   </data>
   <data name="ButtonAddTemplateText" xml:space="preserve">
-    <value>Add Template</value>
+    <value>Ajouter un modèle</value>
   </data>
   
   <!-- ***************************************************************** -->
@@ -334,105 +334,105 @@
     <value>OK</value>
   </data>
   <data name="ButtonCancelText" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuler</value>
   </data>
   <data name="ButtonSaveText" xml:space="preserve">
-    <value>Save</value>
+    <value>Enregistrer</value>
   </data>
   <data name="ButtonLoadText" xml:space="preserve">
-    <value>Load</value>
+    <value>Charger</value>
   </data>
   <data name="ButtonYesText" xml:space="preserve">
-    <value>Yes</value>
+    <value>Oui</value>
   </data>
   <data name="ButtonNoText" xml:space="preserve">
-    <value>No</value>
+    <value>Non</value>
   </data>
   <data name="ButtonAddText" xml:space="preserve">
-    <value>Add</value>
+    <value>Ajouter</value>
   </data>
   <data name="ButtonFindText" xml:space="preserve">
-    <value>Find</value>
+    <value>Trouver</value>
   </data>
   <data name="ButtonNextText" xml:space="preserve">
-    <value>Next</value>
+    <value>Suivant</value>
   </data>
   <data name="ButtonPreviousText" xml:space="preserve">
-    <value>Previous</value>
+    <value>Précedent</value>
   </data>
   <data name="ToggleSwitchYesText" xml:space="preserve">
-    <value>YES</value>
+    <value>OUI</value>
   </data>
   <data name="ToggleSwitchNoText" xml:space="preserve">
-    <value>NO</value>
+    <value>NON</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Upload status messages -->
   
   <data name="UploadMessageAwaitingUpload" xml:space="preserve">
-    <value>Awaiting upload.</value>
+    <value>En attente de la mise en ligne.</value>
   </data>
   <data name="UploadMessageUploading" xml:space="preserve">
-    <value>Uploading to wiki...</value>
+    <value>Mise en ligne en cours sur le wiki...</value>
   </data>
   <data name="UploadMessageInvalidXml" xml:space="preserve">
-    <value>Server returned an invalid XML response.</value>
+    <value>Le serveur a renvoyé une réponse XML non valide.</value>
   </data>
   <data name="UploadMessageFileNotFound" xml:space="preserve">
-    <value>File not found.</value>
+    <value>Fichier non trouvé.</value>
   </data>
   <data name="UploadMessageReadFail" xml:space="preserve">
-    <value>Unable to read file.</value>
+    <value>Impossible de lire le fichier.</value>
   </data>
   <data name="UploadMessageCancelled" xml:space="preserve">
-    <value>Upload canceled.</value>
+    <value>Mise en ligne annulée.</value>
   </data>
   <data name="UploadMessageServerBusy" xml:space="preserve">
-    <value>Server is too busy. Uploads canceled. Try again later.</value>
+    <value>Le serveur est trop occupé. Mises en ligne annulées. Réessayez plus tard.</value>
   </data>
   <data name="UploadMessageNoEditToken" xml:space="preserve">
-    <value>Unable to obtain valid edit token. Uploads canceled. You may have to restart Wiki-Up to resolve this error.</value>
+    <value>Impossible d'obtenir un jeton de modification valide. Mises en ligne annulées. Vous devrez peut-être redémarrer Wiki-Up pour résoudre cette erreur.</value>
   </data>
   <data name="UploadMessageNetworkError" xml:space="preserve">
-    <value>Network error. Unable to upload.</value>
+    <value>Erreur réseau. Impossible de mettre en ligne.</value>
   </data>
   <data name="UploadMessageTimedOut" xml:space="preserve">
-    <value>The upload timed out.</value>
+    <value>La mise en ligne a expirée.</value>
   </data>
   <data name="UploadMessageUnkownServerResponse" xml:space="preserve">
-    <value>Unexpected server response.</value>
+    <value>Réponse du serveur inattendue.</value>
   </data>
   <data name="UploadMessageFileTypeNotPermitted" xml:space="preserve">
-    <value>Files of type "{0}" are not permitted.</value>
+    <value>Les fichiers de type "{0}" ne sont pas autorisés.</value>
   </data>
   <data name="UploadResponseDuplicateOf" xml:space="preserve">
-    <value>Duplicate of</value>
+    <value>Duplicata de</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Upload View Model -->
 
   <data name="UploadViaText" xml:space="preserve">
-    <value>Uploaded via</value>
+    <value>Mis en ligne avec</value>
   </data>
   <data name="ViaText" xml:space="preserve">
-    <value>via</value>
+    <value>avec</value>
   </data>
   <data name="CantReadUploadListMessage" xml:space="preserve">
-    <value>Unable to read upload list.</value>
+    <value>Impossible de lire la liste de mise en ligne.</value>
   </data>
   <data name="CantSaveUploadListMessage" xml:space="preserve">
-    <value>Unable to save upload list.</value>
+    <value>Impossible d'enregistrer la liste de mise en ligne.</value>
   </data>
   <data name="CantReadContentMessage" xml:space="preserve">
-    <value>Unable to read content.</value>
+    <value>Impossible de lire le contenu.</value>
   </data>
   <data name="CantSaveContentMessage" xml:space="preserve">
-    <value>Unable to save content.</value>
+    <value>Impossible d'enregistrer le contenu.</value>
   </data>
   <data name="ViewImageErrorMessage" xml:space="preserve">
-    <value>Unable to view image.</value>
+    <value>Impossible d'afficher l'image.</value>
   </data>
   
   <!-- ***************************************************************** -->
@@ -445,87 +445,87 @@
     <value>Version</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Website</value>
+    <value>Site web</value>
   </data>
   <data name="AboutApplicationNameText" xml:space="preserve">
     <value>Wiki-Up</value>
   </data>
   <data name="GermanTrsnslationText" xml:space="preserve">
-    <value>German translation by</value>
+    <value>Traduction allemande par</value>
   </data>
   <data name="FrenchTrsnslationText" xml:space="preserve">
-    <value>French translatio by</value>
+    <value>Traduction français par</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!--Friendly upload error text -->
 
   <data name="UploadErrorAlreadyExists" xml:space="preserve">
-    <value>Already Exists</value>
+    <value>Existe déjà</value>
   </data>
   <data name="UploadErrorBadFilename" xml:space="preserve">
-    <value>Invalid file name</value>
+    <value>Nom de fichier non valide</value>
   </data>
   <data name="UploadErrorUnwantedType" xml:space="preserve">
-    <value>Unwanted file type</value>
+    <value>Type de fichier indésirable</value>
   </data>
   <data name="UploadErrorLargeFile" xml:space="preserve">
-    <value>Large file warning</value>
+    <value>Avertissement : fichier volumineux</value>
   </data>
   <data name="UploadErrorEmptyFile" xml:space="preserve">
-    <value>File is empty</value>
+    <value>Le fichier est vide</value>
   </data>
   <data name="UploadErrorDuplicateArchive" xml:space="preserve">
-    <value>Duplicate of archived</value>
+    <value>Duplicata d'archivé</value>
   </data>
   <data name="UploadErrorDeletedFile" xml:space="preserve">
-    <value>Deleted File</value>
+    <value>Fichier supprimé</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Settings Page -->
 
   <data name="SettingsText" xml:space="preserve">
-    <value>Settings</value>
+    <value>Paramètres</value>
   </data>
   <data name="SaveSettingsText" xml:space="preserve">
-    <value>Save Settings</value>
+    <value>Enregistrer les paramètres</value>
   </data>
   <data name="LanguageText" xml:space="preserve">
-    <value>Language</value>
+    <value>Langue</value>
   </data>
   <data name="UploadDelayText" xml:space="preserve">
-    <value>Upload Delay</value>
+    <value>Délai de mise en ligne</value>
   </data>
   <data name="UploadDelayDetailsText" xml:space="preserve">
-    <value>This is the time, in milliseconds, that Wiki-Up waits between each file upload.</value>
+    <value>Le temps (en millisecondes) que Wiki-Up attend entre chaque mise en ligne de fichier.</value>
   </data>
   <data name="ImageFilesText" xml:space="preserve">
-    <value>Image File Extensions</value>
+    <value>Extensions de fichier d'image</value>
   </data>
   <data name="ImageFilesDetailsText" xml:space="preserve">
-    <value>This is a list of file extensions that Wiki-Up will consider to be image files in the add files dialog.</value>
+    <value>Liste d'extensions de fichiers que Wiki-Up considérera comme des fichiers image dans la boîte de dialogue d'ajout de fichiers.</value>
   </data>
   <data name="UpdatesText" xml:space="preserve">
-    <value>Updates</value>
+    <value>Mises à jour</value>
   </data>
   <data name="CheckNowText" xml:space="preserve">
-    <value>Check Now</value>
+    <value>Vérifier maintenant</value>
   </data>
   <data name="UpdatesDetailsText" xml:space="preserve">
-    <value>Check for new versions of Wiki-Up when Wiki-Up starts up.</value>
+    <value>Rechercher des nouvelles versions de Wiki-Up au démarrage de Wiki-Up.</value>
   </data>
   <data name="UpToDateText" xml:space="preserve">
-    <value>Wiki-Up is up to date.</value>
+    <value>Wiki-Up est à jour.</value>
   </data>
   <data name="RestoreDefaultsText" xml:space="preserve">
-    <value>Restore Defaults</value>
+    <value>Restaurer les paramètres par défaut</value>
   </data>
   <data name="TakeEffectNextRunText" xml:space="preserve">
-    <value>Changes to the Language and Color Theme settings will take effect the next time Wiki-Up is run.</value>
+    <value>Les modifications apportées aux paramètres de langue et de thème de couleur prendront effet lors de la prochaine exécution de Wiki-Up.</value>
   </data>
   <data name="ColorThemeText" xml:space="preserve">
-    <value>Color Theme</value>
+    <value>Thème de couleur</value>
   </data>
 
 
@@ -533,32 +533,32 @@
   <!-- New Version Window -->
 
   <data name="NewVersionTitleText" xml:space="preserve">
-    <value>New Version Available</value>
+    <value>Nouvelle version disponible</value>
   </data>
   <data name="NewVersionMessage" xml:space="preserve">
-    <value>A newer version of Wiki-Up, version {0}, is available for download.</value>
+    <value>Une version plus récente de Wiki-Up, la version {0}, peut être télécharger.</value>
   </data>
   <data name="DownloadNowText" xml:space="preserve">
-    <value>Download Now</value>
+    <value>Télécharger maintenant</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Color theme names -->
     
   <data name="PutpleOverloadText" xml:space="preserve">
-    <value>Purple Overload</value>
+    <value>Surcharge violette</value>
   </data>
   <data name="PutpleHazeText" xml:space="preserve">
-    <value>Purple Haze</value>
+    <value>Brume violette</value>
   </data>
   <data name="GreenForestText" xml:space="preserve">
-    <value>Green Forest</value>
+    <value>Forêt verte</value>
   </data>
   <data name="BlueLightText" xml:space="preserve">
-    <value>Bright Blue</value>
+    <value>Bleu vif</value>
   </data>
   <data name="SolarizedText" xml:space="preserve">
-    <value>Sort of Solarized</value>
+    <value>Un peu solarisé</value>
   </data>
   <data name="RakdosText" xml:space="preserve">
     <value>Rakdos</value>
@@ -569,102 +569,102 @@
   <!--TODO: translate these -->
 
   <data name="NoVideoUploadSupport" xml:space="preserve">
-    <value>Wiki does not support video uploading</value>
+    <value>Wiki ne prend pas en charge la mise en ligne de vidéos</value>
   </data>
 
   <data name="BadVideoUploadRequest" xml:space="preserve">
-    <value>May be caused by trying to upload from an unsupported video website</value>
+    <value>Cela peut être dû à une tentative de mise en ligne d'un site web vidéo non compatible</value>
   </data>
 
   <data name="UploadMesageInvalidJson" xml:space="preserve">
-    <value>The server returned an invalid JSON response.</value>
+    <value>Le serveur a renvoyé une réponse JSON non valide.</value>
   </data>
 
   <data name="YoutubeError" xml:space="preserve">
-    <value>An error occurred while communicating with Youtube.</value>
+    <value>Une erreur s'est produite lors de la communication avec Youtube.</value>
   </data>
 
   <data name="PlalistTooBig" xml:space="preserve">
-    <value>Playlist is too large to import.</value>
+    <value>La liste de lecture est trop volumineuse pour être importée.</value>
   </data>
 
   <data name="PlalistMaximumLength" xml:space="preserve">
-    <value>Maximum length is {0} videos.</value>
+    <value>La longueur maximale est de {0} vidéos.</value>
   </data>
 
   <data name="EnterFileExtension" xml:space="preserve">
-    <value>Enter file extension</value>
+    <value>Entrez l'extension du fichier</value>
   </data>
 
   <data name="NewImageExtension" xml:space="preserve">
-    <value>New image extension.</value>
+    <value>Nouvelle extension d'image.</value>
   </data>
 
   <data name="RemoveExtension" xml:space="preserve">
-    <value>Remove extension</value>
+    <value>Enlever l'extension</value>
   </data>
 
   <data name="InvalidExtension" xml:space="preserve">
-    <value>Invalid extension</value>
+    <value>Extension non valide</value>
   </data>
 
   <data name="MidnightLightsText" xml:space="preserve">
-    <value>Midnight Lights</value>
+    <value>Lumières de minuit</value>
   </data>
 
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>Copy to clipboard</value>
+    <value>Copier dans le presse-papier</value>
   </data>
 
   <!-- ***************************************************************** -->
   <!-- Not yet translated -->
   <!--TODO: translate these -->
   <data name="FollowUploadFileHeader" xml:space="preserve">
-    <value>Follow Uploading File</value>
+    <value>Suivre le fichier mis en ligne</value>
   </data>
 
   <data name="FollowUploadFileText" xml:space="preserve">
-    <value>Automatically scroll to the uploading file when it starts uploading.</value>
+    <value>Faire défiler automatiquement jusqu'au fichier mis en ligne lorsqu'il commence à être mis en ligne.</value>
   </data>
 
   <data name="LoginExpiredText" xml:space="preserve">
-    <value>Your login credentials have expired.</value>
+    <value>Vos identifiants de connexion ont expiré.</value>
   </data>
   
   <data name="LoginExpiredSubtext" xml:space="preserve">
-    <value>You will need to login again to continue with the upload, click on OK to log in.</value>
+    <value>Vous devrez vous reconnecter pour continuer la mise en ligne, cliquez sur OK pour vous connecter.</value>
   </data>
   
   <data name="ButtonAddFolderText" xml:space="preserve">
-    <value>Add Folder</value>
+    <value>Ajouter un dossier</value>
   </data>
 
   <data name="ButtonAddFolderTooltipText" xml:space="preserve">
-    <value>Add all files in a folder and sub-folders to the upload list.</value>
+    <value>Ajouter tous les fichiers dans un dossier et sous-dossiers à la liste de mise en ligne.</value>
   </data>
   
   <data name="UnableToAddFiles" xml:space="preserve">
-    <value>Unable to add files.</value>
+    <value>Impossible d'ajouter des fichiers.</value>
   </data>
 
   <data name="IncludeAllFiles" xml:space="preserve">
-    <value>All files</value>
+    <value>Tous les fichiers</value>
   </data>
   
   <data name="IncludeUploadableFiles" xml:space="preserve">
-    <value>All uploadable files</value>
+    <value>Tous les fichiers qui peuvent être mis en ligne</value>
   </data>
   
   <data name="IncludeImageFiles" xml:space="preserve">
-    <value>All image files</value>
+    <value>Tous les fichiers d'image</value>
   </data>
  
   <data name="IncludeSubfolders" xml:space="preserve">
-    <value>Include sub-folders</value>
+    <value>Inclure les sous-dossiers</value>
   </data>
 
   <data name="IncludeFilesOfType" xml:space="preserve">
-    <value>Include files of type</value>
+    <value>Inclure les fichiers de type</value>
   </data>
 
 </root>

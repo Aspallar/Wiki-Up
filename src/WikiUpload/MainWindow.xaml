@@ -15,7 +15,7 @@
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeight}"
         Title="{x:Static p:Resources.AppNameText}"
-        Height="620" Width="892">
+        Height="630" Width="892">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">

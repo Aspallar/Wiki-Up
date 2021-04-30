@@ -3,10 +3,10 @@
 
   <?define WikiUpload_TargetDir=$(var.WikiUpload.TargetDir)?>
 
-  <Product Id="{7C3A4216-86E4-40B4-818B-BEAABCCA9D52}"
+  <Product Id="{1EC3DA78-1A7A-4BE5-B565-7027B2C1020E}"
            Name="Wiki-Up"
            Language="1033"
-           Version="1.10.0.0"
+           Version="1.11.0.0"
            Manufacturer="Aspallar"
            UpgradeCode="{5DBEE1B6-4D18-4F36-BEA8-74C89ADD342B}">
 
@@ -40,6 +40,7 @@
       <ComponentGroupRef Id="ProductShortcut" />
       <ComponentGroupRef Id="locale_deDE" />
       <ComponentGroupRef Id="locale_etEE" />
+      <ComponentGroupRef Id="locale_frFR" />
     </Feature>
   </Product>
 
@@ -49,6 +50,7 @@
         <Directory Id="INSTALLFOLDER" Name="WikiUp">
           <Directory Id="LocaleFolder_deDE" Name="de-DE" />
           <Directory Id="LocaleFolder_etEE" Name="et-EE" />
+          <Directory Id="LocaleFolder_frFR" Name="fr-FR" />
         </Directory>
       </Directory>
       <Directory Id="ProgramMenuFolder" />
@@ -136,6 +138,12 @@
     <ComponentGroup Id="locale_etEE" Directory="LocaleFolder_etEE">
       <Component Id="WikiUp.resources.etEE.dll" Guid="79bed3b9-93d5-4bea-9a65-583b3b83812d">
         <File Id="WikiUp.resources.etEE.dll" Name="WikiUp.resources.dll" Source="$(var.WikiUpload_TargetDir)et-EE\WikiUp.resources.dll" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="locale_frFR" Directory="LocaleFolder_frFR">
+      <Component Id="WikiUp.resources.frFR.dll" Guid="{4D6E5BF1-3B78-4110-B48A-EC45633B8D4D}">
+        <File Id="WikiUp.resources.frFR.dll" Name="WikiUp.resources.dll" Source="$(var.WikiUpload_TargetDir)fr-FR\WikiUp.resources.dll" KeyPath="yes"/>
       </Component>
     </ComponentGroup>
 
