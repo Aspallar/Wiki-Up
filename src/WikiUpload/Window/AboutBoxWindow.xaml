@@ -162,6 +162,14 @@
                         Holy
                     </Hyperlink>
                 </TextBlock>
+                <TextBlock Foreground="{StaticResource PrimaryTextBrush}"  FontSize="{StaticResource FontSizeRegular}">
+                    <Run Text="{x:Static p:Resources.FrenchTrsnslationText}"/>
+                    <Hyperlink NavigateUri="https://leagueoflegends.fandom.com/wiki/User:Tylobic"
+                               Command="{Binding LaunchWebSiteCommand}"
+                               CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}">
+                        Tylobic
+                    </Hyperlink>
+                </TextBlock>
             </StackPanel>
 
         </Grid>

@@ -17,18 +17,26 @@ namespace WikiUpload
 
         private void UploadPage_Loaded(object sender, RoutedEventArgs e)
         {
-            var cultureName = Thread.CurrentThread.CurrentUICulture.Name;
+            switch (Thread.CurrentThread.CurrentUICulture.Name)
+            {
+                case "de-DE":
+                    AddToWatchlistLabel.FontSize = 15;
+                    IgnoreWarningsLabel.FontSize = 15;
+                    SaveListButton.FontSize = 22;
+                    LoadListButton.FontSize = 22;
+                    break;
 
-            if (cultureName == "de-DE")
-            {
-                AddToWatchlistLabel.FontSize = 15;
-                IgnoreWarningsLabel.FontSize = 15;
-                SaveListButton.FontSize = 22;
-                LoadListButton.FontSize = 22;
-            }
-            else if (cultureName == "et-EE")
-            {
-                StopUpload.FontSize = 24;
+                case "fr-FR":
+                    AddToWatchlistLabel.FontSize = 17;
+                    IgnoreWarningsLabel.FontSize = 17;
+                    SaveListButton.FontSize = 22;
+                    LoadListButton.FontSize = 22;
+                    StopUpload.FontSize = 22;
+                    break;
+
+                case "et-EE":
+                    StopUpload.FontSize = 24;
+                    break;
             }
         }
 

@@ -118,415 +118,553 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 
-    <data name="AppNameText" xml:space="preserve">
+  <!--
+  Translate from here on down.
+  
+  Just change the text that is between the <Value></value> tag to German
+  leave the name="Whatever" parts alone, they stay in "english".
+  
+  -->
+  
+  <!-- ***************************************************************** -->
+  <!-- Window Chromew -->
+    
+  <data name="AppNameText" xml:space="preserve">
     <value>Wiki-Up</value>
   </data>
   <data name="AppByLineText" xml:space="preserve">
-    <value>Autor Aspallar</value>
+    <value>par Aspallar</value>
   </data>
   <data name="AboutMenuItemText" xml:space="preserve">
-    <value>Wiki-Up info</value>
+    <value>À propos...</value>
   </data>
   <data name="ManimizeRestoreText" xml:space="preserve">
-    <value>Maksimaliseeri/Taasta</value>
+    <value>Maximiser/Restaurer</value>
   </data>
   <data name="MiximizeText" xml:space="preserve">
-    <value>Minimeeri</value>
+    <value>Réduire</value>
   </data>
   <data name="CloseText" xml:space="preserve">
-    <value>Sulge</value>
+    <value>Fermer</value>
   </data>
   <data name="ErrorTitleText" xml:space="preserve">
-    <value>Viga</value>
+    <value>Erreur</value>
   </data>
   <data name="AboutTitleText" xml:space="preserve">
-    <value>Wiki-Up´ist</value>
+    <value>À propos de Wiki-Up</value>
   </data>
+  
+  <!-- ***************************************************************** -->
+  <!-- Login / Logoff -->
+  
   <data name="SignIn" xml:space="preserve">
-    <value>Logi sisse</value>
+    <value>S'identifier</value>
   </data>
   <data name="SignOut" xml:space="preserve">
-    <value>Logi välja</value>
+    <value>Se déconnecter</value>
   </data>
   <data name="WikiUrlPlaceholder" xml:space="preserve">
-    <value>Wiki url</value>
+    <value>URL du wiki</value>
   </data>
   <data name="UsernamePlaceholder" xml:space="preserve">
-    <value>Kasutajanimi</value>
+    <value>Nom d'utilisateur</value>
   </data>
   <data name="PasswordPlaceholder" xml:space="preserve">
-    <value>Salasõna</value>
+    <value>Mot de passe</value>
   </data>
   <data name="RememberPassword" xml:space="preserve">
-    <value>Salvesta salasõna</value>
+    <value>Mémoriser le mot de passe</value>
   </data>
   <data name="ButtonLogin" xml:space="preserve">
-    <value>Logi sisse</value>
+    <value>Connexion</value>
   </data>
   <data name="LoginFailedMessage" xml:space="preserve">
-    <value>Sisselogimine ebaõnnestus</value>
+    <value>Échec de la connexion</value>
   </data>
   <data name="InvalidLoginDetailsMessage" xml:space="preserve">
-    <value>Kontrolli sisestatud andmete korrektsust.</value>
+    <value>Assurez-vous que les détails ci-dessus soient corrects.</value>
   </data>
   <data name="LoginErrorNoWikiOrUsername" xml:space="preserve">
-    <value>Palun sisesta Wiki url ja kasutajanimi</value>
+    <value>Vous devez fournir une URL de wiki et un nom d'utilisateur.</value>
   </data>
   <data name="LoginErrorInvalidWikiUrl" xml:space="preserve">
-    <value>Vigane Wiki url</value>
+    <value>URL du wiki non valide.</value>
   </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Login Exceptions -->
+  
   <data name="LoginExceptionInvalidResponse" xml:space="preserve">
-    <value>Server vastas vigase teatega</value>
+    <value>Le serveur a renvoyé une réponse non valide.</value>
   </data>
   <data name="LoginExceptionTimeout" xml:space="preserve">
-    <value>Server ei vastanud</value>
+    <value>Le serveur n'a pas répondu.</value>
   </data>
   <data name="LoginExceptionUnexpectedError" xml:space="preserve">
-    <value>Ilmes ootamatu viga.</value>
+    <value>Une erreur inattendue est apparue.</value>
   </data>
   <data name="LoginExceptionNotAutoConfirmed" xml:space="preserve">
-    <value>Konto pole automaatselt kinnitatud.</value>
+    <value>Ce compte n'a pas le status "autoconfirmed".</value>
   </data>
   <data name="LoginExceptionNotAuthorized" xml:space="preserve">
-    <value>Sul pole volitust Wiki-Up kasutamiseks antud Wiki lehel.</value>
+    <value>Vous n'êtes pas autorisé à utiliser Wiki-Up sur ce wiki.</value>
   </data>
   <data name="LoginExceptionNoEditToken" xml:space="preserve">
-    <value>Ei õnnestunud saada luba muutmiseks</value>
+    <value>Impossible d'obtenir le jeton de modification.</value>
   </data>
   <data name="LoginExceptionAborted" xml:space="preserve">
-    <value>Server katkestas sisselogimise(vajadusel kasuta BOT salasõna)</value>
+    <value>Le serveur a interrompu la connexion (vous devrez peut-être utiliser un mot de passe BOT)</value>
   </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Insecure connection dialog -->  
+  
   <data name="InsecureConnectionTitleText" xml:space="preserve">
-    <value>Ebaturvaline ühendus</value>
+    <value>Connexion non sécurisée</value>
   </data>
   <data name="InsecureConnectionMessage" xml:space="preserve">
-    <value>Http ühendus pole turvaline. Sisse logimine kasutades antud http võimaldab sinu kasuatajanime ja salasõna saatmise krüpteerimata lihttekstina.</value>
+    <value>Les connexions HTTP ne sont pas sécurisées. La connexion via HTTP entraînera l'envoi de votre nom d'utilisateur et de votre mot de passe en texte brut non chiffré.</value>
   </data>
   <data name="ContiuePrompt" xml:space="preserve">
-    <value>Kas sa oled kindel, et soovid jätkata?</value>
+    <value>Êtes-vous sûr de vouloir continuer ?</value>
   </data>
+  
+  <!-- ***************************************************************** -->
+  <!-- Category and Template search page -->
+    
   <data name="SearchErrorText" xml:space="preserve">
-    <value>Ilmnes viga Wiki kasutamisel.</value>
+    <value>Erreur lors de l'exploration du wiki.</value>
   </data>
   <data name="CategoryTemplate" xml:space="preserve">
     <value>[[Category:{0}]]</value>
   </data>
+  
+  
+  <!-- ***************************************************************** -->
+  <!--Upload page - tabs -->  
+  
   <data name="ContentTabText" xml:space="preserve">
-    <value>Sisu</value>
+    <value>Contenu</value>
   </data>
   <data name="UploadTabText" xml:space="preserve">
-    <value>Lae üles</value>
+    <value>Mise en ligne</value>
   </data>
+  
+  <!-- ***************************************************************** -->
+  <!-- Upload Page - Upload Tab -->  
+  
   <data name="FilesText" xml:space="preserve">
-    <value> Failid</value>
+    <value> Fichiers</value>
   </data>
   <data name="IgnoreWarningsLabelText" xml:space="preserve">
-    <value>Ignoreeri hoiatusi</value>
+    <value>Ignorer les avertissements</value>
   </data>
   <data name="IgnoreWarningsTooltipText" xml:space="preserve">
-    <value>Ignoreeri hoiatusi ja lae falid üles, isegi kui failid juba eksisteerivad või on dublikaadid.</value>
+    <value>Ignorer les avertissements et mettre en ligne les fichiers même s'ils existent déjà ou même s'ils sont des doublons.</value>
   </data>
   <data name="AddToWatchlistLabelText" xml:space="preserve">
-    <value>Lisa jälgimisnimekirja</value>
+    <value>Ajouter à votre liste de suivi</value>
   </data>
   <data name="AddToWatchlistTooltipText" xml:space="preserve">
-    <value>Lisa üles laetud failid oma jälgimisnimekirja.</value>
+    <value>Ajouter les fichiers mis en ligne à votre liste de suivi.</value>
   </data>
   <data name="ButtonLoadContentTooltipText" xml:space="preserve">
-    <value>Lae sisu alla failist.</value>
+    <value>Charger le contenu d'un fichier.</value>
   </data>
   <data name="ButtonSaveContentTooltipText" xml:space="preserve">
-    <value>Salvesta sisu failina.</value>
+    <value>Enregistrer le contenu vers un fichier.</value>
   </data>
   <data name="ButtonUploadText" xml:space="preserve">
-    <value>Lae üles</value>
+    <value>Mettre en ligne</value>
   </data>
   <data name="ButtonUploadTooltipText" xml:space="preserve">
-    <value>Alusta failide üles laadimist.(Ctrl+U)</value>
+    <value>Commencer à mettre en ligne les fichiers. (Ctrl+U)</value>
   </data>
   <data name="ButtonStopUploadText" xml:space="preserve">
-    <value>Tühista üles laadimine</value>
+    <value>Arrêter la mise en ligne</value>
   </data>
   <data name="ButtonStopUploadTooltipText" xml:space="preserve">
-    <value>Tühista käesolev üleslaadimine.</value>
+    <value>Annuler la mise en ligne en cours.</value>
   </data>
   <data name="ButtonAddFilesText" xml:space="preserve">
-    <value>Lisa faile</value>
+    <value>Ajouter des fichiers</value>
   </data>
   <data name="ButtonAddFilesTooltipText" xml:space="preserve">
-    <value>Lisa failid üleslaadimis nimekirja.(Ctrl+A)</value>
+    <value>Ajouter des fichiers à la liste de mise en ligne (Ctrl+A)</value>
   </data>
   <data name="ButtonRemoveFilesText" xml:space="preserve">
-    <value>Eemalda failid</value>
+    <value>Enlever des fichiers</value>
   </data>
   <data name="ButtonRemoveFilesTooltipText" xml:space="preserve">
-    <value>Eemalda valitud failid üleslaadimise nimekirjast.</value>
+    <value>Enlever les fichiers sélectionnés de la liste de mise en ligne.</value>
   </data>
   <data name="ButtonLoadFilesTooltipText" xml:space="preserve">
-    <value>Lisa faile eelnevalt salvestatud üleslaadimis nimekirjast.</value>
+    <value>Ajouter des fichiers d'une liste de mise en ligne précédemment enregistrée.</value>
   </data>
   <data name="ButtonSaveFilesTooltipText" xml:space="preserve">
-    <value>Salvesta üleslaadimis nimekiri</value>
-  </data>
+    <value>Enregistrer la liste de mise en ligne.</value>
+  </data>  
+  
+  <!-- ***************************************************************** -->
+  <!-- Upload Page - Content tab -->
+    
   <data name="SummaryLabelText" xml:space="preserve">
-    <value>Kokkuvõte</value>
+    <value>Sommaire</value>
   </data>
   <data name="SummaryDescriptionText" xml:space="preserve">
-    <value>Üleslaadimiste kokkuvõte Wiki aktiivsuse logis.</value>
+    <value>Ceci est le sommaire de la mise en ligne dans les "Modifications récentes" du wiki.</value>
   </data>
   <data name="ContentLabelText" xml:space="preserve">
-    <value>Sisu</value>
+    <value>Contenu</value>
   </data>
   <data name="ContentDescriptionText" xml:space="preserve">
-    <value>Sisesta Wikitekst algseks sisuks, allolevate uute piltide jaoks.Teksti kasutatakse ainult uute piltide jaoks, see ei asenda olemasolevate lehekülgede sisu.</value>
+    <value>Entrez le wikitext à utiliser comme contenu initial de page pour les nouvelles images. Cela ne sera utilisé que pour les nouvelles images et ne remplacera aucun contenu existant de page.</value>
   </data>
   <data name="ButtonAddCategoryText" xml:space="preserve">
-    <value>Lisa kategooria</value>
+    <value>Ajouter une catégorie</value>
   </data>
   <data name="ButtonAddTemplateText" xml:space="preserve">
-    <value>Lisa näidis</value>
+    <value>Ajouter un modèle</value>
   </data>
+  
+  <!-- ***************************************************************** -->
+  <!-- General button text -->
+
   <data name="ButtonOkText" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="ButtonCancelText" xml:space="preserve">
-    <value>Tühista</value>
+    <value>Annuler</value>
   </data>
   <data name="ButtonSaveText" xml:space="preserve">
-    <value>Salvesta</value>
+    <value>Enregistrer</value>
   </data>
   <data name="ButtonLoadText" xml:space="preserve">
-    <value>Lae</value>
+    <value>Charger</value>
   </data>
   <data name="ButtonYesText" xml:space="preserve">
-    <value>Jah</value>
+    <value>Oui</value>
   </data>
   <data name="ButtonNoText" xml:space="preserve">
-    <value>Ei</value>
+    <value>Non</value>
   </data>
   <data name="ButtonAddText" xml:space="preserve">
-    <value>Lisa</value>
+    <value>Ajouter</value>
   </data>
   <data name="ButtonFindText" xml:space="preserve">
-    <value>Otsi</value>
+    <value>Chercher</value>
   </data>
   <data name="ButtonNextText" xml:space="preserve">
-    <value>Järgmine</value>
+    <value>Suivant</value>
   </data>
   <data name="ButtonPreviousText" xml:space="preserve">
-    <value>Eelmine</value>
+    <value>Précedent</value>
   </data>
   <data name="ToggleSwitchYesText" xml:space="preserve">
-    <value>JAH</value>
+    <value>OUI</value>
   </data>
   <data name="ToggleSwitchNoText" xml:space="preserve">
-    <value>EI</value>
+    <value>NON</value>
   </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Upload status messages -->
+  
   <data name="UploadMessageAwaitingUpload" xml:space="preserve">
-    <value>Üleslaadimise ootel.</value>
+    <value>En attente de la mise en ligne.</value>
   </data>
   <data name="UploadMessageUploading" xml:space="preserve">
-    <value>Lae üles Wiki lehele...</value>
+    <value>Mise en ligne en cours sur le wiki...</value>
   </data>
   <data name="UploadMessageInvalidXml" xml:space="preserve">
-    <value>Server vastas vigase XML vastusega.</value>
+    <value>Le serveur a renvoyé une réponse XML non valide.</value>
   </data>
   <data name="UploadMessageFileNotFound" xml:space="preserve">
-    <value>Faili ei leitud.</value>
+    <value>Fichier non trouvé.</value>
   </data>
   <data name="UploadMessageReadFail" xml:space="preserve">
-    <value>Ei saa faili avada</value>
+    <value>Impossible de lire le fichier.</value>
   </data>
   <data name="UploadMessageCancelled" xml:space="preserve">
-    <value>Üleslaadimine tühistatud</value>
+    <value>Mise en ligne annulée.</value>
   </data>
   <data name="UploadMessageServerBusy" xml:space="preserve">
-    <value>Server on ülekoormatud. Üleslaadimine tühistati. Palun proovi hiljem uuesti.</value>
+    <value>Le serveur est trop occupé. Mises en ligne annulées. Réessayez plus tard.</value>
   </data>
   <data name="UploadMessageNoEditToken" xml:space="preserve">
-    <value>Ei õnnestunud saada luba muutmiseks. Üleslaadimine tühistati. Taaskäivita Wiki-Up vea parandamiseks.</value>
+    <value>Impossible d'obtenir un jeton de modification valide. Mises en ligne annulées. Vous devrez peut-être redémarrer Wiki-Up pour résoudre cette erreur.</value>
   </data>
   <data name="UploadMessageNetworkError" xml:space="preserve">
-    <value>Ühenduse viga. Üleslaadimine pole võimalik.</value>
+    <value>Erreur réseau. Impossible de mettre en ligne.</value>
   </data>
   <data name="UploadMessageTimedOut" xml:space="preserve">
-    <value>Üleslaadimine aegus.</value>
+    <value>La mise en ligne a expirée.</value>
   </data>
   <data name="UploadMessageUnkownServerResponse" xml:space="preserve">
-    <value>Ootamatu serveri vastus</value>
+    <value>Réponse du serveur inattendue.</value>
   </data>
   <data name="UploadMessageFileTypeNotPermitted" xml:space="preserve">
-    <value>"{0}" tüüpi failid pole lubatud</value>
+    <value>Les fichiers de type "{0}" ne sont pas autorisés.</value>
   </data>
   <data name="UploadResponseDuplicateOf" xml:space="preserve">
-    <value>Koopia</value>
+    <value>Duplicata de</value>
   </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Upload View Model -->
+
   <data name="UploadViaText" xml:space="preserve">
-    <value>Üleslaetud läbi</value>
+    <value>Mis en ligne avec</value>
   </data>
   <data name="ViaText" xml:space="preserve">
-    <value>Allikas</value>
+    <value>avec</value>
   </data>
   <data name="CantReadUploadListMessage" xml:space="preserve">
-    <value>Üleslaadimis nimekirja pole võimalik lugeda</value>
+    <value>Impossible de lire la liste de mise en ligne.</value>
   </data>
   <data name="CantSaveUploadListMessage" xml:space="preserve">
-    <value>Üleslaadimis nimekirja ei saa salvestada</value>
+    <value>Impossible d'enregistrer la liste de mise en ligne.</value>
   </data>
   <data name="CantReadContentMessage" xml:space="preserve">
-    <value>Sisu lugemine ebaõnnestus</value>
+    <value>Impossible de lire le contenu.</value>
   </data>
   <data name="CantSaveContentMessage" xml:space="preserve">
-    <value>Sisu salvestamine ebaõnnestus</value>
+    <value>Impossible d'enregistrer le contenu.</value>
   </data>
   <data name="ViewImageErrorMessage" xml:space="preserve">
-    <value>Pildi vaatamine ebaõnnestus</value>
+    <value>Impossible d'afficher l'image.</value>
   </data>
+  
+  <!-- ***************************************************************** -->
+  <!-- About window -->
+
   <data name="CopyrightText" xml:space="preserve">
-    <value>Autoriõigus</value>
+    <value>Copyright</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Versioon</value>
+    <value>Version</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Interneti lehekülg</value>
+    <value>Site web</value>
   </data>
   <data name="AboutApplicationNameText" xml:space="preserve">
-    <value>Wiki Up</value>
+    <value>Wiki-Up</value>
   </data>
   <data name="GermanTrsnslationText" xml:space="preserve">
-    <value>Saksa keelne tõlge:</value>
+    <value>Traduction allemande par</value>
   </data>
+  <data name="FrenchTrsnslationText" xml:space="preserve">
+    <value>Traduction française par</value>
+  </data>
+
+  <!-- ***************************************************************** -->
+  <!--Friendly upload error text -->
+
   <data name="UploadErrorAlreadyExists" xml:space="preserve">
-    <value>On juba olemas.</value>
+    <value>Existe déjà</value>
   </data>
   <data name="UploadErrorBadFilename" xml:space="preserve">
-    <value>Ebakorrektne faili nimi</value>
+    <value>Nom de fichier non valide</value>
   </data>
   <data name="UploadErrorUnwantedType" xml:space="preserve">
-    <value>Ebasobiv faili tüüp</value>
+    <value>Type de fichier indésirable</value>
   </data>
   <data name="UploadErrorLargeFile" xml:space="preserve">
-    <value>Andmeside mahuka faili hoiatus.</value>
+    <value>Avertissement : fichier volumineux</value>
   </data>
   <data name="UploadErrorEmptyFile" xml:space="preserve">
-    <value>Fail on tühi</value>
+    <value>Le fichier est vide</value>
   </data>
   <data name="UploadErrorDuplicateArchive" xml:space="preserve">
-    <value>Salvestuse koopia</value>
+    <value>Duplicata d'archivé</value>
   </data>
   <data name="UploadErrorDeletedFile" xml:space="preserve">
-    <value>Kustuta fail</value>
+    <value>Fichier supprimé</value>
   </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Settings Page -->
+
   <data name="SettingsText" xml:space="preserve">
-    <value>Sätted</value>
+    <value>Paramètres</value>
   </data>
   <data name="SaveSettingsText" xml:space="preserve">
-    <value>Salvesta sätted</value>
+    <value>Enregistrer les paramètres</value>
   </data>
   <data name="LanguageText" xml:space="preserve">
-    <value>Keele valik</value>
+    <value>Langue</value>
   </data>
   <data name="UploadDelayText" xml:space="preserve">
-    <value>Üleslaadimise viivitus</value>
+    <value>Délai de mise en ligne</value>
   </data>
   <data name="UploadDelayDetailsText" xml:space="preserve">
-    <value>See on aeg, millisekundites, Kui kaua Wiki-Up ootab enne iga faili üleslaadimist.</value>
+    <value>Le temps (en millisecondes) entre chaque mise en ligne de fichier.</value>
   </data>
   <data name="ImageFilesText" xml:space="preserve">
-    <value>Pildi faili laiendid</value>
+    <value>Extensions de fichier d'image</value>
   </data>
   <data name="ImageFilesDetailsText" xml:space="preserve">
-    <value>See on loend faililaienditest, mida Wiki-Up peab lisa failide dialoogis pildifailideks.</value>
+    <value>Liste d'extensions de fichiers que Wiki-Up considérera comme des fichiers image dans la boîte de dialogue d'ajout de fichiers.</value>
   </data>
   <data name="UpdatesText" xml:space="preserve">
-    <value>Uuendused</value>
+    <value>Mises à jour</value>
   </data>
   <data name="CheckNowText" xml:space="preserve">
-    <value>Kontrolli kohe</value>
+    <value>Vérifier maintenant</value>
   </data>
   <data name="UpdatesDetailsText" xml:space="preserve">
-    <value>Wiki-Up käivitamisel kontrolli uuema versiooni olemasolu.</value>
+    <value>Rechercher des nouvelles versions de Wiki-Up au démarrage de Wiki-Up.</value>
   </data>
   <data name="UpToDateText" xml:space="preserve">
-    <value>Wiki-Up on ajakohane.</value>
+    <value>Wiki-Up est à jour.</value>
   </data>
   <data name="RestoreDefaultsText" xml:space="preserve">
-    <value>Taasta algseadmed</value>
-  </data>
-  <data name="NewVersionTitleText" xml:space="preserve">
-    <value>Uuem versioon on saadaval</value>
-  </data>
-  <data name="NewVersionMessage" xml:space="preserve">
-    <value>Wiki-Up uuendatud versioon {0} on alalaadimiseks valmis.</value>
-  </data>
-  <data name="DownloadNowText" xml:space="preserve">
-    <value>Lae alla</value>
+    <value>Restaurer les paramètres par défaut</value>
   </data>
   <data name="TakeEffectNextRunText" xml:space="preserve">
-    <value>Keele ja värvi muudatuste sätted aktiveeritakse Wiki-Up taaskäivitamisel.</value>
+    <value>Les modifications apportées aux paramètres de langue et de thème de couleur prendront effet lors de la prochaine exécution de Wiki-Up.</value>
   </data>
   <data name="ColorThemeText" xml:space="preserve">
-    <value>Värvilahendus</value>
+    <value>Thème de couleur</value>
   </data>
+
+
+  <!-- ***************************************************************** -->
+  <!-- New Version Window -->
+
+  <data name="NewVersionTitleText" xml:space="preserve">
+    <value>Nouvelle version disponible</value>
+  </data>
+  <data name="NewVersionMessage" xml:space="preserve">
+    <value>Une version plus récente de Wiki-Up, la version {0}, peut être télécharger.</value>
+  </data>
+  <data name="DownloadNowText" xml:space="preserve">
+    <value>Télécharger maintenant</value>
+  </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Color theme names -->
+    
   <data name="PutpleOverloadText" xml:space="preserve">
-    <value>Tume-lilla</value>
+    <value>Surcharge violette</value>
   </data>
   <data name="PutpleHazeText" xml:space="preserve">
-    <value>Hele-lilla</value>
+    <value>Brume violette</value>
   </data>
   <data name="GreenForestText" xml:space="preserve">
-    <value>Roheline mets</value>
+    <value>Forêt verte</value>
   </data>
   <data name="BlueLightText" xml:space="preserve">
-    <value>Hele sinine</value>
+    <value>Bleu vif</value>
   </data>
   <data name="SolarizedText" xml:space="preserve">
-    <value>Päikseline</value>
+    <value>Un peu solarisé</value>
   </data>
   <data name="RakdosText" xml:space="preserve">
     <value>Rakdos</value>
   </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Not yet translated -->
+  <!--TODO: translate these -->
+
   <data name="NoVideoUploadSupport" xml:space="preserve">
-    <value>Wiki ei toeta video üleslaadimist</value>
+    <value>Wiki ne prend pas en charge la mise en ligne de vidéos</value>
   </data>
+
   <data name="BadVideoUploadRequest" xml:space="preserve">
-    <value>MPõhjuseks võib olla, video üleslaadimine meie poolt mitte toetatud kodulehelt</value>
+    <value>Cela peut être dû à une tentative de mise en ligne d'un site web vidéo non compatible</value>
   </data>
+
   <data name="UploadMesageInvalidJson" xml:space="preserve">
-    <value>Server vastas vigase JSON teatega</value>
+    <value>Le serveur a renvoyé une réponse JSON non valide.</value>
   </data>
+
   <data name="YoutubeError" xml:space="preserve">
-    <value>Tekkis viga youtube’iga suhtlemisel</value>
+    <value>Une erreur s'est produite lors de la communication avec Youtube.</value>
   </data>
+
   <data name="PlalistTooBig" xml:space="preserve">
-    <value>Esitlusloend on liiga mahukas importimiseks.</value>
+    <value>La liste de lecture est trop volumineuse pour être importée.</value>
   </data>
+
   <data name="PlalistMaximumLength" xml:space="preserve">
-    <value>Maksimum pikkuseks on {0} videot.</value>
+    <value>La longueur maximale est de {0} vidéos.</value>
   </data>
+
   <data name="EnterFileExtension" xml:space="preserve">
-    <value>Sisesta faili laiend</value>
+    <value>Entrez l'extension du fichier</value>
   </data>
+
   <data name="NewImageExtension" xml:space="preserve">
-    <value>Uue pildi laiend.</value>
+    <value>Nouvelle extension d'image.</value>
   </data>
+
   <data name="RemoveExtension" xml:space="preserve">
-    <value>Eemalda laiend.</value>
+    <value>Enlever l'extension</value>
   </data>
+
   <data name="InvalidExtension" xml:space="preserve">
-    <value>Vigane laiend</value>
+    <value>Extension non valide</value>
   </data>
+
   <data name="MidnightLightsText" xml:space="preserve">
-    <value>Südaöö tuled</value>
+    <value>Lumières de minuit</value>
   </data>
+
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>Kopeeri töölauale</value>
+    <value>Copier dans le presse-papier</value>
   </data>
+
+  <!-- ***************************************************************** -->
+  <!-- Not yet translated -->
+  <!--TODO: translate these -->
   <data name="FollowUploadFileHeader" xml:space="preserve">
-    <value>Jälgi üleslaetavat faili</value>
+    <value>Suivre le fichier mis en ligne</value>
   </data>
+
   <data name="FollowUploadFileText" xml:space="preserve">
-    <value>Automaatselt keri üles üleslaetava faili juurde, kui antud fail alustab üleslaadimist.</value>
+    <value>Faire défiler automatiquement jusqu'au fichier mis en ligne lorsqu'il commence à être mis en ligne.</value>
   </data>
+
+  <data name="LoginExpiredText" xml:space="preserve">
+    <value>Vos identifiants de connexion ont expiré.</value>
+  </data>
+  
+  <data name="LoginExpiredSubtext" xml:space="preserve">
+    <value>Vous devrez vous reconnecter pour continuer la mise en ligne, cliquez sur OK pour vous connecter.</value>
+  </data>
+  
+  <data name="ButtonAddFolderText" xml:space="preserve">
+    <value>Ajouter un dossier</value>
+  </data>
+
+  <data name="ButtonAddFolderTooltipText" xml:space="preserve">
+    <value>Ajouter tous les fichiers dans un dossier et sous-dossiers à la liste de mise en ligne.</value>
+  </data>
+  
+  <data name="UnableToAddFiles" xml:space="preserve">
+    <value>Impossible d'ajouter des fichiers.</value>
+  </data>
+
+  <data name="IncludeAllFiles" xml:space="preserve">
+    <value>Tous les fichiers</value>
+  </data>
+  
+  <data name="IncludeUploadableFiles" xml:space="preserve">
+    <value>Tous les fichiers qui peuvent être mis en ligne</value>
+  </data>
+  
+  <data name="IncludeImageFiles" xml:space="preserve">
+    <value>Tous les fichiers d'image</value>
+  </data>
+ 
+  <data name="IncludeSubfolders" xml:space="preserve">
+    <value>Inclure les sous-dossiers</value>
+  </data>
+
+  <data name="IncludeFilesOfType" xml:space="preserve">
+    <value>Inclure les fichiers de type</value>
+  </data>
+
 </root>

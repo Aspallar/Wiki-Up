@@ -453,6 +453,9 @@
   <data name="GermanTrsnslationText" xml:space="preserve">
     <value>German translation by</value>
   </data>
+  <data name="FrenchTrsnslationText" xml:space="preserve">
+    <value>French translatio by</value>
+  </data>
 
   <!-- ***************************************************************** -->
   <!--Friendly upload error text -->
