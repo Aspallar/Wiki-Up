@@ -29,7 +29,3 @@ goto :EOF
 
 :wrongfolder
 echo Please run from the root folder.
-
-WikiUpInstaller--1.10.0.msi
-WikiUpInstaller-Eesti-1.10.0.msi
-
