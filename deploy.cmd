@@ -2,6 +2,7 @@
 setlocal
 if not exist .git\ goto :wrongfolder 
 if not exist src\ goto :wrongfolder 
+
 md Deploy 1>nul 2>nul
 md Deploy\de-DE 1>nul 2>nul
 md Deploy\et-EE 1>nul 2>nul
@@ -10,7 +11,9 @@ del Deploy\*.* /q
 del Deploy\de-DE\*.* /q
 del Deploy\et-EE\*.* /q
 del Deploy\fr-FR\*.* /q
+
 set src=src\WikiUpload\bin\release
+
 copy %src%\WikiUp.exe Deploy\.
 copy %src%\WikiUp.exe.config Deploy\.
 copy %src%\MahApps.Metro.IconPacks.Core.dll Deploy\.
