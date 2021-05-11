@@ -24,8 +24,9 @@ On startup you will be asked to log into a wiki. You should specify the wiki URL
 the <code>https://</code> part (e.g. mywiki.fandom.com).
 
 If you need to login to a wiki that does not use https then
-you should precede the wiki url with <code>http://</code>, be warned however that logging into a site via
-http will result in your username and password being transmitted in unencrypted plain text.
+you should precede the wiki url with <code>http://</code>, be warned however that logging into a site via http will result in your username and password being transmitted in unencrypted plain text.
+
+If the wiki has a script path then you should enter the script path as part ofg the wiki url. You can determine the script path for a wiki by visiting the Special:Version page of the wiki and looking at the "Entry point URLs" section. For example [meta.miraheze.org](https://meta.miraheze.org/wiki/Special:Version) has a scropt path of "/w" so the wiki url to enter would be "meta.miraheze.org/w".
 
 If the wiki uses bot passwords, as [Gamepedia](https://help.gamepedia.com/Logging_in_to_third-party_tools) does,
 then you must use the *alternate format* of the bot password i.e. your username and a password of BotUsername@password.
