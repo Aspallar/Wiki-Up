@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFilesFilterBuilderTests.cs" />
     <Compile Include="AddFolderOptionsViewModelTests.cs" />
     <Compile Include="FileExtensionsCollectionTests.cs" />
     <Compile Include="FileFinderTests.cs" />

@@ -169,6 +169,7 @@
     <Compile Include="Service\UploadMessages.cs" />
     <Compile Include="Service\Youtube.cs" />
     <Compile Include="Service\YoutubeSecrets.cs" />
+    <Compile Include="Utilities\AddFilesFilterBuilder.cs" />
     <Compile Include="Utilities\FileFinder.cs" />
     <Compile Include="Utilities\GithubProvider.cs" />
     <Compile Include="Utilities\GithubRelease.cs" />
