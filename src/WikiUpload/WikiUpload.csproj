@@ -175,6 +175,7 @@
     <Compile Include="Utilities\GithubRelease.cs" />
     <Compile Include="Utilities\IFileFinder.cs" />
     <Compile Include="Utilities\IGithubProvider.cs" />
+    <Compile Include="Utilities\RememberPasswordOptions.cs" />
     <Compile Include="Utilities\UpdateCheckResponse.cs" />
     <Compile Include="Utilities\DialogManager.cs" />
     <Compile Include="Utilities\Encryption.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="Utilities\WindowManager.cs" />
     <Compile Include="ValueConverters\BaseMulriValueConverter.cs" />
+    <Compile Include="ValueConverters\RememberPasswordOptionsToIntConverter.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
     <Compile Include="VariableContent.cs" />

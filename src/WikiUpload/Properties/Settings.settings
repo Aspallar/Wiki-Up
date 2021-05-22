@@ -17,8 +17,8 @@
     <Setting Name="ImageExtensions" Type="System.String" Scope="User">
       <Value Profile="(Default)">png;jpg;jpeg;gif;ico;svg;webp;bmp;tif;tiff</Value>
     </Setting>
-    <Setting Name="RememberPassword" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="RememberPassword" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="Language" Type="System.String" Scope="User">
       <Value Profile="(Default)">Default</Value>

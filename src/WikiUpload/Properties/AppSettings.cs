@@ -18,10 +18,10 @@ namespace WikiUpload.Properties
 
         public ObservableCollection<string> RecentlyUsedSites => Settings.Default.RecentlyUsedSites;
 
-        public bool RememberPassword
+        public RememberPasswordOptions RememberPassword
         {
-            get => Settings.Default.RememberPassword;
-            set => Settings.Default.RememberPassword = value;
+            get => (RememberPasswordOptions)Settings.Default.RememberPassword;
+            set => Settings.Default.RememberPassword = (int)value;
         }
 
         public int UploadDelay

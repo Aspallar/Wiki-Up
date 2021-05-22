@@ -12,5 +12,7 @@ namespace WikiUpload
         void RemovePassword(string site, string username);
         
         bool HasPassword(string site, string username);
+
+        void SaveDomainPassword(string wikiUrl, string username, SecureString password);
     }
 }

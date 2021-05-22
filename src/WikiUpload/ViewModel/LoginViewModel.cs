@@ -13,7 +13,7 @@ namespace WikiUpload
         private readonly IDialogManager _dialogs;
         private readonly IFileUploader _fileUploader;
         private readonly INavigatorService _navigator;
-        private readonly Properties.IAppSettings _appSettings;
+        private readonly IAppSettings _appSettings;
         private readonly IHelpers _helpers;
 
         public LoginViewModel(IFileUploader fileUploader,
@@ -39,7 +39,7 @@ namespace WikiUpload
 
         public string WikiUrl { get; set; }
 
-        public bool RememberPassword { get; set; }
+        public RememberPasswordOptions RememberPassword { get; set; }
 
         public ObservableCollection<string> PreviousSites { get; set; }
 
@@ -99,10 +99,18 @@ namespace WikiUpload
 
         private void UpdateSavedPassword(SecureString password)
         {
-            if (RememberPassword)
-                _passwordManager.SavePassword(WikiUrl, Username, password);
-            else
-                _passwordManager.RemovePassword(WikiUrl, Username);
+            switch (RememberPassword)
+            {
+                case RememberPasswordOptions.DoNotRemember:
+                    _passwordManager.RemovePassword(WikiUrl, Username);
+                    break;
+                case RememberPasswordOptions.RememberForSite:
+                    _passwordManager.SavePassword(WikiUrl, Username, password);
+                    break;
+                case RememberPasswordOptions.RememberForDomain:
+                    _passwordManager.SaveDomainPassword(WikiUrl, Username, password);
+                    break;
+            }
         }
 
         private void UpdateApplicationSettings()

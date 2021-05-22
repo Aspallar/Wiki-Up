@@ -67,11 +67,13 @@
                                          local:SavedPassword.Password="{Binding SavedPassword, Mode=OneTime}"
                                          local:SavedPassword.AutoDisposePasswords="True"/>
 
-                            <CheckBox HorizontalAlignment="Center" FontSize="{StaticResource FontSizeRegular}"
-                                      IsChecked="{Binding RememberPassword}">
-                                <TextBlock Text="{x:Static p:Resources.RememberPassword}" Foreground="{StaticResource SecondaryTextBrush}"/>
-                            </CheckBox>
-
+                            <ComboBox FontSize="{StaticResource FontSizeSmall}"
+                                      SelectedIndex="{Binding RememberPassword, Converter={local:RememberPasswordOptionsToIntConverter}}">
+                                <ComboBoxItem Content="{x:Static p:Resources.DoNotRememberPassword}"></ComboBoxItem>
+                                <ComboBoxItem Content="{x:Static p:Resources.RememberPasswordForWiki}"></ComboBoxItem>
+                                <ComboBoxItem Content="{x:Static p:Resources.RememberPasswordForDomain}"></ComboBoxItem>
+                            </ComboBox>
+                            
                             <Button Content="{x:Static p:Resources.ButtonLogin}"  HorizontalAlignment="Center"  Margin="0 30 0 0" 
                                     Style="{StaticResource BusyButton}"
                                     local:IsBusyProperty.Value="{Binding LoginIsRunning}"

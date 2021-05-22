@@ -667,4 +667,18 @@
     <value>Include files of type</value>
   </data>
 
+  <data name="DoNotRememberPassword" xml:space="preserve">
+    <value>Do not remember password</value>
+  </data>
+  
+  <data name="RememberPasswordForWiki" xml:space="preserve">
+    <value>Remember password for wiki</value>
+  </data>
+  
+  <data name="RememberPasswordForDomain" xml:space="preserve">
+    <value>Remember password for domain</value>
+  </data>
+  
+
+
 </root>

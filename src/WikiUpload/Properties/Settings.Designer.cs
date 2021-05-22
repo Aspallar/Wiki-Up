@@ -84,10 +84,10 @@ namespace WikiUpload.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool RememberPassword {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RememberPassword {
             get {
-                return ((bool)(this["RememberPassword"]));
+                return ((int)(this["RememberPassword"]));
             }
             set {
                 this["RememberPassword"] = value;

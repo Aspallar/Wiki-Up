@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
+using System.Linq;
 using System.Security;
 using WikiUpload;
 
@@ -58,8 +59,8 @@ namespace Tests
         [Test]
         public void When_ExistingPasswordIsRemoved_Then_PasswordsAreSaved()
         {
-            _passwords.Add("foobar", "barfoo");
-
+            _manager.SavePassword("foo", "bar", new SecureString());
+            Fake.ClearRecordedCalls(_store);
             _manager.RemovePassword("foo", "bar");
 
             A.CallTo(() => _store.Save(A<PasswordDictionary>._)).MustHaveHappened(1, Times.Exactly);
@@ -73,8 +74,10 @@ namespace Tests
      
             _manager.SavePassword("foo", "bar", password);
 
-            Assert.That(_passwords["foobar"], Is.Not.EqualTo("a"));
-            Assert.That(_passwords["foobar"].Length, Is.GreaterThan(1));
+            var savedPassword = _passwords.First().Value;
+
+            Assert.That(savedPassword, Is.Not.EqualTo("a"));
+            Assert.That(savedPassword.Length, Is.GreaterThan(1));
         }
 
         [Test]
@@ -112,9 +115,35 @@ namespace Tests
         }
 
         [Test]
+        public void When_DomainPasswordExists_Then_HasPasswordReturnsTrue()
+        {
+            var password = new SecureString();
+            password.AppendChar('a');
+            _manager.SaveDomainPassword("a.foobar.com", "bar", password);
+
+            var result1 = _manager.HasPassword("a.foobar.com", "bar");
+            var result2 = _manager.HasPassword("b.foobar.com", "bar");
+
+            Assert.That(result1, Is.True);
+            Assert.That(result2, Is.True);
+        }
+
+        [Test]
         public void When_PasswordDoesNotExist_Then_HasPasswordReturnsFalse()
         {
             var result = _manager.HasPassword("foo", "ba;");
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void When_DomainPasswordDoesNotExist_Then_HasPasswordReturnsFalse()
+        {
+            var password = new SecureString();
+            password.AppendChar('a');
+            _manager.SavePassword("a.foobar.com", "bar", password);
+
+            var result = _manager.HasPassword("b.foobar.com", "bar");
 
             Assert.That(result, Is.False);
         }

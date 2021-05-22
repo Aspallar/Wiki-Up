@@ -178,7 +178,7 @@ namespace Tests
         {
             const string wiki = "Bar";
             const string user = "Foo";
-            const bool rememberPassword = true;
+            const RememberPasswordOptions rememberPassword = RememberPasswordOptions.RememberForSite;
 
             _model.WikiUrl = wiki;
             _model.Username = user;
@@ -214,11 +214,11 @@ namespace Tests
         }
 
         [Test]
-        public void Whaen_LoggedInSuccessfullyAndRememberPasswordIsOn_Then_PasswordIsSaved()
+        public void Whaen_LoggedInSuccessfullyAndRememberPasswordIsSite_Then_PasswordIsSaved()
         {
             _model.WikiUrl = "Foo";
             _model.Username = "Bar";
-            _model.RememberPassword = true;
+            _model.RememberPassword = RememberPasswordOptions.RememberForSite;
 
             A.CallTo(() =>
                 _fileUploader.LoginAsync(A<string>._, A<string>._, A<SecureString>._, A<bool>._))
@@ -231,11 +231,28 @@ namespace Tests
         }
 
         [Test]
+        public void Whaen_LoggedInSuccessfullyAndRememberPasswordIsDomain_Then_DomainPasswordIsSaved()
+        {
+            _model.WikiUrl = "Foo";
+            _model.Username = "Bar";
+            _model.RememberPassword = RememberPasswordOptions.RememberForDomain;
+
+            A.CallTo(() =>
+                _fileUploader.LoginAsync(A<string>._, A<string>._, A<SecureString>._, A<bool>._))
+                    .Returns(Task.FromResult(true));
+
+            _model.LoginCommand.Execute(_password);
+
+            A.CallTo(() => _passwordManager.SaveDomainPassword(A<string>._, A<string>._, A<SecureString>._))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
         public void Whaen_LoggedInSuccessfullyAndRememberPasswordIsOff_Then_PasswordIsRemoved()
         {
             _model.WikiUrl = "Foo";
             _model.Username = "Bar";
-            _model.RememberPassword = false;
+            _model.RememberPassword = RememberPasswordOptions.DoNotRemember;
 
             A.CallTo(() =>
                 _fileUploader.LoginAsync(A<string>._, A<string>._, A<SecureString>._, A<bool>._))
@@ -252,7 +269,7 @@ namespace Tests
         {
             _model.WikiUrl = "http://Foo";
             _model.Username = "Bar";
-            _model.RememberPassword = false;
+            _model.RememberPassword = RememberPasswordOptions.DoNotRemember;
 
             _model.LoginCommand.Execute(_password);
 
@@ -265,7 +282,7 @@ namespace Tests
         {
             _model.WikiUrl = "http://Foo";
             _model.Username = "Bar";
-            _model.RememberPassword = false;
+            _model.RememberPassword = RememberPasswordOptions.DoNotRemember;
             A.CallTo(() => _dialogs.ConfirmInsecureLoginDialog()).Returns(false);
 
             _model.LoginCommand.Execute(_password);
@@ -279,7 +296,7 @@ namespace Tests
         {
             _model.WikiUrl = "http://Foo";
             _model.Username = "Bar";
-            _model.RememberPassword = false;
+            _model.RememberPassword = RememberPasswordOptions.DoNotRemember;
             A.CallTo(() => _dialogs.ConfirmInsecureLoginDialog()).Returns(true);
 
             _model.LoginCommand.Execute(_password);

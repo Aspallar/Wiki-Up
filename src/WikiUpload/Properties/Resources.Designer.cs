@@ -511,6 +511,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not remember password.
+        /// </summary>
+        public static string DoNotRememberPassword {
+            get {
+                return ResourceManager.GetString("DoNotRememberPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download Now.
         /// </summary>
         public static string DownloadNowText {
@@ -948,6 +957,24 @@ namespace WikiUpload.Properties {
         public static string RememberPassword {
             get {
                 return ResourceManager.GetString("RememberPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember password for domain.
+        /// </summary>
+        public static string RememberPasswordForDomain {
+            get {
+                return ResourceManager.GetString("RememberPasswordForDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember password for wiki.
+        /// </summary>
+        public static string RememberPasswordForWiki {
+            get {
+                return ResourceManager.GetString("RememberPasswordForWiki", resourceCulture);
             }
         }
         

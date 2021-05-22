@@ -8,7 +8,7 @@ namespace WikiUpload.Properties
         string ImageExtensions { get; set; }
         StringCollection PreviousSites { get; }
         ObservableCollection<string> RecentlyUsedSites { get; }
-        bool RememberPassword { get; set; }
+        RememberPasswordOptions RememberPassword { get; set; }
         int UploadDelay { get; set; }
         string Username { get; set; }
         string WikiUrl { get; set; }
