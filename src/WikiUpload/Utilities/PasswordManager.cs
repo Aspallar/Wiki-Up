@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security;
+using System.Security.Cryptography;
 using WikiUpload.Extensions;
 using WikiUpload.Utilities;
 
@@ -25,10 +26,18 @@ namespace WikiUpload
         public SecureCharArray GetPassword(string site, string username)
         {
             _ = MakeUri(site, out var uri);
-            var password = GetDecryptedPassword(MakeKey(uri, username));
-            if (password == null)
-                password = GetDecryptedPassword(MakeDomainKey(uri, username));
-            return password;
+            try
+            {
+                var password = GetDecryptedPassword(MakeKey(uri, username));
+                if (password == null)
+                    password = GetDecryptedPassword(MakeDomainKey(uri, username));
+                return password;
+            }
+            catch (Exception ex) when (ex is CryptographicException || ex is FormatException)
+            {
+                _passwords.Clear();
+                return null;
+            }
         }
 
         public bool HasPassword(string site, string username)

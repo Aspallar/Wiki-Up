@@ -209,11 +209,19 @@ namespace WikiUpload
                     int length;
                     using (var password = passwordManager.GetPassword(site, username))
                     {
-                        foreach (var c in password.Data)
-                            savedPassword.AppendChar(c);
-                        length = password.Data.Length;
+                        if (password != null)
+                        {
+                            foreach (var c in password.Data)
+                                savedPassword.AppendChar(c);
+                            length = password.Data.Length;
+                            passwordBox.Password = new string('-', length);
+                        }
+                        else
+                        {
+                            // Consider: warning user that password file is corrupt
+                            passwordBox.Password = "";
+                        }
                     }
-                    passwordBox.Password = new string('-', length);
                 }
                 else
                 {

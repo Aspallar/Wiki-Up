@@ -158,6 +158,34 @@ namespace Tests
             A.CallTo(() => store.Load()).MustHaveHappened(1, Times.Exactly);
         }
 
+        [Test]
+        public void When_PasswordIsCorrupt_GetPasswordReturnsNull()
+        {
+            var password = new SecureString();
+            password.AppendChar('a');
+            _manager.SavePassword("foo", "bar", password);
+            var key = _passwords.First().Key;
+            _passwords[key] = "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhTfp3MizFkOOQZdIJHd83wAAAAACAAAAAAAQZgAAAAEAACAAAAC6sJvoImDt52PCekrns3Kf685C8SHE6c3WEfGUsWK++QAAAAAOgAAAAAIAACAAAABF4axVDdNHAnOnHzA+6UJVGAKg71i16mWel2T7N//I4BAAAADxmJQXsPG7Z6clY/01A7zzQAAAADW6Hh+Artm54RzfADCVukcRjcOj0b/4L25+1zVu0SuBh8p4k/ofQhdvtrTQr/q87jwbMVfKgAgnL+XeYBZvFms=";
+
+            var result = _manager.GetPassword("foo", "bar");
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void When_PasswordIsCorruptAndNotBase64Encoded_GetPasswordReturnsNull()
+        {
+            var password = new SecureString();
+            password.AppendChar('a');
+            _manager.SavePassword("foo", "bar", password);
+            var key = _passwords.First().Key;
+            _passwords[key] = "Once upon a time";
+
+            var result = _manager.GetPassword("foo", "bar");
+
+            Assert.That(result, Is.Null);
+        }
+
 
     }
 }
