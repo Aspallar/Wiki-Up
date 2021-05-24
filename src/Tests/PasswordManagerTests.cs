@@ -161,11 +161,7 @@ namespace Tests
         [Test]
         public void When_PasswordIsCorrupt_GetPasswordReturnsNull()
         {
-            var password = new SecureString();
-            password.AppendChar('a');
-            _manager.SavePassword("foo", "bar", password);
-            var key = _passwords.First().Key;
-            _passwords[key] = "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhTfp3MizFkOOQZdIJHd83wAAAAACAAAAAAAQZgAAAAEAACAAAAC6sJvoImDt52PCekrns3Kf685C8SHE6c3WEfGUsWK++QAAAAAOgAAAAAIAACAAAABF4axVDdNHAnOnHzA+6UJVGAKg71i16mWel2T7N//I4BAAAADxmJQXsPG7Z6clY/01A7zzQAAAADW6Hh+Artm54RzfADCVukcRjcOj0b/4L25+1zVu0SuBh8p4k/ofQhdvtrTQr/q87jwbMVfKgAgnL+XeYBZvFms=";
+            SetupCorruptBase64Password();
 
             var result = _manager.GetPassword("foo", "bar");
 
@@ -175,17 +171,51 @@ namespace Tests
         [Test]
         public void When_PasswordIsCorruptAndNotBase64Encoded_GetPasswordReturnsNull()
         {
-            var password = new SecureString();
-            password.AppendChar('a');
-            _manager.SavePassword("foo", "bar", password);
-            var key = _passwords.First().Key;
-            _passwords[key] = "Once upon a time";
+            SetupCorruptNotBase64Password();
 
             var result = _manager.GetPassword("foo", "bar");
 
             Assert.That(result, Is.Null);
         }
 
+        [Test]
+        public void When_PasswordIsCorruptAndNotBase64Encoded_PasswordsAreCleared()
+        {
+            SetupCorruptNotBase64Password();
+
+            var result = _manager.GetPassword("foo", "bar");
+
+            Assert.That(_passwords, Is.Empty);
+        }
+
+        [Test]
+        public void When_PasswordIsCorrupt_PasswordsAreCleared()
+        {
+            SetupCorruptBase64Password();
+
+            var result = _manager.GetPassword("foo", "bar");
+
+            Assert.That(_passwords, Is.Empty);
+        }
+
+        private void SetupCorruptBase64Password()
+        {
+            SetupCorruptPassword("AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhTfp3MizFkOOQZdIJHd83wAAAAACAAAAAAAQZgAAAAEAACAAAAC6sJvoImDt52PCekrns3Kf685C8SHE6c3WEfGUsWK++QAAAAAOgAAAAAIAACAAAABF4axVDdNHAnOnHzA+6UJVGAKg71i16mWel2T7N//I4BAAAADxmJQXsPG7Z6clY/01A7zzQAAAADW6Hh+Artm54RzfADCVukcRjcOj0b/4L25+1zVu0SuBh8p4k/ofQhdvtrTQr/q87jwbMVfKgAgnL+XeYBZvFms=");
+        }
+
+        private void SetupCorruptNotBase64Password()
+        {
+            SetupCorruptPassword("Once upon a time");
+        }
+
+        private void SetupCorruptPassword(string corruptValue)
+        {
+            var password = new SecureString();
+            password.AppendChar('a');
+            _manager.SavePassword("foo", "bar", password);
+            var key = _passwords.First().Key;
+            _passwords[key] = corruptValue;
+        }
 
     }
 }
