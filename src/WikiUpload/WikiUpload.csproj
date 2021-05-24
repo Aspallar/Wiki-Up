@@ -154,8 +154,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Service\IngestionControllerResponse.cs" />
+    <Compile Include="Service\IReadOnlyResponseErrors.cs" />
     <Compile Include="Service\IYoutube.cs" />
     <Compile Include="Service\JsonHtmlStringConverter.cs" />
+    <Compile Include="Service\ResponseErrors.cs" />
     <Compile Include="Service\SearchResponse.cs" />
     <Compile Include="Service\IFileUploader.cs" />
     <Compile Include="Service\INavigatorService.cs" />

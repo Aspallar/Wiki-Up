@@ -6,13 +6,9 @@ namespace WikiUpload
     {
         string ArchiveDuplicate { get; }
         List<string> Duplicates { get; }
-        IReadOnlyList<ApiError> Errors { get; }
-        string ErrorsText { get; }
         bool IsDuplicate { get; }
         bool IsDuplicateOfArchive { get; }
-        bool IsError { get; }
-        bool IsTokenError { get; }
-        bool IsMutsBeLoggedInError { get; }
+        IReadOnlyResponseErrors Errors { get; }
         string Result { get; }
         int RetryDelay { get; }
         IReadOnlyList<string> Warnings { get; }

@@ -27,6 +27,7 @@ namespace Tests
         private IWikiSearch _templateSearch;
         private IYoutube _youtube;
         private IFileFinder _fileFinder;
+        private IReadOnlyResponseErrors _responseErrors;
         private IUploadListSerializer _uploadListSerializer;
         private IReadOnlyPermittedFiles _permittedFiles;
         private UploadViewModel _model;
@@ -48,6 +49,7 @@ namespace Tests
             _templateSearch = A.Fake<IWikiSearch>();
             _youtube = A.Fake<IYoutube>();
             _fileFinder = A.Fake<IFileFinder>();
+            _responseErrors = A.Fake<IReadOnlyResponseErrors>();
 
             A.CallTo(() => _fileUploader.PermittedFiles)
                 .Returns(_permittedFiles);
@@ -56,6 +58,8 @@ namespace Tests
                 .Returns(_categorySearch);
             A.CallTo(() => _wikiSearchFactory.CreateTemplateSearch(A<IFileUploader>._))
                 .Returns(_templateSearch);
+
+            A.CallTo(() => _uploadResponse.Errors).Returns(_responseErrors);
 
             A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<string>._, A<string>._))
                 .Returns(_uploadResponse);
@@ -682,8 +686,8 @@ namespace Tests
         {
             AlllFilesPermitted();
             AddSingleUploadFile();
-            A.CallTo(() => _uploadResponse.IsMutsBeLoggedInError).Returns(true);
-            A.CallTo(() => _uploadResponse.IsError).Returns(true);
+            A.CallTo(() => _responseErrors.IsMutsBeLoggedInError).Returns(true);
+            A.CallTo(() => _responseErrors.IsAny).Returns(true);
             A.CallTo(() => _dialogs.ErrorMessage(A<string>._, A<string>._, A<bool>._))
                 .Returns(true);
 
@@ -700,8 +704,8 @@ namespace Tests
         {
             AlllFilesPermitted();
             AddThreeUploadFiles();
-            A.CallTo(() => _uploadResponse.IsMutsBeLoggedInError).Returns(true);
-            A.CallTo(() => _uploadResponse.IsError).Returns(true);
+            A.CallTo(() => _responseErrors.IsMutsBeLoggedInError).Returns(true);
+            A.CallTo(() => _responseErrors.IsAny).Returns(true);
 
             _model.UploadCommand.Execute(null);
 
@@ -714,7 +718,7 @@ namespace Tests
 
 
         [Test]
-        public void When_UploadIsDoneToFandom_Then_SummaryIsSetWithLinkToDev()
+        public void When_UploadIsDoneToFandgom_Then_SummaryIsSetWithLinkToDev()
         {
             AlllFilesPermitted();
             AddSingleUploadFile();
@@ -753,10 +757,10 @@ namespace Tests
             AlllFilesPermitted();
             AddSingleUploadFile();
 
-            A.CallTo(() => _uploadResponse.IsError).Returns(true);
-            A.CallTo(() => _uploadResponse.IsTokenError).Returns(false);
+            A.CallTo(() => _responseErrors.IsAny).Returns(true);
+            A.CallTo(() => _responseErrors.IsTokenError).Returns(false);
             const string errorText = "foobar";
-            A.CallTo(() => _uploadResponse.ErrorsText).Returns(errorText);
+            A.CallTo(() => _responseErrors.ToString()).Returns(errorText);
 
             _model.UploadCommand.Execute(null);
 
@@ -985,8 +989,8 @@ namespace Tests
         {
             AlllFilesPermitted();
             AddThreeUploadFiles();
-            A.CallTo(() => _uploadResponse.IsError).Returns(true);
-            A.CallTo(() => _uploadResponse.IsTokenError).Returns(true);
+            A.CallTo(() => _responseErrors.IsAny).Returns(true);
+            A.CallTo(() => _responseErrors.IsTokenError).Returns(true);
 
             _model.UploadCommand.Execute(null);
 
@@ -1001,9 +1005,9 @@ namespace Tests
             AddThreeUploadFiles();
             A.CallTo(() => _uploadResponse.Result)
                 .Returns("").Once().Then.Returns(ResponseCodes.Success);
-            A.CallTo(() => _uploadResponse.IsError)
+            A.CallTo(() => _responseErrors.IsAny)
                 .Returns(true).Once().Then.Returns(false);
-            A.CallTo(() => _uploadResponse.IsTokenError)
+            A.CallTo(() => _responseErrors.IsTokenError)
                 .Returns(true).Once().Then.Returns(false);
 
             _model.UploadCommand.Execute(null);
@@ -1019,11 +1023,10 @@ namespace Tests
             AlllFilesPermitted();
             AddThreeUploadFiles();
             A.CallTo(() => _uploadResponse.Result).Returns("Foobar");
-            A.CallTo(() => _uploadResponse.IsError).Returns(false);
-            
+
             _model.UploadCommand.Execute(null);
 
-            Assert.That(_model.UploadFiles.Count(x => x.Status == UploadFileStatus.Error 
+            Assert.That(_model.UploadFiles.Count(x => x.Status == UploadFileStatus.Error
                 && x.Message == UploadMessages.UnkownServerResponse), Is.EqualTo(3));
         }
 

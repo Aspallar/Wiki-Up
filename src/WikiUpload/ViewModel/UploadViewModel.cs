@@ -253,7 +253,7 @@ namespace WikiUpload
                     }
                     else
                     {
-                        await RefreshEditeToken();
+                        await RefreshEditToken();
                     }
                 }
             }
@@ -301,9 +301,9 @@ namespace WikiUpload
                     await _helpers.Wait(response.RetryDelay * 1000, cancelToken);
                     continue;
                 }
-                else if (response.IsError)
+                else if (response.Errors.IsAny)
                 {
-                    if (response.IsTokenError)
+                    if (response.Errors.IsTokenError)
                     {
                         if (_editTokenRefreshed)
                         {
@@ -311,18 +311,18 @@ namespace WikiUpload
                         }
                         else
                         {
-                            await RefreshEditeToken();
+                            await RefreshEditToken();
                             continue;
                         }
                     }
-                    else if (response.IsMutsBeLoggedInError)
+                    else if (response.Errors.IsMutsBeLoggedInError)
                     {
-                        file.SetError(response.ErrorsText);
+                        file.SetError(response.Errors.ToString());
                         throw new MustBeLoggedInException();
                     }
                     else
                     {
-                        file.SetError(response.ErrorsText);
+                        file.SetError(response.Errors.ToString());
                     }
                 }
                 else
@@ -333,7 +333,7 @@ namespace WikiUpload
             }
         }
 
-        private async Task RefreshEditeToken()
+        private async Task RefreshEditToken()
         {
             await _fileUploader.RefreshTokenAsync();
             _editTokenRefreshed = true;

@@ -9,25 +9,25 @@ namespace WikiUpload
     public class UploadResponse : IUploadResponse
     {
         private readonly List<string> _warnings;
-        private readonly List<ApiError> _errors;
-
-        private static Dictionary<string, string> friendlyWarnings = new Dictionary<string, string>
-            {
-                { "exists", Resources.UploadErrorAlreadyExists },
-                { "badfilename", Resources.UploadErrorBadFilename },
-                { "filetype-unwanted-type", Resources.UploadErrorUnwantedType },
-                { "large-file", Resources.UploadErrorLargeFile },
-                { "emptyfile", Resources.UploadErrorEmptyFile },
-                { duplicateArchiveCode, Resources.UploadErrorDuplicateArchive },
-                { "was-deleted", Resources.UploadErrorDeletedFile },
-            };
+        private readonly ResponseErrors _errors;
 
         private const string duplicateArchiveCode = "duplicate-archive";
+
+        private static Dictionary<string, string> friendlyWarnings = new Dictionary<string, string>
+        {
+            { "exists", Resources.UploadErrorAlreadyExists },
+            { "badfilename", Resources.UploadErrorBadFilename },
+            { "filetype-unwanted-type", Resources.UploadErrorUnwantedType },
+            { "large-file", Resources.UploadErrorLargeFile },
+            { "emptyfile", Resources.UploadErrorEmptyFile },
+            { duplicateArchiveCode, Resources.UploadErrorDuplicateArchive },
+            { "was-deleted", Resources.UploadErrorDeletedFile },
+        };
 
         public UploadResponse(string xml, string retryAfter)
         {
             _warnings = new List<string>();
-            _errors = new List<ApiError>();
+            _errors = new ResponseErrors();
 
             Xml = xml;
             Duplicates = new List<string>();
@@ -74,6 +74,8 @@ namespace WikiUpload
             }
         }
 
+        public IReadOnlyResponseErrors Errors => _errors;
+
         public UploadResponse(IngestionControllerResponse response)
         {
             if (response.Success)
@@ -89,8 +91,6 @@ namespace WikiUpload
 
         public IReadOnlyList<string> Warnings => _warnings;
 
-        public IReadOnlyList<ApiError> Errors => _errors;
-
         public string Xml { get; private set; }
 
         public string Result { get; private set; }
@@ -102,8 +102,6 @@ namespace WikiUpload
         public bool IsDuplicate => Duplicates.Count > 0;
 
         public bool IsDuplicateOfArchive => !string.IsNullOrEmpty(ArchiveDuplicate);
-
-        public bool IsError => _errors.Count > 0;
 
         public int RetryDelay { get; private set; }
 
@@ -152,29 +150,5 @@ namespace WikiUpload
                 return text.ToString();
             }
         }
-
-        public string ErrorsText
-        {
-            get
-            {
-                var text = new StringBuilder();
-                foreach (var error in _errors)
-                {
-                    text.Append('[');
-                    text.Append(error.Code);
-                    text.Append("] ");
-                    text.Append(error.Info);
-                    text.Append(' ');
-                }
-                if (text.Length > 0)
-                    text.Length -= 1;
-                return text.ToString();
-            }
-        }
-
-        public bool IsTokenError => _errors.Count == 1 && _errors[0].Code == "badtoken";
-        
-        public bool IsMutsBeLoggedInError => _errors.Count == 1 && _errors[0].Code == "mustbeloggedin";
-
     }
 }
