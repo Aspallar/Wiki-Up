@@ -25,12 +25,6 @@ namespace Tests
   </upload>
 </api>";
 
-        [SetUp]
-        public void Setup()
-        {
-            UploadResponse.Initialize();
-        }
-
         [Test]
         public void WarnningsTextPlaceFriendlyShortMessageFirst()
         {

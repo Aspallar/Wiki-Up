@@ -11,14 +11,7 @@ namespace WikiUpload
         private readonly List<string> _warnings;
         private readonly List<ApiError> _errors;
 
-        private static Dictionary<string, string> friendlyWarnings;
-
-        public UploadResponse() { }
-
-        private const string duplicateArchiveCode = "duplicate-archive";
-        public static void Initialize()
-        {
-            friendlyWarnings = new Dictionary<string, string>
+        private static Dictionary<string, string> friendlyWarnings = new Dictionary<string, string>
             {
                 { "exists", Resources.UploadErrorAlreadyExists },
                 { "badfilename", Resources.UploadErrorBadFilename },
@@ -28,7 +21,8 @@ namespace WikiUpload
                 { duplicateArchiveCode, Resources.UploadErrorDuplicateArchive },
                 { "was-deleted", Resources.UploadErrorDeletedFile },
             };
-        }
+
+        private const string duplicateArchiveCode = "duplicate-archive";
 
         public UploadResponse(string xml, string retryAfter)
         {
