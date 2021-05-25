@@ -73,7 +73,7 @@ namespace WikiUpload
             else
             {
                 Result = ResponseCodes.NoResult;
-                _errors.Add(new ApiError("videeo-upload", response.Status));
+                _errors.Add(new ApiError("video-upload", response.Status));
             }
         }
 
