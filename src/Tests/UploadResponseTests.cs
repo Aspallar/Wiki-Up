@@ -30,7 +30,7 @@ namespace Tests
         {
             var response = new UploadResponse(_response01, "");
 
-            Assert.That(response.WarningsText, Does.StartWith("Already Exists."));
+            Assert.That(response.Warnings.ToString(), Does.StartWith("Already Exists."));
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace Tests
         {
             var response = new UploadResponse(_response02, "");
 
-            Assert.That(response.WarningsText, Is.EqualTo("Already Exists."));
+            Assert.That(response.Warnings.ToString(), Is.EqualTo("Already Exists."));
         }
     }
 }

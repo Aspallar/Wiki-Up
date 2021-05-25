@@ -1,80 +1,68 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml;
-using WikiUpload.Properties;
 
 namespace WikiUpload
 {
     public class UploadResponse : IUploadResponse
     {
-        private readonly List<string> _warnings;
+        private readonly ResponseWarnings _warnings;
         private readonly ResponseErrors _errors;
-
-        private const string duplicateArchiveCode = "duplicate-archive";
-
-        private static Dictionary<string, string> friendlyWarnings = new Dictionary<string, string>
-        {
-            { "exists", Resources.UploadErrorAlreadyExists },
-            { "badfilename", Resources.UploadErrorBadFilename },
-            { "filetype-unwanted-type", Resources.UploadErrorUnwantedType },
-            { "large-file", Resources.UploadErrorLargeFile },
-            { "emptyfile", Resources.UploadErrorEmptyFile },
-            { duplicateArchiveCode, Resources.UploadErrorDuplicateArchive },
-            { "was-deleted", Resources.UploadErrorDeletedFile },
-        };
 
         public UploadResponse(string xml, string retryAfter)
         {
-            _warnings = new List<string>();
+            _warnings = new ResponseWarnings();
             _errors = new ResponseErrors();
 
-            Xml = xml;
-            Duplicates = new List<string>();
+            if (retryAfter == "")
+                ParseResponse(xml);
+            else
+                MaglagResponse(retryAfter);
+        }
 
-            if (retryAfter != "")
+        private void MaglagResponse(string retryAfter)
+        {
+            Result = ResponseCodes.MaxlagThrottle;
+            _ = int.TryParse(retryAfter, out var retryValue);
+            RetryDelay = Math.Max(5, retryValue);
+        }
+
+        private void ParseResponse(string xml)
+        {
+            var doc = new XmlDocument();
+            doc.LoadXml(xml);
+
+            var upload = doc.SelectSingleNode("/api/upload");
+            if (upload != null)
             {
-                Result = ResponseCodes.MaxlagThrottle;
-                _ = int.TryParse(retryAfter, out var retryValue);
-                RetryDelay = Math.Max(5, retryValue);
+                Result = upload.Attributes["result"].Value;
+                if (Result == ResponseCodes.Warning)
+                    ParseWarnings(upload);
             }
             else
             {
-                var doc = new XmlDocument();
-                doc.LoadXml(xml);
-
-                var upload = doc.SelectSingleNode("/api/upload");
-                if (upload != null)
-                {
-                    Result = upload.Attributes["result"].Value;
-
-                    if (Result == ResponseCodes.Warning)
-                    {
-                        var warnings = upload.SelectSingleNode("warnings");
-                        foreach (XmlNode attribute in warnings.Attributes)
-                            _warnings.Add(attribute.Name);
-
-                        if (warnings.Attributes[duplicateArchiveCode] != null)
-                            ArchiveDuplicate = warnings.Attributes[duplicateArchiveCode].Value;
-
-                        var duplicates = warnings.SelectNodes("duplicate/duplicate");
-                        foreach (XmlNode node in duplicates)
-                            Duplicates.Add(node.InnerText);
-                    }
-                }
-                else
-                {
-                    Result = ResponseCodes.NoResult;
-                }
-
-                var errors = doc.SelectNodes("/api/error");
-                foreach (XmlNode node in errors)
-                    _errors.Add(new ApiError(node.Attributes["code"]?.Value, node.Attributes["info"]?.Value));
-
+                Result = ResponseCodes.NoResult;
             }
+
+            ParseErrors(doc);
         }
 
-        public IReadOnlyResponseErrors Errors => _errors;
+        private void ParseErrors(XmlDocument doc)
+        {
+            var errors = doc.SelectNodes("/api/error");
+            foreach (XmlNode node in errors)
+                _errors.Add(new ApiError(node.Attributes["code"]?.Value, node.Attributes["info"]?.Value));
+        }
+
+        private void ParseWarnings(XmlNode uploadNode)
+        {
+            var warnings = uploadNode.SelectSingleNode("warnings");
+            foreach (XmlNode attribute in warnings.Attributes)
+                _warnings.Add(new ApiError(attribute.Name, attribute.Value));
+
+            var duplicates = warnings.SelectNodes("duplicate/duplicate");
+            foreach (XmlNode node in duplicates)
+                _warnings.AddDuplicate(node.InnerText);
+        }
 
         public UploadResponse(IngestionControllerResponse response)
         {
@@ -89,66 +77,13 @@ namespace WikiUpload
             }
         }
 
-        public IReadOnlyList<string> Warnings => _warnings;
+        public IReadOnlyResponseErrors Errors => _errors;
 
-        public string Xml { get; private set; }
+        public IReadOnlyResponseWarnings Warnings => _warnings;
 
         public string Result { get; private set; }
 
-        public string ArchiveDuplicate { get; private set; }
-
-        public List<string> Duplicates { get; private set; }
-
-        public bool IsDuplicate => Duplicates.Count > 0;
-
-        public bool IsDuplicateOfArchive => !string.IsNullOrEmpty(ArchiveDuplicate);
-
         public int RetryDelay { get; private set; }
 
-        public string WarningsText
-        {
-            get
-            {
-                const string separator = ". ";
-                var text = new StringBuilder();
-
-                foreach (var warning in _warnings)
-                {
-                    if (friendlyWarnings.TryGetValue(warning, out var friendlyText))
-                    {
-                        if (warning == duplicateArchiveCode)
-                        {
-                            text.Append(friendlyText);
-                            text.Append($" [{ArchiveDuplicate}]");
-                            text.Append(separator);
-                        }
-                        else
-                        {
-                            text.Insert(0, separator);
-                            text.Insert(0, friendlyText);
-                        }
-                    }
-                    else
-                    {
-                        text.Append(warning);
-                        text.Append(separator);
-                    }
-                }
-
-                if (IsDuplicate)
-                {
-                    text.Append(Resources.UploadResponseDuplicateOf);
-                    foreach (var duplicate in Duplicates)
-                        text.Append($" [{duplicate}]");
-                    text.Append('.');
-                }
-                else if (text.Length > 0)
-                {
-                    text.Length -= 1;
-                }
-
-                return text.ToString();
-            }
-        }
     }
 }

@@ -28,6 +28,7 @@ namespace Tests
         private IYoutube _youtube;
         private IFileFinder _fileFinder;
         private IReadOnlyResponseErrors _responseErrors;
+        private IReadOnlyResponseWarnings _responseWarnings;
         private IUploadListSerializer _uploadListSerializer;
         private IReadOnlyPermittedFiles _permittedFiles;
         private UploadViewModel _model;
@@ -50,6 +51,7 @@ namespace Tests
             _youtube = A.Fake<IYoutube>();
             _fileFinder = A.Fake<IFileFinder>();
             _responseErrors = A.Fake<IReadOnlyResponseErrors>();
+            _responseWarnings = A.Fake<IReadOnlyResponseWarnings>();
 
             A.CallTo(() => _fileUploader.PermittedFiles)
                 .Returns(_permittedFiles);
@@ -60,6 +62,7 @@ namespace Tests
                 .Returns(_templateSearch);
 
             A.CallTo(() => _uploadResponse.Errors).Returns(_responseErrors);
+            A.CallTo(() => _uploadResponse.Warnings).Returns(_responseWarnings);
 
             A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<CancellationToken>._, A<string>._, A<string>._))
                 .Returns(_uploadResponse);
@@ -778,7 +781,7 @@ namespace Tests
 
             A.CallTo(() => _uploadResponse.Result).Returns(ResponseCodes.Warning);
             const string warningText = "foobar";
-            A.CallTo(() => _uploadResponse.WarningsText).Returns(warningText);
+            A.CallTo(() => _responseWarnings.ToString()).Returns(warningText);
 
             _model.UploadCommand.Execute(null);
 

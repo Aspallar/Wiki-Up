@@ -292,7 +292,7 @@ namespace WikiUpload
                 }
                 else if (result == ResponseCodes.Warning)
                 {
-                    file.SetWarning(response.WarningsText);
+                    file.SetWarning(response.Warnings.ToString());
                 }
                 else if (result == ResponseCodes.MaxlagThrottle)
                 {
