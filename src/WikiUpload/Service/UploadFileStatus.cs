@@ -5,6 +5,7 @@
         Waiting,
         Uploading,
         Warning,
+        Delaying,
         Error
     }
 }

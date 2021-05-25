@@ -1393,6 +1393,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waiting before trying again..
+        /// </summary>
+        public static string WaitingForRetry {
+            get {
+                return ResourceManager.GetString("WaitingForRetry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Website.
         /// </summary>
         public static string WebsiteText {

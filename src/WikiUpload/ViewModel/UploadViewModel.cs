@@ -265,7 +265,7 @@ namespace WikiUpload
             while (true)
             {
                 cancelToken.ThrowIfCancellationRequested();
-
+    
                 file.SetUploading();
 
                 IUploadResponse response;
@@ -319,6 +319,12 @@ namespace WikiUpload
                     {
                         file.SetError(response.Errors.ToString());
                         throw new MustBeLoggedInException();
+                    }
+                    else if (response.Errors.IsRateLimitedError)
+                    {
+                        file.SetDelaying(Resources.WaitingForRetry + " " + response.Errors.ToString());
+                        await _helpers.Wait(20000);
+                        continue;
                     }
                     else
                     {

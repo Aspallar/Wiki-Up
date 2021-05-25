@@ -16,6 +16,8 @@ namespace WikiUpload
 
         public bool IsMutsBeLoggedInError => _errors.Any(x => x.Code == "mustbeloggedin");
 
+        public bool IsRateLimitedError => _errors.Any(x => x.Code == "ratelimited");
+
         public override string ToString()
         {
             var text = new StringBuilder();

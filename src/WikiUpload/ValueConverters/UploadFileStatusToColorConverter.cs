@@ -26,12 +26,17 @@ namespace WikiUpload
             {
                 case UploadFileStatus.Waiting:
                     return _waitingBrush;
+
                 case UploadFileStatus.Uploading:
                     return _uploadingBrush;
+
                 case UploadFileStatus.Warning:
+                case UploadFileStatus.Delaying:
                     return _warningBrush;
+
                 case UploadFileStatus.Error:
                     return _errorBrush;
+
                 default:
                     System.Diagnostics.Debugger.Break();
                     throw new ArgumentException("Invalid UploadFileStatus", nameof(value));

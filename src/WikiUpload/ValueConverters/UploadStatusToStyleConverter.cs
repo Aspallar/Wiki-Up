@@ -16,7 +16,10 @@ namespace WikiUpload
         }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => (UploadFileStatus)value == UploadFileStatus.Uploading ? _spin : _fontsize;
+        {
+            var status = (UploadFileStatus)value;
+            return  status == UploadFileStatus.Uploading || status == UploadFileStatus.Delaying ? _spin : _fontsize;
+        }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();

@@ -679,6 +679,8 @@
     <value>Remember password for domain</value>
   </data>
   
-
-
+  <data name="WaitingForRetry" xml:space="preserve">
+    <value>Waiting before trying again.</value>
+  </data>
+  
 </root>

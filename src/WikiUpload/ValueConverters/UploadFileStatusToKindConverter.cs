@@ -13,6 +13,7 @@ namespace WikiUpload
                 case UploadFileStatus.Waiting:
                     return (bool)values[1] ? PackIconFontAwesomeKind.FilmSolid : PackIconFontAwesomeKind.AngleUpSolid;
                 case UploadFileStatus.Uploading:
+                case UploadFileStatus.Delaying:
                     return PackIconFontAwesomeKind.SpinnerSolid;
                 case UploadFileStatus.Warning:
                     return PackIconFontAwesomeKind.ExclamationTriangleSolid;
