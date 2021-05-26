@@ -48,9 +48,23 @@ namespace WikiUpload
 
         private void ParseErrors(XmlDocument doc)
         {
-            var errors = doc.SelectNodes("/api/error");
-            foreach (XmlNode node in errors)
-                _errors.Add(new ApiError(node.Attributes["code"]?.Value, node.Attributes["info"]?.Value));
+            var errors = doc.SelectNodes("/api/errors/error");
+            if (errors.Count > 0)
+            {
+                foreach (XmlNode node in errors)
+                {
+                    var code = node.Attributes["code"].Value;
+                    var info = node.SelectSingleNode("text")?.InnerText;
+                    _errors.Add(new ApiError(code, info));
+                }
+            }
+            else
+            {
+                // Legacy error format
+                errors = doc.SelectNodes("/api/error");
+                foreach (XmlNode node in errors)
+                    _errors.Add(new ApiError(node.Attributes["code"].Value, node.Attributes["info"]?.Value));
+            }
         }
 
         private void ParseWarnings(XmlNode uploadNode)

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -24,7 +25,8 @@ namespace WikiUpload
         private CookieContainer _cookies;
         private readonly string _userAgent;
         private readonly int _timeoutSeconds;
-
+        private string _errorLanguageCode;
+        private bool _useErrorLang;
         private readonly Regex _isFandomDomainMatch = new Regex(@"^https://.+?\.fandom.com/", RegexOptions.IgnoreCase);
 
         public string Site { get; set; }
@@ -144,13 +146,19 @@ namespace WikiUpload
                 }
 
                 _editToken = editTokenTask.Result;
-                HomePage = siteInfoTask.Result.BaseUrl;
-                ScriptPath = siteInfoTask.Result.ScriptPath;
+
+                var siteInfo = siteInfoTask.Result;
+                HomePage = siteInfo.BaseUrl;
+                ScriptPath = siteInfo.ScriptPath;
                 if (!allFilesPermitted)
                 {
-                    foreach (var ext in siteInfoTask.Result.Extensions)
+                    foreach (var ext in siteInfo.Extensions)
                         _permittedFiles.Add(ext);
                 }
+                var languageCode = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+                _errorLanguageCode = siteInfo.IsSupportedLanguage(languageCode) ? languageCode : "en";
+                var useErrorLangVersion = new Version("1.29.0.0");
+                _useErrorLang = siteInfo.MediaWikiVersion >= useErrorLangVersion;
 
                 return true;
             }
@@ -209,6 +217,12 @@ namespace WikiUpload
                 { new StringContent(newPageContent), "text" },
                 { new StringContent(summary), "comment" },
             };
+
+            if (_useErrorLang)
+            {
+                uploadFormData.Add(new StringContent("plaintext"), "errorformat" );
+                uploadFormData.Add(new StringContent(_errorLanguageCode), "errorlang");
+            }
 
             if (IgnoreWarnings)
                 uploadFormData.Add(new StringContent("1"), "ignorewarnings");
@@ -353,7 +367,7 @@ namespace WikiUpload
             var uri = _api.ApiQuery(new RequestParameters
             {
                 { "meta", "siteinfo" },
-                { "siprop", "general|fileextensions" },
+                { "siprop", "general|fileextensions|languages" },
             });
             var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
             var xml = CreateXmlDocument(response);
