@@ -22,15 +22,8 @@ namespace WikiUpload
         {
             var text = new StringBuilder();
             foreach (var error in _errors)
-            {
-                text.Append('[');
-                text.Append(error.Code);
-                text.Append("] ");
-                text.Append(error.Info);
-                text.Append(' ');
-            }
-            if (text.Length > 0)
-                text.Length -= 1;
+                text.AppendEnclosed(error.Code).Append(error.Info).Append(' ');
+            text.RemoveLastCharacter();
             return text.ToString();
         }
     }

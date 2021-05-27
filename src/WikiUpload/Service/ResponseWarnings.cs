@@ -7,6 +7,7 @@ namespace WikiUpload
     public class ResponseWarnings : IReadOnlyResponseWarnings
     {
         private const string duplicateArchiveCode = "duplicate-archive";
+        private const string separator = ". ";
 
         private static readonly Dictionary<string, string> friendlyWarnings = new Dictionary<string, string>
         {
@@ -28,45 +29,43 @@ namespace WikiUpload
 
         public override string ToString()
         {
-            const string separator = ". ";
             var text = new StringBuilder();
 
+            AppendWarnings(text);
+
+            if (_duplicates.Count > 0)
+                AppendDuplicates(text);
+            else
+                text.RemoveLastCharacter();
+
+            return text.ToString();
+        }
+
+        private void AppendDuplicates(StringBuilder text)
+        {
+            text.Append(Resources.UploadResponseDuplicateOf);
+            foreach (var duplicate in _duplicates)
+                text.Append(' ').AppendEnclosed(duplicate);
+            text.Append('.');
+        }
+
+        private void AppendWarnings(StringBuilder text)
+        {
             foreach (var warning in _warnings)
             {
                 if (friendlyWarnings.TryGetValue(warning.Code, out var friendlyText))
-                {
-                    if (warning.Code == duplicateArchiveCode)
-                    {
-                        text.Append(friendlyText);
-                        text.Append($" [{warning.Info}]");
-                        text.Append(separator);
-                    }
-                    else
-                    {
-                        text.Insert(0, separator);
-                        text.Insert(0, friendlyText);
-                    }
-                }
+                    AddFriendlyText(text, warning, friendlyText);
                 else
-                {
-                    text.Append(warning);
-                    text.Append(separator);
-                }
+                    text.Append(warning).Append(separator);
             }
+        }
 
-            if (_duplicates.Count > 0)
-            {
-                text.Append(Resources.UploadResponseDuplicateOf);
-                foreach (var duplicate in _duplicates)
-                    text.Append($" [{duplicate}]");
-                text.Append('.');
-            }
-            else if (text.Length > 0)
-            {
-                text.Length -= 1;
-            }
-
-            return text.ToString();
+        private static void AddFriendlyText(StringBuilder text, ApiError warning, string friendlyText)
+        {
+            if (warning.Code == duplicateArchiveCode)
+                text.Append(friendlyText).Append(' ').AppendEnclosed(warning.Info).Append(separator);
+            else
+                text.Insert(0, separator).Insert(0, friendlyText);
         }
     }
 }
