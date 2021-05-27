@@ -5,7 +5,7 @@ namespace WikiUpload
 {
     public static class AddFilesFilterBuilder
     {
-        private static char[] _separator = new char[] { ';' };
+        private static readonly char[] _separator = new char[] { ';' };
 
         public static string Build(string[] permittedExtensions, string imageExtensionsString)
         {

@@ -8,7 +8,7 @@ namespace WikiUpload
     {
         private const string duplicateArchiveCode = "duplicate-archive";
 
-        private static Dictionary<string, string> friendlyWarnings = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> friendlyWarnings = new Dictionary<string, string>
         {
             { "exists", Resources.UploadErrorAlreadyExists },
             { "badfilename", Resources.UploadErrorBadFilename },

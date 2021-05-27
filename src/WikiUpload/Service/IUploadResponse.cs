@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WikiUpload
+﻿namespace WikiUpload
 {
     public interface IUploadResponse
     {
