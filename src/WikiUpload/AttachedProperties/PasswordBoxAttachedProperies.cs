@@ -7,7 +7,7 @@ namespace WikiUpload
     /// <summary>
     /// The MonitorPassword attached property for a <see cref="PasswordBox"/>
     /// </summary>
-    public class MonitorPasswordProperty : BaseAttachedProperty<MonitorPasswordProperty, bool>
+    internal class MonitorPasswordProperty : BaseAttachedProperty<MonitorPasswordProperty, bool>
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -43,7 +43,7 @@ namespace WikiUpload
     /// <summary>
     /// The HasText attached property for a <see cref="PasswordBox"/>
     /// </summary>
-    public class HasTextProperty : BaseAttachedProperty<HasTextProperty, bool>
+    internal class HasTextProperty : BaseAttachedProperty<HasTextProperty, bool>
     {
         /// <summary>
         /// Sets the HasText property based on if the caller <see cref="PasswordBox"/> has any text

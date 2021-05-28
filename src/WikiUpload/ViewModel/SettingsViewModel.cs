@@ -4,7 +4,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class SettingsViewModel : BaseViewModel
+    internal class SettingsViewModel : BaseViewModel
     {
         private readonly INavigatorService _navigatorService;
         private readonly IHelpers _helpers;

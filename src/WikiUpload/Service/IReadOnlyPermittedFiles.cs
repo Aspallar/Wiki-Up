@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public interface IReadOnlyPermittedFiles
+    internal interface IReadOnlyPermittedFiles
     {
         string[] GetExtensions();
         bool IsPermitted(string extension);

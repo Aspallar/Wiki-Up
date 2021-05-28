@@ -8,7 +8,7 @@ using WikiUpload.Properties;
 namespace WikiUpload
 {
     [AddINotifyPropertyChangedInterface]
-    public abstract class WikiSearch :  IWikiSearch
+    internal abstract class WikiSearch :  IWikiSearch
     {
         private readonly Stack<string> _history = new Stack<string>();
         private string _nextFrom = "";

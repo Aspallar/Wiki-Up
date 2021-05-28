@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace WikiUpload
 {
     [Serializable]
-    internal class TooManyVideosException : Exception
+    public class TooManyVideosException : Exception
     {
         public TooManyVideosException()
         {

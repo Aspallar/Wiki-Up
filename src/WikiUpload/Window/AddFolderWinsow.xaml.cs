@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public partial class AddFolderWindow : Window
+    internal partial class AddFolderWindow : Window
     {
         public AddFolderWindow(string folderPath)
         {

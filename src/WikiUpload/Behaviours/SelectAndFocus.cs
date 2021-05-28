@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace WikiUpload
 {
-    public static class SelectAndFocus
+    internal static class SelectAndFocus
     {
         public static readonly DependencyProperty SelectionProperty =
             DependencyProperty.RegisterAttached

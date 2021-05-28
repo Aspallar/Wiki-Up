@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace WikiUpload
 {
     [Serializable]
-    internal class ServerIsBusyException : Exception
+    public class ServerIsBusyException : Exception
     {
         public ServerIsBusyException()
         {

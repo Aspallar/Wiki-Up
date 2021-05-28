@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WikiUpload
 {
-    public static class SecureStringExtensions
+    internal static class SecureStringExtensions
     {
         #region Taken from https://stackoverflow.com/a/61285569
 

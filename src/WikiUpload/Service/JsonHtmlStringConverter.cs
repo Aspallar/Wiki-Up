@@ -5,7 +5,7 @@ using System;
 
 namespace WikiUpload
 {
-    public class JsonHtmlStringConverter : JsonConverter<string>
+    internal class JsonHtmlStringConverter : JsonConverter<string>
     {
         private readonly HtmlParser _parser;
         private readonly IHtmlDocument _parseContext;

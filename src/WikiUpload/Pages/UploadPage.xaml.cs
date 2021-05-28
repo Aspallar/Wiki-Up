@@ -7,7 +7,7 @@ namespace WikiUpload
     /// <summary>
     /// Interaction logic for UploadPage.xaml
     /// </summary>
-    public partial class UploadPage : Page
+    internal partial class UploadPage : Page
     {
         public UploadPage()
         {

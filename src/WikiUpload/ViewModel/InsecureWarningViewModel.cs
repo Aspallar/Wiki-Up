@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public class InsecureWarningViewModel : WindowViewModel
+    internal class InsecureWarningViewModel : WindowViewModel
     {
         public InsecureWarningViewModel(Window window) : base(window)
         {

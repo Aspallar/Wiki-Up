@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public interface IWindowManager
+    internal interface IWindowManager
     {
         void ShowNewVersionWindow(UpdateCheckResponse checkUpdateEventArrgs);
     }

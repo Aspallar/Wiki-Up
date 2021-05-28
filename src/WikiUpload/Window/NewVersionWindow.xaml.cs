@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public partial class NewVersionWindow : Window
+    internal partial class NewVersionWindow : Window
     {
         public NewVersionWindow(UpdateCheckResponse e)
         {

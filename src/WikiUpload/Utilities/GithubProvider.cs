@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace WikiUpload
 {
-    public class GithubProvider : IGithubProvider
+    internal class GithubProvider : IGithubProvider
     {
         public async Task<string> FetchLatestReleases(string userAgent)
         {

@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace WikiUpload
 {
-    public class SiteInfo
+    internal class SiteInfo
     {
         private readonly HashSet<string> _languages;
 

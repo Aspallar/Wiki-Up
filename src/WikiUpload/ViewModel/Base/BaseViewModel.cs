@@ -10,7 +10,7 @@ namespace WikiUpload
     /// A base view model that fires Property Changed events as needed
     /// </summary>
     [AddINotifyPropertyChangedInterface]
-    public class BaseViewModel : INotifyPropertyChanged
+    internal class BaseViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Fired when any property changes its value

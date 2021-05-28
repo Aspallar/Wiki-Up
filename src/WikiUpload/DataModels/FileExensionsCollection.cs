@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WikiUpload
 {
-    public class FileExensionsCollection : ObservableCollection<string>
+    internal class FileExensionsCollection : ObservableCollection<string>
     {
         public FileExensionsCollection() : base()  { }
 

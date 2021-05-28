@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public interface IFileFinder
+    internal interface IFileFinder
     {
         IEnumerable<string> GetFiles(string folderPath, bool includeSubfolders, IncludeFiles includeFiles, string extension);
     }

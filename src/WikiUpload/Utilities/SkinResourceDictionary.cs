@@ -6,7 +6,7 @@ using System.Windows;
 namespace WikiUpload
 {
     [AddINotifyPropertyChangedInterface]
-    public class SkinResourceDictionary : ResourceDictionary, INotifyPropertyChanged
+    internal class SkinResourceDictionary : ResourceDictionary, INotifyPropertyChanged
     {
         public SkinResourceDictionary() : base()
         {

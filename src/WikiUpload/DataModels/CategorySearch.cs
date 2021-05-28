@@ -3,7 +3,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class CategorySearch : WikiSearch
+    internal class CategorySearch : WikiSearch
     {
         private readonly IFileUploader _fileUploader;
 

@@ -5,7 +5,7 @@ using WikiUpload.Utilities;
 
 namespace WikiUpload
 {
-    public static partial class Encryption
+    internal static partial class Encryption
     {
         // If you get a build error here you need to create Utilities\Entropy.cs containing something
         // like the following, with your own set of entropy data because the actual data is a secret.

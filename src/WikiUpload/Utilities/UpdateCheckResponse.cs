@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public class UpdateCheckResponse
+    internal class UpdateCheckResponse
     {
         public bool IsNewerVersion { get; set; }
         public string LatestVersion { get; set; }

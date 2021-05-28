@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WikiUpload
 {
-    public interface IUploadListSerializer
+    internal interface IUploadListSerializer
     {
         List<UploadFile> Deserialize(TextReader textReader);
         List<UploadFile> Deserialize(string fileName);

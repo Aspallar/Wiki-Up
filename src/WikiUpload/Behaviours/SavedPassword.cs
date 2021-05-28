@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace WikiUpload
 {
-    public static class SavedPassword
+    internal static class SavedPassword
     {
         #region Username Property
 

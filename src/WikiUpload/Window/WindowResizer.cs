@@ -9,7 +9,7 @@ namespace WikiUpload
     /// <summary>
     /// The dock position of the window
     /// </summary>
-    public enum WindowDockPosition
+    internal enum WindowDockPosition
     {
         /// <summary>
         /// Not docked
@@ -28,7 +28,7 @@ namespace WikiUpload
     /// <summary>
     /// Fixes the issue with Windows of Style <see cref="WindowStyle.None"/> covering the taskbar
     /// </summary>
-    public class WindowResizer
+    internal class WindowResizer
     {
         #region Private Members
 
@@ -297,7 +297,7 @@ namespace WikiUpload
 
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-    public class MONITORINFO
+    internal class MONITORINFO
     {
         public int cbSize = Marshal.SizeOf(typeof(MONITORINFO));
         public Rectangle rcMonitor = new Rectangle();
@@ -307,7 +307,7 @@ namespace WikiUpload
 
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct Rectangle
+    internal struct Rectangle
     {
         public int Left, Top, Right, Bottom;
 
@@ -321,7 +321,7 @@ namespace WikiUpload
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct MINMAXINFO
+    internal struct MINMAXINFO
     {
         public POINT ptReserved;
         public POINT ptMaxSize;
@@ -331,7 +331,7 @@ namespace WikiUpload
     };
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct POINT
+    internal struct POINT
     {
         /// <summary>
         /// x coordinate of point.

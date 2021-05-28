@@ -5,7 +5,7 @@ namespace WikiUpload
     /// <summary>
     /// An interface for a class that can provide a secure password
     /// </summary>
-    public interface IHavePassword
+    internal interface IHavePassword
     {
         /// <summary>
         /// The secure password

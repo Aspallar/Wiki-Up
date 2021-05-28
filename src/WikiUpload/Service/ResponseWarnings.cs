@@ -4,7 +4,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class ResponseWarnings : IReadOnlyResponseWarnings
+    internal class ResponseWarnings : IReadOnlyResponseWarnings
     {
         private const string duplicateArchiveCode = "duplicate-archive";
         private const string separator = ". ";

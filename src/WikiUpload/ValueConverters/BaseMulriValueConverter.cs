@@ -9,7 +9,7 @@ namespace WikiUpload
     /// A base value converter that allows direct XAML usage
     /// </summary>
     /// <typeparam name="T">The type of this value converter</typeparam>
-    public abstract class BaseMultiValueConverter<T> : MarkupExtension, IMultiValueConverter
+    internal abstract class BaseMultiValueConverter<T> : MarkupExtension, IMultiValueConverter
         where T : class, new()
     {
 

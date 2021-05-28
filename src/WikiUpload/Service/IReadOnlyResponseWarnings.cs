@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public interface IReadOnlyResponseWarnings
+    internal interface IReadOnlyResponseWarnings
     {
         string ToString();
     }

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace WikiUpload
 {
     [Serializable]
-    internal class NoEditTokenException : Exception
+    public class NoEditTokenException : Exception
     {
         public NoEditTokenException()
         {

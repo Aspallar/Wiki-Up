@@ -208,13 +208,13 @@
     <Compile Include="ValueConverters\RememberPasswordOptionsToIntConverter.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
-    <Compile Include="VariableContent.cs" />
+    <Compile Include="Utilities\VariableContent.cs" />
     <Compile Include="ViewModel\ApplicationColorThemes.cs" />
     <Compile Include="ViewModel\ApplicationLanguages.cs" />
     <Compile Include="ViewModel\ColorTheme.cs" />
     <Compile Include="ViewModel\AddFolderOptionsViewModel.cs" />
     <Compile Include="ViewModel\IncludeFiles.cs" />
-    <Compile Include="ViewModel\MustBeLoggedInException.cs" />
+    <Compile Include="Exceptions\MustBeLoggedInException.cs" />
     <Compile Include="ViewModel\NewVersionViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ErrorMessageViewModel.cs" />

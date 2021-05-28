@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public class SelectRange
+    internal class SelectRange
     {
         public int Start { get; set; }
 

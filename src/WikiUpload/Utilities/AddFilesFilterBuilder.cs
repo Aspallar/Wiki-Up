@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace WikiUpload
 {
-    public static class AddFilesFilterBuilder
+    internal static class AddFilesFilterBuilder
     {
         private static readonly char[] _separator = new char[] { ';' };
 

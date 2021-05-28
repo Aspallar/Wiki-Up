@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace WikiUpload
 {
-    public class RememberPasswordOptionsToIntConverter : BaseValueConverter<RememberPasswordOptionsToIntConverter>
+    internal class RememberPasswordOptionsToIntConverter : BaseValueConverter<RememberPasswordOptionsToIntConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => (int)value;

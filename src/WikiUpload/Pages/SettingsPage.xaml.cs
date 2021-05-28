@@ -5,7 +5,7 @@ namespace WikiUpload
     /// <summary>
     /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class SettingsPage : Page
+    internal partial class SettingsPage : Page
     {
         public SettingsPage()
         {

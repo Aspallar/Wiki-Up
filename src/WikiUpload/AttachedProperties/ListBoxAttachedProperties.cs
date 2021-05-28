@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace WikiUpload
 {
-    public class ViewedItemProperty : BaseAttachedProperty<ViewedItemProperty, object> 
+    internal class ViewedItemProperty : BaseAttachedProperty<ViewedItemProperty, object> 
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {

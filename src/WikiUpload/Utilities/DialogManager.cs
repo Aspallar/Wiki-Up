@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace WikiUpload
 {
-    public class DialogManager : IDialogManager
+    internal class DialogManager : IDialogManager
     {
         public bool AddFilesDialog(string[] permittedExtensions, string imageExtensions, out IList<string> fileNames)
         {

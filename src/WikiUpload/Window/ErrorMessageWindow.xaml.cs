@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace WikiUpload
 {
-    public partial class ErrorMessageWindow : Window
+    internal partial class ErrorMessageWindow : Window
     {
         public ErrorMessageWindow(string errorMessage, string subMessage, bool hasCancelVutton = false)
         {

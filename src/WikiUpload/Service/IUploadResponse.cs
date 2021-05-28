@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public interface IUploadResponse
+    internal interface IUploadResponse
     {
         IReadOnlyResponseErrors Errors { get; }
         IReadOnlyResponseWarnings Warnings { get; }

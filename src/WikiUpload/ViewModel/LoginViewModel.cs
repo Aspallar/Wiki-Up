@@ -7,7 +7,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class LoginViewModel : BaseViewModel
+    internal class LoginViewModel : BaseViewModel
     {
         private readonly IPasswordManager _passwordManager;
         private readonly IDialogManager _dialogs;

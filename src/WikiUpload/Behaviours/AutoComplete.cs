@@ -35,7 +35,7 @@ using System.Windows.Input;
 
 namespace WikiUpload
 {
-    public static class AutoComplete
+    internal static class AutoComplete
     {
         #region ItemsSource Property
         /// <summary>

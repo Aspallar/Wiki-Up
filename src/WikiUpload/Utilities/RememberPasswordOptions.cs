@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public enum RememberPasswordOptions
+    internal enum RememberPasswordOptions
     {
         DoNotRemember,
         RememberForSite,

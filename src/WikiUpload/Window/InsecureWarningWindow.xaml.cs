@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public partial class InsecureWarningWindow : Window
+    internal partial class InsecureWarningWindow : Window
     {
         public InsecureWarningWindow()
         {

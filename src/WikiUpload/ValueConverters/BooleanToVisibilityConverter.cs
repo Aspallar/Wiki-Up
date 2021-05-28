@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace WikiUpload
 {
-    public class BooleanToVisiblityConverter : BaseValueConverter<BooleanToVisiblityConverter>
+    internal class BooleanToVisiblityConverter : BaseValueConverter<BooleanToVisiblityConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -2,7 +2,7 @@
 
 namespace WikiUpload.Utilities
 {
-    public sealed class SecureCharArray : IDisposable
+    internal sealed class SecureCharArray : IDisposable
     {
         private readonly char[] _array;
 

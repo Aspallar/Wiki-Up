@@ -15,7 +15,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class UploadViewModel : BaseViewModel, IFileDropTarget
+    internal class UploadViewModel : BaseViewModel, IFileDropTarget
     {
         private CancellationTokenSource _cancelSource;
         private IWikiSearch _categorySearch;

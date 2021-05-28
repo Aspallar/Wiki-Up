@@ -5,7 +5,7 @@ namespace WikiUpload
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class AboutBoxWindow : Window
+    internal partial class AboutBoxWindow : Window
     {
         public AboutBoxWindow()
         {

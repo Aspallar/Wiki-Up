@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace WikiUpload
 {
-    public class UploadListSerializer : IUploadListSerializer
+    internal class UploadListSerializer : IUploadListSerializer
     {
         public List<UploadFile> Deserialize(TextReader textReader)
         {

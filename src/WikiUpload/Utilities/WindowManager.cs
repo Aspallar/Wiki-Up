@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public class WindowManager : IWindowManager
+    internal class WindowManager : IWindowManager
     {
         public void ShowNewVersionWindow(UpdateCheckResponse checkUpdateResponse)
         {

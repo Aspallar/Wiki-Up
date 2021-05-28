@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace WikiUpload
 {
-    public class VariableContent
+    internal class VariableContent
     {
         private readonly Regex _filepartRegex = new Regex(@"<%(filename|-?\d+)>");
 

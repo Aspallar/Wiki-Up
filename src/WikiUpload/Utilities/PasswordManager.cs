@@ -7,7 +7,7 @@ using WikiUpload.Utilities;
 
 namespace WikiUpload
 {
-    public class PasswordManager : IPasswordManager
+    internal class PasswordManager : IPasswordManager
     {
         private readonly PasswordDictionary _passwords;
         private readonly IPasswordStore _passwordStore;

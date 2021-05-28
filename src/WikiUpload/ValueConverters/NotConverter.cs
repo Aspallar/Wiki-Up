@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace WikiUpload
 {
-    public class NotConverter : BaseValueConverter<NotConverter>
+    internal class NotConverter : BaseValueConverter<NotConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => !(bool)value;

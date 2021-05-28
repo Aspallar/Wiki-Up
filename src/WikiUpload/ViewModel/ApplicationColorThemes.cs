@@ -4,7 +4,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class ApplicationColorThemes : ReadOnlyCollection<ColorTheme>
+    internal class ApplicationColorThemes : ReadOnlyCollection<ColorTheme>
     {
         public ApplicationColorThemes() : base(
             new List<ColorTheme> {

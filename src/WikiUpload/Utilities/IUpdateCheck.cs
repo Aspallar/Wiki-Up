@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public interface IUpdateCheck
+    internal interface IUpdateCheck
     {
         Task<UpdateCheckResponse> CheckForUpdates(string userAgent, int delay);
     }

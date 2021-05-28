@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public class ColorTheme
+    internal class ColorTheme
     {
         public Skin Id { get; set; }
         public string Name { get; set; }

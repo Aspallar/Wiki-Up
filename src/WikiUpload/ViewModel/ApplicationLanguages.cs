@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace WikiUpload
 {
-    public  class ApplicationLanguages : ReadOnlyCollection<Language>
+    internal class ApplicationLanguages : ReadOnlyCollection<Language>
     {
         public ApplicationLanguages() : base(
             new List<Language>

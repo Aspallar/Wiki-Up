@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace WikiUpload
 {
-    public class ServiceLocator
+    internal class ServiceLocator
     {
         private readonly IKernel _kernel;
 

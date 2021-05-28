@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public class ServiceModule : NinjectModule
+    internal class ServiceModule : NinjectModule
     {
         public override void Load()
         {

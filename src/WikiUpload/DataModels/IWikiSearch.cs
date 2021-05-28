@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace WikiUpload
 {
-    public interface IWikiSearch
+    internal interface IWikiSearch
     {
         List<string> Data { get; }
         string ErrorMessage { get; }

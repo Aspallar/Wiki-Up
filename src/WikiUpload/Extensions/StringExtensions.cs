@@ -2,7 +2,7 @@
 
 namespace WikiUpload.Extensions
 {
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         public static bool IsEquivalentTo(this string str, char[] array)
         {

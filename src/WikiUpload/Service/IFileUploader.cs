@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace WikiUpload
 {
-    public interface IFileUploader
+    internal interface IFileUploader
     {
         string HomePage { get; set; }
         IReadOnlyPermittedFiles PermittedFiles { get; }

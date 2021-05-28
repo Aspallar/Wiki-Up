@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public enum IncludeFiles
+    internal enum IncludeFiles
     {
         All,
         Uploadable,

@@ -5,7 +5,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class AboutBoxViewModel : WindowViewModel
+    internal class AboutBoxViewModel : WindowViewModel
     {
         public AboutBoxViewModel(Window window, IHelpers helpers) : base(window)
         {

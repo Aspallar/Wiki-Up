@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public enum Skin
+    internal enum Skin
     {
         PurpleOverload = 0,
         PurpleHaze = 1,

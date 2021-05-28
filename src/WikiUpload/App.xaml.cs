@@ -10,7 +10,7 @@ namespace WikiUpload
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    internal partial class App : Application
     {
         public static Skin Skin { get; } = (Skin)WikiUpload.Properties.Settings.Default.Theme;
 

@@ -4,7 +4,7 @@ using System.Configuration;
 
 namespace WikiUpload.Properties
 {
-    public class AppSettings : IAppSettings
+    internal class AppSettings : IAppSettings
     {
         private readonly object _lock = new object();
 

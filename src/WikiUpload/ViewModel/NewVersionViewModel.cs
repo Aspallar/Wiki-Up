@@ -4,7 +4,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class NewVersionViewModel : WindowViewModel
+    internal class NewVersionViewModel : WindowViewModel
     {
         private readonly IHelpers _helpers;
 

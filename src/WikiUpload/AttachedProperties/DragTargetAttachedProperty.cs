@@ -4,12 +4,12 @@ using System.Windows.Controls;
 
 namespace WikiUpload
 {
-    public interface IFileDropTarget
+    internal interface IFileDropTarget
     {
         void OnFileDrop(string[] filepaths, bool controlKeyPressed );
     }
 
-    public class DropFileTargetProperty : BaseAttachedProperty<DropFileTargetProperty, object>
+    internal class DropFileTargetProperty : BaseAttachedProperty<DropFileTargetProperty, object>
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {

@@ -5,7 +5,7 @@ using System.Windows.Controls.Primitives;
 
 namespace WikiUpload
 {
-    public class PopupClosedFocusProperty : BaseAttachedProperty<PopupClosedFocusProperty, object>
+    internal class PopupClosedFocusProperty : BaseAttachedProperty<PopupClosedFocusProperty, object>
     {
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {

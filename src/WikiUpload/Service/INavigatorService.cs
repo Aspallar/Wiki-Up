@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public interface INavigatorService
+    internal interface INavigatorService
     {
         void NewUploadPage();
         void NavigateToUploadPage();

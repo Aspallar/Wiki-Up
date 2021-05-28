@@ -5,7 +5,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class FileFinder : IFileFinder
+    internal class FileFinder : IFileFinder
     {
         private readonly IFileUploader _fileUploader;
         private readonly IAppSettings _appSettings;

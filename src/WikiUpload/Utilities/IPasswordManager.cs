@@ -3,7 +3,7 @@ using WikiUpload.Utilities;
 
 namespace WikiUpload
 {
-    public interface IPasswordManager
+    internal interface IPasswordManager
     {
         void SavePassword(string site, string username, SecureString password);
 

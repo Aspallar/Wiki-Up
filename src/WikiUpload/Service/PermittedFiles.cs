@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WikiUpload
 {
-    public class PermittedFiles : IReadOnlyPermittedFiles
+    internal class PermittedFiles : IReadOnlyPermittedFiles
     {
         private readonly object _copyLock = new object();
         private readonly List<string> _extensions = new List<string>();

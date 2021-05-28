@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WikiUpload
 {
-    public interface IDialogManager
+    internal interface IDialogManager
     {
         bool AddFilesDialog(string[] permittedExtensions, string imageExtensions, out IList<string> fileNames);
         bool ConfirmInsecureLoginDialog();

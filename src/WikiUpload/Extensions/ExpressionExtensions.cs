@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace WikiUpload
 {
-    public static class ExpressionExtensions
+    internal static class ExpressionExtensions
     {
         /// <summary>
         /// Compiles an expression and gets the functions return value

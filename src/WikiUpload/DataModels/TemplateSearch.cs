@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public class TemplateSearch : WikiSearch
+    internal class TemplateSearch : WikiSearch
     {
         private readonly IFileUploader _fileUploader;
 

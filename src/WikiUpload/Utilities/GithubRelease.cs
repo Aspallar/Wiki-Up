@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace WikiUpload
 {
     [DebuggerDisplay("{TagName, nq}")]
-    public class GithubRelease
+    internal class GithubRelease
     {
         [JsonProperty("tag_name")]
         public string TagName { get; set; }

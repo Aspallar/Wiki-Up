@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public class ApiError
+    internal class ApiError
     {
         public string Code { get; private set; }
         public string Info { get; private set; }

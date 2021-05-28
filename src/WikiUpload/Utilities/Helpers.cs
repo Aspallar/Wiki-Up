@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WikiUpload
 {
-    public class Helpers : IHelpers
+    internal class Helpers : IHelpers
     {
         public string ReadAllText(string path) => File.ReadAllText(path);
 

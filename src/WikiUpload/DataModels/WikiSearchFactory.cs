@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public class WikiSearchFactory : IWikiSearchFactory
+    internal class WikiSearchFactory : IWikiSearchFactory
     {
         public IWikiSearch CreateCategorySearch(IFileUploader fileUploader)
             => new CategorySearch(fileUploader);

@@ -6,7 +6,7 @@ namespace WikiUpload
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginPage : Page, IHavePassword
+    internal partial class LoginPage : Page, IHavePassword
     {
         public LoginPage()
         {

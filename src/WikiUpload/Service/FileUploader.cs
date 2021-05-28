@@ -15,7 +15,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public sealed class FileUploader : IDisposable, IFileUploader
+    internal sealed class FileUploader : IDisposable, IFileUploader
     {
         private ApiUri _api;
         private string _editToken;

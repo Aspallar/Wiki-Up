@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WikiUpload
 {
-    public class ExtensionValidater
+    internal class ExtensionValidater
     {
         private readonly char[] _invalidExtensionCharacters;
 

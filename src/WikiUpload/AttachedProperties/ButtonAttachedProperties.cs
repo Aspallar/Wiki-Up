@@ -1,4 +1,4 @@
 ﻿namespace WikiUpload
 {
-    public class IsBusyProperty : BaseAttachedProperty<IsBusyProperty, bool>  {  }
+    internal class IsBusyProperty : BaseAttachedProperty<IsBusyProperty, bool>  {  }
 }

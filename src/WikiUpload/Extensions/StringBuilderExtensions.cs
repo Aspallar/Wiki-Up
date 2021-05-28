@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public static class StringBuilderExtensions
+    internal static class StringBuilderExtensions
     {
         public static StringBuilder RemoveLastCharacter(this StringBuilder sb)
         {

@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace WikiUpload
 {
-    public class SearchResponse
+    internal class SearchResponse
     {
         public string NextFrom { get; set; }
 

@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 
 namespace WikiUpload.Properties
 {
-    public interface IAppSettings
+    internal interface IAppSettings
     {
         string ImageExtensions { get; set; }
         StringCollection PreviousSites { get; }

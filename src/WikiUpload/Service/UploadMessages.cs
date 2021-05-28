@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public class UploadMessages
+    internal class UploadMessages
     {
         public static string AwaitingUpload => Resources.UploadMessageAwaitingUpload;
         public static string Uploading => Resources.UploadMessageUploading;

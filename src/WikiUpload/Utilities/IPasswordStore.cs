@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public interface IPasswordStore
+    internal interface IPasswordStore
     {
         PasswordDictionary Load();
         void Save(PasswordDictionary passwords);

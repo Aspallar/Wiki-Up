@@ -1,6 +1,6 @@
 ﻿namespace WikiUpload
 {
-    public interface IReadOnlyResponseErrors
+    internal interface IReadOnlyResponseErrors
     {
         bool IsAny { get; }
         bool IsMutsBeLoggedInError { get; }

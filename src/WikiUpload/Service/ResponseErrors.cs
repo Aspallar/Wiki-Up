@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WikiUpload
 {
-    public class ResponseErrors : IReadOnlyResponseErrors
+    internal class ResponseErrors : IReadOnlyResponseErrors
     {
         private readonly List<ApiError> _errors = new List<ApiError>();
 

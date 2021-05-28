@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace WikiUpload
 {
-    public class UploadResponse : IUploadResponse
+    internal class UploadResponse : IUploadResponse
     {
         private readonly ResponseWarnings _warnings;
         private readonly ResponseErrors _errors;

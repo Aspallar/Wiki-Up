@@ -3,7 +3,7 @@ using System.Net;
 
 namespace WikiUpload
 {
-    public class IngestionControllerResponse
+    internal class IngestionControllerResponse
     {
         [JsonProperty("status")]
         [JsonConverter(typeof(JsonHtmlStringConverter))]

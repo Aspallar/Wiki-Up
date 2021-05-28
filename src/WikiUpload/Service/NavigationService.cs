@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public class NavigationService : INavigatorService
+    internal class NavigationService : INavigatorService
     {
         private readonly System.Windows.Navigation.NavigationService _navigator;
         private UploadPage _uploadPage;

@@ -5,7 +5,7 @@ namespace WikiUpload
     /// <summary>
     /// Interaction logic for UploadPage.xaml
     /// </summary>
-    public partial class SearchPage : Page
+    internal partial class SearchPage : Page
     {
         public SearchPage()
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WikiUpload
 {
-    public sealed class UpdateCheck : IUpdateCheck
+    internal sealed class UpdateCheck : IUpdateCheck
    {
         private readonly IHelpers _helpers;
         private readonly IGithubProvider _githubProvider;

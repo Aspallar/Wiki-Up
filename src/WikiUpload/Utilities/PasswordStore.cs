@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace WikiUpload
 {
-    public class PasswordStore : IPasswordStore
+    internal class PasswordStore : IPasswordStore
     {
         private readonly string _fileName;
 

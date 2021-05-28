@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace WikiUpload
 {
-    public class RelayParameterizedCommand : ICommand
+    internal class RelayParameterizedCommand : ICommand
     {
         #region Private Members
 

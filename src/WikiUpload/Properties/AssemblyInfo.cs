@@ -54,3 +54,4 @@ using System.Windows;
 [assembly: AssemblyFileVersion("1.12.0.0")]
 
 [assembly: InternalsVisibleTo("Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

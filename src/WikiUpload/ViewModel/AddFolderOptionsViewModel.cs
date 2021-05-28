@@ -5,7 +5,7 @@ using WikiUpload.Properties;
 
 namespace WikiUpload
 {
-    public class AddFolderOptionsViewModel : WindowViewModel
+    internal class AddFolderOptionsViewModel : WindowViewModel
     {
         public AddFolderOptionsViewModel(Window window, IFileUploader fileUploader) : base(window)
         {

@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace WikiUpload
 {
-    public static class Utils
+    internal static class Utils
     {
         public static string ApplicationVersion
         {

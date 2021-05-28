@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public class ErrorMessageViewModel : WindowViewModel
+    internal class ErrorMessageViewModel : WindowViewModel
     {
         public ErrorMessageViewModel(Window window) : base(window)
         {

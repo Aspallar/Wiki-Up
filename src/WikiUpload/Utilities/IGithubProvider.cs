@@ -2,7 +2,7 @@
 
 namespace WikiUpload
 {
-    public interface IGithubProvider
+    internal interface IGithubProvider
     {
         Task<string> FetchLatestReleases(string userAgent);
     }

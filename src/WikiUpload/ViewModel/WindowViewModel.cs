@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace WikiUpload
 {
-    public class WindowViewModel : BaseViewModel
+    internal class WindowViewModel : BaseViewModel
     {
         public WindowViewModel(Window window)
         {

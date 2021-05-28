@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace WikiUpload
 {
     [Serializable]
-    internal class MustBeLoggedInException : Exception
+    public class MustBeLoggedInException : Exception
     {
         public MustBeLoggedInException()
         {
