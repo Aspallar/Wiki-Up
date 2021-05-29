@@ -18,7 +18,7 @@ namespace TestServer
         private static readonly Random rand = new Random();
         private static long videoUploadCount = 0;
         private static long fileUploadCount = 0;
-
+        private static int _rateLimitedCount = 0;
 
         private static void Main(string[] args)
         {
@@ -201,7 +201,11 @@ namespace TestServer
 
             var count = Interlocked.Increment(ref fileUploadCount);
 
-            if (options.UploadTimeout > 0 && GetRandom(100) < options.UploadTimeout)
+            if (options.RateLimit)
+            {
+                serverResponse.Reply = RateLimitReply();
+            }
+            else if (options.UploadTimeout > 0 && GetRandom(100) < options.UploadTimeout)
             {
                 serverResponse.TimeoutRequest = true;
             }
@@ -236,6 +240,22 @@ namespace TestServer
             }
 
             return serverResponse;
+        }
+
+        private static string RateLimitReply()
+        {
+            string reply;
+            var rateLimetedCount = Interlocked.Increment(ref _rateLimitedCount);
+            if (rateLimetedCount < 3)
+            {
+                reply = ApiReply(Replies.RateLimited);
+            }
+            else
+            {
+                reply = ApiReply(Replies.UploadSuccess);
+                Interlocked.Exchange(ref _rateLimitedCount, 0);
+            }
+            return reply;
         }
 
         private static ServerResponse LoginReply(Options options, HttpListenerRequest request)

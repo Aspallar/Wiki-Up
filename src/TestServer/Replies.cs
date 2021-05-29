@@ -98,5 +98,11 @@ nbar
   info=""You must be logged in ya bam"">
 </error>";
 
+        public const string RateLimited = @"
+<error
+  code=""ratelimited""
+  info=""You've exceeded your rate limit. Please wait some time and try again"">
+</error>";
+
     }
 }
