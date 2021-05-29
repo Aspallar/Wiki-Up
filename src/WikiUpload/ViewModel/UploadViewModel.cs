@@ -323,7 +323,7 @@ namespace WikiUpload
                     else if (response.Errors.IsRateLimitedError)
                     {
                         file.SetDelaying(Resources.WaitingForRetry + " " + response.Errors.ToString());
-                        await _helpers.Wait(20000);
+                        await _helpers.Wait(_appSettings.RateLimitedBackoffPeriod, cancelToken);
                         continue;
                     }
                     else

@@ -16,6 +16,7 @@ namespace WikiUpload.Properties
         bool CheckForUpdates { get; set; }
         bool FollowUploadFile { get; set; }
         Skin Theme { get; set; }
+        int RateLimitedBackoffPeriod { get; }
 
         void AddMostRecentlyUsedSite(string site);
         void RestoreConfigurationDefaults();
