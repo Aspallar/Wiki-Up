@@ -658,5 +658,25 @@
   <data name="IncludeFilesOfType" xml:space="preserve">
     <value>Dateien vom folgendem Typ einschließen</value>
   </data>
+
+  <data name="DoNotRememberPassword" xml:space="preserve">
+    <value>Passwort nicht merken</value>
+  </data>
+
+  <data name="RememberPasswordForWiki" xml:space="preserve">
+    <value>Passwort für Wiki merken</value>
+  </data>
+
+  <data name="RememberPasswordForDomain" xml:space="preserve">
+    <value>Passwort für Domain merken</value>
+  </data>
+
+  <data name="WaitingForRetry" xml:space="preserve">
+    <value>Warten bevor neuem Versuch.</value>
+  </data>
+
+  <data name="FrenchTrsnslationText" xml:space="preserve">
+    <value>Französische Übersetzung von</value>
+  </data>
   
 </root>

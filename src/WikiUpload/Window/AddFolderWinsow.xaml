@@ -151,6 +151,7 @@
                         Text="{x:Static p:Resources.IncludeFilesOfType}" 
                         FontSize="{StaticResource FontSizeRegular}"/>
                     <ComboBox Grid.Column="1" Grid.Row="1"
+                              x:Name="IncludeFileOfType"
                               HorizontalAlignment="Left"
                               ItemsSource="{Binding FileTypes}"
                               SelectedIndex="{Binding SelectedFileTypeIndex}"

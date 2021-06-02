@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <FontFamily x:Key="MainFont">pack://appliction;,,,/Fonts/#Exo</FontFamily>
-    <FontFamily x:Key="SaucerBB">pack://appliction;,,,/Fonts/#Saucer BB</FontFamily>
+    <FontFamily x:Key="MainFont">pack://application;,,,/Fonts/#Exo</FontFamily>
+    <FontFamily x:Key="SaucerBB">pack://application;,,,/Fonts/#Saucer BB</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{StaticResource MainFont}" />

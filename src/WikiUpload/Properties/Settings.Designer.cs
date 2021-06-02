@@ -153,5 +153,17 @@ namespace WikiUpload.Properties {
                 this["RateLimitedBackoffPeriod"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"wikitext\"")]
+        public string ContentFileExtension {
+            get {
+                return ((string)(this["ContentFileExtension"]));
+            }
+            set {
+                this["ContentFileExtension"] = value;
+            }
+        }
     }
 }

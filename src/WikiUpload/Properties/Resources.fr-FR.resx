@@ -667,4 +667,20 @@
     <value>Inclure les fichiers de type</value>
   </data>
 
+  <data name="DoNotRememberPassword" xml:space="preserve">
+    <value>Ne pas mémoriser le mot de passe</value>
+  </data>
+
+  <data name="RememberPasswordForWiki" xml:space="preserve">
+    <value>Mémoriser le mot de passe pour le wiki</value>
+  </data>
+
+  <data name="RememberPasswordForDomain" xml:space="preserve">
+    <value>Mémoriser le mot de passe pour le domaine</value>
+  </data>
+
+  <data name="WaitingForRetry" xml:space="preserve">
+    <value>En attente avant de réessayer.</value>
+  </data>
+  
 </root>
