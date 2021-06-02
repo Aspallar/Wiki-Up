@@ -21,5 +21,6 @@ namespace WikiUpload
         void SignalCancel(CancellationTokenSource tokenSource);
         (string copyright, string version) ApplicationInformation { get; }
         IEnumerable<string> EnumerateFiles(string rootPath, string pattern, SearchOption searchOption);
+        bool FileExists(string path);
     }
 }

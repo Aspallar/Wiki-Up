@@ -29,6 +29,8 @@ namespace WikiUpload
             // TODO: when ported to .net5 use EnumerationOptions IgnoreInaccessible 
             => Directory.EnumerateFiles(rootPath, pattern, searchOption);
 
+        public bool FileExists(string path) => File.Exists(path);
+
         public string ApplicationVersionString => Utils.ApplicationVersion;
 
         public Version ApplicationVersion

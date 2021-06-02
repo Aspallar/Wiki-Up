@@ -203,6 +203,7 @@
     <Compile Include="Utilities\UpdateCheck.cs" />
     <Compile Include="Utilities\UploadListSerializer.cs" />
     <Compile Include="Utilities\Utils.cs" />
+    <Compile Include="Utilities\VariablePageContent.cs" />
     <Compile Include="Utilities\WindowManager.cs" />
     <Compile Include="ValueConverters\BaseMulriValueConverter.cs" />
     <Compile Include="ValueConverters\RememberPasswordOptionsToIntConverter.cs" />

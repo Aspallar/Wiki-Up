@@ -56,6 +56,12 @@ namespace WikiUpload.Properties
             set => Settings.Default.Language = value;
         }
 
+        public string ContentFileExtension
+        {
+            get => Settings.Default.ContentFileExtension;
+            set => Settings.Default.ContentFileExtension = value;
+        }
+
         public bool CheckForUpdates
         {
             get => Settings.Default.CheckForUpdates;
@@ -115,6 +121,11 @@ namespace WikiUpload.Properties
                     case nameof(Settings.Default.FollowUploadFile):
                         attribute = DefaultValueAttribute(property);
                         FollowUploadFile = bool.Parse(attribute.Value);
+                        break;
+
+                    case nameof(Settings.Default.ContentFileExtension):
+                        attribute = DefaultValueAttribute(property);
+                        ContentFileExtension = attribute.Value;
                         break;
                 }
             }

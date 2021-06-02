@@ -132,7 +132,7 @@ namespace WikiUpload
                     var cancelToken = _cancelSource.Token;
                     var filesToUpload = new List<UploadFile>(UploadFiles);
                     var variableSummary = new VariableContent(AddAppName(UploadSummary));
-                    var variablePageContent = new VariableContent(PageContent);
+                    var variablePageContent = new VariablePageContent(_appSettings.ContentFileExtension, PageContent, _helpers);
                     _fileUploader.IncludeInWatchList = IncludeInWatchlist;
                     _fileUploader.IgnoreWarnings = ForceUpload;
                     _editTokenRefreshed = false;

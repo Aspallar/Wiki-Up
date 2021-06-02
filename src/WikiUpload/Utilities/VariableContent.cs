@@ -19,10 +19,10 @@ namespace WikiUpload
 
         public string ExpandedContent(UploadFile file)
         {
-            return HasVariables ? ExpandContent(file) : _content;
+            return HasVariables ? ExpandContent(file, _content) : _content;
         }
 
-        private string ExpandContent(UploadFile file)
+        private string ExpandContent(UploadFile file, string content)
         {
             var pathParts = file.FullPath.Split(Path.DirectorySeparatorChar);
             var fileName = Path.GetFileNameWithoutExtension(file.FullPath);
