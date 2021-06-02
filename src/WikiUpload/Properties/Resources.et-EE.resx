@@ -529,4 +529,34 @@
   <data name="FollowUploadFileText" xml:space="preserve">
     <value>Automaatselt keri üles üleslaetava faili juurde, kui antud fail alustab üleslaadimist.</value>
   </data>
+  <data name="LoginExpiredText" xml:space="preserve">
+    <value>Sinu sisselogimis andmed on aegunud.</value>
+  </data>
+  <data name="LoginExpiredSubtext" xml:space="preserve">
+    <value>Üleslaadimise jätkamiseks peab sisse logima, sisse logimiseks kliki OK.</value>
+  </data>
+  <data name="ButtonAddFolderText" xml:space="preserve">
+    <value>Lisa kaust</value>
+  </data>
+  <data name="ButtonAddFolderTooltipText" xml:space="preserve">
+    <value>Lisa kõik failid antud kaustas, kaasaarvatud alamkaustad üleslaadimis nimekirja.</value>
+  </data>
+  <data name="UnableToAddFiles" xml:space="preserve">
+    <value>Faile ei saa lisada.</value>
+  </data>
+  <data name="IncludeAllFiles" xml:space="preserve">
+    <value>Kõik failid</value>
+  </data>
+  <data name="IncludeUploadableFiles" xml:space="preserve">
+    <value>Kõik üleslaetavad failid</value>
+  </data>
+  <data name="IncludeImageFiles" xml:space="preserve">
+    <value>Kõik pildi failid</value>
+  </data>
+  <data name="IncludeSubfolders" xml:space="preserve">
+    <value>Kaasa alamkaustad</value>
+  </data>
+  <data name="IncludeFilesOfType" xml:space="preserve">
+    <value>Sisaldab järgimisi faili tüüpe</value>
+  </data>
 </root>
