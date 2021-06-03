@@ -137,6 +137,11 @@
             </Setter>
         </Style>
     </Window.Resources>
+    
+    <Window.InputBindings>
+        <KeyBinding Key="A" Modifiers="Alt"  Command="{Binding AboutCommand}"/>
+        <KeyBinding Key="S" Modifiers="Alt"  Command="{Binding SettingsCommand}"/>
+    </Window.InputBindings>
 
     <WindowChrome.WindowChrome>
         <WindowChrome
