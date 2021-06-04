@@ -33,7 +33,7 @@
                                         Background="{StaticResource PrimaryDarkBrush}"
                                         CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
 
-                                <!-- Window border and dropshadown -->
+                                <!-- Window border and drop shadow -->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
                                         Background="{StaticResource PrimaryDarkBrush}" 
                                         BorderThickness="1"
@@ -231,8 +231,8 @@
 
         <Button x:Name="OkButton"
                 Content="{x:Static p:Resources.ButtonOkText}" 
-                HorizontalAlignment="Center" Margin="20" Width="200"
-                Command="{Binding CloseCommand}"/>
+                HorizontalAlignment="Center" Margin="20" MinWidth="200"
+                IsCancel="True"/>
 
     </StackPanel>
 
