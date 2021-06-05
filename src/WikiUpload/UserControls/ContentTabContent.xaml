@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="WikiUpload.ContentTabContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:p="clr-namespace:WikiUpload.Properties"
+             xmlns:local="clr-namespace:WikiUpload"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Background="{StaticResource BackGroundColorBrush}" Padding="30 10 30 10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="{StaticResource MainFont}"
+                                FontSize="{StaticResource FontSizeRegular}"
+                                Text="{x:Static p:Resources.SummaryLabelText}"/>
+                    <TextBlock Text="{x:Static p:Resources.SummaryDescriptionText}"
+                                Margin="5 0 0 0" VerticalAlignment="Bottom" FontSize="{StaticResource FontSizeSmall}"/>
+                </StackPanel>
+                <TextBox Text="{Binding UploadSummary}"
+                        BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Background="{StaticResource ControlBackgroundBrush}"/>
+                <TextBlock FontFamily="{StaticResource MainFont}"
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Text="{x:Static p:Resources.ContentLabelText}"
+                        Margin="0 10 0 0"/>
+                <TextBlock Text="{x:Static p:Resources.ContentDescriptionText}"
+                            FontSize="{StaticResource FontSizeSmall}" TextWrapping="Wrap" Margin="0 0 0 3"/>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <TextBox x:Name="ContentText"
+                        VerticalAlignment="Stretch"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Background="{StaticResource ControlBackgroundBrush}"
+                        BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
+                        Text="{Binding PageContent}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button FontSize="{StaticResource FontSizeSmall}" 
+                                                Command="{Binding PickCategoryCommand}"
+                                                Content="{x:Static p:Resources.ButtonAddCategoryText}"/>
+                        <Button FontSize="{StaticResource FontSizeSmall}"
+                                                Command="{Binding PickTemplateCommand}"
+                                                Content="{x:Static p:Resources.ButtonAddTemplateText}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" MaxHeight="60">
+                        <Button Content="{x:Static p:Resources.ButtonSaveText}" Margin="0 10 10 0"
+                                FontSize="{StaticResource FontSizeRegular}"
+                                Command="{Binding SaveContentCommand}"
+                                ToolTip="{x:Static p:Resources.ButtonSaveContentTooltipText}"/>
+                        <Button Content="{x:Static p:Resources.ButtonLoadText}" Margin="0 10 0 0"
+                                FontSize="{StaticResource FontSizeRegular}"
+                                Command="{Binding LoadContentCommand}"
+                                ToolTip="{x:Static p:Resources.ButtonLoadContentTooltipText}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

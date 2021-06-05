@@ -3,11 +3,11 @@
 namespace WikiUpload
 {
     /// <summary>
-    /// Interaction logic for UploadPage.xaml
+    /// Interaction logic for ContentTab.xaml
     /// </summary>
-    internal partial class UploadPage : Page
+    public partial class ContentTabContent : UserControl
     {
-        public UploadPage()
+        public ContentTabContent()
         {
             InitializeComponent();
         }

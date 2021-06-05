@@ -5,28 +5,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
       xmlns:local="clr-namespace:WikiUpload"
       xmlns:p="clr-namespace:WikiUpload.Properties"
-      FocusManager.FocusedElement="{Binding ElementName=AddFiles}"
       DataContext="{Binding Path=UploadViewModel, Source={StaticResource ServiceLocator}}"
       mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="800"
       Title="Upload">
     
-    <Page.Resources>
-        <Style x:Key="UploadFilesListBox">
-            <Style.Resources>
-                <!-- Background of selected item when focused -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                                 Color="{StaticResource PrimaryColor}" />
-                <!-- Background of selected item when not focused -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
-                                 Color="{StaticResource PrimaryColor}" />
-            </Style.Resources>
-        </Style>
-    </Page.Resources>
-
     <Page.InputBindings>
         <KeyBinding Key="A" Modifiers="Ctrl"  Command="{Binding AddFilesCommand}"/>
         <KeyBinding Key="U" Modifiers="Ctrl"  Command="{Binding UploadCommand}"/>
@@ -53,154 +38,7 @@
                                        Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>
                         </StackPanel>
                     </TabItem.Header>
-                    <Grid Background="{StaticResource BackGroundColorBrush}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="6*"/>
-                            <ColumnDefinition Width="4*" MaxWidth="400"/>
-                        </Grid.ColumnDefinitions>
-                        <ListBox x:Name="FilesListBox" Background="{StaticResource ControlBackgroundBrush}"  Margin="10"
-                                 Focusable="False"
-                                 AllowDrop="True"
-                                 SelectionMode="Extended"
-                                 BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
-                                 ItemsSource="{Binding UploadFiles}"
-                                 local:DropFileTargetProperty.Value="{Binding}"
-                                 local:ViewedItemProperty.Value="{Binding ViewedFile}"
-                                 Style="{StaticResource UploadFilesListBox}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                                        <Grid>
-                                            <iconPacks:PackIconFontAwesome Kind="CircleSolid"
-                                                   Style="{StaticResource FontSizeIcon}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   FontSize="{StaticResource FontSizeLarge}"
-                                                   Foreground="{Binding Status, Converter={local:UploadFileStatusToColorConverter}}"/>
-                                            <iconPacks:PackIconFontAwesome 
-                                                   Style="{Binding Status, Converter={local:UploadStatusToStyleConverter}}"
-                                                   FontSize="{StaticResource FontSizeRegular}"
-                                                   Foreground="{StaticResource SecondaryTextBrush}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center">
-                                                <iconPacks:PackIconFontAwesome.Kind>
-                                                    <MultiBinding Converter="{local:UploadFileStatusToKindConverter}">
-                                                        <Binding Path="Status"/>
-                                                        <Binding Path="IsVideo"/>
-                                                    </MultiBinding>
-                                                </iconPacks:PackIconFontAwesome.Kind>
-                                            </iconPacks:PackIconFontAwesome>
-                                        </Grid>
-                                        <StackPanel Margin="5 0 0 0">
-                                            <Button Style="{StaticResource FilenamePlainButton}"
-                                                Content="{Binding FileName, Mode=OneTime}"
-                                                Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
-                                                CommandParameter="{Binding FullPath}"/>
-                                            <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="{Binding Folder, Mode=OneTime}"/>
-                                            <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="{Binding Message}"
-                                                       FontStyle="Italic" >
-                                                <TextBlock.ContextMenu>
-                                                    <ContextMenu>
-                                                        <MenuItem Header="{x:Static p:Resources.CopyToClipboard}" Click="ErrorContextMenu_CopyToClipboard_Click"/>
-                                                    </ContextMenu>
-                                                </TextBlock.ContextMenu>
-                                                <TextBlock.ToolTip>
-                                                    <ToolTip MaxWidth="600">
-                                                        <TextBlock TextWrapping="Wrap" Text="{Binding Message}"/>
-                                                    </ToolTip>
-                                                </TextBlock.ToolTip>
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                            <ListBox.InputBindings>
-                                <KeyBinding 
-                                    Key="Delete" 
-                                    Command="{Binding RemoveFilesCommand}"
-                                    CommandParameter="{Binding ElementName=FilesListBox, Path=SelectedItems}"/>
-                            </ListBox.InputBindings>
-                        </ListBox>
-                        <StackPanel Grid.Column="2" Margin="10">
-                            <Button Content="{x:Static p:Resources.ButtonAddFilesText}" Margin="0"
-                                x:Name="AddFiles"
-                                ToolTip="{x:Static p:Resources.ButtonAddFilesTooltipText}"
-                                Command="{Binding AddFilesCommand}"
-                                IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
-                            <Button Content="{x:Static p:Resources.ButtonAddFolderText}"
-                                Margin="0 10 0 0"
-                                ToolTip="{x:Static p:Resources.ButtonAddFolderTooltipText}"
-                                Command="{Binding AddFolderCommand}"
-                                IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
-                            <Button Content="{x:Static p:Resources.ButtonRemoveFilesText}" 
-                                ToolTip="{x:Static p:Resources.ButtonRemoveFilesTooltipText}"
-                                Command="{Binding RemoveFilesCommand}"
-                                CommandParameter="{Binding ElementName=FilesListBox, Path=SelectedItems}"
-                                IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Button x:Name="LoadListButton"
-                                        Content="{x:Static p:Resources.ButtonLoadText}" Grid.Column="0" Margin="0 0 5 0"
-                                        ToolTip="{x:Static p:Resources.ButtonLoadFilesTooltipText}"
-                                        Command="{Binding LoadListCommand}"
-                                        IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}">
-                                </Button>
-                                <Button x:Name="SaveListButton"
-                                    Content="{x:Static p:Resources.ButtonSaveText}" Grid.Column="1" Margin="5 0 0 0"
-                                    ToolTip="{x:Static p:Resources.ButtonSaveFilesTooltipText}"
-                                    Command="{Binding SaveListCommand}"
-                                    IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
-                            </Grid>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5 0 0">
-                                <TextBlock Text="{Binding UploadFiles.Count}" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}"/>
-                                <TextBlock Text="{x:Static p:Resources.FilesText}" FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}"/>
-                            </StackPanel>
-                            <ProgressBar Style="{StaticResource ThinProgressBar}"
-                                         Width="200"
-                                         Height="5"
-                                         Visibility="{Binding AddingFiles, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"/>                            
-                        </StackPanel>
-                        <StackPanel Margin="10" Grid.Column="2" VerticalAlignment="Bottom">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-
-                                <TextBlock Grid.Column="0" x:Name="IgnoreWarningsLabel" Text="{x:Static p:Resources.IgnoreWarningsLabelText}" VerticalAlignment="Center"
-                                           ToolTip="{x:Static p:Resources.IgnoreWarningsTooltipText}"/>
-                                <ToggleSwitch:HorizontalToggleSwitch Grid.Column="1"
-                                    IsChecked="{Binding ForceUpload, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
-
-                                <TextBlock Grid.Column="0" x:Name="AddToWatchlistLabel" Grid.Row="1" Text="{x:Static p:Resources.AddToWatchlistLabelText}" VerticalAlignment="Center"
-                                           Margin="0 10 0 0" ToolTip="{x:Static p:Resources.AddToWatchlistTooltipText}"/>
-                                <ToggleSwitch:HorizontalToggleSwitch Grid.Column="1" Grid.Row="1" Margin="0 10 0 0"
-                                    IsChecked="{Binding IncludeInWatchlist, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    IsEnabled="{Binding UploadIsRunning, Converter={local:NotConverter}}"/>
-                            </Grid>
-
-                            <Button  x:Name="StopUpload"
-                                     Content="{x:Static p:Resources.ButtonStopUploadText}"
-                                     IsEnabled="{Binding UploadIsRunning}"
-                                     Command="{Binding CancelCommand}"
-                                     ToolTip="{x:Static p:Resources.ButtonStopUploadTooltipText}"/>
-                            <Button Content="{x:Static p:Resources.ButtonUploadText}"
-                                    Margin="0"
-                                    IsEnabled="{Binding AddingFiles, Converter={local:NotConverter}}"
-                                    Style="{StaticResource BusyButton}"
-                                    Command="{Binding UploadCommand}"
-                                    local:IsBusyProperty.Value="{Binding UploadIsRunning}"
-                                    ToolTip="{x:Static p:Resources.ButtonUploadTooltipText}"/>
-                        </StackPanel>
-                    </Grid>
+                    <local:UploadTabContent/>
                 </TabItem>
 
                 <TabItem FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
@@ -209,80 +47,10 @@
                             <iconPacks:PackIconFontAwesome Kind="FileAltSolid" VerticalAlignment="Center"
                                 Foreground="{StaticResource PrimaryTextBrush}"/>
                             <TextBlock Text="{x:Static p:Resources.ContentTabText}"
-                                       Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>
+                                Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>
                         </StackPanel>
                     </TabItem.Header>
-
-                    <Border Background="{StaticResource BackGroundColorBrush}" Padding="30 10 30 10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontFamily="{StaticResource MainFont}"
-                                       FontSize="{StaticResource FontSizeRegular}"
-                                       Text="{x:Static p:Resources.SummaryLabelText}"/>
-                                    <TextBlock Text="{x:Static p:Resources.SummaryDescriptionText}"
-                                        Margin="5 0 0 0" VerticalAlignment="Bottom" FontSize="{StaticResource FontSizeSmall}"/>
-                                </StackPanel>
-                                <TextBox Text="{Binding UploadSummary}"
-                                     BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
-                                     FontSize="{StaticResource FontSizeRegular}"
-                                     Background="{StaticResource ControlBackgroundBrush}"/>
-                                <TextBlock FontFamily="{StaticResource MainFont}"
-                                       FontSize="{StaticResource FontSizeRegular}"
-                                       Text="{x:Static p:Resources.ContentLabelText}"
-                                       Margin="0 10 0 0"/>
-                                <TextBlock Text="{x:Static p:Resources.ContentDescriptionText}"
-                                    FontSize="{StaticResource FontSizeSmall}" TextWrapping="Wrap" Margin="0 0 0 3"/>
-                            </StackPanel>
-                            <Grid Grid.Row="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="50"/>
-                                </Grid.RowDefinitions>
-
-                                <TextBox
-                                    x:Name="ContentText"
-                                    VerticalAlignment="Stretch"
-                                    AcceptsReturn="True"
-                                    TextWrapping="Wrap"
-                                    FontSize="{StaticResource FontSizeRegular}"
-                                    Background="{StaticResource ControlBackgroundBrush}"
-                                    BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
-                                    Text="{Binding PageContent}"
-                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                    ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-
-                                <Grid Grid.Row="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                        <Button FontSize="{StaticResource FontSizeSmall}" 
-                                                Command="{Binding PickCategoryCommand}"
-                                                Content="{x:Static p:Resources.ButtonAddCategoryText}"/>
-                                        <Button FontSize="{StaticResource FontSizeSmall}"
-                                                Command="{Binding PickTemplateCommand}"
-                                                Content="{x:Static p:Resources.ButtonAddTemplateText}"/>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" MaxHeight="60">
-                                        <Button Content="{x:Static p:Resources.ButtonSaveText}" Margin="0 10 10 0"
-                                            FontSize="{StaticResource FontSizeRegular}"
-                                            Command="{Binding SaveContentCommand}"
-                                            ToolTip="{x:Static p:Resources.ButtonSaveContentTooltipText}"/>
-                                        <Button Content="{x:Static p:Resources.ButtonLoadText}" Margin="0 10 0 0"
-                                            FontSize="{StaticResource FontSizeRegular}"
-                                            Command="{Binding LoadContentCommand}"
-                                            ToolTip="{x:Static p:Resources.ButtonLoadContentTooltipText}"/>
-                                    </StackPanel>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Border>
+                    <local:ContentTabContent/>
                 </TabItem>
             </TabControl>
 
