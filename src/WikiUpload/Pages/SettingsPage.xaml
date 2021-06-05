@@ -25,7 +25,7 @@
 
         <DockPanel>
             
-            <!--settingsd header -->
+            <!--settings header -->
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5 0 0 0">
                 <iconPacks:PackIconFontAwesome Kind="CogsSolid"
                       Foreground="{StaticResource PrimaryLightBrush}"
@@ -128,7 +128,7 @@
                             </TextBlock>
                         </Grid>
 
-                        <!-- Umage filke exensions-->
+                        <!-- Image file extensions-->
                         <TextBlock Text="{x:Static p:Resources.ImageFilesText}"
                             Margin="{StaticResource ItemSeparatorMargin}"
                             FontSize="{StaticResource FontSizeRegular}"
