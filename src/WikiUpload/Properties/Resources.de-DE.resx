@@ -678,5 +678,9 @@
   <data name="FrenchTrsnslationText" xml:space="preserve">
     <value>Französische Übersetzung von</value>
   </data>
-  
+
+  <data name="UploadListWatermarkText" xml:space="preserve">
+    <value>UPLOAD LISTE</value>
+  </data>
+
 </root>

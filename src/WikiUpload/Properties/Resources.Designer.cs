@@ -1204,6 +1204,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to UPLOAD LIST.
+        /// </summary>
+        public static string UploadListWatermarkText {
+            get {
+                return ResourceManager.GetString("UploadListWatermarkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The server returned an invalid JSON response..
         /// </summary>
         public static string UploadMesageInvalidJson {

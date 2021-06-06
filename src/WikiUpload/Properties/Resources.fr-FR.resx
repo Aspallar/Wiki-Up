@@ -682,5 +682,9 @@
   <data name="WaitingForRetry" xml:space="preserve">
     <value>En attente avant de réessayer.</value>
   </data>
-  
+
+  <data name="UploadListWatermarkText" xml:space="preserve">
+    <value>LISTE DE MISE EN LIGNE</value>
+  </data>
+
 </root>

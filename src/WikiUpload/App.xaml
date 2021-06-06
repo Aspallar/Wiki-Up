@@ -28,6 +28,7 @@
                 <ResourceDictionary Source="Styles/Slider.xaml"/>
                 <ResourceDictionary Source="Styles/Menu.xaml"/>
                 <ResourceDictionary Source="Styles/ProgressBar.xaml"/>
+                <ResourceDictionary Source="Styles/Miscellaneous.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <x:StaticExtension x:Key="ServiceLocator" Member="local:App.ServiceLocator"/>
         </ResourceDictionary>

@@ -64,6 +64,12 @@
     <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush" Color="#eee" />
     <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush" Color="#888" />
 
+    <!-- Watermark Colors -->
+    <Color x:Key="WatermarkColor">#160347</Color>
+    <SolidColorBrush x:Key="WatermarkBrush" Color="{StaticResource WatermarkColor}" />
+    <Color x:Key="WatermarkLightColor">#606060</Color>
+    <SolidColorBrush x:Key="WatermarkLightBrush" Color="{StaticResource WatermarkLightColor}" />
+
     <!-- misc -->
     <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource Amber}"/>
     <SolidColorBrush x:Key="FocusedBorderBrush" Color="White"/>

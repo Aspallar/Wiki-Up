@@ -562,5 +562,7 @@
    <data name="FrenchTrsnslationText" xml:space="preserve">
     <value>Prantsuse keelde tõlkis:</value>
   </data>
-
+  <data name="UploadListWatermarkText" xml:space="preserve">
+    <value>ÜLESLAADIMIS NIMEKIRJ</value>
+  </data>
 </root>

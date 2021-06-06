@@ -683,4 +683,10 @@
     <value>Waiting before trying again.</value>
   </data>
   
+  <data name="UploadListWatermarkText" xml:space="preserve">
+    <value>UPLOAD LIST</value>
+  </data>
+  
+  
+  
 </root>

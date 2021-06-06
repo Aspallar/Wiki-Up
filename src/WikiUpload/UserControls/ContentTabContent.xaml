@@ -16,21 +16,21 @@
             <StackPanel Grid.Row="0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontFamily="{StaticResource MainFont}"
-                                FontSize="{StaticResource FontSizeRegular}"
-                                Text="{x:Static p:Resources.SummaryLabelText}"/>
+                               FontSize="{StaticResource FontSizeRegular}"
+                               Text="{x:Static p:Resources.SummaryLabelText}"/>
                     <TextBlock Text="{x:Static p:Resources.SummaryDescriptionText}"
-                                Margin="5 0 0 0" VerticalAlignment="Bottom" FontSize="{StaticResource FontSizeSmall}"/>
+                               Margin="5 0 0 0" VerticalAlignment="Bottom" FontSize="{StaticResource FontSizeSmall}"/>
                 </StackPanel>
                 <TextBox Text="{Binding UploadSummary}"
-                        BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
-                        FontSize="{StaticResource FontSizeRegular}"
-                        Background="{StaticResource ControlBackgroundBrush}"/>
+                    BorderThickness="1" BorderBrush="{StaticResource ButtonColorBrush}"
+                    FontSize="{StaticResource FontSizeRegular}"
+                    Background="{StaticResource ControlBackgroundBrush}"/>
                 <TextBlock FontFamily="{StaticResource MainFont}"
-                        FontSize="{StaticResource FontSizeRegular}"
-                        Text="{x:Static p:Resources.ContentLabelText}"
-                        Margin="0 10 0 0"/>
+                    FontSize="{StaticResource FontSizeRegular}"
+                    Text="{x:Static p:Resources.ContentLabelText}"
+                    Margin="0 10 0 0"/>
                 <TextBlock Text="{x:Static p:Resources.ContentDescriptionText}"
-                            FontSize="{StaticResource FontSizeSmall}" TextWrapping="Wrap" Margin="0 0 0 3"/>
+                    FontSize="{StaticResource FontSizeSmall}" TextWrapping="Wrap" Margin="0 0 0 3"/>
             </StackPanel>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -56,11 +56,11 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                         <Button FontSize="{StaticResource FontSizeSmall}" 
-                                                Command="{Binding PickCategoryCommand}"
-                                                Content="{x:Static p:Resources.ButtonAddCategoryText}"/>
+                                Command="{Binding PickCategoryCommand}"
+                                Content="{x:Static p:Resources.ButtonAddCategoryText}"/>
                         <Button FontSize="{StaticResource FontSizeSmall}"
-                                                Command="{Binding PickTemplateCommand}"
-                                                Content="{x:Static p:Resources.ButtonAddTemplateText}"/>
+                                Command="{Binding PickTemplateCommand}"
+                                Content="{x:Static p:Resources.ButtonAddTemplateText}"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" MaxHeight="60">
                         <Button Content="{x:Static p:Resources.ButtonSaveText}" Margin="0 10 10 0"
