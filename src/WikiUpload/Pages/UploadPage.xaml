@@ -28,6 +28,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            
+            <!-- Upload Tab -->
             <TabControl Padding="0" Grid.Column="0" x:Name="tabControl" Focusable="False">
                 <TabItem FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
                     <TabItem.Header>
@@ -35,12 +37,13 @@
                             <iconPacks:PackIconFontAwesome Kind="UploadSolid" VerticalAlignment="Center"
                                 Foreground="{StaticResource PrimaryTextBrush}"/>
                             <TextBlock Text="{x:Static p:Resources.UploadTabText}" 
-                                       Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>
+                                Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>
                         </StackPanel>
                     </TabItem.Header>
                     <local:UploadTabContent/>
                 </TabItem>
 
+                <!-- Content Tab -->
                 <TabItem FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -54,7 +57,7 @@
                 </TabItem>
             </TabControl>
 
-            <Grid Grid.Row="0" VerticalAlignment="Top" Margin="0,2,0,0">
+            <Grid Grid.Row="0" VerticalAlignment="Top" Margin="0 2 0 0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
                             VerticalAlignment="Center" >
                     <Button VerticalAlignment="Center" Margin="0 5 5 0"
