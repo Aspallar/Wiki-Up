@@ -562,6 +562,22 @@
    <data name="FrenchTrsnslationText" xml:space="preserve">
     <value>Prantsuse keelde tõlkis:</value>
   </data>
+
+  <!-- Google translated TODO: proper translations-->
+  <data name="DoNotRememberPassword" xml:space="preserve">
+    <value>Parooli ei mäleta</value>
+  </data>
+  <data name="RememberPasswordForWiki" xml:space="preserve">
+    <value>Jäta viki parool meelde</value>
+  </data>
+  <data name="RememberPasswordForDomain" xml:space="preserve">
+    <value>Jäta domeeni parool meelde</value>
+  </data>
+  <data name="WaitingForRetry" xml:space="preserve">
+    <value>Oodatakse enne uuesti proovimist.</value>
+  </data>
+  <!-- End google translated-->
+
   <data name="UploadListWatermarkText" xml:space="preserve">
     <value>ÜLESLAADIMIS NIMEKIRJ</value>
   </data>
