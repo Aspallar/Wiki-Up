@@ -51,7 +51,7 @@ New files when uploaded can have initial wikitext content for the file page. Not
 
 When uploading Wiki-Up first looks for a file with the same name with a ".wikitext" extension added at the end and if found uses that files content as the initial content. If that does not exist Wiki-Up  hen looks for a file called "wikitext.wikitext" in the same folder as the uploading file for the initial content. If neither of these files is found then the content specified in the "Content" tab is used.
 
-i.e. When uploading "C:\images\foo.png" Wiki-Up will first look for content in "c:\images\foo.png.wikitext" the it will look for "C:\images\wikitext.wikitext", finally if neither of these exist it will use the wikitext from the content tab.
+i.e. When uploading "C:\images\foo.png" Wiki-Up will first look for content in "c:\images\foo.png.wikitext" then it will look for "C:\images\wikitext.wikitext", finally if neither of these exist it will use the wikitext from the content tab.
 
 ### Variables
 
@@ -82,6 +82,9 @@ For example if the path is **c:\one\two\three.png** then the following expansion
 
 Wiki-Ip can "Upload" videos to Fandom wikis. To add videos drag a link to them from your browser to the upload list. If you drag and drop a playlist from Youtube then all videos in the playlist will be added to the upload list. Hold down the Ctrl key while dropping to just add a single video from a Youtube playlist.
 
+What's a link? Any video or playlist thumbnail is a link to the video or playlist so you can drag that to the upload list. If you are watching the video then there will not be a thumbnail to drag, instead drag the url from the address bar to the upload list. To drag the url drag the padlock icon to the left of the address bar, the one circled in red below.
+
+![Alt text](Images/WikiUDragVideo.png)
 
 ### Required Bot Privileges
 
@@ -118,11 +121,7 @@ usertwo
 ### Attribution
 Background image used on the login page created by [kjpargeter - www.freepik.com](https://www.freepik.com/vectors/background)
 
-
 ### System Requirements
 
 * Windows 7 SP1 or later
 * .NET Framework 4.7.2
-
-
-
