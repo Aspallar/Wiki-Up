@@ -118,14 +118,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AttachedProperties\PopupClosedFocusProperty.cs" />
-    <Compile Include="AttachedProperties\PopupInitialFocusProperty.cs" />
-    <Compile Include="AttachedProperties\DragTargetAttachedProperty.cs" />
-    <Compile Include="AttachedProperties\ListBoxAttachedProperties.cs" />
-    <Compile Include="Behaviours\AutoComplete.cs" />
-    <Compile Include="Behaviours\SelectRange.cs" />
-    <Compile Include="Behaviours\SelectAndFocus.cs" />
-    <Compile Include="Behaviours\SavedPassword.cs" />
+    <Compile Include="wpf\AttachedProperties\PopupClosedFocusProperty.cs" />
+    <Compile Include="wpf\AttachedProperties\PopupInitialFocusProperty.cs" />
+    <Compile Include="wpf\AttachedProperties\DragTargetAttachedProperty.cs" />
+    <Compile Include="wpf\AttachedProperties\ListBoxAttachedProperties.cs" />
+    <Compile Include="wpf\Behaviours\AutoComplete.cs" />
+    <Compile Include="wpf\Behaviours\SelectRange.cs" />
+    <Compile Include="wpf\Behaviours\SelectAndFocus.cs" />
+    <Compile Include="wpf\Behaviours\SavedPassword.cs" />
     <Compile Include="Services\WikiSearch\IWikiSearch.cs" />
     <Compile Include="Services\WikiSearch\IWikiSearchFactory.cs" />
     <Compile Include="DataModels\Language.cs" />
@@ -211,10 +211,10 @@
     <Compile Include="Services\Utility\Utils.cs" />
     <Compile Include="Services\Utility\VariablePageContent.cs" />
     <Compile Include="Services\WindowManger\WindowManager.cs" />
-    <Compile Include="ValueConverters\BaseMulriValueConverter.cs" />
-    <Compile Include="ValueConverters\RememberPasswordOptionsToIntConverter.cs" />
-    <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
-    <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
+    <Compile Include="wpf\ValueConverters\BaseMulriValueConverter.cs" />
+    <Compile Include="wpf\ValueConverters\RememberPasswordOptionsToIntConverter.cs" />
+    <Compile Include="wpf\ValueConverters\UploadFileStatusToKindConverter.cs" />
+    <Compile Include="wpf\ValueConverters\UploadStatusToStyleConverter.cs" />
     <Compile Include="Services\Utility\VariableContent.cs" />
     <Compile Include="ViewModel\ApplicationColorThemes.cs" />
     <Compile Include="ViewModel\ApplicationLanguages.cs" />
@@ -229,9 +229,9 @@
     <Compile Include="ViewModel\AboutBoxViewModel.cs" />
     <Compile Include="Exceptions\ServerIsBusyException.cs" />
     <Compile Include="Exceptions\NoEditTokenException.cs" />
-    <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
-    <Compile Include="AttachedProperties\ButtonAttachedProperties.cs" />
-    <Compile Include="AttachedProperties\PasswordBoxAttachedProperies.cs" />
+    <Compile Include="wpf\AttachedProperties\BaseAttachedProperty.cs" />
+    <Compile Include="wpf\AttachedProperties\ButtonAttachedProperties.cs" />
+    <Compile Include="wpf\AttachedProperties\PasswordBoxAttachedProperies.cs" />
     <Compile Include="Services\FileUploader\ApiError.cs" />
     <Compile Include="Services\FileUploader\ApiUri.cs" />
     <Compile Include="Services\FileUploader\FileUploader.cs" />
@@ -249,11 +249,11 @@
     <Compile Include="Pages\UploadPage.xaml.cs">
       <DependentUpon>UploadPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ValueConverters\BaseValueConverter.cs" />
-    <Compile Include="ValueConverters\NotConverter.cs" />
-    <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\UploadFileStatusToVisiblityConverter.cs" />
-    <Compile Include="ValueConverters\UploadFileStatusToColorConverter.cs" />
+    <Compile Include="wpf\ValueConverters\BaseValueConverter.cs" />
+    <Compile Include="wpf\ValueConverters\NotConverter.cs" />
+    <Compile Include="wpf\ValueConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="wpf\ValueConverters\UploadFileStatusToVisiblityConverter.cs" />
+    <Compile Include="wpf\ValueConverters\UploadFileStatusToColorConverter.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\IHavePassword.cs" />
     <Compile Include="ViewModel\Base\RelayParameterizedCommand.cs" />
@@ -434,25 +434,25 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Resource Include="Fonts\SaucerBB.ttf" />
-    <Resource Include="Fonts\Exo-Black.ttf" />
-    <Resource Include="Fonts\Exo-BlackItalic.ttf" />
-    <Resource Include="Fonts\Exo-Bold.ttf" />
-    <Resource Include="Fonts\Exo-BoldItalic.ttf" />
-    <Resource Include="Fonts\Exo-ExtraBold.ttf" />
-    <Resource Include="Fonts\Exo-ExtraBoldItalic.ttf" />
-    <Resource Include="Fonts\Exo-ExtraLight.ttf" />
-    <Resource Include="Fonts\Exo-ExtraLightItalic.ttf" />
-    <Resource Include="Fonts\Exo-Italic.ttf" />
-    <Resource Include="Fonts\Exo-Light.ttf" />
-    <Resource Include="Fonts\Exo-LightItalic.ttf" />
-    <Resource Include="Fonts\Exo-Medium.ttf" />
-    <Resource Include="Fonts\Exo-MediumItalic.ttf" />
-    <Resource Include="Fonts\Exo-Regular.ttf" />
-    <Resource Include="Fonts\Exo-SemiBold.ttf" />
-    <Resource Include="Fonts\Exo-SemiBoldItalic.ttf" />
-    <Resource Include="Fonts\Exo-Thin.ttf" />
-    <Resource Include="Fonts\Exo-ThinItalic.ttf" />
+    <Resource Include="Styles\Fonts\SaucerBB.ttf" />
+    <Resource Include="Styles\Fonts\Exo-Black.ttf" />
+    <Resource Include="Styles\Fonts\Exo-BlackItalic.ttf" />
+    <Resource Include="Styles\Fonts\Exo-Bold.ttf" />
+    <Resource Include="Styles\Fonts\Exo-BoldItalic.ttf" />
+    <Resource Include="Styles\Fonts\Exo-ExtraBold.ttf" />
+    <Resource Include="Styles\Fonts\Exo-ExtraBoldItalic.ttf" />
+    <Resource Include="Styles\Fonts\Exo-ExtraLight.ttf" />
+    <Resource Include="Styles\Fonts\Exo-ExtraLightItalic.ttf" />
+    <Resource Include="Styles\Fonts\Exo-Italic.ttf" />
+    <Resource Include="Styles\Fonts\Exo-Light.ttf" />
+    <Resource Include="Styles\Fonts\Exo-LightItalic.ttf" />
+    <Resource Include="Styles\Fonts\Exo-Medium.ttf" />
+    <Resource Include="Styles\Fonts\Exo-MediumItalic.ttf" />
+    <Resource Include="Styles\Fonts\Exo-Regular.ttf" />
+    <Resource Include="Styles\Fonts\Exo-SemiBold.ttf" />
+    <Resource Include="Styles\Fonts\Exo-SemiBoldItalic.ttf" />
+    <Resource Include="Styles\Fonts\Exo-Thin.ttf" />
+    <Resource Include="Styles\Fonts\Exo-ThinItalic.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -469,9 +469,7 @@
     <Resource Include="Images\Logo\navigate-up-icon.ico" />
     <Resource Include="Images\Logo\navigate-up-icon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.2.6\build\Fody.targets" Condition="Exists('..\packages\Fody.6.2.6\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
