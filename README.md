@@ -7,7 +7,7 @@ Allows any number of files to be selected and uploaded to a wiki.
 It has only been tested on a vanilla install of MediaWiki 1.32.1, [FANDOM](https://www.fandom.com/)
 and [Gamepedia](https://www.gamepedia.com/) wikis, but should work with many others
 
-Initially written for use on the fandom [Magic Arena](https://magicarena.fandom.com) wiki.
+Initially written for use on the now dead Fandom [Magic Arena](https://magicarena.fandom.com) wiki.
 
 ### Installation
 
@@ -26,14 +26,14 @@ the <code>https://</code> part (e.g. mywiki.fandom.com).
 If you need to login to a wiki that does not use https then
 you should precede the wiki url with <code>http://</code>, be warned however that logging into a site via http will result in your username and password being transmitted in unencrypted plain text.
 
-If the wiki has a script path then you should enter the script path as part ofg the wiki url. You can determine the script path for a wiki by visiting the Special:Version page of the wiki and looking at the "Entry point URLs" section. For example [meta.miraheze.org](https://meta.miraheze.org/wiki/Special:Version) has a scropt path of "/w" so the wiki url to enter would be "meta.miraheze.org/w".
+If the wiki has a script path then you should enter the script path as part ofg the wiki url. You can determine the script path for a wiki by visiting the Special:Version page of the wiki and looking at the "Entry point URLs" section. For example [meta.miraheze.org](https://meta.miraheze.org/wiki/Special:Version) has a script path of "/w" so the wiki url to enter would be "meta.miraheze.org/w".
 
 If the wiki uses bot passwords, as [Gamepedia](https://help.gamepedia.com/Logging_in_to_third-party_tools) does,
 then you must use the *alternate format* of the bot password i.e. your username and a password of BotUsername@password.
 
 ### Uploading Files
 
-Click on the "Add Files" button to add files to the upload list. Alternatively you can drag and drop files from File Manager to the upload list.
+Click on the "Add Files" or "Add Folder" buttons to add files to the upload list. Alternatively you can drag and drop files from File Manager to the upload list.
 
 To remove files from the upload list, select files the files to remove an click the "Remove Files" button or press the *Delete* key. You can select multiple files to remove using the *shift* and *control* keys.
 
@@ -41,14 +41,21 @@ You can save and load upload lists using the "Save" and "Load" buttons.
 
 When you are ready to upload click the "Upload" button.
 
-### Upload Summary and Initial Page Content
+### Upload Summary
 
-You can specify an upload summary/comment and the initial wikitext content for all the uploaded files by clicking on the "Content" tab at the top of the window.
+You can specify an upload summary/comment by clicking on the "Content" tab at the top of the window. The summary can include variable (see below).
 
-Note that any content supplied will only apply to **new** images/files, if you are overwriting an existing image/file the contents of the file page will be left untouched.
+### Initial Page Content
 
-Both the summary and content can contain variables.
+New files when uploaded can have initial wikitext content for the file page. Note that this only applies to **new** files, if you are overwriting an existing file then it's page contents will be left untouched.
 
+When uploading Wiki-Up first looks for a file with the same name with a ".wikitext" extension added at the end and if found uses that files content as the initial content. If that does not exist Wiki-Up  hen looks for a file called "wikitext.wikitext" in the same folder as the uploading file for the initial content. If neither of these files is found then the content specified in the "Content" tab is used.
+
+i.e. When uploading "C:\images\foo.png" Wiki-Up will first look for content in "c:\images\foo.png.wikitext" the it will look for "C:\images\wikitext.wikitext", finally if neither of these exist it will use the wikitext from the content tab.
+
+### Variables
+
+Both the summary/comment and content can contain variables.
 
 Variable | Expands To 
 -------- | ---------
