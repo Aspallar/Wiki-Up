@@ -156,7 +156,7 @@ namespace WikiUpload.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\"wikitext\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("wikitext")]
         public string ContentFileExtension {
             get {
                 return ((string)(this["ContentFileExtension"]));

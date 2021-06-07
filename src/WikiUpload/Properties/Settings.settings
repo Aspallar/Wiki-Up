@@ -36,7 +36,7 @@
       <Value Profile="(Default)">20</Value>
     </Setting>
     <Setting Name="ContentFileExtension" Type="System.String" Scope="User">
-      <Value Profile="(Default)">"wikitext"</Value>
+      <Value Profile="(Default)">wikitext</Value>
     </Setting>
   </Settings>
 </SettingsFile>
