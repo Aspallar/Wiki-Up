@@ -336,3 +336,5 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /src/WikiUpload/Service/YoutubeSecrets.cs
+/src/WikiUpload/Services/Passwords/Entropy.cs
+/src/WikiUpload/Services/Youtube/YoutubeSecrets.cs
