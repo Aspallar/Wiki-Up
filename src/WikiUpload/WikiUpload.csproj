@@ -171,51 +171,51 @@
     <Compile Include="Services\FileUploader\IReadOnlyPermittedFiles.cs" />
     <Compile Include="Services\FileUploader\SiteInfo.cs" />
     <Compile Include="Exceptions\TooManyVideosException.cs" />
-    <Compile Include="Service\UploadMessages.cs" />
+    <Compile Include="Properties\UploadMessages.cs" />
     <Compile Include="Services\Youtube\Youtube.cs" />
     <Compile Include="Services\Youtube\YoutubeSecrets.cs" />
-    <Compile Include="UserControls\ContentTabContent.xaml.cs">
+    <Compile Include="Pages\ContentTabContent.xaml.cs">
       <DependentUpon>ContentTabContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UploadTabContent.xaml.cs">
+    <Compile Include="Pages\UploadTabContent.xaml.cs">
       <DependentUpon>UploadTabContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\AddFilesFilterBuilder.cs" />
-    <Compile Include="Utilities\FileFinder.cs" />
+    <Compile Include="Services\Utility\AddFilesFilterBuilder.cs" />
+    <Compile Include="Services\Utility\FileFinder.cs" />
     <Compile Include="Services\Github\GithubProvider.cs" />
     <Compile Include="Services\Github\GithubRelease.cs" />
-    <Compile Include="Utilities\IFileFinder.cs" />
+    <Compile Include="Services\Utility\IFileFinder.cs" />
     <Compile Include="Services\Github\IGithubProvider.cs" />
     <Compile Include="Services\Passwords\RememberPasswordOptions.cs" />
-    <Compile Include="Utilities\UpdateCheckResponse.cs" />
-    <Compile Include="Utilities\DialogManager.cs" />
+    <Compile Include="Services\Github\UpdateCheckResponse.cs" />
+    <Compile Include="Services\WindowManger\DialogManager.cs" />
     <Compile Include="Services\Passwords\Encryption.cs" />
     <Compile Include="Services\Passwords\Entropy.cs" />
-    <Compile Include="Utilities\ExtensionValidater.cs" />
-    <Compile Include="Utilities\Helpers.cs" />
-    <Compile Include="Utilities\IDialogManager.cs" />
-    <Compile Include="Utilities\IHelpers.cs" />
+    <Compile Include="Services\Utility\ExtensionValidater.cs" />
+    <Compile Include="Services\Utility\Helpers.cs" />
+    <Compile Include="Services\WindowManger\IDialogManager.cs" />
+    <Compile Include="Services\Utility\IHelpers.cs" />
     <Compile Include="Services\Passwords\IPasswordManager.cs" />
     <Compile Include="Services\Passwords\IPasswordStore.cs" />
     <Compile Include="Services\Github\IUpdateCheck.cs" />
-    <Compile Include="Utilities\IUploadListSerializer.cs" />
-    <Compile Include="Utilities\IWindowManager.cs" />
+    <Compile Include="DataModels\IUploadListSerializer.cs" />
+    <Compile Include="Services\WindowManger\IWindowManager.cs" />
     <Compile Include="Services\Passwords\PasswordManager.cs" />
     <Compile Include="Services\Passwords\PasswordDictionary.cs" />
     <Compile Include="Services\Passwords\PasswordStore.cs" />
-    <Compile Include="Utilities\SecureCharArray.cs" />
-    <Compile Include="Utilities\Skin.cs" />
-    <Compile Include="Utilities\SkinResourceDictionary.cs" />
+    <Compile Include="Services\Passwords\SecureCharArray.cs" />
+    <Compile Include="Services\Skinning\Skin.cs" />
+    <Compile Include="Services\Skinning\SkinResourceDictionary.cs" />
     <Compile Include="Services\Github\UpdateCheck.cs" />
-    <Compile Include="Utilities\UploadListSerializer.cs" />
-    <Compile Include="Utilities\Utils.cs" />
-    <Compile Include="Utilities\VariablePageContent.cs" />
-    <Compile Include="Utilities\WindowManager.cs" />
+    <Compile Include="DataModels\UploadListSerializer.cs" />
+    <Compile Include="Services\Utility\Utils.cs" />
+    <Compile Include="Services\Utility\VariablePageContent.cs" />
+    <Compile Include="Services\WindowManger\WindowManager.cs" />
     <Compile Include="ValueConverters\BaseMulriValueConverter.cs" />
     <Compile Include="ValueConverters\RememberPasswordOptionsToIntConverter.cs" />
     <Compile Include="ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="ValueConverters\UploadStatusToStyleConverter.cs" />
-    <Compile Include="Utilities\VariableContent.cs" />
+    <Compile Include="Services\Utility\VariableContent.cs" />
     <Compile Include="ViewModel\ApplicationColorThemes.cs" />
     <Compile Include="ViewModel\ApplicationLanguages.cs" />
     <Compile Include="ViewModel\ColorTheme.cs" />
@@ -239,7 +239,7 @@
     <Compile Include="Services\FileUploader\RequestParameters.cs" />
     <Compile Include="Services\FileUploader\ResponseCodes.cs" />
     <Compile Include="DataModels\UploadFile.cs" />
-    <Compile Include="Service\UploadFileStatus.cs" />
+    <Compile Include="DataModels\UploadFileStatus.cs" />
     <Compile Include="Services\FileUploader\UploadResponse.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\SecureStringExtensions.cs" />
@@ -386,11 +386,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ContentTabContent.xaml">
+    <Page Include="Pages\ContentTabContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UploadTabContent.xaml">
+    <Page Include="Pages\UploadTabContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -469,7 +469,9 @@
     <Resource Include="Images\Logo\navigate-up-icon.ico" />
     <Resource Include="Images\Logo\navigate-up-icon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Service\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.2.6\build\Fody.targets" Condition="Exists('..\packages\Fody.6.2.6\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
