@@ -54,7 +54,7 @@ namespace WikiUpload
                 foreach (XmlNode node in errors)
                 {
                     var code = node.Attributes["code"].Value;
-                    var info = node.SelectSingleNode("text")?.InnerText;
+                    var info = node.SelectSingleNode("text")?.InnerText ?? node.InnerText;
                     _errors.Add(new ApiError(code, info));
                 }
             }
