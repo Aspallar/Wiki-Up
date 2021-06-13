@@ -125,3 +125,7 @@ Background image used on the login page created by [kjpargeter - www.freepik.com
 
 * Windows 7 SP1 or later
 * .NET Framework 4.7.2
+
+### Building the Source
+
+Before building or opening the solution in Visual Studio for the first time you should run **MakeSecrets.cmd** in the root folder. This will create template files for user secrets that should not be stored in trhe repository. These templates should be edited with your version of the "secrets". 
