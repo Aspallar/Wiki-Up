@@ -18,7 +18,8 @@ namespace TestServer
         private static readonly Random rand = new Random();
         private static long videoUploadCount = 0;
         private static long fileUploadCount = 0;
-        private static int _rateLimitedCount = 0;
+        private static int rateLimitedCount = 0;
+        private static ILog log;
 
         private static void Main(string[] args)
         {
@@ -28,6 +29,7 @@ namespace TestServer
 
         private static void Run(Options options)
         {
+            log = LogFactory.CreateLog(options.NoLog);
             var listener = CreateListener(options);
             WriteStartupMessage(listener);
             listener.Start();
@@ -83,7 +85,7 @@ namespace TestServer
             var request = context.Request;
             ServerResponse serverResponse;
 
-            Console.WriteLine($"[{Thread.CurrentThread.ManagedThreadId}] {request.RawUrl}");
+            log.WriteLine($"[{Thread.CurrentThread.ManagedThreadId}] {request.RawUrl}");
 
             if (request.HasEntityBody)
                 serverResponse = RequestBodyReply(options, request);
@@ -94,7 +96,7 @@ namespace TestServer
                 serverResponse.Send(context.Response);
 
             if (options.ShowReply)
-                Console.WriteLine($"{request.RawUrl}\nResponse:\n{serverResponse.Reply}\n");
+                log.WriteLine($"{request.RawUrl}\nResponse:\n{serverResponse.Reply}\n");
         }
 
 
@@ -117,7 +119,7 @@ namespace TestServer
                 }
                 else
                 {
-                    Console.WriteLine("ERROR: Unknown content type");
+                    log.WriteLine("ERROR: Unknown content type");
                     serverResponse = new ServerResponse { Reply = ApiReply("") };
                 }
             }
@@ -245,7 +247,7 @@ namespace TestServer
         private static string RateLimitReply()
         {
             string reply;
-            var rateLimetedCount = Interlocked.Increment(ref _rateLimitedCount);
+            var rateLimetedCount = Interlocked.Increment(ref rateLimitedCount);
             if (rateLimetedCount < 3)
             {
                 reply = ApiReply(Replies.RateLimited);
@@ -253,7 +255,7 @@ namespace TestServer
             else
             {
                 reply = ApiReply(Replies.UploadSuccess);
-                Interlocked.Exchange(ref _rateLimitedCount, 0);
+                Interlocked.Exchange(ref rateLimitedCount, 0);
             }
             return reply;
         }
@@ -295,11 +297,11 @@ namespace TestServer
             if (tokenMatch.Success)
             {
                 if (HttpUtility.UrlDecode(tokenMatch.Groups[1].Value) != loginToken)
-                    Console.WriteLine($"ERROR: Wrong login token = {tokenMatch.Groups[1].Value}");
+                    log.WriteLine($"ERROR: Wrong login token = {tokenMatch.Groups[1].Value}");
             }
             else
             {
-                Console.WriteLine("ERROR: No login token supplied");
+                log.WriteLine("ERROR: No login token supplied");
             }
         }
 

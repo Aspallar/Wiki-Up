@@ -47,6 +47,9 @@ namespace TestServer
         [Option]
         public bool RateLimit { get; set; }
 
+        [Option]
+        public bool NoLog { get; set; }
+
         [Option(Default = 10202)]
         public int Port { get; set; }
 
