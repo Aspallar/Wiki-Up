@@ -20,5 +20,15 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="ItemHighlight">
+        <Style.Resources>
+            <!-- Background of selected item when focused -->
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                 Color="{StaticResource PrimaryColor}" />
+            <!-- Background of selected item when not focused -->
+            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                 Color="{StaticResource PrimaryColor}" />
+        </Style.Resources>
+    </Style>
 
 </ResourceDictionary>

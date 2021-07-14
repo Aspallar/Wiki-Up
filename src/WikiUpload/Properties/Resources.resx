@@ -687,6 +687,8 @@
     <value>UPLOAD LIST</value>
   </data>
   
-  
+  <data name="ViewUploadedFiles" xml:space="preserve">
+    <value>View list of uploaded files.</value>
+  </data>
   
 </root>

@@ -9,18 +9,6 @@
              xmlns:local="clr-namespace:WikiUpload"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <Style x:Key="UploadFilesListBox">
-            <Style.Resources>
-                <!-- Background of selected item when focused -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                                 Color="{StaticResource PrimaryColor}" />
-                <!-- Background of selected item when not focused -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
-                                 Color="{StaticResource PrimaryColor}" />
-            </Style.Resources>
-        </Style>
-    </UserControl.Resources>
     <Grid>
         <Grid Background="{StaticResource BackGroundColorBrush}">
             <Grid.ColumnDefinitions>
@@ -53,7 +41,7 @@
                     ItemsSource="{Binding UploadFiles}"
                     local:DropFileTargetProperty.Value="{Binding}"
                     local:ViewedItemProperty.Value="{Binding ViewedFile}"
-                    Style="{StaticResource UploadFilesListBox}">
+                    Style="{StaticResource ItemHighlight}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="0 0 0 5">

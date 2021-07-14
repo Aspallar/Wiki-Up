@@ -51,7 +51,7 @@ nbar
 </pages>";
 
         public const string SiteInfo = @"
-<general base=""http://localhost:10202/"" scriptpath="""">
+<general base=""http://localhost:10202/"" server=""http://localhost:10202"" scriptpath="""" articlepath=""/wiki/$1"">
 </general>
 <fileextensions>
   <fe ext=""png"" />

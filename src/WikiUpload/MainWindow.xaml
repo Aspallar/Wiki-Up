@@ -100,6 +100,13 @@
                                                             Foreground="{StaticResource PrimaryTextBrush}"
                                                             Width="16" Height="16" />
                                             </Button>
+                                            <Button Command="{Binding ShowUploadedFilesCommand}"
+                                                    Style="{StaticResource WindowTitleButton}"
+                                                    ToolTip="{x:Static p:Resources.ViewUploadedFiles}" >
+                                                <iconPacks:PackIconFontAwesome Kind="FileRegular"
+                                                            Foreground="{StaticResource PrimaryTextBrush}"
+                                                            Width="16" Height="16" />
+                                            </Button>
                                             <Button Command="{Binding SettingsCommand}"
                                                     Style="{StaticResource WindowTitleButton}"
                                                     ToolTip="{x:Static p:Resources.SettingsText}" >

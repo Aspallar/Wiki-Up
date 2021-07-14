@@ -1402,6 +1402,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View list of uploaded files..
+        /// </summary>
+        public static string ViewUploadedFiles {
+            get {
+                return ResourceManager.GetString("ViewUploadedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waiting before trying again..
         /// </summary>
         public static string WaitingForRetry {

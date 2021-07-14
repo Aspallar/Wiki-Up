@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,19 +28,18 @@ namespace WikiUpload
         private readonly int _timeoutSeconds;
         private string _errorLanguageCode;
         private bool _useErrorLang;
+        private SiteInfo _siteInfo;
         private readonly Regex _isFandomDomainMatch = new Regex(@"^https://.+?\.fandom.com/", RegexOptions.IgnoreCase);
 
-        public string Site { get; set; }
-
-        public string HomePage { get; set; }
-
-        public string ScriptPath { get; set; }
+        public string Site { get; private set; }
 
         public bool IncludeInWatchList { get; set; }
 
         public bool IgnoreWarnings { get; set; }
 
         public bool CanUploadVideos => _isFandomDomainMatch.IsMatch(Site);
+
+        public SiteInfo SiteInfo => _siteInfo;
 
         public IReadOnlyPermittedFiles PermittedFiles
             => _permittedFiles;
@@ -60,7 +60,7 @@ namespace WikiUpload
             _client = new HttpClient(handler);
             _client.DefaultRequestHeaders.Add("User-Agent", _userAgent);
             if (_timeoutSeconds > 0)
-                _client.Timeout = new TimeSpan(0, 0, _timeoutSeconds);
+                _client.Timeout = TimeSpan.FromSeconds( _timeoutSeconds);
         }
 
         public void LogOff()
@@ -94,7 +94,7 @@ namespace WikiUpload
                 _useDeprecatedLogin = (loginToken == null);
                 if (_useDeprecatedLogin)
                 {
-                    // use old method to fetch login token by loging in without password, required for fandom
+                    // use old method to fetch login token by loging in without password
                     var tokenResponse = await AttemptLoginAsync(loginParams).ConfigureAwait(false);
                     if (tokenResponse.Result != ResponseCodes.NeedToken)
                         return false;
@@ -114,7 +114,7 @@ namespace WikiUpload
 
                 if (response.Result != ResponseCodes.Success)
                     return false;
-                
+
                 var editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
                 var userConfirmedTask = IsUserConfirmedAsync(username);
                 var authorizedTask = IsAuthorizedForUploadFilesAsync(username);
@@ -127,38 +127,39 @@ namespace WikiUpload
                 // sucessfull login session cookies will cause any subsequent login
                 // attempts to the same site to fail with an aborted response.
 
-                if (!userConfirmedTask.Result)
+                try
                 {
-                    LogOff();
-                    throw new LoginException(Resources.LoginExceptionNotAutoConfirmed);
-                }
+                    if (!userConfirmedTask.Result)
+                        throw new LoginException(Resources.LoginExceptionNotAutoConfirmed);
 
-                if (!authorizedTask.Result)
-                {
-                    LogOff();
-                    throw new LoginException(Resources.LoginExceptionNotAuthorized);
-                }
+                    if (!authorizedTask.Result)
+                        throw new LoginException(Resources.LoginExceptionNotAuthorized);
 
-                if (string.IsNullOrEmpty(editTokenTask.Result))
+                    if (string.IsNullOrEmpty(editTokenTask.Result))
+                        throw new LoginException(Resources.LoginExceptionNoEditToken);
+                }
+                catch (LoginException)
                 {
                     LogOff();
-                    throw new LoginException(Resources.LoginExceptionNoEditToken);
+                    throw;
                 }
 
                 _editToken = editTokenTask.Result;
 
                 var siteInfo = siteInfoTask.Result;
-                HomePage = siteInfo.BaseUrl;
-                ScriptPath = siteInfo.ScriptPath;
+                //HomePage = siteInfo.BaseUrl;
+                //ScriptPath = siteInfo.ScriptPath;
                 if (!allFilesPermitted)
                 {
                     foreach (var ext in siteInfo.Extensions)
                         _permittedFiles.Add(ext);
                 }
+
                 var languageCode = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
                 _errorLanguageCode = siteInfo.IsSupportedLanguage(languageCode) ? languageCode : "en";
                 var useErrorLangVersion = new Version("1.29.0.0");
                 _useErrorLang = siteInfo.MediaWikiVersion >= useErrorLangVersion;
+                _siteInfo = siteInfo;
 
                 return true;
             }
@@ -220,7 +221,7 @@ namespace WikiUpload
 
             if (_useErrorLang)
             {
-                uploadFormData.Add(new StringContent("plaintext"), "errorformat" );
+                uploadFormData.Add(new StringContent("plaintext"), "errorformat");
                 uploadFormData.Add(new StringContent(_errorLanguageCode), "errorlang");
             }
 
@@ -364,10 +365,17 @@ namespace WikiUpload
 
         private async Task<SiteInfo> GeSiteInfoAsync()
         {
+            var siteproperties = new string[]
+            {
+                "general",
+                "fileextensions",
+                "languages",
+                "namespaces"
+            };
             var uri = _api.ApiQuery(new RequestParameters
             {
                 { "meta", "siteinfo" },
-                { "siprop", "general|fileextensions|languages" },
+                { "siprop", string.Join("|", siteproperties) },
             });
             var response = await _client.GetStringAsync(uri).ConfigureAwait(false);
             var xml = CreateXmlDocument(response);
@@ -463,5 +471,13 @@ namespace WikiUpload
             }
         }
 
+        public string FileUrl(string fileName)
+        {
+            var sb = new StringBuilder(fileName)
+                .Replace(' ', '_');
+            sb[0] = Char.ToUpper(sb[0]);
+            sb.Insert(0, ':').Insert(0, SiteInfo.FileNamespace);
+            return SiteInfo.ServerUrl + SiteInfo.ArticlePath.Replace("$1", sb.ToString());
+        }
     }
 }

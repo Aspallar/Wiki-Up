@@ -118,6 +118,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\UploadedFilesPage.xaml.cs">
+      <DependentUpon>UploadedFilesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\UploadedWindow.xaml.cs">
+      <DependentUpon>UploadedWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="wpf\AttachedProperties\PopupClosedFocusProperty.cs" />
     <Compile Include="wpf\AttachedProperties\PopupInitialFocusProperty.cs" />
     <Compile Include="wpf\AttachedProperties\DragTargetAttachedProperty.cs" />
@@ -286,6 +292,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\UploadedFilesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -395,6 +405,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\AddFolderWinsow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\UploadedWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
