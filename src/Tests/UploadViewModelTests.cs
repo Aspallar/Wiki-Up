@@ -30,6 +30,7 @@ namespace Tests
         private IReadOnlyResponseErrors _responseErrors;
         private IReadOnlyResponseWarnings _responseWarnings;
         private IUploadListSerializer _uploadListSerializer;
+        private ISiteInfo _siteInfo;
         private IReadOnlyPermittedFiles _permittedFiles;
         private UploadViewModel _model;
 
@@ -37,6 +38,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
+            _siteInfo = A.Fake<ISiteInfo>();
             _permittedFiles = A.Fake<IReadOnlyPermittedFiles>();
             _dialogs = A.Fake<IDialogManager>();
             _appSetttings = A.Fake<WikiUpload.Properties.IAppSettings>();
@@ -55,6 +57,8 @@ namespace Tests
 
             A.CallTo(() => _fileUploader.PermittedFiles)
                 .Returns(_permittedFiles);
+            A.CallTo(() => _fileUploader.SiteInfo)
+                .Returns(_siteInfo);
 
             A.CallTo(() => _wikiSearchFactory.CreateCategorySearch(A<IFileUploader>._))
                 .Returns(_categorySearch);
@@ -577,29 +581,16 @@ namespace Tests
         #endregion
 
         #region Process Launch
-        [Test]
-        public void When_SiteEndsWithScrtppath_Then_SiteWithoutScriptpathIsDisplayed()
-        {
-            const string site = "foobar";
-            const string scriptpath = "/w";
-            A.CallTo(() => _fileUploader.Site)
-                .Returns(site + scriptpath);
-            A.CallTo(() => _fileUploader.ScriptPath)
-                .Returns(scriptpath);
-
-            Assert.That(_model.Site, Is.EqualTo(site));
-       }
 
         [Test]
-        public void When_SiteNameIsExecuted_Then_SiteHomePageIsLaunched()
+        public void When_LaunchSiteIsExecuted_Then_SiteHomePageIsLaunched()
         {
-            const string homePage = "foobar";
-            A.CallTo(() => _fileUploader.HomePage)
-                .Returns(homePage);
+            const string baseUrl = "foobar";
+            A.CallTo(() => _siteInfo.BaseUrl).Returns(baseUrl);
 
             _model.LaunchSiteCommand.Execute(null);
 
-            A.CallTo(() => _helpers.LaunchProcess(homePage))
+            A.CallTo(() => _helpers.LaunchProcess(baseUrl))
                 .MustHaveHappened(1, Times.Exactly);
         }
 
@@ -721,7 +712,7 @@ namespace Tests
 
 
         [Test]
-        public void When_UploadIsDoneToFandgom_Then_SummaryIsSetWithLinkToDev()
+        public void When_UploadIsDoneToFandom_Then_SummaryIsSetWithLinkToDev()
         {
             AlllFilesPermitted();
             AddSingleUploadFile();
@@ -729,7 +720,7 @@ namespace Tests
             const string summary = "foobar";
             _model.UploadSummary = summary;
 
-            A.CallTo(() => _fileUploader.Site)
+            A.CallTo(() => _siteInfo.ServerUrl)
                 .Returns(".fandom.");
 
             _model.UploadCommand.Execute(null);

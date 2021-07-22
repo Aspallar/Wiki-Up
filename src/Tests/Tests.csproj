@@ -65,6 +65,8 @@
     <Compile Include="FileExtensionsCollectionTests.cs" />
     <Compile Include="FileFinderTests.cs" />
     <Compile Include="IngestionControllerResponseTests.cs" />
+    <Compile Include="SiteInfoTestReplies.cs" />
+    <Compile Include="SiteInfoTests.cs" />
     <Compile Include="SynchonousSynchronizationContext.cs" />
     <Compile Include="SettingsViewModelTests.cs" />
     <Compile Include="UpdateCheckTests.cs" />

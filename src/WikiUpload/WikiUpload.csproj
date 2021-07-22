@@ -121,6 +121,9 @@
     <Compile Include="Pages\UploadedFilesPage.xaml.cs">
       <DependentUpon>UploadedFilesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\FileUploader\ISiteInfo.cs" />
+    <Compile Include="Services\FileUploader\WikiCasing.cs" />
+    <Compile Include="ViewModel\UploadedFilesViewModel.cs" />
     <Compile Include="Window\UploadedWindow.xaml.cs">
       <DependentUpon>UploadedWindow.xaml</DependentUpon>
     </Compile>

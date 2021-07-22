@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml;
 using WikiUpload.Properties;
@@ -54,13 +55,13 @@ namespace WikiUpload
             _fileFinder = fileFinder;
             _wikiSearchFactory = wikiSearchFactory;
 
+            UploadedFilesViewModel = new UploadedFilesViewModel(_fileUploader, _helpers);
+
             UploadFiles = new UploadList(_helpers);
-            UploadedFiles = new UploadList(_helpers);
             ResetViewModel();
 
             LaunchSiteCommand = new RelayCommand(() => _helpers.LaunchProcess(_fileUploader.SiteInfo.BaseUrl));
             ShowFileCommand = new RelayParameterizedCommand((filePath) => ShowImage((string)filePath));
-            LaunchFilePageCommand = new RelayParameterizedCommand((file) => LaunchFilePage((UploadFile)file));
             SignOutCommand = new RelayCommand(SignOut);
 
             // Manage upload file list commands
@@ -97,10 +98,10 @@ namespace WikiUpload
         public string UploadSummary { get; set; }
         public string PageContent { get; set; }
         public bool UploadIsRunning { get; set; }
+        public UploadedFilesViewModel UploadedFilesViewModel { get; }
         public bool SearchFetchInProgress { get; set; }
         public IWikiSearch CurrentSearch { get; set; }
         public UploadList UploadFiles { get; }
-        public UploadList UploadedFiles { get; }
         public UploadFile ViewedFile { get; set; }
         public bool IncludeInWatchlist { get; set; }
         public bool AddingFiles { get; set; } = false;
@@ -282,7 +283,7 @@ namespace WikiUpload
                 if (result == ResponseCodes.Success)
                 {
                     UploadFiles.Remove(file);
-                    UploadedFiles.Add(file);
+                    UploadedFilesViewModel.UploadedFiles.Add(file);
                 }
                 else if (result == ResponseCodes.Warning)
                 {
@@ -621,18 +622,12 @@ namespace WikiUpload
             }
         }
 
-        public ICommand LaunchFilePageCommand { get; }
-        private void LaunchFilePage(UploadFile file)
-        {
-            var url = _fileUploader.FileUrl(file.FileName);
-            _helpers.LaunchProcess(url);
-        }
-
         #endregion
 
         #region Sign out
 
         public ICommand SignOutCommand { get; set; }
+
         private void SignOut()
         {
             _fileUploader.LogOff();
@@ -646,7 +641,7 @@ namespace WikiUpload
             UploadSummary = "";
             PageContent = "";
             UploadFiles.Clear();
-            UploadedFiles.Clear();
+            UploadedFilesViewModel.UploadedFiles.Clear();
             _templateSearch = _wikiSearchFactory.CreateTemplateSearch(_fileUploader);
             _categorySearch = _wikiSearchFactory.CreateCategorySearch(_fileUploader);
         }

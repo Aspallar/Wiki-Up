@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace WikiUpload
 {
-    internal class SiteInfo
+    internal class SiteInfo : ISiteInfo
     {
         private readonly HashSet<string> _languages;
 
@@ -22,6 +22,8 @@ namespace WikiUpload
         public List<string> Extensions { get; }
 
         public Version MediaWikiVersion { get; private set; }
+
+        public WikiCasing WikiCasing { get; private set; }
 
         public SiteInfo(XmlDocument doc)
         {
@@ -40,10 +42,27 @@ namespace WikiUpload
             ArticlePath = generalAttributes["articlepath"].Value;
             ServerUrl = generalAttributes["server"].Value;
             MediaWikiVersion = ParseVersion(generalAttributes["generator"]?.Value);
+            WikiCasing = ParseWikiCasing(generalAttributes["case"].Value);
+        }
+
+        private WikiCasing ParseWikiCasing(string caseValue)
+        {
+            switch (caseValue)
+            {
+                case "first-letter":
+                    return WikiCasing.FirstLetter;
+                case "case-sensitive":
+                    return WikiCasing.CaseSensitive;
+                default:
+                    return WikiCasing.Unknown;
+            }
         }
 
         private string ExtractFileNamespace(XmlDocument doc)
-            => doc.SelectSingleNode("/api/query/namespaces/ns[@_idx=\"6\"]")?.InnerText ?? "File";
+        {
+            var ns = doc.SelectSingleNode("/api/query/namespaces/ns[@_idx=\"6\"]");
+            return ns == null ? "File:" : ns.InnerText + ":";
+        }
 
         public bool IsSupportedLanguage(string langCode) => _languages.Contains(langCode);
 

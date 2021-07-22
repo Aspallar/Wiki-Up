@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace WikiUpload
 {
@@ -30,6 +31,8 @@ namespace WikiUpload
             => Directory.EnumerateFiles(rootPath, pattern, searchOption);
 
         public bool FileExists(string path) => File.Exists(path);
+
+        public void SetClipboardText(string text) => Clipboard.SetText(text);
 
         public string ApplicationVersionString => Utils.ApplicationVersion;
 

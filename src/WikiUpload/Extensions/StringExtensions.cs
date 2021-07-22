@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WikiUpload.Extensions
+namespace WikiUpload
 {
     internal static class StringExtensions
     {
@@ -27,6 +27,13 @@ namespace WikiUpload.Extensions
                 }
             }
             return true;
+        }
+
+        public static string CapitalizeFirstLetter(this string str)
+        {
+            var a = str.ToCharArray();
+            a[0] = Char.ToUpper(a[0]);
+            return new string(a);
         }
     }
 }

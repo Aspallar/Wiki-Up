@@ -28,7 +28,7 @@ namespace WikiUpload
         private readonly int _timeoutSeconds;
         private string _errorLanguageCode;
         private bool _useErrorLang;
-        private SiteInfo _siteInfo;
+        private ISiteInfo _siteInfo;
         private readonly Regex _isFandomDomainMatch = new Regex(@"^https://.+?\.fandom.com/", RegexOptions.IgnoreCase);
 
         public string Site { get; private set; }
@@ -39,7 +39,7 @@ namespace WikiUpload
 
         public bool CanUploadVideos => _isFandomDomainMatch.IsMatch(Site);
 
-        public SiteInfo SiteInfo => _siteInfo;
+        public ISiteInfo SiteInfo => _siteInfo;
 
         public IReadOnlyPermittedFiles PermittedFiles
             => _permittedFiles;
@@ -473,11 +473,19 @@ namespace WikiUpload
 
         public string FileUrl(string fileName)
         {
-            var sb = new StringBuilder(fileName)
-                .Replace(' ', '_');
-            sb[0] = Char.ToUpper(sb[0]);
-            sb.Insert(0, ':').Insert(0, SiteInfo.FileNamespace);
-            return SiteInfo.ServerUrl + SiteInfo.ArticlePath.Replace("$1", sb.ToString());
+            var name = fileName.ToCharArray();
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (name[i] == ' ')
+                    name[i] = '_';
+            }
+            if (SiteInfo.WikiCasing == WikiCasing.FirstLetter)
+                name[0] = char.ToUpper(name[0]);
+            return SiteInfo.ServerUrl 
+                + SiteInfo.ArticlePath.Replace("$1", SiteInfo.FileNamespace + new string(name));
         }
+
+        public string ServerFilename(string fileName)
+            => SiteInfo.WikiCasing == WikiCasing.FirstLetter ? fileName.CapitalizeFirstLetter() : fileName;
     }
 }

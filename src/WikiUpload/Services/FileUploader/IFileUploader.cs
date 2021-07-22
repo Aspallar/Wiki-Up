@@ -11,7 +11,7 @@ namespace WikiUpload
         bool CanUploadVideos { get; }
         bool IncludeInWatchList { get; set; }
         bool IgnoreWarnings { get; set; }
-        SiteInfo SiteInfo { get; }
+        ISiteInfo SiteInfo { get; }
         void Dispose();
         Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted = false);
         void LogOff();
@@ -25,5 +25,6 @@ namespace WikiUpload
         Task<SearchResponse> FetchCategories(string from);
         Task<SearchResponse> FetchTemplates(string from);
         string FileUrl(string fileName);
+        string ServerFilename(string fileName);
     }
 }
