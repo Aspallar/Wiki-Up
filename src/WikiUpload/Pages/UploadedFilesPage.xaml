@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:p="clr-namespace:WikiUpload.Properties"
+      xmlns:local="clr-namespace:WikiUpload"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
@@ -32,21 +33,39 @@
                         Command="{Binding CopyToClipboardCommand}">
                     <iconPacks:PackIconFontAwesome Kind="ClipboardListSolid"/>
                 </Button>
-                <Button ToolTip="Sort Ascending">
-                    <iconPacks:PackIconFontAwesome Kind="SortAlphaDownSolid"/>
-                </Button>
-                <Button ToolTip="Sort Decending">
-                    <iconPacks:PackIconFontAwesome Kind="SortAlphaUpSolid"/>
-                </Button>
                 <Button ToolTip="Remove selected fils from list">
                     <iconPacks:PackIconFontAwesome Kind="TrashAltRegular"/>
+                </Button>
+                <Button ToolTip="No sorting"
+                        Command="{Binding SortOrderCommand}"
+                        CommandParameter="{x:Static local:SortingOptions.None}">
+                    <iconPacks:PackIconFontAwesome Kind="RandomSolid"
+                        Foreground="{Binding SortingOption,
+                            Converter={local:SortOrderToColorConverter},
+                            ConverterParameter={x:Static local:SortingOptions.None}}"/>
+                </Button>
+                <Button ToolTip="Sort Ascending"
+                        Command="{Binding SortOrderCommand}"
+                        CommandParameter="{x:Static local:SortingOptions.Ascending}">
+                    <iconPacks:PackIconFontAwesome Kind="SortAlphaDownSolid"
+                        Foreground="{Binding SortingOption,
+                            Converter={local:SortOrderToColorConverter},
+                            ConverterParameter={x:Static local:SortingOptions.Ascending}}"/>
+                </Button>
+                <Button ToolTip="Sort Decending"
+                        Command="{Binding SortOrderCommand}"
+                        CommandParameter="{x:Static local:SortingOptions.Descending}">
+                    <iconPacks:PackIconFontAwesome Kind="SortAlphaUpSolid"
+                        Foreground="{Binding SortingOption,
+                            Converter={local:SortOrderToColorConverter},
+                            ConverterParameter={x:Static local:SortingOptions.Descending}}"/>
                 </Button>
             </StackPanel>
         </Border>
 
         <Border BorderThickness="4">
                 <ListBox FontSize="{StaticResource FontSizeRegular}"
-                         ItemsSource="{Binding UploadedFiles}"
+                         ItemsSource="{Binding UploadedFilesView}"
                          Background="Transparent"
                          Focusable="False"
                          BorderThickness="0"

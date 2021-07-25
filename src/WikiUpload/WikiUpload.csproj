@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="Services\FileUploader\ISiteInfo.cs" />
     <Compile Include="Services\FileUploader\WikiCasing.cs" />
+    <Compile Include="ViewModel\SortingOptions.cs" />
     <Compile Include="ViewModel\UploadedFilesViewModel.cs" />
     <Compile Include="Window\UploadedWindow.xaml.cs">
       <DependentUpon>UploadedWindow.xaml</DependentUpon>
@@ -221,6 +222,7 @@
     <Compile Include="Services\Utility\VariablePageContent.cs" />
     <Compile Include="Services\WindowManger\WindowManager.cs" />
     <Compile Include="wpf\ValueConverters\BaseMulriValueConverter.cs" />
+    <Compile Include="wpf\ValueConverters\SortOrderToColorConverter.cs" />
     <Compile Include="wpf\ValueConverters\RememberPasswordOptionsToIntConverter.cs" />
     <Compile Include="wpf\ValueConverters\UploadFileStatusToKindConverter.cs" />
     <Compile Include="wpf\ValueConverters\UploadStatusToStyleConverter.cs" />

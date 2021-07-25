@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace WikiUpload
@@ -14,11 +18,19 @@ namespace WikiUpload
             _helpers = helpers;
 
             UploadedFiles = new UploadList(_helpers);
+            UploadedFilesView = CollectionViewSource.GetDefaultView(UploadedFiles);
+            UploadedFilesView.SortDescriptions.Add(
+                new SortDescription(nameof(UploadFile.FileName), ListSortDirection.Descending));
+
             LaunchFilePageCommand = new RelayParameterizedCommand((file) => LaunchFilePage((UploadFile)file));
             CopyToClipboardCommand = new RelayCommand(CopyToClipboard);
+            SortOrderCommand = new RelayParameterizedCommand((sort) => SortOrder((SortingOptions)sort));
         }
 
         public UploadList UploadedFiles { get; }
+        public ICollectionView UploadedFilesView { get; }
+
+        public SortingOptions SortingOption { get; set; }
 
         public ICommand LaunchFilePageCommand { get; }
 
@@ -31,12 +43,62 @@ namespace WikiUpload
         public ICommand CopyToClipboardCommand { get; }
         private void CopyToClipboard()
         {
+            var fileNames = GetOrderedWikiFileNames();
+
             var output = new StringBuilder();
-            foreach (var item in UploadedFiles)
-                output.AppendLine(_fileUploader.ServerFilename(item.FileName));
+            foreach (var fileName in fileNames)
+                output.AppendLine(fileName);
             _helpers.SetClipboardText(output.ToString());
         }
 
+        private IEnumerable<string> GetOrderedWikiFileNames()
+        {
+            var fileNames = GetWikiFilenames();
+            return SortWikiFileNames(fileNames);
+        }
+
+        private IEnumerable<string> SortWikiFileNames(IEnumerable<string> fileNames)
+        {
+            switch (SortingOption)
+            {
+                case SortingOptions.Ascending:
+                    return fileNames.OrderBy(x => x);
+                case SortingOptions.Descending:
+                    return fileNames.OrderByDescending(x => x);
+                default:
+                    return fileNames;
+            }
+        }
+
+        private IEnumerable<string> GetWikiFilenames()
+        {
+            return UploadedFiles.Select(x => _fileUploader.ServerFilename(x.FileName));
+        }
+
+        public ICommand SortOrderCommand { get; }
+        private void SortOrder(SortingOptions sortOption)
+        {
+            if (sortOption == SortingOption)
+                return;
+
+            UploadedFilesView.SortDescriptions.Clear();
+            SortingOption = sortOption;
+            switch (sortOption)
+            {
+                case SortingOptions.Ascending:
+                    SetOrder(ListSortDirection.Ascending);
+                    break;
+                case SortingOptions.Descending:
+                    SetOrder(ListSortDirection.Descending);
+                    break;
+            }
+        }
+
+        private void SetOrder(ListSortDirection listSortDirection)
+            => UploadedFilesView.SortDescriptions.Add(CreateSortDescription(listSortDirection));
+
+        private SortDescription CreateSortDescription(ListSortDirection listSortDirection)
+            => new SortDescription(nameof(UploadFile.FileName), listSortDirection);
     }
 }
  
