@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -19,18 +20,22 @@ namespace WikiUpload
 
             UploadedFiles = new UploadList(_helpers);
             UploadedFilesView = CollectionViewSource.GetDefaultView(UploadedFiles);
-            UploadedFilesView.SortDescriptions.Add(
-                new SortDescription(nameof(UploadFile.FileName), ListSortDirection.Descending));
-
             LaunchFilePageCommand = new RelayParameterizedCommand((file) => LaunchFilePage((UploadFile)file));
             CopyToClipboardCommand = new RelayCommand(CopyToClipboard);
             SortOrderCommand = new RelayParameterizedCommand((sort) => SortOrder((SortingOptions)sort));
+            RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
+            ClearSelectionCommand = new RelayCommand(() => UploadedFileSeletedIndex = -1);
         }
 
+        public int UploadedFileSeletedIndex { get; set; }
+
         public UploadList UploadedFiles { get; }
+
         public ICollectionView UploadedFilesView { get; }
 
         public SortingOptions SortingOption { get; set; }
+
+        public ICommand ClearSelectionCommand { get; }
 
         public ICommand LaunchFilePageCommand { get; }
 
@@ -38,6 +43,15 @@ namespace WikiUpload
         {
             var url = _fileUploader.FileUrl(file.FileName);
             _helpers.LaunchProcess(url);
+        }
+
+        public ICommand RemoveFilesCommand { get; }
+        private void RemoveFiles(object selectedItems)
+        {
+            if (((IList)selectedItems).Count == 0)
+                UploadedFiles.Clear();
+            else
+                UploadedFiles.RemoveRange(((IList)selectedItems).OfType<UploadFile>().ToList());
         }
 
         public ICommand CopyToClipboardCommand { get; }
@@ -71,9 +85,7 @@ namespace WikiUpload
         }
 
         private IEnumerable<string> GetWikiFilenames()
-        {
-            return UploadedFiles.Select(x => _fileUploader.ServerFilename(x.FileName));
-        }
+            => UploadedFiles.Select(x => _fileUploader.ServerFilename(x.FileName));
 
         public ICommand SortOrderCommand { get; }
         private void SortOrder(SortingOptions sortOption)

@@ -26,14 +26,19 @@
                         <Setter Property="Height" Value="{StaticResource IconSize}"/>
                     </Style>
                 </StackPanel.Resources>
-                <Button ToolTip="Clear selection">
+                <Button ToolTip="Clear selection"
+                        Command="{Binding ClearSelectionCommand}">
                     <iconPacks:PackIconFontAwesome Kind="TimesCircleRegular"/>
                 </Button>
                 <Button ToolTip="{x:Static p:Resources.CopyToClipboard}"
                         Command="{Binding CopyToClipboardCommand}">
                     <iconPacks:PackIconFontAwesome Kind="ClipboardListSolid"/>
                 </Button>
-                <Button ToolTip="Remove selected fils from list">
+                <Button ToolTip="{Binding ElementName=UploadedFilesListBox,
+                                  Path=SelectedIndex, 
+                                  Converter={local:SelectedIndexToTooltipConverter}}"
+                        Command="{Binding RemoveFilesCommand}"
+                        CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}">
                     <iconPacks:PackIconFontAwesome Kind="TrashAltRegular"/>
                 </Button>
                 <Button ToolTip="No sorting"
@@ -64,13 +69,15 @@
         </Border>
 
         <Border BorderThickness="4">
-                <ListBox FontSize="{StaticResource FontSizeRegular}"
-                         ItemsSource="{Binding UploadedFilesView}"
-                         Background="Transparent"
-                         Focusable="False"
-                         BorderThickness="0"
-                         SelectionMode="Extended"
-                         Style="{StaticResource ItemHighlight}">
+            <ListBox x:Name="UploadedFilesListBox"
+                    FontSize="{StaticResource FontSizeRegular}"
+                    ItemsSource="{Binding UploadedFilesView}"
+                    SelectedIndex="{Binding UploadedFileSeletedIndex}"
+                    Background="Transparent"
+                    Focusable="False"
+                    BorderThickness="0"
+                    SelectionMode="Extended"
+                    Style="{StaticResource ItemHighlight}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Button Style="{StaticResource FilenamePlainButton}"

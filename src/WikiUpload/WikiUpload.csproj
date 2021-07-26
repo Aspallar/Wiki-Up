@@ -222,6 +222,7 @@
     <Compile Include="Services\Utility\VariablePageContent.cs" />
     <Compile Include="Services\WindowManger\WindowManager.cs" />
     <Compile Include="wpf\ValueConverters\BaseMulriValueConverter.cs" />
+    <Compile Include="wpf\ValueConverters\SelectedIndexToTooltipConverter.cs" />
     <Compile Include="wpf\ValueConverters\SortOrderToColorConverter.cs" />
     <Compile Include="wpf\ValueConverters\RememberPasswordOptionsToIntConverter.cs" />
     <Compile Include="wpf\ValueConverters\UploadFileStatusToKindConverter.cs" />
