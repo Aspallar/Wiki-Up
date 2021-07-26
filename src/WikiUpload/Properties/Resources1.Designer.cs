@@ -439,15 +439,6 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear selection..
-        /// </summary>
-        public static string ClearSelection {
-            get {
-                return ResourceManager.GetString("ClearSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string CloseText {
@@ -898,15 +889,6 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Sorting.
-        /// </summary>
-        public static string NoSorting {
-            get {
-                return ResourceManager.GetString("NoSorting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Wiki does not support video uploading.
         /// </summary>
         public static string NoVideoUploadSupport {
@@ -1083,24 +1065,6 @@ namespace WikiUpload.Properties {
         public static string SolarizedText {
             get {
                 return ResourceManager.GetString("SolarizedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sort ascending.
-        /// </summary>
-        public static string SortAscending {
-            get {
-                return ResourceManager.GetString("SortAscending", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sort descending..
-        /// </summary>
-        public static string SortDescending {
-            get {
-                return ResourceManager.GetString("SortDescending", resourceCulture);
             }
         }
         

@@ -26,7 +26,7 @@
                         <Setter Property="Height" Value="{StaticResource IconSize}"/>
                     </Style>
                 </StackPanel.Resources>
-                <Button ToolTip="Clear selection"
+                <Button ToolTip="{x:Static p:Resources.ClearSelection}"
                         Command="{Binding ClearSelectionCommand}">
                     <iconPacks:PackIconFontAwesome Kind="TimesCircleRegular"/>
                 </Button>
@@ -41,7 +41,7 @@
                         CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}">
                     <iconPacks:PackIconFontAwesome Kind="TrashAltRegular"/>
                 </Button>
-                <Button ToolTip="No sorting"
+                <Button ToolTip="{x:Static p:Resources.NoSorting}"
                         Command="{Binding SortOrderCommand}"
                         CommandParameter="{x:Static local:SortingOptions.None}">
                     <iconPacks:PackIconFontAwesome Kind="RandomSolid"
@@ -49,7 +49,7 @@
                             Converter={local:SortOrderToColorConverter},
                             ConverterParameter={x:Static local:SortingOptions.None}}"/>
                 </Button>
-                <Button ToolTip="Sort Ascending"
+                <Button ToolTip="{x:Static p:Resources.SortAscending}"
                         Command="{Binding SortOrderCommand}"
                         CommandParameter="{x:Static local:SortingOptions.Ascending}">
                     <iconPacks:PackIconFontAwesome Kind="SortAlphaDownSolid"
@@ -57,7 +57,7 @@
                             Converter={local:SortOrderToColorConverter},
                             ConverterParameter={x:Static local:SortingOptions.Ascending}}"/>
                 </Button>
-                <Button ToolTip="Sort Decending"
+                <Button ToolTip="{x:Static p:Resources.SortDescending}"
                         Command="{Binding SortOrderCommand}"
                         CommandParameter="{x:Static local:SortingOptions.Descending}">
                     <iconPacks:PackIconFontAwesome Kind="SortAlphaUpSolid"
