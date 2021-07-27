@@ -60,7 +60,7 @@
                 <Button ToolTip="{x:Static p:Resources.SortDescending}"
                         Command="{Binding SortOrderCommand}"
                         CommandParameter="{x:Static local:SortingOptions.Descending}">
-                    <iconPacks:PackIconFontAwesome Kind="SortAlphaUpSolid"
+                    <iconPacks:PackIconFontAwesome Kind="SortAlphaDownAltSolid"
                         Foreground="{Binding SortingOption,
                             Converter={local:SortOrderToColorConverter},
                             ConverterParameter={x:Static local:SortingOptions.Descending}}"/>
