@@ -11,6 +11,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         WindowStartupLocation="Manual"
+        
         Icon="{StaticResource LogoImage}"
         x:Name="AppWindow"
         MinWidth="{Binding WindowMinimumWidth}"

@@ -14,7 +14,7 @@
 
     <DockPanel Background="{StaticResource BackGroundColorBrush}">
         <Border DockPanel.Dock="Top">
-            <StackPanel Orientation="Horizontal" Margin="0 2 0 0" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Margin="0 2 0 0" HorizontalAlignment="Center" >
                 <StackPanel.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Margin" Value="0 0 3 0"/>
@@ -25,7 +25,23 @@
                         <Setter Property="Width" Value="{StaticResource IconSize}"/>
                         <Setter Property="Height" Value="{StaticResource IconSize}"/>
                     </Style>
+                    <Storyboard x:Key="SlideDown">
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                             From="-48" To="0"
+                             Duration="0:0:0.25" />
+                    </Storyboard>
                 </StackPanel.Resources>
+                <StackPanel.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard Storyboard="{StaticResource SlideDown}" />
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </StackPanel.Triggers>
+                <StackPanel.RenderTransform>
+                    <TranslateTransform />
+                </StackPanel.RenderTransform>
+
                 <Button ToolTip="{x:Static p:Resources.ClearSelection}"
                         Command="{Binding ClearSelectionCommand}">
                     <iconPacks:PackIconFontAwesome Kind="TimesCircleRegular"/>

@@ -13,7 +13,7 @@ namespace WikiUpload
         public SortOrderToColorConverter()
         {
             _defaultBrush = (Brush)Application.Current.FindResource("ButtonTextBrush");
-            _highlightBrush = (Brush)Application.Current.FindResource("UploadStatusWarningBrush");
+            _highlightBrush = (Brush)Application.Current.FindResource("ToggleOnForegroundBrush");
         }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)

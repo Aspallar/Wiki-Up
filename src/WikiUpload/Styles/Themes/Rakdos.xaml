@@ -75,5 +75,8 @@
     <SolidColorBrush x:Key="FocusedBorderBrush" Color="White"/>
     <SolidColorBrush x:Key="FlipSwitchBackground" Color="Black"/>
     <SolidColorBrush x:Key="ScrollBarThumbBrush" Color="DarkRed"/>
+    <Color x:Key="ToggleOnForegroundColor">#ffbf00</Color>
+    <SolidColorBrush x:Key="ToggleOnForegroundBrush" Color="{StaticResource ToggleOnForegroundColor}"/>
+
 </ResourceDictionary>
 
