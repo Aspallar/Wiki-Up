@@ -6,6 +6,9 @@ namespace WikiUpload.Properties
 {
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
     {
+        private const string WindowPlacementEnabledSuffix = "WindowPlacementEnabled";
+        private const string WindowPlacementSuffix = "WindowPlacement";
+
         public void AddMostRecentlyUsedSite(string site)
         {
             var sites = new StringCollection { site };
@@ -28,5 +31,15 @@ namespace WikiUpload.Properties
             }
         }
 
+        public bool IsWindowPlacementEnabled(string prefix)
+            => (bool)this[prefix + WindowPlacementEnabledSuffix];
+
+        public WindowPlacement GetWindowPlacement(string prefix)
+            => (WindowPlacement)this[prefix + WindowPlacementSuffix];
+
+        public void SetWindowPlacement(string prefix, WindowPlacement wp)
+        {
+            this[prefix + WindowPlacementSuffix] = wp;
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="WikiUpload.MainWindow"
+﻿<local:WikiUpWindow x:Class="WikiUpload.MainWindow"
         x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,6 +16,7 @@
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeight}"
         Title="{x:Static p:Resources.AppNameText}"
+        WindowPlacementSettingsPrefix="Main"
         Height="630" Width="892">
 
     <Window.Resources>
@@ -162,4 +163,4 @@
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="Pages/LoginPage.xaml"/>
     </Grid>
     
-</Window>
+</local:WikiUpWindow>

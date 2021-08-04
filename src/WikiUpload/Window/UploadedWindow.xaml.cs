@@ -5,12 +5,12 @@ namespace WikiUpload
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    internal partial class UploadedWindow : Window
+    internal partial class UploadedWindow : WikiUpWindow
     {
         public UploadedWindow()
         {
             InitializeComponent();
-            DataContext = new WindowViewModel(this);
+            base.DataContext = new WindowViewModel(this);
         }
     }
 }

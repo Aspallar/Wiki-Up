@@ -703,10 +703,6 @@
     <value>Clear selection.</value>
   </data>
 
-  <data name="ClearSelection" xml:space="preserve">
-    <value>Clear selection.</value>
-  </data>
-
   <data name="NoSorting" xml:space="preserve">
     <value>No Sorting</value>
   </data>

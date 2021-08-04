@@ -118,6 +118,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Native\POINT.cs" />
+    <Compile Include="Native\RECT.cs" />
+    <Compile Include="Native\WindowPlacement.cs" />
     <Compile Include="Pages\UploadedFilesPage.xaml.cs">
       <DependentUpon>UploadedFilesPage.xaml</DependentUpon>
     </Compile>
@@ -128,6 +131,7 @@
     <Compile Include="Window\UploadedWindow.xaml.cs">
       <DependentUpon>UploadedWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\WikiUpWindow.cs" />
     <Compile Include="wpf\AttachedProperties\PopupClosedFocusProperty.cs" />
     <Compile Include="wpf\AttachedProperties\PopupInitialFocusProperty.cs" />
     <Compile Include="wpf\AttachedProperties\DragTargetAttachedProperty.cs" />
