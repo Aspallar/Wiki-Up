@@ -4,6 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
       xmlns:local="clr-namespace:WikiUpload"
@@ -24,6 +25,9 @@
         </Grid.Background>
 
         <DockPanel>
+            <DockPanel.Resources>
+                <system:Double x:Key="SettingsPaneMaxwidth">1024</system:Double>
+            </DockPanel.Resources>
             
             <!--settings header -->
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5 0 0 0">
@@ -37,7 +41,10 @@
             </StackPanel>
 
             <!--Bottom button controls (save etc) -->
-            <Grid DockPanel.Dock="Bottom" Background="{StaticResource PrimaryDarkBrush}" MaxWidth="1024">
+            <Grid DockPanel.Dock="Bottom" Background="{StaticResource PrimaryDarkBrush}" MaxWidth="{StaticResource SettingsPaneMaxwidth}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button FontSize="{StaticResource FontSizeSmall}" Content="Window placement"/>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="{StaticResource BorderMargin}">
                     <Button Content="{x:Static p:Resources.RestoreDefaultsText}" FontSize="{StaticResource FontSizeRegular}"
                             Command="{Binding RestoreDefaultsCommand}"/>
@@ -48,7 +55,7 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Background="{StaticResource PrimaryDarkBrush}" MaxWidth="1024">
+            <Grid Background="{StaticResource PrimaryDarkBrush}" MaxWidth="{StaticResource SettingsPaneMaxwidth}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="{StaticResource BorderMargin}">
                         
