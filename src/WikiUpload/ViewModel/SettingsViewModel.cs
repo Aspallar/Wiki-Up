@@ -31,8 +31,8 @@ namespace WikiUpload
 
             SetPropeertiesFromAppSettings();
 
-            SelectedLanguage = Languages.Where(x => x.Code == _appSettings.Language).FirstOrDefault();
-            SelectedColorTheme = ColorThemes.Where(x => x.Id == _appSettings.Theme).FirstOrDefault();
+            SelectedLanguage = Languages.FirstOrDefault(x => x.Code == _appSettings.Language);
+            SelectedColorTheme = ColorThemes.FirstOrDefault(x => x.Id == _appSettings.Theme);
 
             CancelSettingsCommand = new RelayCommand(CancelSettings);
             SaveSettingsCommand = new RelayCommand(SaveSettings);
