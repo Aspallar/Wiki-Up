@@ -10,9 +10,14 @@ namespace WikiUpload
         public string TagName { get; set; }
 
         [JsonProperty("prerelease")]
-        public bool Prerelease { get; set; }
+        public bool IsPrerelease { get; set; }
+
+        [JsonProperty("draft")]
+        public bool IsDraft { get; set; }
 
         [JsonProperty("html_url")]
         public string HtmlUrl { get; set; }
+
+        public bool IsProductionRelease => !(IsPrerelease || IsDraft);
     }
 }
