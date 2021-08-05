@@ -79,7 +79,7 @@
 
                                         <!-- Title -->
                                         <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
-                                            <TextBlock Text="Uploaded Files"/>
+                                            <TextBlock Text="{x:Static p:Resources.UploadedFiles}"/>
                                         </Viewbox>
 
                                         <!-- Window Buttons -->

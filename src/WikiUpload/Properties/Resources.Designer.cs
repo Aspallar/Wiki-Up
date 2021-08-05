@@ -1222,6 +1222,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploaded Files.
+        /// </summary>
+        public static string UploadedFiles {
+            get {
+                return ResourceManager.GetString("UploadedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploaded Files Window.
         /// </summary>
         public static string UploadedFilesWindow {
