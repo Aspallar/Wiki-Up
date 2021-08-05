@@ -712,7 +712,27 @@
   </data>
 
   <data name="SortDescending" xml:space="preserve">
-    <value>Sort descending.</value>
+    <value>Sort descending</value>
+  </data>
+  
+  <data name="WindowPlacement" xml:space="preserve">
+    <value>Window Placement</value>
+  </data>
+
+  <data name="Configure" xml:space="preserve">
+    <value>Configure...</value>
+  </data>
+
+  <data name="MainWindow" xml:space="preserve">
+    <value>Main Window</value>
+  </data>
+  
+  <data name="UploadedFilesWindow" xml:space="preserve">
+    <value>Uploaded Files Window</value>
+  </data>
+
+  <data name="RememberLastWindowPosition" xml:space="preserve">
+    <value>Remember the last position of Wiki-Up windows?</value>
   </data>
 
 </root>

@@ -107,14 +107,14 @@
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="2">
-                                <TextBlock Text="Window Placement"
+                                <TextBlock Text="{x:Static p:Resources.WindowPlacement}"
                                        Margin="{StaticResource SeparatorMargin}"
                                        FontSize="{StaticResource FontSizeRegular}"
                                        FontWeight="Bold"
                                        Foreground="{StaticResource PrimaryTextBrush}"/>
                                 <StackPanel Orientation="Horizontal">
                                     <Button x:Name="ConfigureWindowPlacement"
-                                            Content="Configure..."
+                                            Content="{x:Static p:Resources.Configure}"
                                             Command="{Binding ToggleWindowPlacementPopupCommand}"
                                             Margin="0 4 0 0"
                                             Padding="20 2"
@@ -132,7 +132,7 @@
                                         <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
                                                     Padding="10" Background="Black" CornerRadius="6">
                                             <StackPanel>
-                                                <TextBlock Text="Remember the last position of Wiki-Up windows?" 
+                                                <TextBlock Text="{x:Static p:Resources.RememberLastWindowPosition}" 
                                                            FontSize="{StaticResource FontSizeRegular}"
                                                            Margin="0 0 0 20"/>
                                                 <Grid Margin="0 0 0 20" HorizontalAlignment="Center">
@@ -152,10 +152,10 @@
                                                     </Grid.RowDefinitions>
                                                     <TextBlock Grid.Column="0" Grid.Row="0"
                                                                Padding="0 0 30 0"
-                                                               Text="Main Window"/>
+                                                               Text="{x:Static p:Resources.MainWindow}"/>
                                                     <TextBlock Grid.Column="0" Grid.Row="1"
                                                                Padding="0 0 30 0"
-                                                               Text="Uploaded Files Window"/>
+                                                               Text="{x:Static p:Resources.UploadedFilesWindow}"/>
                                                     <ToggleSwitch:HorizontalToggleSwitch x:Name="WindowPlacementFocus"
                                                         Grid.Column="1" Grid.Row="0"
                                                         Margin="0 0 0 20"

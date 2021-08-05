@@ -466,6 +466,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configure....
+        /// </summary>
+        public static string Configure {
+            get {
+                return ResourceManager.GetString("Configure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the wikitext to use as the initial page content for new images below. This will be only used for new images, it will not replace any existing page content..
         /// </summary>
         public static string ContentDescriptionText {
@@ -844,6 +853,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main Window.
+        /// </summary>
+        public static string MainWindow {
+            get {
+                return ResourceManager.GetString("MainWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximize/Restore.
         /// </summary>
         public static string ManimizeRestoreText {
@@ -966,6 +984,15 @@ namespace WikiUpload.Properties {
         public static string RakdosText {
             get {
                 return ResourceManager.GetString("RakdosText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember the last position of Wiki-Up windows?.
+        /// </summary>
+        public static string RememberLastWindowPosition {
+            get {
+                return ResourceManager.GetString("RememberLastWindowPosition", resourceCulture);
             }
         }
         
@@ -1096,7 +1123,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sort descending..
+        ///   Looks up a localized string similar to Sort descending.
         /// </summary>
         public static string SortDescending {
             get {
@@ -1191,6 +1218,15 @@ namespace WikiUpload.Properties {
         public static string UploadDelayText {
             get {
                 return ResourceManager.GetString("UploadDelayText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploaded Files Window.
+        /// </summary>
+        public static string UploadedFilesWindow {
+            get {
+                return ResourceManager.GetString("UploadedFilesWindow", resourceCulture);
             }
         }
         
@@ -1488,6 +1524,15 @@ namespace WikiUpload.Properties {
         public static string WikiUrlPlaceholder {
             get {
                 return ResourceManager.GetString("WikiUrlPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window Placement.
+        /// </summary>
+        public static string WindowPlacement {
+            get {
+                return ResourceManager.GetString("WindowPlacement", resourceCulture);
             }
         }
         
