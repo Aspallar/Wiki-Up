@@ -119,16 +119,13 @@
                                             Margin="0 4 0 0"
                                             Padding="20 2"
                                             FontSize="{StaticResource FontSizeRegular}"/>
-                                    <Popup IsOpen="{Binding IsWindowPlacementPopupOpen}"
+                                    <local:FocusedPopup IsOpen="{Binding IsWindowPlacementPopupOpen}"
                                             Placement="Relative"
                                             StaysOpen="False"
                                             PopupAnimation="Scroll"
                                             AllowsTransparency="True"
-                                            local:PopupInitialFocusProperty.Value="{Binding ElementName=WindowPlacementFocus}"
-                                            local:PopupClosedFocusProperty.Value="{Binding ElementName=ConfigureWindowPlacement}">
-                                        <Popup.InputBindings>
-                                            <KeyBinding Key="Esc" Command="{Binding ToggleWindowPlacementPopupCommand}"/>
-                                        </Popup.InputBindings>
+                                            InitialFocus="{Binding ElementName=WindowPlacementFocus}"
+                                            ExitFocus="{Binding ElementName=ConfigureWindowPlacement}">
                                         <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
                                                     Padding="10" Background="Black" CornerRadius="6">
                                             <StackPanel>
@@ -166,7 +163,7 @@
                                                 </Grid>
                                             </StackPanel>
                                         </Border>
-                                    </Popup>
+                                    </local:FocusedPopup>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -221,13 +218,13 @@
                                         <iconPacks:PackIconFontAwesome Kind="PlusCircleSolid" 
                                             Style="{StaticResource FontSizeIcon}"
                                             Foreground="{StaticResource PrimaryLightBrush}"/>
-                                        <Popup IsOpen="{Binding IsAddingImageExtension}"
+                                        <local:FocusedPopup IsOpen="{Binding IsAddingImageExtension}"
                                                Placement="Relative"
                                                StaysOpen="False"
                                                PopupAnimation="Scroll"
                                                AllowsTransparency="True"
-                                               local:PopupInitialFocusProperty.Value="{Binding ElementName=ImageExtension}"
-                                               local:PopupClosedFocusProperty.Value="{Binding ElementName=AddExtension}">
+                                               InitialFocus="{Binding ElementName=ImageExtension}"
+                                               ExitFocus="{Binding ElementName=AddExtension}">
                                             <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
                                                     Padding="10" Background="Black" CornerRadius="6">
                                                 <StackPanel>
@@ -241,10 +238,7 @@
                                                              Background="{StaticResource ControlBackgroundBrush}"
                                                              Text="{Binding NewExtensionText, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
                                                         <TextBox.InputBindings>
-                                                            <KeyBinding Key="Return"
-                                                                        Command="{Binding AddImageEtensionCommand}"/>
-                                                            <KeyBinding Key="Esc"
-                                                                        Command="{Binding ToggleAddImageExtensionPopupCommand}"/>
+                                                            <KeyBinding Key="Return" Command="{Binding AddImageEtensionCommand}"/>
                                                         </TextBox.InputBindings>
                                                     </TextBox>
                                                     <TextBlock Text="{x:Static p:Resources.InvalidExtension}"
@@ -254,7 +248,7 @@
                                                                Visibility="{Binding IsValidImageFileExtension, Converter={local:BooleanToVisiblityConverter}}"/>
                                                 </StackPanel>
                                             </Border>
-                                        </Popup>
+                                        </local:FocusedPopup>
                                     </StackPanel>
                                 </Button>
                             </StackPanel>

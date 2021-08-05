@@ -132,8 +132,6 @@
       <DependentUpon>UploadedWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\WikiUpWindow.cs" />
-    <Compile Include="wpf\AttachedProperties\PopupClosedFocusProperty.cs" />
-    <Compile Include="wpf\AttachedProperties\PopupInitialFocusProperty.cs" />
     <Compile Include="wpf\AttachedProperties\DragTargetAttachedProperty.cs" />
     <Compile Include="wpf\AttachedProperties\ListBoxAttachedProperties.cs" />
     <Compile Include="wpf\Behaviours\AutoComplete.cs" />
@@ -225,6 +223,7 @@
     <Compile Include="Services\Utility\Utils.cs" />
     <Compile Include="Services\Utility\VariablePageContent.cs" />
     <Compile Include="Services\WindowManger\WindowManager.cs" />
+    <Compile Include="wpf\Controls\FocusedPopup.cs" />
     <Compile Include="wpf\ValueConverters\BaseMulriValueConverter.cs" />
     <Compile Include="wpf\ValueConverters\SelectedIndexToTooltipConverter.cs" />
     <Compile Include="wpf\ValueConverters\SortOrderToColorConverter.cs" />
