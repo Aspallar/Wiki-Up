@@ -18,6 +18,7 @@ namespace WikiUpload
             _fileUploader = fileUploader;
             _helpers = helpers;
 
+            UploadedFileSeletedIndex = -1;
             UploadedFiles = new UploadList(_helpers);
             UploadedFilesView = CollectionViewSource.GetDefaultView(UploadedFiles);
             LaunchFilePageCommand = new RelayParameterizedCommand((file) => LaunchFilePage((UploadFile)file));
