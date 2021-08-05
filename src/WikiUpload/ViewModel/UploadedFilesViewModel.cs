@@ -18,17 +18,17 @@ namespace WikiUpload
             _fileUploader = fileUploader;
             _helpers = helpers;
 
-            UploadedFileSeletedIndex = -1;
+            UploadedFileSelectedIndex = -1;
             UploadedFiles = new UploadList(_helpers);
             UploadedFilesView = CollectionViewSource.GetDefaultView(UploadedFiles);
             LaunchFilePageCommand = new RelayParameterizedCommand((file) => LaunchFilePage((UploadFile)file));
             CopyToClipboardCommand = new RelayCommand(CopyToClipboard);
             SortOrderCommand = new RelayParameterizedCommand((sort) => SortOrder((SortingOptions)sort));
             RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
-            ClearSelectionCommand = new RelayCommand(() => UploadedFileSeletedIndex = -1);
+            ClearSelectionCommand = new RelayCommand(() => UploadedFileSelectedIndex = -1);
         }
 
-        public int UploadedFileSeletedIndex { get; set; }
+        public int UploadedFileSelectedIndex { get; set; }
 
         public UploadList UploadedFiles { get; }
 

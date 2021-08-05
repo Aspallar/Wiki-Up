@@ -88,7 +88,7 @@
             <ListBox x:Name="UploadedFilesListBox"
                     FontSize="{StaticResource FontSizeRegular}"
                     ItemsSource="{Binding UploadedFilesView}"
-                    SelectedIndex="{Binding UploadedFileSeletedIndex}"
+                    SelectedIndex="{Binding UploadedFileSelectedIndex}"
                     Background="Transparent"
                     Focusable="False"
                     BorderThickness="0"
