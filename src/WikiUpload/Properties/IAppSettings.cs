@@ -18,7 +18,8 @@ namespace WikiUpload.Properties
         Skin Theme { get; set; }
         int RateLimitedBackoffPeriod { get; }
         string ContentFileExtension { get; }
-        
+        bool UploadedWindowPlacementEnabled { get; set; }
+        bool MainWindowPlacementEnabled { get; set; }
 
         void AddMostRecentlyUsedSite(string site);
         void RestoreConfigurationDefaults();

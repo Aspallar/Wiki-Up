@@ -52,7 +52,7 @@ namespace Tests
                 var githubResponse = JsonConvert.SerializeObject(new List<GithubRelease> {
                     new GithubRelease
                     {
-                        TagName = version, HtmlUrl = "url", Prerelease = false,
+                        TagName = version, HtmlUrl = "url", IsPrerelease = false,
                     }
                 });
                 A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
@@ -80,7 +80,7 @@ namespace Tests
                 var githubResponse = JsonConvert.SerializeObject(new List<GithubRelease> {
                     new GithubRelease
                     {
-                        TagName = version, HtmlUrl = "url", Prerelease = false,
+                        TagName = version, HtmlUrl = "url", IsPrerelease = false,
                     }
                 });
                 A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
@@ -97,8 +97,8 @@ namespace Tests
         {
             var response = JsonConvert.SerializeObject(new List<GithubRelease>
             {
-                new GithubRelease { TagName = "beta1.0.1", HtmlUrl = "", Prerelease=false },
-                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "", Prerelease=false },
+                new GithubRelease { TagName = "beta1.0.1", HtmlUrl = "", IsPrerelease=false },
+                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "", IsPrerelease=false },
             });
             A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
                 .Returns(response);
@@ -113,8 +113,8 @@ namespace Tests
         {
             var response = JsonConvert.SerializeObject(new List<GithubRelease>
             {
-                new GithubRelease { TagName = "v3.0.0", HtmlUrl = "", Prerelease = true },
-                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "", Prerelease = false },
+                new GithubRelease { TagName = "v3.0.0", HtmlUrl = "", IsPrerelease = true },
+                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "", IsPrerelease = false },
             });
             A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
                 .Returns(response);
@@ -129,7 +129,7 @@ namespace Tests
         {
             var response = JsonConvert.SerializeObject(new List<GithubRelease>
             {
-                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "alpha", Prerelease = false },
+                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "alpha", IsPrerelease = false },
             });
             A.CallTo(() => _gitbubPrevider.FetchLatestReleases(A<string>._))
                 .Returns(response);
@@ -145,7 +145,7 @@ namespace Tests
         {
             var response = JsonConvert.SerializeObject(new List<GithubRelease>
             {
-                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "alpha", Prerelease = false },
+                new GithubRelease { TagName = "v2.0.0", HtmlUrl = "alpha", IsPrerelease = false },
             });
             var delay = 666;
 

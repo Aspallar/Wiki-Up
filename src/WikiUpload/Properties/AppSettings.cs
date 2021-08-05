@@ -74,6 +74,18 @@ namespace WikiUpload.Properties
             set => Settings.Default.Theme = (int)value;
         }
 
+        public bool MainWindowPlacementEnabled
+        {
+            get => Settings.Default.MainWindowPlacementEnabled;
+            set => Settings.Default.MainWindowPlacementEnabled = value;
+        }
+
+        public bool UploadedWindowPlacementEnabled
+        {
+            get => Settings.Default.UploadedWindowPlacementEnabled;
+            set => Settings.Default.UploadedWindowPlacementEnabled = value;
+        }
+
         public bool FollowUploadFile
         {
             get

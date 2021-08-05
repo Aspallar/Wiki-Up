@@ -42,9 +42,6 @@
 
             <!--Bottom button controls (save etc) -->
             <Grid DockPanel.Dock="Bottom" Background="{StaticResource PrimaryDarkBrush}" MaxWidth="{StaticResource SettingsPaneMaxwidth}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button FontSize="{StaticResource FontSizeSmall}" Content="Window placement"/>
-                </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="{StaticResource BorderMargin}">
                     <Button Content="{x:Static p:Resources.RestoreDefaultsText}" FontSize="{StaticResource FontSizeRegular}"
                             Command="{Binding RestoreDefaultsCommand}"/>
@@ -59,9 +56,10 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="{StaticResource BorderMargin}">
                         
-                        <!--language and color theme-->
+                        <!--language, color theme and window placement -->
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
@@ -69,7 +67,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.ColumnSpan="2"
+                            <TextBlock Grid.ColumnSpan="3"
                                 Text="{x:Static p:Resources.TakeEffectNextRunText}"
                                 Margin="{StaticResource SeparatorMargin}"
                                 FontSize="{StaticResource FontSizeSmall}"
@@ -107,6 +105,69 @@
                                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource PrimaryColor}" />
                                     </ComboBox.Resources>
                                 </ComboBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="2">
+                                <TextBlock Text="Window Placement"
+                                       Margin="{StaticResource SeparatorMargin}"
+                                       FontSize="{StaticResource FontSizeRegular}"
+                                       FontWeight="Bold"
+                                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="ConfigureWindowPlacement"
+                                            Content="Configure..."
+                                            Command="{Binding ToggleWindowPlacementPopupCommand}"
+                                            Margin="0 4 0 0"
+                                            Padding="20 2"
+                                            FontSize="{StaticResource FontSizeRegular}"/>
+                                    <Popup IsOpen="{Binding IsWindowPlacementPopupOpen}"
+                                            Placement="Relative"
+                                            StaysOpen="False"
+                                            PopupAnimation="Scroll"
+                                            AllowsTransparency="True"
+                                            local:PopupInitialFocusProperty.Value="{Binding ElementName=WindowPlacementFocus}"
+                                            local:PopupClosedFocusProperty.Value="{Binding ElementName=ConfigureWindowPlacement}">
+                                        <Popup.InputBindings>
+                                            <KeyBinding Key="Esc" Command="{Binding ToggleWindowPlacementPopupCommand}"/>
+                                        </Popup.InputBindings>
+                                        <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
+                                                    Padding="10" Background="Black" CornerRadius="6">
+                                            <StackPanel>
+                                                <TextBlock Text="Remember the last position of Wiki-Up windows?" 
+                                                           FontSize="{StaticResource FontSizeRegular}"
+                                                           Margin="0 0 0 20"/>
+                                                <Grid Margin="0 0 0 20" HorizontalAlignment="Center">
+                                                    <Grid.Resources>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+                                                            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+                                                        </Style>
+                                                    </Grid.Resources>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Column="0" Grid.Row="0"
+                                                               Padding="0 0 30 0"
+                                                               Text="Main Window"/>
+                                                    <TextBlock Grid.Column="0" Grid.Row="1"
+                                                               Padding="0 0 30 0"
+                                                               Text="Uploaded Files Window"/>
+                                                    <ToggleSwitch:HorizontalToggleSwitch x:Name="WindowPlacementFocus"
+                                                        Grid.Column="1" Grid.Row="0"
+                                                        Margin="0 0 0 20"
+                                                        IsChecked="{Binding MainWindowPlacementEnabled, Mode=TwoWay}"/>
+                                                    <ToggleSwitch:HorizontalToggleSwitch
+                                                        Grid.Column="1" Grid.Row="1"
+                                                        IsChecked="{Binding UploadedWindowPlacementEnabled, Mode=TwoWay}"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </Popup>
+                                </StackPanel>
                             </StackPanel>
                         </Grid>
 
@@ -151,7 +212,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
-                                <Button x:Name="AddExtension" Command="{Binding OpenAddImageExtensionCommand}"
+                                <Button x:Name="AddExtension" Command="{Binding ToggleAddImageExtensionPopupCommand}"
                                         FontSize="{StaticResource FontSizeLarge}"
                                         Background="Transparent"
                                         ToolTip="{x:Static p:Resources.NewImageExtension}"
@@ -160,7 +221,7 @@
                                         <iconPacks:PackIconFontAwesome Kind="PlusCircleSolid" 
                                             Style="{StaticResource FontSizeIcon}"
                                             Foreground="{StaticResource PrimaryLightBrush}"/>
-                                        <Popup IsOpen="{Binding IsAddingImageExtension, Mode=TwoWay}"
+                                        <Popup IsOpen="{Binding IsAddingImageExtension}"
                                                Placement="Relative"
                                                StaysOpen="False"
                                                PopupAnimation="Scroll"
@@ -183,7 +244,7 @@
                                                             <KeyBinding Key="Return"
                                                                         Command="{Binding AddImageEtensionCommand}"/>
                                                             <KeyBinding Key="Esc"
-                                                                        Command="{Binding CloseImageFileExtensopnPopupCommand}"/>
+                                                                        Command="{Binding ToggleAddImageExtensionPopupCommand}"/>
                                                         </TextBox.InputBindings>
                                                     </TextBox>
                                                     <TextBlock Text="{x:Static p:Resources.InvalidExtension}"

@@ -34,6 +34,8 @@ namespace Tests
             _model.Delay = 666;
             _model.ImageFileExtensions = new FileExensionsCollection("foo");
             _model.CheckForUpdates = true;
+            _model.MainWindowPlacementEnabled = true;
+            _model.UploadedWindowPlacementEnabled = true;
 
             _model.SaveSettingsCommand.Execute(null);
 
@@ -47,6 +49,11 @@ namespace Tests
                 .MustHaveHappened(1, Times.Exactly);
             A.CallToSet(()=>_appSettings.FollowUploadFile).To(() => _model.FollowUploadFile)
                 .MustHaveHappened(1, Times.Exactly);
+            A.CallToSet(()=>_appSettings.UploadedWindowPlacementEnabled).To(() => _model.UploadedWindowPlacementEnabled)
+                .MustHaveHappened(1, Times.Exactly);
+            A.CallToSet(()=>_appSettings.MainWindowPlacementEnabled).To(() => _model.MainWindowPlacementEnabled)
+                .MustHaveHappened(1, Times.Exactly);
+
             A.CallTo(()=>_appSettings.Save())
                 .MustHaveHappened(1, Times.Exactly);
         }
@@ -58,6 +65,8 @@ namespace Tests
             _model.Delay = 666;
             _model.ImageFileExtensions = new FileExensionsCollection("fooo");
             _model.CheckForUpdates = true;
+            _model.MainWindowPlacementEnabled = true;
+            _model.UploadedWindowPlacementEnabled = true;
 
             _model.CancelSettingsCommand.Execute(null);
 
@@ -70,6 +79,10 @@ namespace Tests
             A.CallToSet(() => _appSettings.CheckForUpdates).To(() => A<bool>._)
                 .MustNotHaveHappened();
             A.CallToSet(() => _appSettings.FollowUploadFile).To(() => _model.FollowUploadFile)
+                .MustNotHaveHappened();
+            A.CallToSet(() => _appSettings.UploadedWindowPlacementEnabled).To(() => _model.UploadedWindowPlacementEnabled)
+                .MustNotHaveHappened();
+            A.CallToSet(() => _appSettings.MainWindowPlacementEnabled).To(() => _model.MainWindowPlacementEnabled)
                 .MustNotHaveHappened();
             A.CallTo(() => _appSettings.Save())
                 .MustNotHaveHappened();
@@ -94,13 +107,43 @@ namespace Tests
         }
 
         [Test]
-        public void When_OpenAddImageExtensionIsExecuted_Then_AddIsStarted()
+        public void When_ToggleAddImageExtensionPopupCommandIsExecutedWithPopupClosed_Then_AddIsStarted()
         {
             _model.IsAddingImageExtension = false;
 
-            _model.OpenAddImageExtensionCommand.Execute(null);
+            _model.ToggleAddImageExtensionPopupCommand.Execute(null);
 
             Assert.That(_model.IsAddingImageExtension, Is.True);
+        }
+
+        [Test]
+        public void When_ToggleAddImageExtensionPopupCommandIsExecutedWithPopupOpen_Then_PopupIsClosed()
+        {
+            _model.IsAddingImageExtension = true;
+
+            _model.ToggleAddImageExtensionPopupCommand.Execute(null);
+
+            Assert.That(_model.IsAddingImageExtension, Is.False);
+        }
+
+        [Test]
+        public void When_ToggleWindowPlacementPopupCommandExecutedWithPopupClosed_Then_PopupIsOpened()
+        {
+            _model.IsWindowPlacementPopupOpen = false;
+
+            _model.ToggleWindowPlacementPopupCommand.Execute(null);
+
+            Assert.That(_model.IsWindowPlacementPopupOpen, Is.True);
+        }
+
+        [Test]
+        public void When_ToggleWindowPlacementPopupCommandIsExecutedWithPopupOpen_Then_PopupIsClosed()
+        {
+            _model.IsWindowPlacementPopupOpen = true;
+
+            _model.ToggleWindowPlacementPopupCommand.Execute(null);
+
+            Assert.That(_model.IsWindowPlacementPopupOpen, Is.False);
         }
 
         [Test]

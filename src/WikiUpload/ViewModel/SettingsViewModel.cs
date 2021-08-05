@@ -39,9 +39,9 @@ namespace WikiUpload
             CheckForUpdatesNowCommand = new RelayCommand(CheckForUpdatesNow);
             RestoreDefaultsCommand = new RelayCommand(RestoreDefaults);
             RemoveImageExtensionCommand = new RelayParameterizedCommand(item => ImageFileExtensions.Remove((string)item));
-            OpenAddImageExtensionCommand = new RelayCommand(() => IsAddingImageExtension = true);
+            ToggleAddImageExtensionPopupCommand = new RelayCommand(() => IsAddingImageExtension = !IsAddingImageExtension);
             AddImageEtensionCommand = new RelayCommand(AddImageExtension);
-            CloseImageFileExtensopnPopupCommand = new RelayCommand(() => IsAddingImageExtension = false);
+            ToggleWindowPlacementPopupCommand = new RelayCommand(() => IsWindowPlacementPopupOpen = !IsWindowPlacementPopupOpen);
         }
 
         private void AddImageExtension()
@@ -60,6 +60,8 @@ namespace WikiUpload
             Delay = _appSettings.UploadDelay;
             CheckForUpdates = _appSettings.CheckForUpdates;
             FollowUploadFile = _appSettings.FollowUploadFile;
+            MainWindowPlacementEnabled = _appSettings.MainWindowPlacementEnabled;
+            UploadedWindowPlacementEnabled = _appSettings.UploadedWindowPlacementEnabled;
             ImageFileExtensions = new FileExensionsCollection(_appSettings.ImageExtensions);
         }
 
@@ -75,6 +77,8 @@ namespace WikiUpload
             _appSettings.CheckForUpdates = CheckForUpdates;
             _appSettings.ImageExtensions = ImageFileExtensions.ToString();
             _appSettings.FollowUploadFile = FollowUploadFile;
+            _appSettings.MainWindowPlacementEnabled = MainWindowPlacementEnabled;
+            _appSettings.UploadedWindowPlacementEnabled = UploadedWindowPlacementEnabled;
             if (SelectedColorTheme != null)
                 _appSettings.Theme = SelectedColorTheme.Id;
             if (SelectedLanguage != null)
@@ -105,9 +109,9 @@ namespace WikiUpload
         public ICommand CheckForUpdatesNowCommand { get; }
         public ICommand RestoreDefaultsCommand { get; }
         public ICommand RemoveImageExtensionCommand { get; }
-        public ICommand OpenAddImageExtensionCommand { get; }
+        public ICommand ToggleAddImageExtensionPopupCommand { get; }
         public ICommand AddImageEtensionCommand { get; }
-        public ICommand CloseImageFileExtensopnPopupCommand { get; }
+        public ICommand ToggleWindowPlacementPopupCommand { get; }
 
         public ApplicationLanguages Languages { get; } = new ApplicationLanguages();
 
@@ -127,6 +131,10 @@ namespace WikiUpload
 
         public bool UpdateCheckIsRunning { get; set; }
 
+        public bool UploadedWindowPlacementEnabled { get; set; }
+
+        public bool MainWindowPlacementEnabled { get; set; }
+
         public FileExensionsCollection ImageFileExtensions { get; set; }
 
         public bool IsAddingImageExtension { get; set; }
@@ -134,6 +142,8 @@ namespace WikiUpload
         public bool FollowUploadFile { get; set; }
 
         public bool IsValidImageFileExtension { get; set; } = true;
+
+        public bool IsWindowPlacementPopupOpen { get; set; }
 
         public string NewExtensionText
         {
