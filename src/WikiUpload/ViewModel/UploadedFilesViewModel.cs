@@ -26,6 +26,7 @@ namespace WikiUpload
             SortOrderCommand = new RelayParameterizedCommand((sort) => SortOrder((SortingOptions)sort));
             RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
             ClearSelectionCommand = new RelayCommand(() => UploadedFileSelectedIndex = -1);
+            RemoveAllFilesCommand = new RelayCommand(RemoveAllFiles);
         }
 
         public int UploadedFileSelectedIndex { get; set; }
@@ -35,6 +36,8 @@ namespace WikiUpload
         public ICollectionView UploadedFilesView { get; }
 
         public SortingOptions SortingOption { get; set; }
+
+        public bool IsConfirmRemoveAllPopupOpen { get; set; }
 
         public ICommand ClearSelectionCommand { get; }
 
@@ -49,10 +52,18 @@ namespace WikiUpload
         public ICommand RemoveFilesCommand { get; }
         private void RemoveFiles(object selectedItems)
         {
-            if (((IList)selectedItems).Count == 0)
-                UploadedFiles.Clear();
+            IList selected = (IList)selectedItems;
+            if (selected.Count == 0)
+                IsConfirmRemoveAllPopupOpen = true;
             else
-                UploadedFiles.RemoveRange(((IList)selectedItems).OfType<UploadFile>().ToList());
+                UploadedFiles.RemoveRange(selected.OfType<UploadFile>().ToList());
+        }
+
+        public ICommand RemoveAllFilesCommand { get; }
+        private void RemoveAllFiles()
+        {
+            UploadedFiles.Clear();
+            IsConfirmRemoveAllPopupOpen = false;
         }
 
         public ICommand CopyToClipboardCommand { get; }
