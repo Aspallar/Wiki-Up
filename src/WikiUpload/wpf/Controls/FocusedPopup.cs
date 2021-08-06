@@ -13,6 +13,19 @@ namespace WikiUpload
             KeyDown += Popup_KeyDown;
             Opened += Popup_Opened;
             Closed += Popup_Closed;
+            Loaded += Popup_Loaded;
+        }
+
+        private void Popup_Loaded(object sender, RoutedEventArgs e)
+        {
+            var closeButton = CloseButton;
+            if (closeButton != null)
+                closeButton.Click += CloseButton_Click;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsOpen = false;
         }
 
         private void Popup_Closed(object sender, EventArgs e)
@@ -65,6 +78,22 @@ namespace WikiUpload
             DependencyProperty.Register(
                 nameof(ExitFocus),
                 typeof(Control),
+                typeof(FocusedPopup));
+
+        #endregion
+
+        #region CloseButton property
+
+        public Button CloseButton
+        {
+            get { return (Button)GetValue(CloseButtonProperty); }
+            set { SetValue(CloseButtonProperty, value); }
+        }
+
+        public static readonly DependencyProperty CloseButtonProperty =
+            DependencyProperty.Register(
+                nameof(CloseButton),
+                typeof(Button),
                 typeof(FocusedPopup));
 
         #endregion
