@@ -5,7 +5,7 @@ namespace WikiUpload
 {
     internal interface IDialogManager
     {
-        bool AddFilesDialog(string[] permittedExtensions, string imageExtensions, out IList<string> fileNames);
+        MultiplePathsDialogResponse AddFilesDialog(string[] permittedExtensions, string imageExtensions);
         bool ConfirmInsecureLoginDialog();
         void ErrorMessage(string message);
         void ErrorMessage(string message, Exception ex);

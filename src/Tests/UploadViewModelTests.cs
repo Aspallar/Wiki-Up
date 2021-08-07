@@ -322,15 +322,17 @@ namespace Tests
         [Test]
         public void When_AddFilesIsExecutedAndFilesChosen_Then_FilesAreAddedToUploadFiles()
         {
-            IList<string> list;
             const string file1 = "foobar.jpg";
             const string file2 = "foo.jpg";
             const string file3 = "bar.jpg";
 
             _model.UploadFiles.AddIfNotDuplicate(new UploadFile { FullPath = file1 });
-            A.CallTo(() => _dialogs.AddFilesDialog(A<string[]>._, A<string>._, out list))
-                .Returns(true)
-                .AssignsOutAndRefParameters(new List<string> { file2, file3 });
+            A.CallTo(() => _dialogs.AddFilesDialog(A<string[]>._, A<string>._))
+                .Returns(new MultiplePathsDialogResponse
+                {
+                    Ok = true,
+                    Paths = new List<string> { file2, file3 },
+                });
 
             _model.AddFilesCommand.Execute(null);
 
@@ -343,15 +345,17 @@ namespace Tests
         [Test]
         public void When_AddFilesIsExecutedAndFilesChosen_Then_DuplicateFilesAreANotddedToUploadFiles()
         {
-            IList<string> list;
             const string file1 = "foobar.jpg";
             const string file2 = "foobar.jpg";
             const string file3 = "bar.jpg";
 
             _model.UploadFiles.AddIfNotDuplicate(new UploadFile { FullPath = file1 });
-            A.CallTo(() => _dialogs.AddFilesDialog(A<string[]>._, A<string>._, out list))
-                .Returns(true)
-                .AssignsOutAndRefParameters(new List<string> { file2, file3 });
+            A.CallTo(() => _dialogs.AddFilesDialog(A<string[]>._, A<string>._))
+                .Returns(new MultiplePathsDialogResponse
+                {
+                    Ok = true,
+                    Paths = new List<string> { file2, file3 },
+                });
 
             _model.AddFilesCommand.Execute(null);
 
@@ -362,11 +366,12 @@ namespace Tests
         [Test]
         public void When_AddFilesIsExecutedAndCancelled_Then_UploadFilesIsUnchanged()
         {
-            IList<string> list;
-
-            A.CallTo(() => _dialogs.AddFilesDialog(A<string[]>._, A<string>._, out list))
-                .Returns(false)
-                .AssignsOutAndRefParameters(new List<string> { "foo" });
+            A.CallTo(() => _dialogs.AddFilesDialog(A<string[]>._, A<string>._))
+                .Returns(new MultiplePathsDialogResponse
+                {
+                    Ok = false,
+                    Paths = new List<string> { "foo" },
+                });
 
             _model.AddFilesCommand.Execute(null);
 

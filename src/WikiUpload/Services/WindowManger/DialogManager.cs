@@ -8,7 +8,7 @@ namespace WikiUpload
 {
     internal class DialogManager : IDialogManager
     {
-        public bool AddFilesDialog(string[] permittedExtensions, string imageExtensions, out IList<string> fileNames)
+        public MultiplePathsDialogResponse AddFilesDialog(string[] permittedExtensions, string imageExtensions)
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -19,8 +19,11 @@ namespace WikiUpload
                 Filter = AddFilesFilterBuilder.Build(permittedExtensions, imageExtensions)
             };
             var result = (bool)openFileDialog.ShowDialog();
-            fileNames = openFileDialog.FileNames.ToList();
-            return result;
+            return new MultiplePathsDialogResponse
+            {
+                Ok = result,
+                Paths = openFileDialog.FileNames.ToList(),
+            };
         }
 
         public PathDialogResponse LoadContentDialog()

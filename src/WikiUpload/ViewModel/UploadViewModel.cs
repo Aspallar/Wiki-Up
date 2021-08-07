@@ -367,12 +367,11 @@ namespace WikiUpload
             if (AddingFiles)
                 return;
 
-            if (_dialogs.AddFilesDialog(_fileUploader.PermittedFiles.GetExtensions(),
-                _appSettings.ImageExtensions,
-                out var fileNames))
+            var result = _dialogs.AddFilesDialog(_fileUploader.PermittedFiles.GetExtensions(), _appSettings.ImageExtensions);
+            if (result.Ok)
             {
                 AddingFiles = true;
-                await UploadFiles.AddNewRangeAsync(fileNames);
+                await UploadFiles.AddNewRangeAsync(result.Paths);
                 AddingFiles = false;
             }
         }
