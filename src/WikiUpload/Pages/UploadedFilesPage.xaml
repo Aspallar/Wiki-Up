@@ -14,10 +14,10 @@
 
     <DockPanel Background="{StaticResource BackGroundColorBrush}">
         <Border DockPanel.Dock="Top">
-            <StackPanel Orientation="Horizontal" Margin="0 2 0 0" HorizontalAlignment="Center" >
+            <StackPanel Orientation="Horizontal" Margin="0 2 0 0" HorizontalAlignment="Left" >
                 <StackPanel.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                        <Setter Property="Margin" Value="0 0 3 0"/>
+                        <Setter Property="Margin" Value="0"/>
                         <Setter Property="Padding" Value="14"/>
                     </Style>
                     <system:Double x:Key="IconSize">32</system:Double>
@@ -137,6 +137,11 @@
                                 CommandParameter="{Binding}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                <ListBox.InputBindings>
+                    <KeyBinding Key="Delete"
+                        Command="{Binding RemoveSelectedFilesCommand}"
+                        CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"/>
+                </ListBox.InputBindings>
             </ListBox>
         </Border>
 

@@ -10,8 +10,8 @@ namespace WikiUpload
 {
     internal class UploadedFilesViewModel : BaseViewModel
     {
-        private IFileUploader _fileUploader;
-        private IHelpers _helpers;
+        private readonly IFileUploader _fileUploader;
+        private readonly IHelpers _helpers;
 
         public UploadedFilesViewModel(IFileUploader fileUploader, IHelpers helpers)
         {
@@ -25,6 +25,7 @@ namespace WikiUpload
             CopyToClipboardCommand = new RelayCommand(CopyToClipboard);
             SortOrderCommand = new RelayParameterizedCommand((sort) => SortOrder((SortingOptions)sort));
             RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
+            RemoveSelectedFilesCommand = new RelayParameterizedCommand((selectedItems) => RemoveSelectedFiles((IList)selectedItems));
             ClearSelectionCommand = new RelayCommand(() => UploadedFileSelectedIndex = -1);
             RemoveAllFilesCommand = new RelayCommand(RemoveAllFiles);
         }
@@ -56,7 +57,13 @@ namespace WikiUpload
             if (selected.Count == 0)
                 IsConfirmRemoveAllPopupOpen = true;
             else
-                UploadedFiles.RemoveRange(selected.OfType<UploadFile>().ToList());
+                RemoveSelectedFiles(selected);
+        }
+
+        public ICommand RemoveSelectedFilesCommand { get; }
+        private void RemoveSelectedFiles(IList selectedItems)
+        {
+            UploadedFiles.RemoveRange(selectedItems.OfType<UploadFile>().ToList());
         }
 
         public ICommand RemoveAllFilesCommand { get; }
