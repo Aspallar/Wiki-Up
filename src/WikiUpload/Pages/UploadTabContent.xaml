@@ -33,7 +33,7 @@
             </StackPanel>
 
             <!-- Upload list -->
-            <ListBox x:Name="FilesListBox" Background="Transparent"  Margin="10"
+            <local:DeleteListBox x:Name="FilesListBox" Background="Transparent"  Margin="10"
                     Focusable="False"
                     AllowDrop="True"
                     SelectionMode="Extended"
@@ -41,6 +41,7 @@
                     ItemsSource="{Binding UploadFiles}"
                     local:DropFileTargetProperty.Value="{Binding}"
                     local:ViewedItemProperty.Value="{Binding ViewedFile}"
+                    DeleteSelectedCommand="{Binding RemoveFilesCommand}"
                     Style="{StaticResource ItemHighlight}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -89,12 +90,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-                <ListBox.InputBindings>
-                    <KeyBinding Key="Delete" 
-                                Command="{Binding RemoveFilesCommand}"
-                                CommandParameter="{Binding ElementName=FilesListBox, Path=SelectedItems}"/>
-                </ListBox.InputBindings>
-            </ListBox>
+            </local:DeleteListBox>
             <StackPanel Grid.Column="2" Margin="10">
                 <Button Content="{x:Static p:Resources.ButtonAddFilesText}" Margin="0"
                         x:Name="AddFiles"

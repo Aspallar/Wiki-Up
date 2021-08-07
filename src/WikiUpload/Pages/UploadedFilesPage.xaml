@@ -118,10 +118,11 @@
         </Border>
 
         <Border BorderThickness="4">
-            <ListBox x:Name="UploadedFilesListBox"
+            <local:DeleteListBox x:Name="UploadedFilesListBox"
                     FontSize="{StaticResource FontSizeRegular}"
                     ItemsSource="{Binding UploadedFilesView}"
                     SelectedIndex="{Binding UploadedFileSelectedIndex}"
+                    DeleteSelectedCommand="{Binding RemoveSelectedFilesCommand}"
                     Background="Transparent"
                     Focusable="False"
                     BorderThickness="0"
@@ -137,12 +138,7 @@
                                 CommandParameter="{Binding}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-                <ListBox.InputBindings>
-                    <KeyBinding Key="Delete"
-                        Command="{Binding RemoveSelectedFilesCommand}"
-                        CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"/>
-                </ListBox.InputBindings>
-            </ListBox>
+            </local:DeleteListBox>
         </Border>
 
     </DockPanel>
