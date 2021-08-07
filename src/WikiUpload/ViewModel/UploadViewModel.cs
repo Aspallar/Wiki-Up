@@ -512,11 +512,12 @@ namespace WikiUpload
         public ICommand LoadContentCommand { get; }
         private void LoadContent()
         {
-            if (_dialogs.LoadContentDialog(out var fileName))
+            var result = _dialogs.LoadContentDialog();
+            if (result.Ok)
             {
                 try
                 {
-                    PageContent = _helpers.ReadAllText(fileName);
+                    PageContent = _helpers.ReadAllText(result.Path);
                 }
                 catch (Exception ex)
                 {

@@ -95,12 +95,15 @@ namespace Tests
         {
             const string thePath = "foobar.txt";
             const string content = "Some Content";
-            string path;
 
-            A.CallTo(() => _dialogs.LoadContentDialog(out path))
-                .Returns(true)
-                .AssignsOutAndRefParameters(thePath);
+            A.CallTo(() => _dialogs.LoadContentDialog())
+                .Returns(new PathDialogResponse
+                {
+                    Ok=true,
+                    Path = thePath,
+                });
             A.CallTo(() => _helpers.ReadAllText(thePath)).Returns(content);
+
             _model.PageContent = "";
 
             _model.LoadContentCommand.Execute(null);
@@ -113,9 +116,9 @@ namespace Tests
         {
             const string newContent = "Some Content";
             const string originalContent = "Initial Content";
-            string path;
 
-            A.CallTo(() => _dialogs.LoadContentDialog(out path)).Returns(false);
+            A.CallTo(() => _dialogs.LoadContentDialog())
+                .Returns(new PathDialogResponse { Ok = false });
             A.CallTo(() => _helpers.ReadAllText(A<string>._)).Returns(newContent);
             _model.PageContent = originalContent;
 
@@ -165,12 +168,14 @@ namespace Tests
         public void When_PageContentReadError_Then_ErrorIsShown()
         {
             const string thePath = "foobar.txt";
-            string path;
             A.CallTo(() => _helpers.ReadAllText(A<string>._))
                 .Throws(new Exception());
-            A.CallTo(() => _dialogs.LoadContentDialog(out path))
-                .Returns(true)
-                .AssignsOutAndRefParameters(thePath);
+            A.CallTo(() => _dialogs.LoadContentDialog())
+                .Returns(new PathDialogResponse
+                {
+                    Ok = true,
+                    Path = thePath,
+                });
 
             _model.LoadContentCommand.Execute(null);
 
