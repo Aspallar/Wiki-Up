@@ -99,12 +99,15 @@ namespace WikiUpload
             return (bool)dlg.ShowDialog();
         }
 
-        public bool AddFolderDialog(out string folder)
+        public PathDialogResponse AddFolderDialog()
         {
             var folderDialog = new VistaFolderBrowserDialog();
             var result = (bool)folderDialog.ShowDialog();
-            folder = folderDialog.SelectedPath;
-            return result;
+            return new PathDialogResponse()
+            {
+                Ok = result,
+                Path = folderDialog.SelectedPath,
+            };
         }
 
         public AddFolderOptionsDialogResponse AddFolderOptionsDialog(string folderPath)
@@ -120,6 +123,6 @@ namespace WikiUpload
                 Extension = data.GetExtension(),
             };
         }
-
     }
+
 }

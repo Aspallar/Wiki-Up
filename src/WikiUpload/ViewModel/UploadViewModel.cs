@@ -383,18 +383,19 @@ namespace WikiUpload
             if (AddingFiles)
                 return;
 
-            if (_dialogs.AddFolderDialog(out var folderPath))
+            var addFolderResult = _dialogs.AddFolderDialog();
+            if (addFolderResult.Ok)
             {
-                var result = _dialogs.AddFolderOptionsDialog(folderPath);
-                if (result.Ok)
+                var optionsResult = _dialogs.AddFolderOptionsDialog(addFolderResult.Path);
+                if (optionsResult.Ok)
                 {
                     try
                     {
                         AddingFiles = true;
-                        var fileNames = _fileFinder.GetFiles(folderPath,
-                            result.IncludeSubfolders,
-                            result.IncludeFiles,
-                            result.Extension);
+                        var fileNames = _fileFinder.GetFiles(addFolderResult.Path,
+                            optionsResult.IncludeSubfolders,
+                            optionsResult.IncludeFiles,
+                            optionsResult.Extension);
                         await UploadFiles.AddNewRangeAsync(fileNames);
                     }
                     catch (Exception ex)

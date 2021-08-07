@@ -495,20 +495,16 @@ namespace Tests
         [Test]
         public void When_AddFolderIsExecuted_Then_AddFolderDialogIsShown()
         {
-            string folder;
-
             _model.AddFolderCommand.Execute(null);
 
-            A.CallTo(() => _dialogs.AddFolderDialog(out folder)).MustHaveHappened();
+            A.CallTo(() => _dialogs.AddFolderDialog()).MustHaveHappened();
         }
 
         [Test]
         public void When_AddFolderIsExecutedAndFolderSelected_Then_AddFolderOptionsDialogIsShown()
         {
-            string folder;
-
-            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
-                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderDialog())
+                .Returns(new PathDialogResponse { Ok = true });
 
             _model.AddFolderCommand.Execute(null);
 
@@ -519,10 +515,8 @@ namespace Tests
         [Test]
         public void When_AddFolderIsExecutedAndNoFolderSelected_Then_AddFolderOptionsDialogIsNotShown()
         {
-            string folder;
-
-            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
-                .Returns(false);
+            A.CallTo(() => _dialogs.AddFolderDialog())
+                .Returns(new PathDialogResponse { Ok = false });
 
             _model.AddFolderCommand.Execute(null);
 
@@ -533,10 +527,8 @@ namespace Tests
         [Test]
         public void When_AddFolderIsExecuted_Then_MatchingFilesAreAdded()
         {
-            string folder;
-
-            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
-                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderDialog())
+                .Returns(new PathDialogResponse { Ok = true });
             A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
                 .Returns(new AddFolderOptionsDialogResponse { Ok = true });
             var files = new List<string> { "foo", "bar" };
@@ -551,10 +543,8 @@ namespace Tests
         [Test]
         public void When_AddFolderIsExecutedAndCancelledAtOptions_ThenNoFilesAreAdded()
         {
-            string folder;
-
-            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
-                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderDialog())
+                .Returns(new PathDialogResponse { Ok = true });
             A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
                 .Returns(new AddFolderOptionsDialogResponse { Ok = false });
             var files = new List<string> { "foo", "bar" };
@@ -569,10 +559,8 @@ namespace Tests
         [Test]
         public void When_AddFolderIsExecutedAndExceptionOccurs_Then_ErrorIsReported()
         {
-            string folder;
-
-            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
-                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderDialog())
+                .Returns(new PathDialogResponse { Ok = true });
             A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
                 .Returns(new AddFolderOptionsDialogResponse { Ok = true });
 
@@ -590,10 +578,8 @@ namespace Tests
         [Test]
         public void When_AddFolderIsExecutedAndExceptionOccurs_Then_NoLongerAddingFolders()
         {
-            string folder;
-
-            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
-                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderDialog())
+                .Returns(new PathDialogResponse { Ok = true });
             A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
                 .Returns(new AddFolderOptionsDialogResponse { Ok = true });
 
