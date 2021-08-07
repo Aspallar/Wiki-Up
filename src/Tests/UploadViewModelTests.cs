@@ -506,16 +506,13 @@ namespace Tests
         public void When_AddFolderIsExecutedAndFolderSelected_Then_AddFolderOptionsDialogIsShown()
         {
             string folder;
-            bool includeSubfolders;
-            IncludeFiles includeFiles;
-            string extension;
 
             A.CallTo(() => _dialogs.AddFolderDialog(out folder))
                 .Returns(true);
 
             _model.AddFolderCommand.Execute(null);
 
-            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
                 .MustHaveHappened();
         }
 
@@ -523,16 +520,13 @@ namespace Tests
         public void When_AddFolderIsExecutedAndNoFolderSelected_Then_AddFolderOptionsDialogIsNotShown()
         {
             string folder;
-            bool includeSubfolders;
-            IncludeFiles includeFiles;
-            string extension;
 
             A.CallTo(() => _dialogs.AddFolderDialog(out folder))
                 .Returns(false);
 
             _model.AddFolderCommand.Execute(null);
 
-            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
                 .MustNotHaveHappened();
         }
 
@@ -540,14 +534,11 @@ namespace Tests
         public void When_AddFolderIsExecuted_Then_MatchingFilesAreAdded()
         {
             string folder;
-            bool includeSubfolders;
-            IncludeFiles includeFiles;
-            string extension;
 
             A.CallTo(() => _dialogs.AddFolderDialog(out folder))
                 .Returns(true);
-            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
-                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
+                .Returns(new AddFolderOptionsDialogResponse { Ok = true });
             var files = new List<string> { "foo", "bar" };
             A.CallTo(() => _fileFinder.GetFiles(A<string>._, A<bool>._, A<IncludeFiles>._, A<string>._))
                 .Returns(files);
@@ -561,14 +552,11 @@ namespace Tests
         public void When_AddFolderIsExecutedAndCancelledAtOptions_ThenNoFilesAreAdded()
         {
             string folder;
-            bool includeSubfolders;
-            IncludeFiles includeFiles;
-            string extension;
 
             A.CallTo(() => _dialogs.AddFolderDialog(out folder))
                 .Returns(true);
-            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
-                .Returns(false);
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
+                .Returns(new AddFolderOptionsDialogResponse { Ok = false });
             var files = new List<string> { "foo", "bar" };
             A.CallTo(() => _fileFinder.GetFiles(A<string>._, A<bool>._, A<IncludeFiles>._, A<string>._))
                 .Returns(files);
@@ -582,14 +570,11 @@ namespace Tests
         public void When_AddFolderIsExecutedAndExceptionOccurs_Then_ErrorIsReported()
         {
             string folder;
-            bool includeSubfolders;
-            IncludeFiles includeFiles;
-            string extension;
 
             A.CallTo(() => _dialogs.AddFolderDialog(out folder))
                 .Returns(true);
-            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
-                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
+                .Returns(new AddFolderOptionsDialogResponse { Ok = true });
 
             var expectedException = new Exception("Error Message");
 
@@ -606,14 +591,11 @@ namespace Tests
         public void When_AddFolderIsExecutedAndExceptionOccurs_Then_NoLongerAddingFolders()
         {
             string folder;
-            bool includeSubfolders;
-            IncludeFiles includeFiles;
-            string extension;
 
             A.CallTo(() => _dialogs.AddFolderDialog(out folder))
                 .Returns(true);
-            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
-                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._))
+                .Returns(new AddFolderOptionsDialogResponse { Ok = true });
 
             var expectedException = new Exception("Error Message");
 

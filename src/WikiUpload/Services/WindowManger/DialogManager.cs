@@ -107,19 +107,18 @@ namespace WikiUpload
             return result;
         }
 
-        public bool AddFolderOptionsDialog(
-            string folderPath,
-            out bool includeSubfolders,
-            out IncludeFiles includeFiles,
-            out string extension)
+        public AddFolderOptionsDialogResponse AddFolderOptionsDialog(string folderPath)
         {
             var dlg = new AddFolderWindow(folderPath);
             var result = (bool)dlg.ShowDialog();
             var data = (AddFolderOptionsViewModel)dlg.DataContext;
-            includeSubfolders = data.IncludeSubfolders;
-            includeFiles = data.GetIncludeFiles();
-            extension = data.GetExtension();
-            return result;
+            return new AddFolderOptionsDialogResponse
+            {
+                Ok = result,
+                IncludeSubfolders = data.IncludeSubfolders,
+                IncludeFiles = data.GetIncludeFiles(),
+                Extension = data.GetExtension(),
+            };
         }
 
     }

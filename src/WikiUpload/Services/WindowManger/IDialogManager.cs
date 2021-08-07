@@ -15,10 +15,6 @@ namespace WikiUpload
         bool SaveContentDialog(out string fileName);
         bool SaveUploadListDialog(out string fileName);
         bool AddFolderDialog(out string folder);
-        bool AddFolderOptionsDialog(
-            string folderPath,
-            out bool includeSubfolders,
-            out IncludeFiles includeFiles,
-            out string extension);
+        AddFolderOptionsDialogResponse AddFolderOptionsDialog(string folderPath);
     }
 }

@@ -385,15 +385,16 @@ namespace WikiUpload
 
             if (_dialogs.AddFolderDialog(out var folderPath))
             {
-                if (_dialogs.AddFolderOptionsDialog(folderPath,
-                    out var includeSunfolder,
-                    out var includeFiles,
-                    out var extension))
+                var result = _dialogs.AddFolderOptionsDialog(folderPath);
+                if (result.Ok)
                 {
                     try
                     {
                         AddingFiles = true;
-                        var fileNames = _fileFinder.GetFiles(folderPath, includeSunfolder, includeFiles, extension);
+                        var fileNames = _fileFinder.GetFiles(folderPath,
+                            result.IncludeSubfolders,
+                            result.IncludeFiles,
+                            result.Extension);
                         await UploadFiles.AddNewRangeAsync(fileNames);
                     }
                     catch (Exception ex)
