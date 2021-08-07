@@ -132,11 +132,13 @@ namespace Tests
         {
             const string thePath = "foobar.txt";
             const string content = "Some Content";
-            string path;
 
-            A.CallTo(() => _dialogs.SaveContentDialog(out path))
-                .Returns(true)
-                .AssignsOutAndRefParameters(thePath);
+            A.CallTo(() => _dialogs.SaveContentDialog())
+                .Returns(new PathDialogResponse
+                {
+                    Ok=true,
+                    Path = thePath,
+                });
             _model.PageContent = content;
 
             _model.SaveContentCommand.Execute(null);
@@ -150,10 +152,9 @@ namespace Tests
         public void When_SaveContentIsExecutedAndCancelled_Then_ContentIsUnchangedAndNotSaved()
         {
             const string content = "Some Content";
-            string path;
 
-            A.CallTo(() => _dialogs.SaveContentDialog(out path))
-                .Returns(false);
+            A.CallTo(() => _dialogs.SaveContentDialog())
+                .Returns(new PathDialogResponse { Ok = false });
 
             _model.PageContent = content;
 
@@ -187,12 +188,14 @@ namespace Tests
         public void When_PageContentWriteError_Then_ErrorIsShown()
         {
             const string thePath = "foobar.txt";
-            string path;
             A.CallTo(() => _helpers.WriteAllText(A<string>._, A<string>._))
                 .Throws(new Exception());
-            A.CallTo(() => _dialogs.SaveContentDialog(out path))
-                .Returns(true)
-                .AssignsOutAndRefParameters(thePath);
+            A.CallTo(() => _dialogs.SaveContentDialog())
+                .Returns(new PathDialogResponse
+                {
+                    Ok = true,
+                    Path = thePath,
+                });
 
             _model.SaveContentCommand.Execute(null);
 

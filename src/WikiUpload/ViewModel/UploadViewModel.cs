@@ -529,11 +529,12 @@ namespace WikiUpload
         public ICommand SaveContentCommand { get; }
         private void SaveContent()
         {
-            if (_dialogs.SaveContentDialog(out var fileName))
+            var result = _dialogs.SaveContentDialog();
+            if (result.Ok)
             {
                 try
                 {
-                    _helpers.WriteAllText(fileName, PageContent);
+                    _helpers.WriteAllText(result.Path, PageContent);
                 }
                 catch (Exception ex)
                 {
