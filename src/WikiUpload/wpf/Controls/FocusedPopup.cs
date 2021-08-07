@@ -11,9 +11,19 @@ namespace WikiUpload
         public FocusedPopup() : base()
         {
             KeyDown += Popup_KeyDown;
-            Opened += Popup_Opened;
-            Closed += Popup_Closed;
             Loaded += Popup_Loaded;
+        }
+
+        protected override void OnOpened(EventArgs e)
+        {
+            base.OnOpened(e);
+            SetInitialFocus();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            SetExitFocus();
         }
 
         private void Popup_Loaded(object sender, RoutedEventArgs e)
@@ -28,27 +38,27 @@ namespace WikiUpload
             IsOpen = false;
         }
 
-        private void Popup_Closed(object sender, EventArgs e)
-        {
-            ExitFocus?.Focus();
-        }
-
         private void Popup_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
                 IsOpen = false;
         }
 
-        private void Popup_Opened(object sender, EventArgs e)
+        private void SetInitialFocus()
         {
             var initialFocus = InitialFocus;
             if (initialFocus != null)
-            {
-                initialFocus.Focus();
-                if (initialFocus is TextBox tb)
-                    tb.SelectAll();
-            }
+                SetInitialFocus(initialFocus);
         }
+
+        private static void SetInitialFocus(Control initialFocus)
+        {
+            initialFocus.Focus();
+            if (initialFocus is TextBox tb)
+                tb.SelectAll();
+        }
+
+        private void SetExitFocus() => ExitFocus?.Focus();
 
         #region InitiaFocus property
 
