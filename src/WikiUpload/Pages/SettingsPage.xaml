@@ -82,7 +82,7 @@
                                         ItemsSource="{Binding Languages, Mode=OneTime}"
                                         DisplayMemberPath="Name"
                                         SelectedItem="{Binding SelectedLanguage}"
-                                        Width="240"
+                                        MinWidth="140"
                                         HorizontalAlignment="Left">
                                     <ComboBox.Resources>
                                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource PrimaryColor}" />
@@ -99,7 +99,7 @@
                                       ItemsSource="{Binding ColorThemes, Mode=OneTime}"
                                       DisplayMemberPath="Name"
                                       SelectedItem="{Binding SelectedColorTheme}"
-                                      Width="240"
+                                      MinWidth="140"
                                       HorizontalAlignment="Left">
                                     <ComboBox.Resources>
                                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource PrimaryColor}" />
