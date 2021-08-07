@@ -76,7 +76,7 @@ namespace WikiUpload
             };
         }
 
-        public bool SaveUploadListDialog(out string fileName)
+        public PathDialogResponse SaveUploadListDialog()
         {
             var saveFileDialog = new SaveFileDialog
             {
@@ -88,8 +88,11 @@ namespace WikiUpload
                 OverwritePrompt = true,
             };
             var result = (bool)saveFileDialog.ShowDialog();
-            fileName = saveFileDialog.FileName;
-            return result;
+            return new PathDialogResponse
+            {
+                Ok = result,
+                Path = saveFileDialog.FileName
+            };
         }
 
         public bool ErrorMessage(string message, string subMessage, bool hasCancelButton = false)

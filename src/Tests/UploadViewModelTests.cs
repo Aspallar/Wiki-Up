@@ -250,12 +250,14 @@ namespace Tests
         [Test]
         public void When_SaveUploadFilesIsExecutedAndFileIsChosen_Then_UploadFilesIsSavedToFile()
         {
-            string path;
             const string thePath = "foobar.wul";
 
-            A.CallTo(() => _dialogs.SaveUploadListDialog(out path))
-                .Returns(true)
-                .AssignsOutAndRefParameters(thePath);
+            A.CallTo(() => _dialogs.SaveUploadListDialog())
+                .Returns(new PathDialogResponse
+                {
+                    Ok = true,
+                    Path= thePath,
+                });
 
             _model.SaveListCommand.Execute(null);
 
@@ -266,10 +268,8 @@ namespace Tests
         [Test]
         public void When_SaveUploadFilesIsExecutedAndCancelled_Then_UploadFilesNotSaved()
         {
-            string path;
-
-            A.CallTo(() => _dialogs.SaveUploadListDialog(out path))
-                .Returns(false);
+            A.CallTo(() => _dialogs.SaveUploadListDialog())
+                .Returns(new PathDialogResponse { Ok = false });
 
             _model.SaveListCommand.Execute(null);
 
@@ -300,14 +300,16 @@ namespace Tests
         [Test]
         public void When_SaveUploadFilesWriteError_Then_ErrorMessageIsShown()
         {
-            string path;
             const string thePath = "foobar.wul";
 
             A.CallTo(() => _uploadListSerializer.Serialize(A<string>._, A<UploadList>._))
                 .Throws(new Exception());
-            A.CallTo(() => _dialogs.SaveUploadListDialog(out path))
-                .Returns(true)
-                .AssignsOutAndRefParameters(thePath);
+            A.CallTo(() => _dialogs.SaveUploadListDialog())
+                .Returns(new PathDialogResponse
+                {
+                    Ok = true,
+                    Path = thePath,
+                });
 
             _model.SaveListCommand.Execute(null);
 

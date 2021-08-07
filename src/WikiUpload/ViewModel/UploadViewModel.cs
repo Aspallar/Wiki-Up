@@ -448,11 +448,12 @@ namespace WikiUpload
         public ICommand SaveListCommand { get; }
         private void SaveList()
         {
-            if (_dialogs.SaveUploadListDialog(out var fileName))
+            var result = _dialogs.SaveUploadListDialog();
+            if (result.Ok)
             {
                 try
                 {
-                    _uploadFileSerializer.Serialize(fileName, UploadFiles);
+                    _uploadFileSerializer.Serialize(result.Path, UploadFiles);
                 }
                 catch (Exception ex)
                 {

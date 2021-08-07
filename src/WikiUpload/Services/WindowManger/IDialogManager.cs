@@ -13,7 +13,7 @@ namespace WikiUpload
         PathDialogResponse LoadContentDialog();
         PathDialogResponse LoadUploadListDialog();
         PathDialogResponse SaveContentDialog();
-        bool SaveUploadListDialog(out string fileName);
+        PathDialogResponse SaveUploadListDialog();
         PathDialogResponse AddFolderDialog();
         AddFolderOptionsDialogResponse AddFolderOptionsDialog(string folderPath);
     }
