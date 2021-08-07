@@ -578,6 +578,53 @@ namespace Tests
             Assert.That(_model.UploadFiles, Is.Empty);
         }
 
+        [Test]
+        public void When_AddFolderIsExecutedAndExceptionOccurs_Then_ErrorIsReported()
+        {
+            string folder;
+            bool includeSubfolders;
+            IncludeFiles includeFiles;
+            string extension;
+
+            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
+                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
+                .Returns(true);
+
+            var expectedException = new Exception("Error Message");
+
+            A.CallTo(() => _fileFinder.GetFiles(A<string>._, A<bool>._, A<IncludeFiles>._, A<string>._))
+                .Throws(expectedException);
+
+            _model.AddFolderCommand.Execute(null);
+
+            A.CallTo(() => _dialogs.ErrorMessage(Resources.UnableToAddFiles, expectedException))
+                .MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
+        public void When_AddFolderIsExecutedAndExceptionOccurs_Then_NoLongerAddingFolders()
+        {
+            string folder;
+            bool includeSubfolders;
+            IncludeFiles includeFiles;
+            string extension;
+
+            A.CallTo(() => _dialogs.AddFolderDialog(out folder))
+                .Returns(true);
+            A.CallTo(() => _dialogs.AddFolderOptionsDialog(A<string>._, out includeSubfolders, out includeFiles, out extension))
+                .Returns(true);
+
+            var expectedException = new Exception("Error Message");
+
+            A.CallTo(() => _fileFinder.GetFiles(A<string>._, A<bool>._, A<IncludeFiles>._, A<string>._))
+                .Throws(expectedException);
+
+            _model.AddFolderCommand.Execute(null);
+
+            Assert.That(_model.AddingFiles, Is.False);
+        }
+
         #endregion
 
         #region Process Launch
