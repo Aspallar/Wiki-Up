@@ -59,7 +59,7 @@ namespace WikiUpload
             };
         }
 
-        public bool LoadUploadListDialog(out string fileName)
+        public PathDialogResponse LoadUploadListDialog()
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -69,8 +69,11 @@ namespace WikiUpload
                 CheckFileExists = true,
             };
             var result = (bool)openFileDialog.ShowDialog();
-            fileName = openFileDialog.FileName;
-            return result;
+            return new PathDialogResponse
+            {
+                Ok = result,
+                Path = openFileDialog.FileName,
+            };
         }
 
         public bool SaveUploadListDialog(out string fileName)

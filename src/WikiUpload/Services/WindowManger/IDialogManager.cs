@@ -11,7 +11,7 @@ namespace WikiUpload
         void ErrorMessage(string message, Exception ex);
         bool ErrorMessage(string message, string subMessage, bool hasCancelButton = false);
         PathDialogResponse LoadContentDialog();
-        bool LoadUploadListDialog(out string fileName);
+        PathDialogResponse LoadUploadListDialog();
         PathDialogResponse SaveContentDialog();
         bool SaveUploadListDialog(out string fileName);
         PathDialogResponse AddFolderDialog();

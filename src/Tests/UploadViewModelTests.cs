@@ -208,13 +208,15 @@ namespace Tests
         [Test]
         public void When_LoadUploadFilesIsExecutedAndFileIsChosen_Then_UploadFilesIsAppenedFromFile()
         {
-            string path;
             const string loadFilePath = "foobar.wul";
             const string filePath = "foobar.jpg";
 
-            A.CallTo(() => _dialogs.LoadUploadListDialog(out path))
-                .Returns(true)
-                .AssignsOutAndRefParameters(loadFilePath);
+            A.CallTo(() => _dialogs.LoadUploadListDialog())
+                .Returns(new PathDialogResponse
+                {
+                    Ok = true,
+                    Path = loadFilePath,
+                });
 
             A.CallTo(() => _uploadListSerializer.Deserialize(loadFilePath)).
                 Returns(new List<UploadFile>
@@ -234,10 +236,8 @@ namespace Tests
         [Test]
         public void When_LoadUploadFilesIsExecutedAndCancelled_Then_UploadFilesIsUnchanged()
         {
-            string path;
-
-            A.CallTo(() => _dialogs.LoadUploadListDialog(out path))
-                .Returns(false);
+            A.CallTo(() => _dialogs.LoadUploadListDialog())
+                .Returns(new PathDialogResponse { Ok = false  });
 
             _model.LoadListCommand.Execute(null);
 
@@ -280,14 +280,16 @@ namespace Tests
         [Test]
         public void When_LoadUploadFilesReadError_Then_ErrorMessageIsShown()
         {
-            string path;
             const string thePath = "foobar.wul";
 
             A.CallTo(() => _uploadListSerializer.Deserialize(A<string>._))
                 .Throws(new Exception());
-            A.CallTo(() => _dialogs.LoadUploadListDialog(out path))
-                .Returns(true)
-                .AssignsOutAndRefParameters(thePath);
+            A.CallTo(() => _dialogs.LoadUploadListDialog())
+                .Returns(new PathDialogResponse()
+                {
+                    Ok = true,
+                    Path = thePath,
+                });
 
             _model.LoadListCommand.Execute(null);
 

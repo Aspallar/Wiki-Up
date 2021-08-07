@@ -425,12 +425,13 @@ namespace WikiUpload
             if (AddingFiles)
                 return;
 
-            if (_dialogs.LoadUploadListDialog(out var fileName))
+            var result = _dialogs.LoadUploadListDialog();
+            if (result.Ok)
             {
                 AddingFiles = true;
                 try
                 {
-                    var newFiles = _uploadFileSerializer.Deserialize(fileName);
+                    var newFiles = _uploadFileSerializer.Deserialize(result.Path);
                     await UploadFiles.AddRangeAsync(newFiles);
                 }
                 catch (Exception ex)
