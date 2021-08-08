@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Window\WikiUpWindow.cs" />
     <Compile Include="wpf\AttachedProperties\DragTargetAttachedProperty.cs" />
+    <Compile Include="wpf\AttachedProperties\FocusExtension.cs" />
     <Compile Include="wpf\AttachedProperties\ListBoxAttachedProperties.cs" />
     <Compile Include="wpf\Behaviours\AutoComplete.cs" />
     <Compile Include="wpf\Behaviours\SelectRange.cs" />

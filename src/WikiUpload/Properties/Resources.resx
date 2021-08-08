@@ -692,31 +692,31 @@
   </data>
   
   <data name="ViewUploadedFiles" xml:space="preserve">
-    <value>View list of uploaded files.</value>
+    <value>View list of uploaded files</value>
   </data>
 
   <data name="RemoveAllFilesTooltip" xml:space="preserve">
-    <value>Remove ALL files from list.</value>
+    <value>Remove ALL files from list</value>
   </data>
 
   <data name="RemoveSelectedFilesTooltip" xml:space="preserve">
-    <value>Remove selected files from list.</value>
+    <value>Remove selected files from list</value>
   </data>
 
   <data name="ClearSelection" xml:space="preserve">
-    <value>Clear selection.</value>
+    <value>Clear selection</value>
   </data>
 
   <data name="NoSorting" xml:space="preserve">
-    <value>No Sorting</value>
+    <value>No Sorting (Ctrl+0)</value>
   </data>
 
   <data name="SortAscending" xml:space="preserve">
-    <value>Sort ascending</value>
+    <value>Sort ascending (Ctrl+2)</value>
   </data>
 
   <data name="SortDescending" xml:space="preserve">
-    <value>Sort descending</value>
+    <value>Sort descending (Ctrl+3)</value>
   </data>
   
   <data name="WindowPlacement" xml:space="preserve">

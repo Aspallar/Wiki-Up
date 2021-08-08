@@ -439,7 +439,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear selection..
+        ///   Looks up a localized string similar to Clear selection.
         /// </summary>
         public static string ClearSelection {
             get {
@@ -916,7 +916,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Sorting.
+        ///   Looks up a localized string similar to No Sorting (Ctrl+0).
         /// </summary>
         public static string NoSorting {
             get {
@@ -1024,7 +1024,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove ALL files from list..
+        ///   Looks up a localized string similar to Remove ALL files from list.
         /// </summary>
         public static string RemoveAllFilesTooltip {
             get {
@@ -1042,7 +1042,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove selected files from list..
+        ///   Looks up a localized string similar to Remove selected files from list.
         /// </summary>
         public static string RemoveSelectedFilesTooltip {
             get {
@@ -1114,7 +1114,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sort ascending.
+        ///   Looks up a localized string similar to Sort ascending (Ctrl+2).
         /// </summary>
         public static string SortAscending {
             get {
@@ -1123,7 +1123,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sort descending.
+        ///   Looks up a localized string similar to Sort descending (Ctrl+3).
         /// </summary>
         public static string SortDescending {
             get {
@@ -1501,7 +1501,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View list of uploaded files..
+        ///   Looks up a localized string similar to View list of uploaded files.
         /// </summary>
         public static string ViewUploadedFiles {
             get {

@@ -112,18 +112,28 @@ namespace WikiUpload
             if (sortOption == SortingOption)
                 return;
 
+            IsUnsortedFocused = IsAcsendingFocused = IsDescendingFocused = false;
             UploadedFilesView.SortDescriptions.Clear();
             SortingOption = sortOption;
             switch (sortOption)
             {
+                case SortingOptions.None:
+                    IsUnsortedFocused = true;
+                    break;
                 case SortingOptions.Ascending:
                     SetOrder(ListSortDirection.Ascending);
+                    IsAcsendingFocused = true;
                     break;
                 case SortingOptions.Descending:
                     SetOrder(ListSortDirection.Descending);
+                    IsDescendingFocused = true;
                     break;
             }
         }
+
+        public bool IsUnsortedFocused { get; set; }
+        public bool IsAcsendingFocused { get; set; }
+        public bool IsDescendingFocused { get; set; }
 
         private void SetOrder(ListSortDirection listSortDirection)
             => UploadedFilesView.SortDescriptions.Add(CreateSortDescription(listSortDirection));

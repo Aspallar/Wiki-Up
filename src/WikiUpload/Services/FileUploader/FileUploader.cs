@@ -52,6 +52,9 @@ namespace WikiUpload
             CreateClient();
         }
 
+        /// <summary>
+        /// Creates a fresh HttpClient with no cookies
+        /// </summary>
         private void CreateClient()
         {
             var handler = new HttpClientHandler();
@@ -63,6 +66,9 @@ namespace WikiUpload
                 _client.Timeout = TimeSpan.FromSeconds( _timeoutSeconds);
         }
 
+        /// <summary>
+        /// Sign out of wiki
+        /// </summary>
         public void LogOff()
         {
             _client.Dispose();
@@ -70,11 +76,15 @@ namespace WikiUpload
             CreateClient();
         }
 
+        /// <summary>
+        /// Logoff if there are any cookies present on current client
+        /// </summary>
         private void LogOffIfCookiesPresent()
         {
             if (_cookies.Count > 0)
                 LogOff();
         }
+
 
         public async Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted)
         {
@@ -116,7 +126,7 @@ namespace WikiUpload
                     return false;
 
                 var editTokenTask = _useDeprecatedLogin ? GetEditTokenViaIntokenAsync() : GetEditTokenAsync();
-                var userConfirmedTask = IsUserConfirmedAsync(username);
+                Task<bool> userConfirmedTask = IsUserConfirmedAsync(username);
                 var authorizedTask = IsAuthorizedForUploadFilesAsync(username);
                 var siteInfoTask = GeSiteInfoAsync();
 
@@ -147,8 +157,6 @@ namespace WikiUpload
                 _editToken = editTokenTask.Result;
 
                 var siteInfo = siteInfoTask.Result;
-                //HomePage = siteInfo.BaseUrl;
-                //ScriptPath = siteInfo.ScriptPath;
                 if (!allFilesPermitted)
                 {
                     foreach (var ext in siteInfo.Extensions)
