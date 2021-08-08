@@ -229,6 +229,7 @@
     <Compile Include="Services\WindowManger\WindowManager.cs" />
     <Compile Include="wpf\Controls\DeleteListBox.cs" />
     <Compile Include="wpf\Controls\FocusedPopup.cs" />
+    <Compile Include="wpf\Controls\TimedPopup.cs" />
     <Compile Include="wpf\ValueConverters\BaseMulriValueConverter.cs" />
     <Compile Include="wpf\ValueConverters\SelectedIndexToTooltipConverter.cs" />
     <Compile Include="wpf\ValueConverters\SortOrderToColorConverter.cs" />

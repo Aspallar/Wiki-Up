@@ -31,14 +31,14 @@ namespace WikiUpload
         }
 
         public int UploadedFileSelectedIndex { get; set; }
-
         public UploadList UploadedFiles { get; }
-
         public ICollectionView UploadedFilesView { get; }
-
         public SortingOptions SortingOption { get; set; }
-
         public bool IsConfirmRemoveAllPopupOpen { get; set; }
+        public bool IsCopiedPopupOpen { get; set; }
+        public bool IsUnsortedFocused { get; set; }
+        public bool IsAcsendingFocused { get; set; }
+        public bool IsDescendingFocused { get; set; }
 
         public ICommand ClearSelectionCommand { get; }
 
@@ -76,12 +76,19 @@ namespace WikiUpload
         public ICommand CopyToClipboardCommand { get; }
         private void CopyToClipboard()
         {
+            _helpers.SetClipboardText(MakeClipboardText());
+            IsCopiedPopupOpen = true;
+        }
+
+        private string MakeClipboardText()
+        {
             var fileNames = GetOrderedWikiFileNames();
 
             var output = new StringBuilder();
             foreach (var fileName in fileNames)
                 output.AppendLine(fileName);
-            _helpers.SetClipboardText(output.ToString());
+
+            return output.ToString();
         }
 
         private IEnumerable<string> GetOrderedWikiFileNames()
@@ -131,11 +138,7 @@ namespace WikiUpload
             }
         }
 
-        public bool IsUnsortedFocused { get; set; }
-        public bool IsAcsendingFocused { get; set; }
-        public bool IsDescendingFocused { get; set; }
-
-        private void SetOrder(ListSortDirection listSortDirection)
+         private void SetOrder(ListSortDirection listSortDirection)
             => UploadedFilesView.SortDescriptions.Add(CreateSortDescription(listSortDirection));
 
         private SortDescription CreateSortDescription(ListSortDirection listSortDirection)
