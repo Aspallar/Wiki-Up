@@ -683,4 +683,64 @@
     <value>UPLOAD LISTE</value>
   </data>
 
+  <data name="UploadedFiles" xml:space="preserve">
+    <value>Hochgeladene Dateien</value>
+  </data>
+  
+  <data name="ViewUploadedFiles" xml:space="preserve">
+    <value>Liste der hochgeladenen Dateien ansehen</value>
+  </data>
+
+  <data name="RemoveAllFilesTooltip" xml:space="preserve">
+    <value>ALLE Dateien aus der Liste entfernen</value>
+  </data>
+
+  <data name="RemoveAllFilesConfirmation" xml:space="preserve">
+    <value>Alle Einträge aus der Liste entfernen?</value>
+  </data>
+
+  <data name="RemoveSelectedFilesTooltip" xml:space="preserve">
+    <value>Ausgewählte Dateien aus der Liste entfernen</value>
+  </data>
+
+  <data name="ClearSelection" xml:space="preserve">
+    <value>Auswahl aufheben</value>
+  </data>
+
+  <data name="NoSorting" xml:space="preserve">
+    <value>Unsortiert (Strg+0)</value>
+  </data>
+
+  <data name="SortAscending" xml:space="preserve">
+    <value>Aufsteigend sortieren (Strg+2)</value>
+  </data>
+
+  <data name="SortDescending" xml:space="preserve">
+    <value>Absteigend sortieren (Strg+3)</value>
+  </data>
+
+  <data name="WindowPlacement" xml:space="preserve">
+    <value>Fensterposition</value>
+  </data>
+
+  <data name="Configure" xml:space="preserve">
+    <value>Einstellen...</value>
+  </data>
+
+  <data name="MainWindow" xml:space="preserve">
+    <value>Hauptfenster</value>
+  </data>
+
+  <data name="UploadedFilesWindow" xml:space="preserve">
+    <value>Hochgeladene Dateien Fenster</value>
+  </data>
+
+  <data name="RememberLastWindowPosition" xml:space="preserve">
+    <value>Letzte Position der Wiki-Up Fenster merken?</value>
+  </data>
+
+  <data name="CopiedToClipboard" xml:space="preserve">
+    <value>In die Zwischenablage kopiert</value>
+  </data>
+
 </root>
