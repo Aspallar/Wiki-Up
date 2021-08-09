@@ -699,6 +699,10 @@
     <value>Remove ALL files from list</value>
   </data>
 
+  <data name="RemoveAllFilesConfirmation" xml:space="preserve">
+    <value>Remove all entries from list?</value>
+  </data>
+
   <data name="RemoveSelectedFilesTooltip" xml:space="preserve">
     <value>Remove selected files from list</value>
   </data>
@@ -737,6 +741,10 @@
 
   <data name="RememberLastWindowPosition" xml:space="preserve">
     <value>Remember the last position of Wiki-Up windows?</value>
+  </data>
+
+  <data name="CopiedToClipboard" xml:space="preserve">
+    <value>Copied to clipboard</value>
   </data>
 
 </root>

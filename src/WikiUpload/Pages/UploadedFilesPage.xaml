@@ -77,7 +77,7 @@
                                            Width="36" Height="36"
                                            VerticalAlignment="Center"
                                            Foreground="Green"/>
-                                <TextBlock Text="Copied to clipboard"
+                                <TextBlock Text="{x:Static p:Resources.CopiedToClipboard}"
                                            VerticalAlignment="Center"
                                            FontSize="{StaticResource FontSizeRegular}"
                                            Margin="20 0 0 0"/>
@@ -109,7 +109,7 @@
                         <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
                                 Padding="10" Background="Black" CornerRadius="6">
                             <StackPanel>
-                                <TextBlock Text="Remove all entries from list?"
+                                <TextBlock Text="{x:Static p:Resources.RemoveAllFilesConfirmation}"
                                            FontSize="{StaticResource FontSizeRegular}"
                                            Margin="0 0 0 4"/>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

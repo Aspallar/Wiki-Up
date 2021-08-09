@@ -511,6 +511,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copied to clipboard.
+        /// </summary>
+        public static string CopiedToClipboard {
+            get {
+                return ResourceManager.GetString("CopiedToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copyright.
         /// </summary>
         public static string CopyrightText {
@@ -1020,6 +1029,15 @@ namespace WikiUpload.Properties {
         public static string RememberPasswordForWiki {
             get {
                 return ResourceManager.GetString("RememberPasswordForWiki", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all entries from list?.
+        /// </summary>
+        public static string RemoveAllFilesConfirmation {
+            get {
+                return ResourceManager.GetString("RemoveAllFilesConfirmation", resourceCulture);
             }
         }
         
