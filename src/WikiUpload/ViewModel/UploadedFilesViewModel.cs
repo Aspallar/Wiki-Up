@@ -22,7 +22,7 @@ namespace WikiUpload
             UploadedFiles = new UploadList(_helpers);
             UploadedFilesView = CollectionViewSource.GetDefaultView(UploadedFiles);
             LaunchFilePageCommand = new RelayParameterizedCommand((file) => LaunchFilePage((UploadFile)file));
-            CopyToClipboardCommand = new RelayCommand(CopyToClipboard);
+            CopyToClipboardCommand = new RelayParameterizedCommand((selectedItems) => CopyToClipboard((IList)selectedItems));
             SortOrderCommand = new RelayParameterizedCommand((sort) => SortOrder((SortingOptions)sort));
             RemoveFilesCommand = new RelayParameterizedCommand(RemoveFiles);
             RemoveSelectedFilesCommand = new RelayParameterizedCommand((selectedItems) => RemoveSelectedFiles((IList)selectedItems));
@@ -74,15 +74,16 @@ namespace WikiUpload
         }
 
         public ICommand CopyToClipboardCommand { get; }
-        private void CopyToClipboard()
+        private void CopyToClipboard(IList selectedItems)
         {
-            _helpers.SetClipboardText(MakeClipboardText());
+            _helpers.SetClipboardText(MakeClipboardText(selectedItems));
             IsCopiedPopupOpen = true;
         }
 
-        private string MakeClipboardText()
+        private string MakeClipboardText(IList selectedItems)
         {
-            var fileNames = GetOrderedWikiFileNames();
+            var files = selectedItems.Count == 0 ? UploadedFiles : selectedItems.Cast<UploadFile>();
+            var fileNames = GetOrderedWikiFileNames(files);
 
             var output = new StringBuilder();
             foreach (var fileName in fileNames)
@@ -91,9 +92,9 @@ namespace WikiUpload
             return output.ToString();
         }
 
-        private IEnumerable<string> GetOrderedWikiFileNames()
+        private IEnumerable<string> GetOrderedWikiFileNames(IEnumerable<UploadFile> files)
         {
-            var fileNames = GetWikiFilenames();
+            var fileNames = GetWikiFilenames(files);
             return SortWikiFileNames(fileNames);
         }
 
@@ -110,8 +111,8 @@ namespace WikiUpload
             }
         }
 
-        private IEnumerable<string> GetWikiFilenames()
-            => UploadedFiles.Select(x => _fileUploader.ServerFilename(x.FileName));
+        private IEnumerable<string> GetWikiFilenames(IEnumerable<UploadFile> files)
+            => files.Select(x => _fileUploader.ServerFilename(x.FileName));
 
         public ICommand SortOrderCommand { get; }
         private void SortOrder(SortingOptions sortOption)

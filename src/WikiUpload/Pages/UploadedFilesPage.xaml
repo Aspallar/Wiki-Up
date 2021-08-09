@@ -15,7 +15,8 @@
 
     <Page.InputBindings>
         <KeyBinding Key="C" Modifiers="Ctrl"
-                    Command="{Binding CopyToClipboardCommand}"/>
+                    Command="{Binding CopyToClipboardCommand}"
+                    CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"/>
         <KeyBinding Key="D1" Modifiers="Ctrl"
                     Command="{Binding SortOrderCommand}"
                     CommandParameter="{x:Static local:SortingOptions.None}"/>
@@ -60,7 +61,8 @@
                 <Grid>
                     <Button x:Name="CopyToClipboard"
                             ToolTip="{x:Static p:Resources.CopyToClipboard}"
-                            Command="{Binding CopyToClipboardCommand}">
+                            Command="{Binding CopyToClipboardCommand}"
+                            CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}">
                         <iconPacks:PackIconFontAwesome Kind="ClipboardListSolid"/>
                     </Button>
                     <local:TimedPopup IsOpen="{Binding IsCopiedPopupOpen}"
