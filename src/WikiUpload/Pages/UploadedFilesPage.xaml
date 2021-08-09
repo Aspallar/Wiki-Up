@@ -17,6 +17,8 @@
         <KeyBinding Key="C" Modifiers="Ctrl"
                     Command="{Binding CopyToClipboardCommand}"
                     CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"/>
+        <KeyBinding Key="Z" Modifiers="Ctrl"
+                    Command="{Binding ClearSelectionCommand}"/>
         <KeyBinding Key="D1" Modifiers="Ctrl"
                     Command="{Binding SortOrderCommand}"
                     CommandParameter="{x:Static local:SortingOptions.None}"/>
