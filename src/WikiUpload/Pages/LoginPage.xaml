@@ -21,10 +21,7 @@
     </Page.InputBindings>
     
     <Border Background="{StaticResource BackGroundColorBrush}">
-        <Grid>
-            <Grid.Background>
-                <ImageBrush Opacity="0.6" Stretch="Fill" ImageSource="/Images/Backgrounds/bg.jpg" />
-            </Grid.Background>
+        <Grid Background="{StaticResource BackgroundImageBrush}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel
                     VerticalAlignment="Center"

@@ -78,5 +78,7 @@
     <Color x:Key="ToggleOnForegroundColor">#ffbf00</Color>
     <SolidColorBrush x:Key="ToggleOnForegroundBrush" Color="{StaticResource ToggleOnForegroundColor}"/>
 
+    <ImageBrush x:Key="BackgroundImageBrush" Opacity="0.6" Stretch="Fill" ImageSource="/Images/Backgrounds/bg.jpg" />
+
 </ResourceDictionary>
 

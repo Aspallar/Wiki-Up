@@ -33,6 +33,8 @@ namespace WikiUpload
         public Uri RakdosSource { get; set; }
 
         public Uri MidnightLightsSource { get; set; }
+        
+        public Uri PlainGray { get; set; }
 
         private Uri AppSkinResource()
         {
@@ -60,13 +62,16 @@ namespace WikiUpload
                 case Skin.MidnightLights:
                     thisSource = MidnightLightsSource;
                     break;
+                case Skin.PlainGray:
+                    thisSource = PlainGray;
+                    break;
             }
             return thisSource;
         }
 
         // disable never used warning, Fody will use it
-        #pragma warning disable CS0067
+#pragma warning disable CS0067
         public event PropertyChangedEventHandler PropertyChanged;
-        #pragma warning restore CS0067
+#pragma warning restore CS0067
     }
 }

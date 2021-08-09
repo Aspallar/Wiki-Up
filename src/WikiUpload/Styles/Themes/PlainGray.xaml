@@ -3,19 +3,21 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:WikiUpload">
 
+    <!-- local - only used in this xaml file -->
+    <Color x:Key="SolarizedRed">#dc322f</Color>
+
     <!-- base colors (from material desigb) -->
-    <Color x:Key="PrimaryColor">#280680</Color>
-    <Color x:Key="PrimaryLightColor">#5e35b1</Color>
-    <Color x:Key="PrimaryDarkColor">#1d1c19</Color>
+    <Color x:Key="PrimaryColor">#3D424B</Color>
+    <Color x:Key="PrimaryLightColor">#70757E</Color>
+    <Color x:Key="PrimaryDarkColor">#2B2F36</Color>
     <Color x:Key="DisabledColor">Gray</Color>
-    <Color x:Key="Amber">#ffbf00</Color>
+    <Color x:Key="Amber">#b58900</Color> <!-- solarized yellow-->
 
-
-    <Color x:Key="PrimaryTextColor">LightGray</Color>
+    <Color x:Key="PrimaryTextColor">#93a1a1</Color>
     <Color x:Key="SecondaryTextColor">#000000</Color>
-
+    
     <!-- highlighted text color (not selection highlight) -->
-    <Color x:Key="HighlightTextColor">White</Color>
+    <Color x:Key="HighlightTextColor">#2aa198</Color>
 
     <!-- brushes for base colors -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
@@ -29,7 +31,7 @@
     <SolidColorBrush x:Key="BackGroundColorBrush" Color="{StaticResource PrimaryDarkColor}" />
     <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource PrimaryDarkColor}"/>
     <SolidColorBrush x:Key="ControlDisabledBackgroundBrush" Color="{StaticResource DisabledColor}"/>
-    <SolidColorBrush x:Key="VeryLightNackgroundBrush" Color="White"/>
+    <SolidColorBrush x:Key="VeryLightNackgroundBrush" Color="#fdf6e3"/>
 
     <!-- button colors -->
     <SolidColorBrush x:Key="ButtonColorBrush" Color="{StaticResource PrimaryColor}" />
@@ -37,21 +39,21 @@
     <SolidColorBrush x:Key="ButtonMouseOverBrush" Color="{StaticResource PrimaryLightColor}"/>
 
     <!-- error message text color -->
-    <Color x:Key="ErrorColor">Red</Color>
+    <Color x:Key="ErrorColor">#dc322f</Color>
     <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
 
     <!-- upload status icon colors -->
     <Color x:Key="UploadStatusWaitingColor">Gray</Color>
-    <Color x:Key="UploadStatusUploadingColor">Green</Color>
-    <Color x:Key="UploadStatusErrorColor">#cc0000</Color>
+    <Color x:Key="UploadStatusUploadingColor">#2aa198</Color>
+    <!--<Color x:Key="UploadStatusErrorColor">#cc0000</Color>-->
 
     <SolidColorBrush x:Key="UploadStatusWaitingBrush" Color="{StaticResource UploadStatusWaitingColor}"/>
     <SolidColorBrush x:Key="UploadStatusWarningBrush" Color="{StaticResource Amber}"/>
     <SolidColorBrush x:Key="UploadStatusUploadingBrush" Color="{StaticResource UploadStatusUploadingColor}"/>
-    <SolidColorBrush x:Key="UploadStatusErrorBrush" Color="{StaticResource UploadStatusErrorColor}"/>
+    <SolidColorBrush x:Key="UploadStatusErrorBrush" Color="{StaticResource SolarizedRed}"/>
 
     <!-- placeholdesr color for LineTextBox -->
-    <Color x:Key="PlaceholderColor">Gray</Color>
+    <Color x:Key="PlaceholderColor">#93a1a1</Color>
     <SolidColorBrush x:Key="PlaceholdeBrush" Color="{StaticResource PlaceholderColor}"/>
     
     <!-- tab control -->
@@ -65,20 +67,19 @@
     <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush" Color="#888" />
 
     <!-- Watermark Colors -->
-    <Color x:Key="WatermarkColor">#282828</Color>
+    <Color x:Key="WatermarkColor">#3A3E45</Color>
     <SolidColorBrush x:Key="WatermarkBrush" Color="{StaticResource WatermarkColor}" />
-    <Color x:Key="WatermarkLightColor">#A0A0A0</Color>
-    <SolidColorBrush x:Key="WatermarkLightBrush" Color="{StaticResource WatermarkLightColor}" />
+    <SolidColorBrush x:Key="WatermarkLightBrush" Color="{StaticResource PrimaryLightColor}" />
 
     <!-- misc -->
     <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource Amber}"/>
     <SolidColorBrush x:Key="FocusedBorderBrush" Color="White"/>
     <SolidColorBrush x:Key="FlipSwitchBackground" Color="Black"/>
     <SolidColorBrush x:Key="ScrollBarThumbBrush" Color="{StaticResource PrimaryLightColor}"/>
-    <Color x:Key="ToggleOnForegroundColor">Deepskyblue</Color>
+    <Color x:Key="ToggleOnForegroundColor">Wheat</Color>
     <SolidColorBrush x:Key="ToggleOnForegroundBrush" Color="{StaticResource ToggleOnForegroundColor}"/>
 
-    <ImageBrush x:Key="BackgroundImageBrush" Opacity="0.6" Stretch="Fill" ImageSource="/Images/Backgrounds/bg.jpg" />
+    <SolidColorBrush Color="#2B2F36" x:Key="BackgroundImageBrush"/>
 
 </ResourceDictionary>
 

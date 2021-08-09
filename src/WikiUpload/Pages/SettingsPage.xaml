@@ -19,11 +19,7 @@
         <Thickness x:Key="BorderMargin" Left="20" Right="20" />
     </Page.Resources>
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush Opacity="0.6" Stretch="Fill" ImageSource="/Images/Backgrounds/bg.jpg" />
-        </Grid.Background>
-
+    <Grid Background="{StaticResource BackgroundImageBrush}">
         <DockPanel>
             <DockPanel.Resources>
                 <system:Double x:Key="SettingsPaneMaxwidth">1024</system:Double>

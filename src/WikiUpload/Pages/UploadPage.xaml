@@ -19,11 +19,7 @@
 
     <Border Background="{StaticResource BackGroundColorBrush}" BorderThickness="0">
 
-        <Grid MinWidth="586" MinHeight="480">
-            <Grid.Background>
-                <ImageBrush Opacity="0.6" Stretch="Fill" ImageSource="/Images/Backgrounds/bg.jpg" />
-            </Grid.Background>
-
+        <Grid MinWidth="586" MinHeight="480" Background="{StaticResource BackgroundImageBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
