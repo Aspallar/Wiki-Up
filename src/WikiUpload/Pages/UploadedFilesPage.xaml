@@ -72,8 +72,7 @@
                             PopupAnimation="Fade"
                             Placement="Bottom"   
                             AllowsTransparency="True">
-                        <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
-                                Padding="10" Background="Black" CornerRadius="6">
+                        <Border Style="{StaticResource PopupBorder}">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconFontAwesome Kind="CheckSolid"
                                            Width="36" Height="36"
@@ -108,8 +107,7 @@
                             CloseButton="{Binding ElementName=NoRemoveAll}"
                             InitialFocus="{Binding ElementName=YesRemoveAll}"
                             ExitFocus="{Binding ElementName=TrashButton}">
-                        <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
-                                Padding="10" Background="Black" CornerRadius="6">
+                        <Border Style="{StaticResource PopupBorder}">
                             <StackPanel>
                                 <TextBlock Text="{x:Static p:Resources.RemoveAllFilesConfirmation}"
                                            FontSize="{StaticResource FontSizeRegular}"

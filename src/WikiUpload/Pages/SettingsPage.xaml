@@ -126,8 +126,7 @@
                                             AllowsTransparency="True"
                                             InitialFocus="{Binding ElementName=WindowPlacementFocus}"
                                             ExitFocus="{Binding ElementName=ConfigureWindowPlacement}">
-                                        <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
-                                                    Padding="10" Background="Black" CornerRadius="6">
+                                        <Border Style="{StaticResource PopupBorder}">
                                             <StackPanel>
                                                 <TextBlock Text="{x:Static p:Resources.RememberLastWindowPosition}" 
                                                            FontSize="{StaticResource FontSizeRegular}"
@@ -225,8 +224,7 @@
                                                AllowsTransparency="True"
                                                InitialFocus="{Binding ElementName=ImageExtension}"
                                                ExitFocus="{Binding ElementName=AddExtension}">
-                                            <Border BorderThickness="2" BorderBrush="{StaticResource PrimaryLightBrush}"
-                                                    Padding="10" Background="Black" CornerRadius="6">
+                                            <Border Style="{StaticResource PopupBorder}">
                                                 <StackPanel>
                                                     <TextBlock Text="{x:Static p:Resources.EnterFileExtension}" 
                                                                FontSize="{StaticResource FontSizeRegular}"

@@ -31,4 +31,12 @@
         </Style.Resources>
     </Style>
 
+    <Style x:Key="PopupBorder" TargetType="Border">
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryLightBrush}"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+
 </ResourceDictionary>
