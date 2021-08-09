@@ -687,4 +687,64 @@
     <value>LISTE DE MISE EN LIGNE</value>
   </data>
 
+  <data name="UploadedFiles" xml:space="preserve">
+    <value>Fichiers mis en ligne</value>
+  </data>
+
+  <data name="ViewUploadedFiles" xml:space="preserve">
+    <value>Voir la liste des fichiers mis en ligne</value>
+  </data>
+
+  <data name="RemoveAllFilesTooltip" xml:space="preserve">
+    <value>Supprimer tous les fichiers de la liste</value>
+  </data>
+  
+  <data name="RemoveAllFilesConfirmation" xml:space="preserve">
+    <value>Supprimer tous les éléments de la liste ?</value>
+  </data>
+  
+  <data name="RemoveSelectedFilesTooltip" xml:space="preserve">
+    <value>Supprimer les fichiers sélectionnés de la liste</value>
+  </data>
+  
+  <data name="ClearSelection" xml:space="preserve">
+    <value>Effacer la sélection</value>
+  </data>
+  
+    <data name="NoSorting" xml:space="preserve">
+    <value>Pas de tri (Ctrl+0)</value>
+  </data>
+  
+  <data name="SortAscending" xml:space="preserve">
+    <value>Tri croissant (Ctrl+2)</value>
+  </data>
+  
+  <data name="SortDescending" xml:space="preserve">
+    <value>Tri décroissant (Ctrl+3)</value>
+  </data>
+  
+  <data name="WindowPlacement" xml:space="preserve">
+    <value>Position de la fenêtre</value>
+  </data>
+  
+  <data name="Configure" xml:space="preserve">
+    <value>Configurer...</value>
+  </data>
+  
+  <data name="MainWindow" xml:space="preserve">
+    <value>Fenêtre principale</value>
+  </data>
+  
+  <data name="UploadedFilesWindow" xml:space="preserve">
+    <value>Fenêtre de fichiers mis en ligne</value>
+  </data>
+  
+  <data name="RememberLastWindowPosition" xml:space="preserve">
+    <value>Mémoriser la dernière position des fenêtres Wiki-Up ?</value>
+  </data>
+  
+  <data name="CopiedToClipboard" xml:space="preserve">
+    <value>Copié dans le presse-papier</value>
+  </data>
+
 </root>
