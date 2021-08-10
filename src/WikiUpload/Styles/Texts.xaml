@@ -134,5 +134,16 @@
         <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
     </Style>
 
+    <Style x:Key="ReadOnlyText" TargetType="TextBox" BasedOn="{StaticResource LineTextBox}">
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryLightBrush}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+
+    </Style>
+
 </ResourceDictionary>
     
