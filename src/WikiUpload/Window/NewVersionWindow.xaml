@@ -110,51 +110,57 @@
     </WindowChrome.WindowChrome>
 
     <!-- window content start here -->
-    <Grid>
-        <Grid Margin="0,8,0,-8">
+    <Grid Margin="0 8 0 -8">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <iconPacks:PackIconFontAwesome Grid.Column="0"  Grid.Row="0"
+            <iconPacks:PackIconFontAwesome Grid.Column="0" 
                 Kind="DownloadSolid"
                 Height="64" Width="64"
                 Foreground="{StaticResource PrimaryLightBrush}"
                 Margin="10 10 20 0"/>
-            <TextBlock Grid.Column="1" Grid.Row="0"
+            <TextBlock Grid.Column="1"
                 FontSize="{StaticResource FontSizeRegular}"
                 Margin="0 10 00 0"
-                        Text="{Binding Message, FallbackValue=A new version of Wiki-Up is available for download.}"
-                        TextWrapping="Wrap"/>
-            <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
-                  Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Hint: You can turn this check off in settings."
-                           FontSize="{StaticResource FontSizeSmall}"
-                           VerticalAlignment="Center"
-                           Visibility="{Binding IsHintVisible,
-                                        Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"/>
-                <StackPanel Grid.Column="1"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Right">
-                    <Button Content="{x:Static p:Resources.DownloadNowText}"
+                Text="{Binding Message, FallbackValue=A new version of Wiki-Up is available for download.}"
+                TextWrapping="Wrap"/>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{x:Static p:Resources.UpdateCheckHint}"
+                        FontSize="{StaticResource FontSizeSmall}"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding IsHintVisible,
+                                    Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"/>
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Padding" Value="6 2 6 2"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="Height" Value="30"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Content="{x:Static p:Resources.DownloadNowText}"
                             Command="{Binding LauchWebsiteCommand}"
-                            Height="30"
-                            Padding="6 2 6 2" FontSize="18" Margin="0 0 6 0"/>
-                    <Button x:Name="CloseButton"
+                            Margin="0 0 6 0"/>
+                <Button x:Name="CloseButton"
                             Content="{x:Static p:Resources.CloseText}"
-                            Command="{Binding CloseCommand}"
-                            Height="30"
-                            Padding="6 2 6 2" FontSize="18"/>
-                </StackPanel>
-            </Grid>
+                            Command="{Binding CloseCommand}"/>
+            </StackPanel>
         </Grid>
     </Grid>
 

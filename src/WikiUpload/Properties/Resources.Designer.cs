@@ -1204,6 +1204,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hint: You can turn this check off in settings..
+        /// </summary>
+        public static string UpdateCheckHint {
+            get {
+                return ResourceManager.GetString("UpdateCheckHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check for new versions of Wiki-Up when Wiki-Up starts up..
         /// </summary>
         public static string UpdatesDetailsText {

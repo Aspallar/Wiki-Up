@@ -747,4 +747,8 @@
     <value>Copied to clipboard</value>
   </data>
 
+  <data name="UpdateCheckHint" xml:space="preserve">
+    <value>Hint: You can turn this check off in settings.</value>
+  </data>
+
 </root>
