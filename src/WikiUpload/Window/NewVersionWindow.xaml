@@ -116,29 +116,45 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <iconPacks:PackIconFontAwesome Grid.Column="0" Kind="DownloadSolid"
-                                           Height="64" Width="64"
-                                           Foreground="{StaticResource PrimaryLightBrush}"
-                                           Margin="10 10 20 0"/>
-            <StackPanel Grid.Column="1" Margin="0 10 10 0">
-                <TextBlock FontSize="{StaticResource FontSizeRegular}"
-                           Margin="0 10 00 0"
-                           Text="{Binding Message}"
-                           TextWrapping="Wrap"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <iconPacks:PackIconFontAwesome Grid.Column="0"  Grid.Row="0"
+                Kind="DownloadSolid"
+                Height="64" Width="64"
+                Foreground="{StaticResource PrimaryLightBrush}"
+                Margin="10 10 20 0"/>
+            <TextBlock Grid.Column="1" Grid.Row="0"
+                FontSize="{StaticResource FontSizeRegular}"
+                Margin="0 10 00 0"
+                        Text="{Binding Message, FallbackValue=A new version of Wiki-Up is available for download.}"
+                        TextWrapping="Wrap"/>
+            <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                  Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Hint: You can turn this check off in settings."
+                           FontSize="{StaticResource FontSizeSmall}"
+                           VerticalAlignment="Center"
+                           Visibility="{Binding IsHintVisible,
+                                        Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"/>
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
                     <Button Content="{x:Static p:Resources.DownloadNowText}"
-                        Command="{Binding LauchWebsiteCommand}"
-                        Height="30"
-                        Margin="0 20 20 20"  
-                        Padding="6 2 6 2" FontSize="18"/>
+                            Command="{Binding LauchWebsiteCommand}"
+                            Height="30"
+                            Padding="6 2 6 2" FontSize="18" Margin="0 0 6 0"/>
                     <Button x:Name="CloseButton"
-                        Content="{x:Static p:Resources.CloseText}"
-                        Command="{Binding CloseCommand}"
-                        Height="30"
-                        Margin="0 20 20 20"  
-                        Padding="6 2 6 2" FontSize="18"/>
+                            Content="{x:Static p:Resources.CloseText}"
+                            Command="{Binding CloseCommand}"
+                            Height="30"
+                            Padding="6 2 6 2" FontSize="18"/>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 

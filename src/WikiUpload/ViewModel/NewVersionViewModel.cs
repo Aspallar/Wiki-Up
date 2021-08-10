@@ -19,6 +19,8 @@ namespace WikiUpload
 
         public string Version { get; set; } = "";
 
+        public bool IsHintVisible { get; set; }
+
         public string Url { get; set; } = "";
 
         public ICommand LauchWebsiteCommand { get; }

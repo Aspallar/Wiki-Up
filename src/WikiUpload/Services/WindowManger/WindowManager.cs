@@ -6,9 +6,9 @@ namespace WikiUpload
     {
         private Window _uploadedFilesWindow;
 
-        public void ShowNewVersionWindow(UpdateCheckResponse checkUpdateResponse)
+        public void ShowNewVersionWindow(UpdateCheckResponse checkUpdateResponse, bool showHint)
         {
-            var newVersionWindow = new NewVersionWindow(checkUpdateResponse);
+            var newVersionWindow = new NewVersionWindow(checkUpdateResponse, showHint);
             newVersionWindow.Show();
         }
 

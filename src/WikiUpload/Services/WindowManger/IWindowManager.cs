@@ -2,7 +2,7 @@
 {
     internal interface IWindowManager
     {
-        void ShowNewVersionWindow(UpdateCheckResponse checkUpdateEventArrgs);
+        void ShowNewVersionWindow(UpdateCheckResponse checkUpdateResponse, bool showHint);
         void ShowUploadedFilesWindow();
     }
 }

@@ -24,7 +24,7 @@ namespace WikiUpload
                 _updateCheck = new UpdateCheck(new Helpers(), new GithubProvider());
                 var response = await _updateCheck.CheckForUpdates(App.UserAgent, 3000);
                 if (response.IsNewerVersion)
-                    new WindowManager().ShowNewVersionWindow(response);
+                    new WindowManager().ShowNewVersionWindow(response, true);
                 _updateCheck = null;
             }
         }

@@ -99,7 +99,7 @@ namespace WikiUpload
             var response = await _updateCheck.CheckForUpdates(_helpers.UserAgent, 200);
             UpdateCheckIsRunning = false;
             if (response.IsNewerVersion)
-                _windowManager.ShowNewVersionWindow(response);
+                _windowManager.ShowNewVersionWindow(response, false);
             else
                 CheckUpdateMessage = Resources.UpToDateText;
         }
