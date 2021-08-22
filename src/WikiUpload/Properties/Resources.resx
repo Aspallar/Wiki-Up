@@ -751,4 +751,8 @@
     <value>Hint: You can turn this check off in settings.</value>
   </data>
 
+  <data name="PlainGray" xml:space="preserve">
+    <value>Plain Gray</value>
+  </data>
+
 </root>

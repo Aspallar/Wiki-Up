@@ -952,6 +952,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plain Gray.
+        /// </summary>
+        public static string PlainGray {
+            get {
+                return ResourceManager.GetString("PlainGray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum length is {0} videos..
         /// </summary>
         public static string PlalistMaximumLength {
