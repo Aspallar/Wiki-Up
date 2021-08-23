@@ -208,9 +208,6 @@
   <data name="SearchErrorText" xml:space="preserve">
     <value>Ilmnes viga Wiki kasutamisel.</value>
   </data>
-  <data name="CategoryTemplate" xml:space="preserve">
-    <value>[[Category:{0}]]</value>
-  </data>
   <data name="ContentTabText" xml:space="preserve">
     <value>Sisu</value>
   </data>

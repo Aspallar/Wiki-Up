@@ -13,6 +13,7 @@ namespace WikiUpload
         string ScriptPath { get; }
         string ServerUrl { get; }
         WikiCasing WikiCasing { get; }
+        string CategoryNamespace { get; }
 
         bool IsSupportedLanguage(string langCode);
     }

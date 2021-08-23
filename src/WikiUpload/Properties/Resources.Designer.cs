@@ -421,15 +421,6 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [[Category:{0}]].
-        /// </summary>
-        public static string CategoryTemplate {
-            get {
-                return ResourceManager.GetString("CategoryTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Check Now.
         /// </summary>
         public static string CheckNowText {

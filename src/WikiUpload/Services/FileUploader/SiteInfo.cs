@@ -18,6 +18,8 @@ namespace WikiUpload
         public string ServerUrl { get; private set; }
 
         public string FileNamespace { get; }
+        
+        public string CategoryNamespace { get; }
 
         public List<string> Extensions { get; }
 
@@ -30,6 +32,7 @@ namespace WikiUpload
             ParseGeneralElement(doc);
 
             FileNamespace = ExtractFileNamespace(doc);
+            CategoryNamespace = ExtractCategoryNamespace(doc);
             Extensions = ParseFileExtensions(doc.SelectNodes("/api/query/fileextensions/fe"));
             _languages = ParseLanguages(doc.SelectNodes("/api/query/languages/lang"));
         }
@@ -62,6 +65,12 @@ namespace WikiUpload
         {
             var ns = doc.SelectSingleNode("/api/query/namespaces/ns[@_idx=\"6\"]");
             return ns == null ? "File:" : ns.InnerText + ":";
+        }
+
+        private string ExtractCategoryNamespace(XmlDocument doc)
+        {
+            var ns = doc.SelectSingleNode("/api/query/namespaces/ns[@_idx=\"14\"]");
+            return ns == null ? "Category:" : ns.InnerText + ":";
         }
 
         public bool IsSupportedLanguage(string langCode) => _languages.Contains(langCode);

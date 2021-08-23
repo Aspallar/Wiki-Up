@@ -235,10 +235,6 @@
   <data name="SearchErrorText" xml:space="preserve">
     <value>Fehler beim Untersuchen des Wikis.</value>
   </data>
-  <data name="CategoryTemplate" xml:space="preserve">
-    <value>[[Category:{0}]]</value>
-  </data>
-  
   
   <!-- ***************************************************************** -->
   <!--Upload page - tabs -->  
