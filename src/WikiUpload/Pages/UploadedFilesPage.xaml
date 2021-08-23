@@ -67,6 +67,51 @@
                             CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}">
                         <iconPacks:PackIconFontAwesome Kind="ClipboardListSolid"/>
                     </Button>
+                    <local:FocusedPopup x:Name="ChooseCopyTypePopup"
+                            IsOpen="{Binding IsChooseCopyTypePopupOpen}"
+                            StaysOpen="False"
+                            PopupAnimation="Scroll"
+                            Placement="Bottom"         
+                            AllowsTransparency="True"
+                            InitialFocus="{Binding ElementName=CopyAsPlainList}"
+                            ExitFocus="{Binding ElementName=CopyToClipboard}">
+                        
+                        <Border Style="{StaticResource PopupBorder}" >
+                            <StackPanel>
+                                <StackPanel.Resources>
+                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+                                        <Setter Property="Padding" Value="6" />
+                                        <Setter Property="Margin" Value="0 0 0 6"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                        <Setter Property="CommandParameter" Value="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"/>
+                                    </Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                        <Setter Property="Margin" Value="10 0 0 0"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <Button x:Name="CopyAsPlainList"
+                                        Command="{Binding CopyTextToClipboardCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconFontAwesome Kind="FileRegular" Style="{StaticResource FontSizeIcon}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Copy as plain list"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Command="{Binding CopyFileToClipboardCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconFontAwesome Kind="FileAltRegular" Style="{StaticResource FontSizeIcon}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Copy as File: list"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Margin="0" Command="{Binding CopyWikilinkToClipboardCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconFontAwesome Kind="LinkSolid" Style="{StaticResource FontSizeIcon}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Copy as wikitext links"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </local:FocusedPopup>
                     <local:TimedPopup IsOpen="{Binding IsCopiedPopupOpen}"
                             StaysOpen="True"
                             PopupAnimation="Fade"
@@ -91,7 +136,8 @@
                     <iconPacks:PackIconFontAwesome Kind="TimesCircleRegular"/>
                 </Button>
                 <Grid>
-                    <Button x:Name="TrashButton" ToolTip="{Binding ElementName=UploadedFilesListBox,
+                    <Button x:Name="TrashButton"
+                            ToolTip="{Binding ElementName=UploadedFilesListBox,
                                       Path=SelectedIndex, 
                                       Converter={local:SelectedIndexToTooltipConverter}}"
                             Command="{Binding RemoveFilesCommand}"

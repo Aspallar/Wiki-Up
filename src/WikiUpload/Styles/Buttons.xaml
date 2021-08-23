@@ -15,6 +15,7 @@
         <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
         <Setter Property="Padding" Value="20 6" />
         <Setter Property="Margin" Value="0 10" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -27,7 +28,7 @@
                             Padding="{TemplateBinding Padding}"
                             SnapsToDevicePixels="True">
                         <Grid>
-                            <ContentPresenter HorizontalAlignment="Center">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
                                 <ContentPresenter.Resources>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}} }"/>
