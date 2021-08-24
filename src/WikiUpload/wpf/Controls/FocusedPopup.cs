@@ -12,6 +12,25 @@ namespace WikiUpload
         {
             KeyDown += Popup_KeyDown;
             Loaded += Popup_Loaded;
+            Unloaded += Popup_Unloaded; ;
+        }
+
+        private void Popup_Loaded(object sender, RoutedEventArgs e)
+        {
+            var closeButton = CloseButton;
+            if (closeButton != null)
+                closeButton.Click += CloseButton_Click;
+        }
+
+        private void Popup_Unloaded(object sender, RoutedEventArgs e)
+        {
+            KeyDown -= Popup_KeyDown;
+            Loaded -= Popup_Loaded;
+            Unloaded -= Popup_Unloaded;
+
+            var closeButton = CloseButton;
+            if (closeButton != null)
+                closeButton.Click -= CloseButton_Click;
         }
 
         protected override void OnOpened(EventArgs e)
@@ -24,13 +43,6 @@ namespace WikiUpload
         {
             base.OnClosed(e);
             SetExitFocus();
-        }
-
-        private void Popup_Loaded(object sender, RoutedEventArgs e)
-        {
-            var closeButton = CloseButton;
-            if (closeButton != null)
-                closeButton.Click += CloseButton_Click;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

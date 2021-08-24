@@ -24,6 +24,7 @@ namespace WikiUpload
         private void CloseTimer_Tick(object sender, EventArgs e)
         {
             _closeTimer.Stop();
+            _closeTimer.Tick -= CloseTimer_Tick;
             _closeTimer = null;
             IsOpen = false;
         }

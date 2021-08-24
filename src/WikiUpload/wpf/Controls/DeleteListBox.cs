@@ -9,6 +9,13 @@ namespace WikiUpload
         public DeleteListBox() : base()
         {
             KeyDown += DeleteListBox_KeyDown;
+            Unloaded += DeleteListBox_Unloaded;
+        }
+
+        private void DeleteListBox_Unloaded(object sender, RoutedEventArgs e)
+        {
+            KeyDown -= DeleteListBox_KeyDown;
+            Unloaded -= DeleteListBox_Unloaded;
         }
 
         private void DeleteListBox_KeyDown(object sender, KeyEventArgs e)
