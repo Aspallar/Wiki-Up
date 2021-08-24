@@ -63,8 +63,7 @@
                 <Grid>
                     <Button x:Name="CopyToClipboard"
                             ToolTip="{x:Static p:Resources.CopyToClipboard}"
-                            Command="{Binding CopyToClipboardCommand}"
-                            CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}">
+                            Command="{Binding CopyToClipboardCommand}">
                         <iconPacks:PackIconFontAwesome Kind="ClipboardListSolid"/>
                     </Button>
                     <local:FocusedPopup x:Name="ChooseCopyTypePopup"
@@ -89,24 +88,32 @@
                                     <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                         <Setter Property="Margin" Value="10 0 0 0"/>
                                     </Style>
+                                    <Style TargetType="iconPacks:PackIconFontAwesome" BasedOn="{StaticResource FontSizeIcon}">
+                                        <Setter Property="Foreground" Value="{StaticResource HighlightTextCBrush}" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
                                 </StackPanel.Resources>
                                 <Button x:Name="CopyAsPlainList"
                                         Command="{Binding CopyTextToClipboardCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="FileRegular" Style="{StaticResource FontSizeIcon}" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Copy as plain list"/>
+                                        <iconPacks:PackIconFontAwesome Kind="FileRegular"  />
+                                        <TextBlock Text="{x:Static p:Resources.CopyAsPlainList}"/>
                                     </StackPanel>
                                 </Button>
                                 <Button Command="{Binding CopyFileToClipboardCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="FileAltRegular" Style="{StaticResource FontSizeIcon}" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Copy as File: list"/>
+                                        <iconPacks:PackIconFontAwesome Kind="FileAltRegular"/>
+                                        <TextBlock>
+                                            <Run Text="{x:Static p:Resources.CopyAs}"/>
+                                            <Run Text="{x:Static p:Resources.FileNamespace}" Foreground="{StaticResource HighlightTextCBrush}"/>
+                                            <Run Text="{x:Static p:Resources.ListText}"/>
+                                        </TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Button Margin="0" Command="{Binding CopyWikilinkToClipboardCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="LinkSolid" Style="{StaticResource FontSizeIcon}" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Copy as wikitext links"/>
+                                        <iconPacks:PackIconFontAwesome Kind="LinkSolid" />
+                                        <TextBlock Text="{x:Static p:Resources.CopyAsWikiTextLinks}"/>
                                     </StackPanel>
                                 </Button>
                             </StackPanel>

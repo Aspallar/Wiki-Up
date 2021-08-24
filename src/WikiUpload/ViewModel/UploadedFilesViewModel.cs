@@ -28,7 +28,7 @@ namespace WikiUpload
             ClearSelectionCommand = new RelayCommand(() => UploadedFileSelectedIndex = -1);
             RemoveAllFilesCommand = new RelayCommand(RemoveAllFiles);
 
-            CopyToClipboardCommand = new RelayParameterizedCommand((selectedItems) => CopyToClipboard((IList)selectedItems));
+            CopyToClipboardCommand = new RelayCommand(CopyToClipboard);
             CopyTextToClipboardCommand = new RelayParameterizedCommand((selectedItems) => CopyTextToClipboard((IList)selectedItems));
             CopyFileToClipboardCommand = new RelayParameterizedCommand((selectedItems) => CopyFileToClipboard((IList)selectedItems));
             CopyWikilinkToClipboardCommand = new RelayParameterizedCommand((selectedItems) => CopyWikilinkToClipboard((IList)selectedItems));
@@ -79,43 +79,52 @@ namespace WikiUpload
         }
 
         public ICommand CopyToClipboardCommand { get; }
-        private void CopyToClipboard(IList selectedItems)
+        private void CopyToClipboard()
         {
             IsChooseCopyTypePopupOpen = true;
-            //_helpers.SetClipboardText(MakeClipboardText(selectedItems));
-            //IsCopiedPopupOpen = true;
         }
 
         public ICommand CopyTextToClipboardCommand { get; }
         private void CopyTextToClipboard(IList selectedItems)
         {
-            SetClipboardText("{0}", selectedItems);
+            IsChooseCopyTypePopupOpen = false;
+            if (UploadedFiles.Count > 0)
+                SetClipboardText("{0}", selectedItems);
         }
 
         public ICommand CopyFileToClipboardCommand { get; }
         private void CopyFileToClipboard(IList selectedItems)
         {
-            string format = _fileUploader.SiteInfo.FileNamespace + "{0}";
-            SetClipboardText(format, selectedItems);
+            IsChooseCopyTypePopupOpen = false;
+            if (UploadedFiles.Count > 0)
+            {
+                string format = _fileUploader.SiteInfo.FileNamespace + "{0}";
+                SetClipboardText(format, selectedItems);
+            }
         }
 
         public ICommand CopyWikilinkToClipboardCommand { get; }
         private void CopyWikilinkToClipboard(IList selectedItems)
         {
-            string format = $"[[{_fileUploader.SiteInfo.FileNamespace}{{0}}]]";
-            SetClipboardText(format, selectedItems);
+            IsChooseCopyTypePopupOpen = false;
+            if (UploadedFiles.Count > 0)
+            {
+                string format = $"[[{_fileUploader.SiteInfo.FileNamespace}{{0}}]]";
+                SetClipboardText(format, selectedItems);
+            }
         }
 
         private void SetClipboardText(string entryFormat, IList selectedItems)
         {
-            IsChooseCopyTypePopupOpen = false;
             var text = MakeClipboardText(entryFormat, selectedItems);
             _helpers.SetClipboardText(text);
+            IsCopiedPopupOpen = true;
         }
 
         private string MakeClipboardText(string format, IList selectedItems)
         {
             var files = selectedItems.Count == 0 ? UploadedFiles : selectedItems.Cast<UploadFile>();
+
             var fileNames = GetOrderedWikiFileNames(files);
 
             var output = new StringBuilder();

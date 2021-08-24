@@ -511,6 +511,33 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy as.
+        /// </summary>
+        public static string CopyAs {
+            get {
+                return ResourceManager.GetString("CopyAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy as plain list.
+        /// </summary>
+        public static string CopyAsPlainList {
+            get {
+                return ResourceManager.GetString("CopyAsPlainList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy as wikitext links.
+        /// </summary>
+        public static string CopyAsWikiTextLinks {
+            get {
+                return ResourceManager.GetString("CopyAsWikiTextLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copyright.
         /// </summary>
         public static string CopyrightText {
@@ -561,6 +588,15 @@ namespace WikiUpload.Properties {
         public static string ErrorTitleText {
             get {
                 return ResourceManager.GetString("ErrorTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File:.
+        /// </summary>
+        public static string FileNamespace {
+            get {
+                return ResourceManager.GetString("FileNamespace", resourceCulture);
             }
         }
         
@@ -741,6 +777,15 @@ namespace WikiUpload.Properties {
         public static string LanguageText {
             get {
                 return ResourceManager.GetString("LanguageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to list.
+        /// </summary>
+        public static string ListText {
+            get {
+                return ResourceManager.GetString("ListText", resourceCulture);
             }
         }
         

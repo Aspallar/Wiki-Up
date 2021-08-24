@@ -750,5 +750,25 @@
   <data name="PlainGray" xml:space="preserve">
     <value>Plain Gray</value>
   </data>
+  
+  <data name="CopyAsPlainList" xml:space="preserve">
+    <value>Copy as plain list</value>
+  </data>
+
+  <data name="CopyAs" xml:space="preserve">
+    <value>Copy as</value>
+  </data>
+
+  <data name="ListText" xml:space="preserve">
+    <value>list</value>
+  </data>
+
+   <data name="CopyAsWikiTextLinks" xml:space="preserve">
+    <value>Copy as wikitext links</value>
+  </data>
+  
+  <data name="FileNamespace" xml:space="preserve">
+    <value>File:</value>
+  </data>
 
 </root>
