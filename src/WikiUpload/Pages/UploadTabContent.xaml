@@ -7,6 +7,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
              xmlns:local="clr-namespace:WikiUpload"
+             d:DataContext="{d:DesignInstance Type=local:UploadViewModel, IsDesignTimeCreatable=False}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>

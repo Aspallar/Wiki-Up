@@ -10,6 +10,7 @@
       xmlns:local="clr-namespace:WikiUpload"
       xmlns:p="clr-namespace:WikiUpload.Properties"
       DataContext="{Binding Path=SettingsViewModel, Source={StaticResource ServiceLocator}}"
+      d:DataContext="{d:DesignInstance Type=local:SettingsViewModel, IsDesignTimeCreatable=False}"
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="800"
       Title="SettingsPage">
