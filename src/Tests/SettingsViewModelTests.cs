@@ -226,7 +226,7 @@ namespace Tests
 
             _model.CheckForUpdatesNowCommand.Execute(null);
 
-            A.CallTo(() => _windowManager.ShowNewVersionWindow(checkForUpdatesResponse))
+            A.CallTo(() => _windowManager.ShowNewVersionWindow(checkForUpdatesResponse, false))
                 .MustHaveHappened(1, Times.Exactly);
         }
 
