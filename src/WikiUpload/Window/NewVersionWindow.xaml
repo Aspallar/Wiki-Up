@@ -140,10 +140,12 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="{x:Static p:Resources.UpdateCheckHint}"
-                        FontSize="{StaticResource FontSizeSmall}"
-                        VerticalAlignment="Center"
-                        Visibility="{Binding IsHintVisible,
-                                    Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"/>
+                       FontSize="{StaticResource FontSizeSmall}"
+                       Width="240"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       Visibility="{Binding IsHintVisible,
+                                   Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"/>
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal"
                         HorizontalAlignment="Right">

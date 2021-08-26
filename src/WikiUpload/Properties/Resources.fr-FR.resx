@@ -743,4 +743,12 @@
     <value>Copié dans le presse-papier</value>
   </data>
 
+ <data name="UpdateCheckHint" xml:space="preserve">
+    <value>Astuce : Vous pouvez désactiver cette vérification dans les paramètres.</value>
+  </data>
+
+  <data name="PlainGray" xml:space="preserve">
+    <value>Gris simple</value>
+  </data>
+
 </root>

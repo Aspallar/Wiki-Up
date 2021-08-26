@@ -8,7 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/Images.xaml"/>
-                <ResourceDictionary Source="Styles/Themes/Solarized.xaml"/>
+                <ResourceDictionary Source="Styles/Themes/PlainGray.xaml"/>
                 <!--<local:SkinResourceDictionary
                     PurpleHazeSource="Styles\Themes\PurpleHaze.xaml" 
                     PurpleOverloadSource="Styles\Themes\PurpleOverload.xaml" 

@@ -739,4 +739,11 @@
     <value>In die Zwischenablage kopiert</value>
   </data>
 
+  <data name="UpdateCheckHint" xml:space="preserve">
+    <value>Hinweis: Du kannst diese Prüfung in den Einstellungen abschalten.</value>
+  </data>
+
+  <data name="PlainGray" xml:space="preserve">
+    <value>Schlichtes Grau</value>
+  </data>
 </root>

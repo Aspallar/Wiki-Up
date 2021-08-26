@@ -755,6 +755,10 @@
     <value>Copy as plain list</value>
   </data>
 
+   <data name="CopyAsWikiTextLinks" xml:space="preserve">
+    <value>Copy as wikitext links</value>
+  </data>
+
   <data name="CopyAs" xml:space="preserve">
     <value>Copy as</value>
   </data>
@@ -763,10 +767,6 @@
     <value>list</value>
   </data>
 
-   <data name="CopyAsWikiTextLinks" xml:space="preserve">
-    <value>Copy as wikitext links</value>
-  </data>
-  
   <data name="FileNamespace" xml:space="preserve">
     <value>File:</value>
   </data>
