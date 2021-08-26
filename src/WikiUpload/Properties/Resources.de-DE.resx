@@ -746,4 +746,25 @@
   <data name="PlainGray" xml:space="preserve">
     <value>Schlichtes Grau</value>
   </data>
+
+  <data name="CopyAsPlainList" xml:space="preserve">
+    <value>Kopiere als einfache Liste</value>
+  </data>
+  
+  <data name="CopyAsWikiTextLinks" xml:space="preserve">
+    <value>Kopiere als Wikitext Links</value>
+  </data>
+  
+  <data name="CopyAs" xml:space="preserve">
+    <value>Kopiere als</value>
+  </data>
+  
+  <data name="ListText" xml:space="preserve">
+    <value>Liste</value>
+  </data>
+  
+  <data name="FileNamespace" xml:space="preserve">
+    <value>Datei:</value>
+  </data>  
+  
 </root>
