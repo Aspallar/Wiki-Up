@@ -34,9 +34,11 @@
                                         Background="{StaticResource PrimaryDarkBrush}"
                                         CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
 
-                                <!-- Window border and dropshadown -->
+                                <!-- Window border and drop shadow -->
                                 <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
-                                    Background="{StaticResource PrimaryBrush}" >
+                                        Background="{StaticResource PrimaryDarkBrush}" 
+                                        BorderThickness="1"
+                                        BorderBrush="{StaticResource PrimaryLightBrush}">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" Opacity="0.2" />
                                     </Border.Effect>
@@ -101,7 +103,7 @@
                                     </Grid>
 
                                     <!-- Page Content -->
-                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
+                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}" Margin="4 0 4 4">
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
 
