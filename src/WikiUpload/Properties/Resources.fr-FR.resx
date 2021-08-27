@@ -751,4 +751,24 @@
     <value>Gris simple</value>
   </data>
 
+  <data name="CopyAsPlainList" xml:space="preserve">
+    <value>Copier comme liste simple</value>
+  </data>
+  
+  <data name="CopyAsWikiTextLinks" xml:space="preserve">
+    <value>Copier comme liens wikitext</value>
+  </data>
+  
+  <data name="CopyAs" xml:space="preserve">
+    <value>Copier comme</value>
+  </data>
+  
+  <data name="ListText" xml:space="preserve">
+    <value>liste</value>
+  </data>
+  
+  <data name="FileNamespace" xml:space="preserve">
+    <value>Fichier:</value>
+  </data>  
+  
 </root>
