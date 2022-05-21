@@ -17,15 +17,7 @@ namespace WikiUpload
             foreach (XmlNode node in categories)
                 result.Categories.Add(node.InnerText);
 
-            var continueNode = doc.SelectSingleNode("/api/query-continue/allcategories");
-            if (continueNode != null)
-            {
-                if (continueNode.Attributes["acfrom"] != null)
-                    result.NextFrom = continueNode.Attributes["acfrom"].Value;
-                else if (continueNode.Attributes["accontinue"] != null)
-                    result.NextFrom = continueNode.Attributes["accontinue"].Value;
-            }
-
+            result.NextFrom = GetContinueValue(doc, "allcategories", "ac");
             return result;
         }
 
@@ -41,16 +33,18 @@ namespace WikiUpload
                     result.Categories.Add(title.Substring(9));
             }
 
-            var continueNode = doc.SelectSingleNode("/api/query-continue/allpages");
-            if (continueNode != null)
-            {
-                if (continueNode.Attributes["apfrom"] != null)
-                    result.NextFrom = continueNode.Attributes["apfrom"].Value;
-                else if (continueNode.Attributes["apcontinue"] != null)
-                    result.NextFrom = continueNode.Attributes["apcontinue"].Value;
-            }
-
+            result.NextFrom = GetContinueValue(doc, "allpages", "ap");
             return result;
         }
+
+        private static string GetContinueValue(XmlDocument doc, string path, string prefix)
+        {
+            var continueNode = doc.SelectSingleNode("api/query-continue/" + path);
+            return continueNode == null ? null : GetContinueValue(continueNode, prefix);
+        }
+
+        private static string GetContinueValue(XmlNode node, string prefix)
+            => node.Attributes[prefix + "from"]?.Value
+               ?? node.Attributes[prefix + "continue"]?.Value;
     }
 }
