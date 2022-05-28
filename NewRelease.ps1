@@ -2,7 +2,7 @@ $ErrorActionPreference = 'stop'
 
 Import-Module PowerShellForGitHub
 
-. ((Split-Path $MyInvocation.MyCommand.Path -Parent) + '\common.ps1')
+. ($PSScriptRoot + '\common.ps1')
 
 function main {
     $repoName = 'Wiki-Up'
@@ -34,14 +34,11 @@ function main {
         Write-Host $progressChar -NoNewline -ForegroundColor 'Cyan'
         $assets += (New-GitHubReleaseAsset @newAssetDetails -Path $_.FullName)
     }
-    Write-Host "`n"
-    $assets |
-        Format-Table `
-        @{Name = 'ID'; Expression = { $_.ID } }, 
-        @{Name = 'Name'; Expression = { $_.Name } },
-        @{Name = 'Size'; Expression = { $_.Size } },
-        @{Name = 'Content Type'; Expression = { $_.Content_Type } }
     
+    Write-Host "`n"
+    $MiB = @{Name = 'MiB'; Expression = { [math]::Round($_.Size / 1mb, 2) } }
+    $assets | Select-Object ID, Name, Size, $Mib, Content_Type | Format-Table
+
     $totalSize = ($assets | Measure-Object Size -Sum).Sum
     $totalSize = [math]::Round($totalSize / 1mb, 3)
 

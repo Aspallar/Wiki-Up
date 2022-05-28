@@ -12,7 +12,7 @@ param (
 
 $ErrorActionPreference = 'stop'
 
-. ((Split-Path $MyInvocation.MyCommand.Path -Parent) + '\common.ps1')
+. ($PSScriptRoot + '\common.ps1')
 
 function main {
     $languages = get_supported_languages
