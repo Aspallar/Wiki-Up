@@ -3,10 +3,10 @@
 
   <?define WikiUpload_TargetDir=$(var.WikiUpload.TargetDir)?>
 
-  <Product Id="{C453D394-BB7A-4890-B1D0-6A2BAA4834C9}"
+  <Product Id="{218d2206-2a35-49c5-903e-62b95a813174}"
            Name="Wiki-Up"
            Language="1033"
-           Version="1.13.0.0"
+           Version="1.13.1.0"
            Manufacturer="Aspallar"
            UpgradeCode="{5DBEE1B6-4D18-4F36-BEA8-74C89ADD342B}">
 
