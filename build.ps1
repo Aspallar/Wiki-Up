@@ -86,7 +86,7 @@ function create_deploy_folder {
 function copy_application_files_to_deploy_folder {
     param ( [Parameter(Mandatory = $true)] [hashtable[]] $languages )
     $src = '.\src\WikiUpload\bin\release'
-    $applicationFiles = '*.dll', 'wikiup.exe', 'wikiup.exe.xonfig'
+    $applicationFiles = '*.dll', 'wikiup.exe', 'wikiup.exe.config'
     $excludedFiles = 'nunit*'
     Copy-Item -path $src\* `
         -Include $applicationFiles `
