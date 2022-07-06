@@ -1,28 +1,28 @@
-$ErrorActionPreference = "stop"
+$ErrorActionPreference = 'stop'
 
 function Main {
-    $basePath = ".\src\WikiUpload\Services"
+    $basePath = '.\src\WikiUpload\Services'
     create_secret "$basePath\Youtube\YoutubeSecrets.cs" `
         $youtubeContent `
-        "Edit this file to provide your own google API key."
+        'Edit this file to provide your own google API key.'
 
     create_secret "$basePath\Passwords\Entropy.cs" `
         $entropyContent `
-        "Edit this file to provide your own entropy data."    
+        'Edit this file to provide your own entropy data.'    
 }
 
 function create_secret {
     param ( $path, $content, $message )
     if (-not (Test-Path -Path $path)) {
         Set-Content -Path $path -Value $content
-        Write-Host "Created" -BackgroundColor DarkMagenta -ForegroundColor yellow -NoNewline
+        Write-Host 'Created' -BackgroundColor DarkMagenta -ForegroundColor yellow -NoNewline
         Write-Host " $path" -ForegroundColor cyan
         Write-Host $message -ForegroundColor Gray
-        Write-Host ""
+        Write-Host ''
     }
 }
 
-$youtubeContent = @"
+$youtubeContent = @'
 namespace WikiUpload
 {
     internal partial class Youtube
@@ -34,9 +34,9 @@ namespace WikiUpload
         private const string key = "";
     }
 }
-"@
+'@
 
-$entropyContent = @"
+$entropyContent = @'
 namespace WikiUpload
 {
     internal partial class Encryption
@@ -51,6 +51,6 @@ namespace WikiUpload
         };
     }
 }
-"@
+'@
 
 Main
