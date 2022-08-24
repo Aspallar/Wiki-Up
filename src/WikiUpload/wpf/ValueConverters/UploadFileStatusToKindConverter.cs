@@ -8,10 +8,12 @@ namespace WikiUpload
     {
         public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            switch ((UploadFileStatus)values[0])
+            var status =(UploadFileStatus)values[0];
+            switch (status)
             {
                 case UploadFileStatus.Waiting:
-                    return (bool)values[1] ? PackIconFontAwesomeKind.FilmSolid : PackIconFontAwesomeKind.AngleUpSolid;
+                    var isVideo = (bool)values[1];
+                    return isVideo ? PackIconFontAwesomeKind.FilmSolid : PackIconFontAwesomeKind.AngleUpSolid;
                 case UploadFileStatus.Uploading:
                 case UploadFileStatus.Delaying:
                     return PackIconFontAwesomeKind.SpinnerSolid;
