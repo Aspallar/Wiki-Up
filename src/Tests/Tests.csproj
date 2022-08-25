@@ -85,6 +85,7 @@
     <Compile Include="PasswordManagerTests.cs" />
     <Compile Include="LoginViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValueConverterTests\BooleanToVisiblityConverterTests.cs" />
     <Compile Include="ValueConverterTests\UploadFileStatusToKindConverterTests.cs" />
     <Compile Include="VariableContentTests.cs" />
     <Compile Include="VariablePageContentTests.cs" />

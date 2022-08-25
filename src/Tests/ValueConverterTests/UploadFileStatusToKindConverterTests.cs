@@ -1,11 +1,6 @@
-﻿using FakeItEasy;
-using MahApps.Metro.IconPacks;
+﻿using MahApps.Metro.IconPacks;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WikiUpload;
 
 namespace Tests.ValueConverterTests
