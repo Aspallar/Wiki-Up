@@ -97,9 +97,6 @@
                     <DataTemplate>
                         
                         <StackPanel Margin="0 0 0 5" Orientation="Horizontal">
-                            <Button x:Name="FileRenameButton" Style="{StaticResource ClickableArea}"
-                                    Command="{Binding DataContext.EditUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
-                                    local:PlacePopup.Target="{Binding ElementName=FileRenamePopup}">
                                 <Grid>
                                     <iconPacks:PackIconFontAwesome
                                         HorizontalAlignment="Center"
@@ -122,13 +119,16 @@
                                         </iconPacks:PackIconFontAwesome.Kind>
                                     </iconPacks:PackIconFontAwesome>
                                 </Grid>
-                            </Button>
                             <StackPanel Margin="5 0 0 0">
                                 <Button
-                                    Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
-                                    CommandParameter="{Binding FullPath}"
+                                    local:PlacePopup.Target="{Binding ElementName=FileRenamePopup}"
+                                    Command="{Binding DataContext.EditUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"                                    
                                     Content="{Binding DisplayName}"
-                                    Style="{StaticResource FilenamePlainButton}" />
+                                    Style="{StaticResource FilenamePlainButton}">
+                                    <Button.InputBindings>
+                                        <MouseBinding Gesture="Shift+LeftClick" Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}" CommandParameter="{Binding FullPath}"/>
+                                    </Button.InputBindings>
+                                </Button>
                                 <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="{Binding Folder, Mode=OneTime}" />
                                 <TextBlock
                                     FontSize="{StaticResource FontSizeSmall}"
