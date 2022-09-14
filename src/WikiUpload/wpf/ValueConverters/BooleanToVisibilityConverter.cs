@@ -8,7 +8,7 @@ namespace WikiUpload
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var shoHide = (value is bool v) ? v : false;
+            var shoHide = (value is bool v) && v;
             if (parameter == null)
                 return shoHide ? Visibility.Hidden : Visibility.Visible;
             else

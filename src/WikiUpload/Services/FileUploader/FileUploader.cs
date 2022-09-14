@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml;
 using WikiUpload.Properties;
 
@@ -202,16 +203,14 @@ namespace WikiUpload
             }
         }
 
-        public async Task<IUploadResponse> UpLoadAsync(string fullPath,
+        public async Task<IUploadResponse> UpLoadAsync(string fullFilePath, string uploadFileName,
             CancellationToken cancelToken,
             string summary,
             string newPageContent)
         {
-            var fileName = Path.GetFileName(fullPath);
-
             // Open file 1st before we allocate any disposable resources to avoid leaks if
             // the file has become inaccesible and an exception is thrown
-            var file = File.OpenRead(fullPath);
+            var file = File.OpenRead(fullFilePath);
 
             // we don't need to dispose any of these or close the stream
             // as _client.PostAsync will do it
@@ -221,7 +220,7 @@ namespace WikiUpload
                 { new StringContent("upload"), "action" },
                 { new StringContent("5"), "maxlag" },
                 { new StringContent(IncludeInWatchList ? "watch" : "nochange"), "watchlist" },
-                { new StringContent(fileName), "filename" },
+                { new StringContent(uploadFileName), "filename" },
                 { new StringContent("xml"), "format" },
                 { new StringContent(newPageContent), "text" },
                 { new StringContent(summary), "comment" },
@@ -236,7 +235,7 @@ namespace WikiUpload
             if (IgnoreWarnings)
                 uploadFormData.Add(new StringContent("1"), "ignorewarnings");
 
-            uploadFormData.Add(new StreamContent(file), "file", fileName);
+            uploadFormData.Add(new StreamContent(file), "file", uploadFileName);
 
             uploadFormData.Add(new StringContent(_editToken), "token");
 
@@ -248,6 +247,14 @@ namespace WikiUpload
                 var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return new UploadResponse(responseContent, retryAfter);
             }
+        }
+
+        public Task<IUploadResponse> UpLoadAsync(string fullPath,
+            CancellationToken cancelToken,
+            string summary,
+            string newPageContent)
+        {
+            return UpLoadAsync(fullPath, Path.GetFileName(fullPath), cancelToken, summary, newPageContent);
         }
 
         public async Task<IngestionControllerResponse> UpLoadVideoAsync(string fullPath, CancellationToken cancelToken)
@@ -489,11 +496,13 @@ namespace WikiUpload
             }
             if (SiteInfo.WikiCasing == WikiCasing.FirstLetter)
                 name[0] = char.ToUpper(name[0]);
-            return SiteInfo.ServerUrl 
-                + SiteInfo.ArticlePath.Replace("$1", SiteInfo.FileNamespace + new string(name));
+            var encodedName = HttpUtility.UrlEncode(new string(name));
+            return SiteInfo.ServerUrl
+                + SiteInfo.ArticlePath.Replace("$1", SiteInfo.FileNamespace + encodedName);
         }
 
         public string ServerFilename(string fileName)
-            => SiteInfo.WikiCasing == WikiCasing.FirstLetter ? fileName.CapitalizeFirstLetter() : fileName;
+            => SiteInfo.WikiCasing == WikiCasing.FirstLetter
+                ? fileName.CapitalizeFirstLetter() : fileName;
     }
 }

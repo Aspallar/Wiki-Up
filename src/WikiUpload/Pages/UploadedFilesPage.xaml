@@ -228,7 +228,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Button Style="{StaticResource FilenamePlainButton}"
-                                Content="{Binding FileName, Mode=OneTime}"
+                                Content="{Binding UploadFileName, Mode=OneTime}"
                                 Command="{Binding
                                     DataContext.LaunchFilePageCommand,
                                     RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"

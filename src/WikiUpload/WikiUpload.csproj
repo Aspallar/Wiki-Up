@@ -227,6 +227,7 @@
     <Compile Include="Services\Utility\Utils.cs" />
     <Compile Include="Services\Utility\VariablePageContent.cs" />
     <Compile Include="Services\WindowManger\WindowManager.cs" />
+    <Compile Include="wpf\Behaviours\PlacePopup.cs" />
     <Compile Include="wpf\Controls\DeleteListBox.cs" />
     <Compile Include="wpf\Controls\FocusedPopup.cs" />
     <Compile Include="wpf\Controls\TimedPopup.cs" />

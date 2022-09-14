@@ -51,7 +51,7 @@ namespace WikiUpload
 
         private void LaunchFilePage(UploadFile file)
         {
-            var url = _fileUploader.FileUrl(file.FileName);
+            var url = _fileUploader.FileUrl(file.UploadFileName);
             _helpers.LaunchProcess(url);
         }
 
@@ -185,7 +185,7 @@ namespace WikiUpload
             => UploadedFilesView.SortDescriptions.Add(CreateSortDescription(listSortDirection));
 
         private SortDescription CreateSortDescription(ListSortDirection listSortDirection)
-            => new SortDescription(nameof(UploadFile.FileName), listSortDirection);
+            => new SortDescription(nameof(UploadFile.UploadFileName), listSortDirection);
     }
 }
  
