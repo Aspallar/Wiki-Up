@@ -16,14 +16,14 @@
     <Grid>
         <local:FocusedPopup
             x:Name="FileRenamePopup"
-            DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Mode=Self}}"
             Margin="200"
+            DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Mode=Self}}"
             HorizontalOffset="30"
-            StaysOpen="False"
             InitialFocus="{Binding ElementName=UploadFileName}"
-            SelectPattern="(.*)\."
-            Placement="Relative"
             IsOpen="{Binding DataContext.IsUploadFileNamePopupOpen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+            Placement="Relative"
+            SelectPattern="(.*)\."
+            StaysOpen="False"
             VerticalOffset="28">
             <Border Style="{StaticResource PopupBorder}">
                 <Grid>
@@ -37,16 +37,16 @@
                         Text="Enter file name to use for upload" />
                     <TextBox
                         x:Name="UploadFileName"
-                        Text="{Binding UploadFileName, UpdateSourceTrigger=PropertyChanged}"
                         Grid.Row="1"
                         Margin="20"
                         Background="{StaticResource ControlBackgroundBrush}"
                         BorderBrush="{StaticResource ButtonColorBrush}"
                         BorderThickness="1"
-                        FontSize="{StaticResource FontSizeRegular}">
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Text="{Binding UploadFileName, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.InputBindings>
-                            <KeyBinding Key="Return" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"/>
-                            <KeyBinding Key="Esc" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"/>
+                            <KeyBinding Key="Return" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}" />
+                            <KeyBinding Key="Esc" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}" />
                         </TextBox.InputBindings>
                     </TextBox>
                 </Grid>
@@ -95,38 +95,41 @@
                 Style="{StaticResource ItemHighlight}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        
+
                         <StackPanel Margin="0 0 0 5" Orientation="Horizontal">
-                                <Grid>
-                                    <iconPacks:PackIconFontAwesome
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="{StaticResource FontSizeLarge}"
-                                        Foreground="{Binding Status, Converter={local:UploadFileStatusToColorConverter}}"
-                                        Kind="CircleSolid"
-                                        Style="{StaticResource FontSizeIcon}" />
-                                    <iconPacks:PackIconFontAwesome
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="{StaticResource FontSizeRegular}"
-                                        Foreground="{StaticResource SecondaryTextBrush}"
-                                        Style="{Binding Status, Converter={local:UploadStatusToStyleConverter}}">
-                                        <iconPacks:PackIconFontAwesome.Kind>
-                                            <MultiBinding Converter="{local:UploadFileStatusToKindConverter}">
-                                                <Binding Path="Status" />
-                                                <Binding Path="IsVideo" />
-                                            </MultiBinding>
-                                        </iconPacks:PackIconFontAwesome.Kind>
-                                    </iconPacks:PackIconFontAwesome>
-                                </Grid>
+                            <Grid>
+                                <iconPacks:PackIconFontAwesome
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="{StaticResource FontSizeLarge}"
+                                    Foreground="{Binding Status, Converter={local:UploadFileStatusToColorConverter}}"
+                                    Kind="CircleSolid"
+                                    Style="{StaticResource FontSizeIcon}" />
+                                <iconPacks:PackIconFontAwesome
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="{StaticResource FontSizeRegular}"
+                                    Foreground="{StaticResource SecondaryTextBrush}"
+                                    Style="{Binding Status, Converter={local:UploadStatusToStyleConverter}}">
+                                    <iconPacks:PackIconFontAwesome.Kind>
+                                        <MultiBinding Converter="{local:UploadFileStatusToKindConverter}">
+                                            <Binding Path="Status" />
+                                            <Binding Path="IsVideo" />
+                                        </MultiBinding>
+                                    </iconPacks:PackIconFontAwesome.Kind>
+                                </iconPacks:PackIconFontAwesome>
+                            </Grid>
                             <StackPanel Margin="5 0 0 0">
                                 <Button
                                     local:PlacePopup.Target="{Binding ElementName=FileRenamePopup}"
-                                    Command="{Binding DataContext.EditUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"                                    
+                                    Command="{Binding DataContext.EditUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
                                     Content="{Binding DisplayName}"
                                     Style="{StaticResource FilenamePlainButton}">
                                     <Button.InputBindings>
-                                        <MouseBinding Gesture="Shift+LeftClick" Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}" CommandParameter="{Binding FullPath}"/>
+                                        <MouseBinding
+                                            Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+                                            CommandParameter="{Binding FullPath}"
+                                            Gesture="Shift+LeftClick" />
                                     </Button.InputBindings>
                                 </Button>
                                 <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="{Binding Folder, Mode=OneTime}" />
