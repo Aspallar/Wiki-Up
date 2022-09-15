@@ -30,6 +30,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
@@ -46,7 +47,7 @@
                         <TextBox.Text>
                             <Binding Path="UploadFileName" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
-                                    <local:WikiTitleValidationRule />
+                                    <local:WikiFileTitleValidationRule />
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
@@ -55,6 +56,11 @@
                             <KeyBinding Key="Esc" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
                         </TextBox.InputBindings>
                     </TextBox>
+                    <TextBlock
+                        Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        Foreground="{StaticResource ErrorColorBrush}"
+                        Text="{Binding ElementName=UploadFileName, Path=(Validation.Errors)[0].ErrorContent}" />
                 </Grid>
             </Border>
         </local:FocusedPopup>

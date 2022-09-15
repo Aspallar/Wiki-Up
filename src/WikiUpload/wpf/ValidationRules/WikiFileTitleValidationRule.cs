@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,11 +10,11 @@ using System.Windows.Controls;
 
 namespace WikiUpload
 {
-    internal class WikiTitleValidationRule : ValidationRule
+    internal class WikiFileTitleValidationRule : ValidationRule
     {
         // Reference: https://www.mediawiki.org/wiki/Manual:Page_title
 
-        private static char[] InvalidCharacters = {'#', '<', '>', '[', ']', '|', '{', '}', ':' };
+        private static char[] InvalidCharacters = { '#', '<', '>', '[', ']', '|', '{', '}', ':' };
         private static Regex urlEascapeSequence = new Regex(@"%[a-fA-F0-9]{2}");
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
@@ -26,11 +27,18 @@ namespace WikiUpload
             if (title == "." || title == "..")
                 return new ValidationResult(false, "Cannot be \".\" or \"..\"");
 
-            if (title.StartsWith("./") || title.StartsWith("../"))
-                return new ValidationResult(false, "Cannot start with \"./'\" or \"../'\"");
+            if (title.IndexOf('/') != -1)
+            {
 
-            if (title.EndsWith("/,") || title.EndsWith("/.."))
-                return new ValidationResult(false, "Cannot end with \"/.'\" or \"/'..'\"");
+                if (title.StartsWith("./") || title.StartsWith("../"))
+                    return new ValidationResult(false, "Cannot start with \"./\" or \"../\"");
+
+                if (title.EndsWith("/,") || title.EndsWith("/.."))
+                    return new ValidationResult(false, "Cannot end with \"/.\" or \"/..\"");
+
+                if (title.IndexOf("/./") != -1 || title.IndexOf("/../") != -1)
+                    return new ValidationResult(false, "Cannot contain \"/./\" or \"/../\"");
+            }
 
             if (title.StartsWith(" ") || title.StartsWith("_"))
                 return new ValidationResult(false, "Cannot start with a space or _");
@@ -46,6 +54,13 @@ namespace WikiUpload
 
             if (urlEascapeSequence.IsMatch(title))
                 return new ValidationResult(false, "Cannot contain url escape sequence (%nn).");
+
+            var lengthInBytes = Encoding.UTF8.GetBytes(title).Length;
+            if (lengthInBytes > 255)
+                return new ValidationResult(false, "Too long.");
+
+            if (title != "" && title.IndexOf('.') == -1)
+                return new ValidationResult(false, "Must have an extension e.g \".png\"");
 
             return ValidationResult.ValidResult;
         }
