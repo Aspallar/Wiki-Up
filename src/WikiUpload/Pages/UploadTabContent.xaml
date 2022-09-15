@@ -20,7 +20,7 @@
             DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Mode=Self}}"
             HorizontalOffset="30"
             InitialFocus="{Binding ElementName=UploadFileName}"
-            IsOpen="{Binding DataContext.IsUploadFileNamePopupOpen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+            IsOpen="{Binding DataContext.IsUploadFileNamePopupOpen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
             Placement="Relative"
             SelectPattern="(.*)\."
             StaysOpen="False"
@@ -45,8 +45,8 @@
                         FontSize="{StaticResource FontSizeRegular}"
                         Text="{Binding UploadFileName, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.InputBindings>
-                            <KeyBinding Key="Return" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}" />
-                            <KeyBinding Key="Esc" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}" />
+                            <KeyBinding Key="Return" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
+                            <KeyBinding Key="Esc" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
                         </TextBox.InputBindings>
                     </TextBox>
                 </Grid>
@@ -122,12 +122,13 @@
                             <StackPanel Margin="5 0 0 0">
                                 <Button
                                     local:PlacePopup.Target="{Binding ElementName=FileRenamePopup}"
-                                    Command="{Binding DataContext.EditUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+                                    Command="{Binding DataContext.EditUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
+                                    CommandParameter="{Binding IsVideo}"
                                     Content="{Binding DisplayName}"
                                     Style="{StaticResource FilenamePlainButton}">
                                     <Button.InputBindings>
                                         <MouseBinding
-                                            Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+                                            Command="{Binding DataContext.ShowFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
                                             CommandParameter="{Binding FullPath}"
                                             Gesture="Shift+LeftClick" />
                                     </Button.InputBindings>
