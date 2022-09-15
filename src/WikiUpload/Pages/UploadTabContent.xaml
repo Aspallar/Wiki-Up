@@ -42,8 +42,14 @@
                         Background="{StaticResource ControlBackgroundBrush}"
                         BorderBrush="{StaticResource ButtonColorBrush}"
                         BorderThickness="1"
-                        FontSize="{StaticResource FontSizeRegular}"
-                        Text="{Binding UploadFileName, UpdateSourceTrigger=PropertyChanged}">
+                        FontSize="{StaticResource FontSizeRegular}">
+                        <TextBox.Text>
+                            <Binding Path="UploadFileName" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <local:WikiTitleValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                         <TextBox.InputBindings>
                             <KeyBinding Key="Return" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
                             <KeyBinding Key="Esc" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
