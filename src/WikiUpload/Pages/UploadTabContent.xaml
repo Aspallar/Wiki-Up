@@ -35,7 +35,7 @@
                     <TextBlock
                         Grid.Row="0"
                         HorizontalAlignment="Center"
-                        Text="Enter file name to use for upload" />
+                        Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
                     <TextBox
                         x:Name="UploadFileName"
                         Grid.Row="1"

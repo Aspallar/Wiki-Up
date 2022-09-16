@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
+﻿using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Controls;
+using WikiUpload.Properties;
 
 namespace WikiUpload
 {
@@ -14,53 +10,62 @@ namespace WikiUpload
     {
         // Reference: https://www.mediawiki.org/wiki/Manual:Page_title
 
-        private static char[] InvalidCharacters = { '#', '<', '>', '[', ']', '|', '{', '}', ':' };
-        private static Regex urlEascapeSequence = new Regex(@"%[a-fA-F0-9]{2}");
+        private static readonly char[] invalidCharacters = { '#', '<', '>', '[', ']', '|', '{', '}', ':' };
+        private static readonly Regex urlEascapeSequence = new Regex(@"%[a-fA-F0-9]{2}");
+        private static readonly Regex consecutiveWhitespace = new Regex(@"[ _]{2}");
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             var title = (string)value;
 
-            if (title.IndexOfAny(InvalidCharacters) != -1)
-                return new ValidationResult(false, "Cannot contain # < > [ ] | { } :");
+            if (title == string.Empty)
+                return ValidationResult.ValidResult;
+
+            if (title.IndexOfAny(invalidCharacters) != -1)
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorInvalidCharacters);
 
             if (title == "." || title == "..")
-                return new ValidationResult(false, "Cannot be \".\" or \"..\"");
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorIsRelativePath);
 
             if (title.IndexOf('/') != -1)
             {
 
                 if (title.StartsWith("./") || title.StartsWith("../"))
-                    return new ValidationResult(false, "Cannot start with \"./\" or \"../\"");
+                    return new ValidationResult(false, Resources.EditUploadFileNameErrorStartsWithRelativePath);
 
-                if (title.EndsWith("/,") || title.EndsWith("/.."))
-                    return new ValidationResult(false, "Cannot end with \"/.\" or \"/..\"");
+                if (title.EndsWith("/.") || title.EndsWith("/.."))
+                    return new ValidationResult(false, Resources.EditUploadFileNameErrorEndsWithRelativePath);
 
                 if (title.IndexOf("/./") != -1 || title.IndexOf("/../") != -1)
-                    return new ValidationResult(false, "Cannot contain \"/./\" or \"/../\"");
+                    return new ValidationResult(false, Resources.EditUploadFileNameErrorContainsRelativePath);
             }
 
             if (title.StartsWith(" ") || title.StartsWith("_"))
-                return new ValidationResult(false, "Cannot start with a space or _");
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorWhitespaceAtStart);
 
             if (title.EndsWith(" ") || title.EndsWith("_"))
-                return new ValidationResult(false, "Cannot end with a space or _");
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorWhitespaceAtEnd);
 
             if (title.IndexOf("~~~") != -1)
-                return new ValidationResult(false, "Cannot contain 3 or more consecutive tildes (~).");
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorThreeTildes);
 
-            if (title.Replace('_', ' ').IndexOf("  ") != -1)
-                return new ValidationResult(false, "Cannot contain 2 or more consecutive spaces/underscores.");
+            if (consecutiveWhitespace.IsMatch(title))
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorConsecutiveSpaces);
 
             if (urlEascapeSequence.IsMatch(title))
-                return new ValidationResult(false, "Cannot contain url escape sequence (%nn).");
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorUrlEscape);
 
             var lengthInBytes = Encoding.UTF8.GetBytes(title).Length;
             if (lengthInBytes > 255)
-                return new ValidationResult(false, "Too long.");
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorTooLong);
 
-            if (title != "" && title.IndexOf('.') == -1)
-                return new ValidationResult(false, "Must have an extension e.g \".png\"");
+            var lastPeriodPosition = title.LastIndexOf('.');
+
+            if (lastPeriodPosition == -1 || lastPeriodPosition == title.Length - 1)
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorMustHaveExension);
+
+            if (lastPeriodPosition == 0)
+                return new ValidationResult(false, Resources.EditUploadFileNameErrorMustHaveFileName);
 
             return ValidationResult.ValidResult;
         }
