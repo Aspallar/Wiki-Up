@@ -26,19 +26,12 @@
             StaysOpen="False"
             VerticalOffset="28">
             <Border Style="{StaticResource PopupBorder}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                <StackPanel>
                     <TextBlock
-                        Grid.Row="0"
                         HorizontalAlignment="Center"
                         Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
                     <TextBox
                         x:Name="UploadFileName"
-                        Grid.Row="1"
                         Margin="20"
                         Background="{StaticResource ControlBackgroundBrush}"
                         BorderBrush="{StaticResource ButtonColorBrush}"
@@ -57,11 +50,10 @@
                         </TextBox.InputBindings>
                     </TextBox>
                     <TextBlock
-                        Grid.Row="2"
                         HorizontalAlignment="Center"
                         Foreground="{StaticResource ErrorColorBrush}"
                         Text="{Binding ElementName=UploadFileName, Path=(Validation.Errors)[0].ErrorContent}" />
-                </Grid>
+                </StackPanel>
             </Border>
         </local:FocusedPopup>
 
