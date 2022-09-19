@@ -17,6 +17,7 @@
         <local:FocusedPopup
             x:Name="FileRenamePopup"
             Margin="200"
+            d:DataContext="{d:DesignInstance Type=local:UploadFile}"
             DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Mode=Self}}"
             HorizontalOffset="30"
             InitialFocus="{Binding ElementName=UploadFileName}"
@@ -27,9 +28,7 @@
             VerticalOffset="28">
             <Border Style="{StaticResource PopupBorder}">
                 <StackPanel>
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
+                    <TextBlock HorizontalAlignment="Center" Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
                     <TextBox
                         x:Name="UploadFileName"
                         Margin="20"
