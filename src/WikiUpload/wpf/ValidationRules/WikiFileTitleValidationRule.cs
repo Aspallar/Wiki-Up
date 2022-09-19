@@ -9,8 +9,9 @@ namespace WikiUpload
     internal class WikiFileTitleValidationRule : ValidationRule
     {
         // Reference: https://www.mediawiki.org/wiki/Manual:Page_title
+        // in addition to the above rules, file names cannot contain path characters :/\
 
-        private static readonly char[] invalidCharacters = { '#', '<', '>', '[', ']', '|', '{', '}', ':' };
+        private static readonly char[] invalidCharacters = { '#', '<', '>', '[', ']', '|', '{', '}', ':', '/', '\\' };
         private static readonly Regex urlEascapeSequence = new Regex(@"%[a-fA-F0-9]{2}");
         private static readonly Regex consecutiveWhitespace = new Regex(@"[ _]{2}");
 
@@ -22,23 +23,14 @@ namespace WikiUpload
                 return ValidationResult.ValidResult;
 
             if (title.IndexOfAny(invalidCharacters) != -1)
-                return new ValidationResult(false, Resources.EditUploadFileNameErrorInvalidCharacters);
+            {
+                
+                var invalidCharactersString = string.Join(" ", invalidCharacters);
+                return new ValidationResult(false, string.Format(Resources.EditUploadFileNameErrorInvalidCharacters, invalidCharactersString));
+            }
 
             if (title == "." || title == "..")
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorIsRelativePath);
-
-            if (title.IndexOf('/') != -1)
-            {
-
-                if (title.StartsWith("./") || title.StartsWith("../"))
-                    return new ValidationResult(false, Resources.EditUploadFileNameErrorStartsWithRelativePath);
-
-                if (title.EndsWith("/.") || title.EndsWith("/.."))
-                    return new ValidationResult(false, Resources.EditUploadFileNameErrorEndsWithRelativePath);
-
-                if (title.IndexOf("/./") != -1 || title.IndexOf("/../") != -1)
-                    return new ValidationResult(false, Resources.EditUploadFileNameErrorContainsRelativePath);
-            }
 
             if (title.StartsWith(" ") || title.StartsWith("_"))
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorWhitespaceAtStart);

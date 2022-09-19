@@ -10,6 +10,9 @@ namespace Tests.ValidationRuleTests
     [TestFixture]
     public class WikiFileTitleValidationRuleTests
     {
+        // Reference: https://www.mediawiki.org/wiki/Manual:Page_title
+        // in addition to the above rules, file names cannot contain path characters :/\
+
         private WikiFileTitleValidationRule _validationRule;
 
         [SetUp]
@@ -30,11 +33,12 @@ namespace Tests.ValidationRuleTests
         [Test]
         public void Name_Cannot_Contain_Invalid_Characters()
         {
-            char[] invalidCharacters = { '#', '<', '>', '[', ']', '|', '{', '}', ':' };
+            char[] invalidCharacters = { '#', '<', '>', '[', ']', '|', '{', '}', ':', '/', '\\' };
 
             var expectedErrorContent = Resources.EditUploadFileNameErrorInvalidCharacters;
             foreach (var ch in invalidCharacters)
             {
+                ValidateAndAssertErrorReturn(ch.ToString(), expectedErrorContent);
                 ValidateAndAssertErrorReturn("a" + ch + "a.a", expectedErrorContent);
                 ValidateAndAssertErrorReturn(ch + "a.a", expectedErrorContent);
                 ValidateAndAssertErrorReturn("a.a" + ch, expectedErrorContent);
@@ -54,7 +58,7 @@ namespace Tests.ValidationRuleTests
             string[] relativePaths = { "/./", "/../" };
 
             foreach (var path in relativePaths)
-                ValidateAndAssertErrorReturn("foo" + path + "bar", Resources.EditUploadFileNameErrorContainsRelativePath);
+                ValidateAndAssertErrorReturn("foo" + path + "bar");
         }
 
         [Test]
@@ -63,7 +67,7 @@ namespace Tests.ValidationRuleTests
             string[] relativePaths = { "./", "../" };
 
             foreach (var path in relativePaths)
-                ValidateAndAssertErrorReturn(path + "bar", Resources.EditUploadFileNameErrorStartsWithRelativePath);
+                ValidateAndAssertErrorReturn(path + "bar");
         }
 
         [Test]
@@ -72,7 +76,7 @@ namespace Tests.ValidationRuleTests
             string[] relativePaths = { "/.", "/.." };
 
             foreach (var path in relativePaths)
-                ValidateAndAssertErrorReturn("foo" + path, Resources.EditUploadFileNameErrorEndsWithRelativePath);
+                ValidateAndAssertErrorReturn("foo" + path);
         }
 
         [Test]
@@ -147,23 +151,23 @@ namespace Tests.ValidationRuleTests
             ValidateAndAssertErrorReturn(test, Resources.EditUploadFileNameErrorMustHaveFileName);
         }
 
-        private void ValidateAndAssertErrorReturn(string testString, string expectedContent = null)
+        private void ValidateAndAssertErrorReturn(string testString, string expectedContentStart = null)
         {
             var result = _validationRule.Validate(testString, null);
             Assert.That(result.IsValid, Is.False);
 
-            if (expectedContent != null)
-                Assert.That(result.ErrorContent, Is.EqualTo(expectedContent));
+            if (expectedContentStart != null)
+                Assert.That(result.ErrorContent, Does.StartWith(expectedContentStart));
         }
 
-        private void ValidateAndAssertErrorReturn(IList testStrings, string expectedContent = null)
+        private void ValidateAndAssertErrorReturn(IList testStrings, string expectedContentStart = null)
         {
             foreach (var testString in testStrings)
             {
                 var result = _validationRule.Validate(testString, null);
                 Assert.That(result.IsValid, Is.False);
-                if (expectedContent != null)
-                    Assert.That(result.ErrorContent, Is.EqualTo(expectedContent));
+                if (expectedContentStart != null)
+                    Assert.That(result.ErrorContent, Does.StartWith(expectedContentStart));
             }
         }
 

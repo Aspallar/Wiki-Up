@@ -89,6 +89,7 @@ namespace WikiUpload
             StartSearchCommand = new RelayParameterizedCommand (async (from) => await StartSearch((string)from));
             PreviousSearchCommand = new RelayCommand(async () => await PreviousSearch());
 
+            // Edit upload file name
             EditUploadFileNameCommand = new RelayParameterizedCommand(EditUploadFileName);
             CloseUploadFileNamePopupCommand = new RelayCommand(() => IsUploadFileNamePopupOpen = false);
         }
@@ -666,12 +667,12 @@ namespace WikiUpload
 
         #endregion
 
+        #region Edit upload file name
 
+        public bool IsUploadFileNamePopupOpen { get; set;  } = false;
 
-         public bool IsUploadFileNamePopupOpen { get; set;  } = false;
-        
         public ICommand CloseUploadFileNamePopupCommand { get; }
- 
+
         public ICommand EditUploadFileNameCommand { get; }
         private void EditUploadFileName(object isVideo)
         {
@@ -679,6 +680,8 @@ namespace WikiUpload
                 IsUploadFileNamePopupOpen = true;
         }
 
-  }
+        #endregion
+
+    }
 }
  

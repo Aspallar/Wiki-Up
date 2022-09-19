@@ -779,25 +779,13 @@
 
 
   <data name="EditUploadFileNameErrorInvalidCharacters" xml:space="preserve">
-    <value>Cannot contain # &lt; &gt; [ ] | { } :</value>
+    <value>Cannot contain any of {0}</value>
   </data>
 
   <data name="EditUploadFileNameErrorIsRelativePath" xml:space="preserve">
     <value>Cannot be "."  or ".."</value>
   </data>
-
-  <data name="EditUploadFileNameErrorStartsWithRelativePath" xml:space="preserve">
-    <value>Cannot start with "./" or "../"</value>
-  </data>
-
-  <data name="EditUploadFileNameErrorEndsWithRelativePath" xml:space="preserve">
-    <value>Cannot end with "/." or "/.."</value>
-  </data>
-
-  <data name="EditUploadFileNameErrorContainsRelativePath" xml:space="preserve">
-    <value>Cannot contain "/./" or "/../"</value>
-  </data>
-
+  
   <data name="EditUploadFileNameErrorWhitespaceAtStart" xml:space="preserve">
     <value>Cannot start with a space or _</value>
   </data>

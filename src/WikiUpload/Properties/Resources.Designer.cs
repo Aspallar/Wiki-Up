@@ -583,25 +583,7 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot contain &quot;/./&quot; or &quot;/../&quot;.
-        /// </summary>
-        public static string EditUploadFileNameErrorContainsRelativePath {
-            get {
-                return ResourceManager.GetString("EditUploadFileNameErrorContainsRelativePath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot end with &quot;/.&quot; or &quot;/..&quot;.
-        /// </summary>
-        public static string EditUploadFileNameErrorEndsWithRelativePath {
-            get {
-                return ResourceManager.GetString("EditUploadFileNameErrorEndsWithRelativePath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot contain # &lt; &gt; [ ] | { } :.
+        ///   Looks up a localized string similar to Cannot contain any of {0}.
         /// </summary>
         public static string EditUploadFileNameErrorInvalidCharacters {
             get {
@@ -633,15 +615,6 @@ namespace WikiUpload.Properties {
         public static string EditUploadFileNameErrorMustHaveFileName {
             get {
                 return ResourceManager.GetString("EditUploadFileNameErrorMustHaveFileName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot start with &quot;./&quot; or &quot;../&quot;.
-        /// </summary>
-        public static string EditUploadFileNameErrorStartsWithRelativePath {
-            get {
-                return ResourceManager.GetString("EditUploadFileNameErrorStartsWithRelativePath", resourceCulture);
             }
         }
         
