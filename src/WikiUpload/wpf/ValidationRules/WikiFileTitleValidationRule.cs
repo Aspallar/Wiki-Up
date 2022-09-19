@@ -47,8 +47,7 @@ namespace WikiUpload
             if (urlEascapeSequence.IsMatch(title))
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorUrlEscape);
 
-            var lengthInBytes = Encoding.UTF8.GetBytes(title).Length;
-            if (lengthInBytes > 255)
+            if (Encoding.UTF8.GetByteCount(title) > 255)
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorTooLong);
 
             var lastPeriodPosition = title.LastIndexOf('.');

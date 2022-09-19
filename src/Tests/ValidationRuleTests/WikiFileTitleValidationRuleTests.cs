@@ -35,7 +35,7 @@ namespace Tests.ValidationRuleTests
         {
             char[] invalidCharacters = { '#', '<', '>', '[', ']', '|', '{', '}', ':', '/', '\\' };
 
-            var expectedErrorContent = Resources.EditUploadFileNameErrorInvalidCharacters;
+            var expectedErrorContent = Resources.EditUploadFileNameErrorInvalidCharacters.Replace(@"{0}", "");
             foreach (var ch in invalidCharacters)
             {
                 ValidateAndAssertErrorReturn(ch.ToString(), expectedErrorContent);
