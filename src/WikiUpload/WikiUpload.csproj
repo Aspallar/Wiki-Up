@@ -233,6 +233,7 @@
     <Compile Include="wpf\Controls\TimedPopup.cs" />
     <Compile Include="wpf\ValidationRules\WikiFileTitleValidationRule.cs" />
     <Compile Include="wpf\ValueConverters\BaseMulriValueConverter.cs" />
+    <Compile Include="wpf\ValueConverters\IntegerToVisibilityConverter.cs" />
     <Compile Include="wpf\ValueConverters\SelectedIndexToTooltipConverter.cs" />
     <Compile Include="wpf\ValueConverters\SortOrderToColorConverter.cs" />
     <Compile Include="wpf\ValueConverters\RememberPasswordOptionsToIntConverter.cs" />

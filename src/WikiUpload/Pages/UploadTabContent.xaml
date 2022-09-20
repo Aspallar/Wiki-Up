@@ -28,10 +28,13 @@
             VerticalOffset="28">
             <Border Style="{StaticResource PopupBorder}">
                 <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
+                    <TextBlock
+                        Margin="0"
+                        HorizontalAlignment="Center"
+                        Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
                     <TextBox
                         x:Name="UploadFileName"
-                        Margin="20"
+                        Margin="20 12"
                         Background="{StaticResource ControlBackgroundBrush}"
                         BorderBrush="{StaticResource ButtonColorBrush}"
                         BorderThickness="1"
@@ -48,10 +51,20 @@
                             <KeyBinding Key="Esc" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
                         </TextBox.InputBindings>
                     </TextBox>
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        Foreground="{StaticResource ErrorColorBrush}"
-                        Text="{Binding ElementName=UploadFileName, Path=(Validation.Errors)[0].ErrorContent}" />
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <iconPacks:PackIconFontAwesome
+                            Margin="10 0 10 0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource ErrorColorBrush}"
+                            Kind="TimesCircleSolid"
+                            Style="{StaticResource FontSizeIcon}"
+                            Visibility="{Binding ElementName=UploadFileName, Path=(Validation.Errors).Count, Converter={local:IntegerToVisibilityConverter}}" />
+                        <TextBlock
+                            FontSize="{StaticResource FontSizeSmall}"
+                            Foreground="{StaticResource ErrorColorBrush}"
+                            Text="{Binding ElementName=UploadFileName, Path=(Validation.Errors)[0].ErrorContent}" />
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </local:FocusedPopup>
