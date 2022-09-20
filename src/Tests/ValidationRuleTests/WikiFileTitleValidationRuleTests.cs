@@ -131,7 +131,7 @@ namespace Tests.ValidationRuleTests
         }
 
         [Test]
-        public void Name_Cannot_Be_Longer_Than_255_Bytes_Invluding_Url_Encoding()
+        public void Name_Cannot_Be_Longer_Than_255_Bytes_Including_Url_Encoding()
         {
             string test = new string('&', 84) + "aa.a";
             System.Diagnostics.Debug.Assert(Encoding.UTF8.GetBytes(HttpUtility.UrlEncode(test)).Length == 256);
