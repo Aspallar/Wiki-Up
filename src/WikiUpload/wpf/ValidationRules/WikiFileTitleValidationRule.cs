@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Windows.Controls;
 using WikiUpload.Properties;
 
@@ -47,7 +48,7 @@ namespace WikiUpload
             if (urlEascapeSequence.IsMatch(title))
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorUrlEscape);
 
-            if (Encoding.UTF8.GetByteCount(title) > 255)
+            if (Encoding.UTF8.GetByteCount(HttpUtility.UrlEncode(title)) > 255)
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorTooLong);
 
             var lastPeriodPosition = title.LastIndexOf('.');

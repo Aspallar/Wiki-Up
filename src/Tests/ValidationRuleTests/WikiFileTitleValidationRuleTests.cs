@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Text;
+using System.Web;
 using WikiUpload;
 using WikiUpload.Properties;
 
@@ -126,6 +127,14 @@ namespace Tests.ValidationRuleTests
         {
             string test = new string('a', 254) + ".a";
             System.Diagnostics.Debug.Assert(Encoding.UTF8.GetBytes(test).Length == 256);
+            ValidateAndAssertErrorReturn(test, Resources.EditUploadFileNameErrorTooLong);
+        }
+
+        [Test]
+        public void Name_Cannot_Be_Longer_Than_255_Bytes_Invluding_Url_Encoding()
+        {
+            string test = new string('&', 84) + "aa.a";
+            System.Diagnostics.Debug.Assert(Encoding.UTF8.GetBytes(HttpUtility.UrlEncode(test)).Length == 256);
             ValidateAndAssertErrorReturn(test, Resources.EditUploadFileNameErrorTooLong);
         }
 
