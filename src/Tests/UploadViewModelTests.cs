@@ -691,6 +691,25 @@ namespace Tests
         }
 
         [Test]
+        public void When_UploadIsDone_Then_UploadFileNameIsUsed()
+        {
+            AlllFilesPermitted();
+            AddSingleUploadFile();
+            const string uploadFileName = "Upload.png";
+            _model.UploadFiles[0].UploadFileName = uploadFileName;
+            A.CallTo(() => _uploadResponse.Result).Returns(ResponseCodes.Success);
+
+            _model.UploadCommand.Execute(null);
+
+            A.CallTo(() => _fileUploader.UpLoadAsync(
+                A<string>.Ignored,
+                uploadFileName,
+                A<CancellationToken>.Ignored,
+                A<string>.Ignored,
+                A<string>.Ignored)).MustHaveHappened(1, Times.Exactly);
+        }
+
+        [Test]
         public void When_UploadIsDone_Then_SummaryContainsViaWikiUp()
         {
             AlllFilesPermitted();
@@ -1502,6 +1521,38 @@ namespace Tests
 
             Assert.That(_model.PageContent, Is.EqualTo(fullString));
         }
+
+        #endregion
+
+        #region Edit upload file name
+
+        [Test]
+        public void When_EditUploadFileNameIsExecutedForFile_Then_EditPopupIsShown()
+        {
+            _model.UploadIsRunning = false;
+            _model.EditUploadFileNameCommand.Execute(false);
+
+            Assert.That(_model.IsUploadFileNamePopupOpen, Is.True);
+        }
+
+        [Test]
+        public void When_EditUploadFileNameIsExecutedForVideo_Then_EditPopupIsNotShown()
+        {
+            _model.UploadIsRunning = false;
+            _model.EditUploadFileNameCommand.Execute(true);
+
+            Assert.That(_model.IsUploadFileNamePopupOpen, Is.False);
+        }
+
+        [Test]
+        public void When_EditUploadFileNameIsExecutedForFileWhenUploading_Then_EditPopupIsNotShown()
+        {
+            _model.UploadIsRunning = true;
+            _model.EditUploadFileNameCommand.Execute(false);
+
+            Assert.That(_model.IsUploadFileNamePopupOpen, Is.False);
+        }
+
 
         #endregion
     }
