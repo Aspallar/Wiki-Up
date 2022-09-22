@@ -4,10 +4,16 @@ param (
     [switch]
     $Clean,
 
+    # Don't ask for clean to be confirmed
+    [Parameter()]
+    [switch]
+    $NoConfirm,
+
     # Build the Dist folder which contains zip and installers.
     [Parameter()]
     [switch]
     $Distribution
+
 )
 
 $ErrorActionPreference = 'stop'
@@ -18,7 +24,7 @@ function main {
     $languages = get_supported_languages
     check_prerequisites
     ensure_msbuild
-    if ($Clean.IsPresent) { clean_build }
+    if ($Clean.IsPresent) { clean_build $NoConfirm.IsPresent }
     $version = read_application_version_from_assemblyinfo
     build_application $Distribution.IsPresent
     create_deploy_folder $languages
@@ -48,7 +54,8 @@ function ensure_msbuild {
 }
 
 function clean_build {
-    if ((delete_obj_and_bin_folders)) {
+    param ([Parameter()] [bool] $NoConfirm)
+    if ((delete_obj_and_bin_folders $NoConfirm)) {
         Write-Host 'Project cleaned - continuing with build.'
     }
     else {
@@ -58,10 +65,10 @@ function clean_build {
 
 function build_application {
     param ( [Parameter(Mandatory)] [bool] $buildInstallers )
-    if ($buildInstallers) { $config = 'Install' } else { $config = 'Release' }
+    $config = if ($buildInstallers) { 'Install' } else { 'Release' }
     Push-Location -Path .\src
     try {
-        msbuild /m /v:m /p:Configuration=$config /nologo
+        msbuild.exe /m /v:m /p:Configuration=$config /nologo
     }
     finally {
         Pop-Location
@@ -72,7 +79,7 @@ function create_deploy_folder {
     param ( [Parameter(Mandatory)] [hashtable[]] $languages )
     New-Item .\Deploy -ItemType Directory -Force | Out-Null
     get_language_folders $languages | ForEach-Object {
-        New-Item -Path ".\Deploy\$($_)" -ItemType Directory -Force | Out-Null
+        New-Item -Path ".\Deploy\$_" -ItemType Directory -Force | Out-Null
     }
     # Delete any files in the deploy folders
     Get-ChildItem .\Deploy\* -Recurse -File | ForEach-Object {
@@ -112,24 +119,32 @@ function build_distribution {
 
 
 function delete_obj_and_bin_folders {
+    param ([Parameter()] [bool] $NoConfirm)
     $continue = $true
-    $cleanFolderNames = 'obj', 'bin'
-    $folders = Get-ChildItem -Path .\src -Recurse -Directory | Where-Object {
-        $cleanFolderNames -contains $_.Name
-    }
-    if ($folders.Count -gt 0) {
-        Write-Host "`nGoing to remove the following folders" -ForegroundColor Cyan
-        $folders.ForEach({ Write-Host $_.FullName })
-        Write-Host "`nPress enter to continue any other key to cancel:"
-        $ch = [Console]::ReadKey()
-        if ($ch.Key -eq 'Enter') {
-            $folders.ForEach({ Remove-Item -Path $_.FullName -Recurse })
-        }
-        else {
-            $continue = $false
+    [string[]]$folders = get_folders_to_clean
+    if ($folders.Length -gt 0) {
+        $continue = $NoConfirm -or (confirm_remove_folders $folders)
+        if ($continue) {
+            $folders.ForEach({ Remove-Item -Path $_ -Recurse })
         }
     }
     return $continue
+}
+
+function get_folders_to_clean {
+    $cleanFolderNames = 'obj', 'bin'
+    Get-ChildItem -Path .\src -Recurse -Directory |
+        Where-Object { $cleanFolderNames -contains $_.Name } | 
+        Select-Object -ExpandProperty FullName
+}
+
+function confirm_remove_folders {
+    param ( [Parameter(Mandatory)] [string[]] $folders )
+    Write-Host "`nGoing to remove the following folders" -ForegroundColor Cyan
+    $folders.ForEach({ Write-Host $_ })
+    Write-Host "`nPress enter to continue any other key to cancel:"
+    $ch = [Console]::ReadKey()
+    $ch.Key -eq 'Enter'
 }
 
 function create_zip_from_deploy_folder {
