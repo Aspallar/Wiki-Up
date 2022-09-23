@@ -286,7 +286,7 @@
                                                         Width="100"
                                                         Background="{StaticResource ControlBackgroundBrush}"
                                                         MaxLength="32"
-                                                        Text="{Binding NewExtensionText, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
+                                                        Text="{Binding NewExtensionText, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=OneWayToSource}">
                                                         <TextBox.InputBindings>
                                                             <KeyBinding Key="Return" Command="{Binding AddImageEtensionCommand}" />
                                                         </TextBox.InputBindings>
@@ -295,8 +295,7 @@
                                                         HorizontalAlignment="Center"
                                                         FontSize="{StaticResource FontSizeRegular}"
                                                         Foreground="{StaticResource ErrorColorBrush}"
-                                                        Text="{x:Static p:Resources.InvalidExtension}"
-                                                        Visibility="{Binding IsValidImageFileExtension, Converter={local:BooleanToVisiblityConverter}}" />
+                                                        Text="{Binding ElementName=ImageExtension, Path=(Validation.Errors)[0].ErrorContent}" />
                                                 </StackPanel>
                                             </Border>
                                         </local:FocusedPopup>
