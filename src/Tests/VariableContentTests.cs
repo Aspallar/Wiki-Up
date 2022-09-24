@@ -6,6 +6,10 @@ namespace Tests
     [TestFixture]
     public class VariableContentTests
     {
+        const string testUploadFilePath = "Dummy.png";
+        const string testUploadFileFileName = "Dummy";
+        const string testUploadFileExtension = ".png";
+
         [Test]
         public void When_NoVariables_Then_HasVariablesIsFalse()
         {
@@ -60,6 +64,28 @@ namespace Tests
             var variableContent = new VariableContent(test);
 
             Assert.That(variableContent.ExpandedContent(file), Is.EqualTo("foobar"));
+        }
+
+        [Test]
+        public void When_UploadFilenameExpansion_Then_UploadFilenameWithouExtensionIsSubstituted()
+        {
+            var test = "<%uploadfilename>";
+            var file = CreateUploadFile(@"c:\foo\foobar.png");
+
+            var variableContent = new VariableContent(test);
+
+            Assert.That(variableContent.ExpandedContent(file), Is.EqualTo(testUploadFileFileName));
+        }
+
+        [Test]
+        public void When_UploadExtensionExpansion_Then_UploadFilenameExtensionIsSubstituted()
+        {
+            var test = "<%uploadextension>";
+            var file = CreateUploadFile(@"c:\foo\foobar.png");
+
+            var variableContent = new VariableContent(test);
+
+            Assert.That(variableContent.ExpandedContent(file), Is.EqualTo(testUploadFileExtension));
         }
 
         [Test]
@@ -131,6 +157,7 @@ namespace Tests
             Assert.That(variableContent.ExpandedContent(file), Is.EqualTo(expected));
         }
 
-        private UploadFile CreateUploadFile(string path) => new UploadFile(path) { UploadFileName = "Dummy.png" };
+        private UploadFile CreateUploadFile(string path)
+            => new UploadFile(path) { UploadFileName = testUploadFilePath };
     }
 }
