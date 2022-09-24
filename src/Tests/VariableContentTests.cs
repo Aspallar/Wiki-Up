@@ -55,7 +55,7 @@ namespace Tests
         public void When_FilenameExpansion_Then_FilenameWithouExtensionIsSubstituted()
         {
             var test = "<%filename>";
-            var file = new UploadFile(@"c:\foo\foobar.png");
+            var file = CreateUploadFile(@"c:\foo\foobar.png");
 
             var variableContent = new VariableContent(test);
 
@@ -66,7 +66,7 @@ namespace Tests
         public void When_NegativeExpansionIndexNotValidInteger_Then_SubstitutionNatDone()
         {
             var test = "Once upon<%-999999999999999999999999999999999999999999999999999999999999> a time";
-            var file = new UploadFile("foobar");
+            var file = CreateUploadFile("foobar");
 
             var variableContent = new VariableContent(test);
 
@@ -77,7 +77,7 @@ namespace Tests
         public void When_ExpansionIndexNotInRange_Then_EmptyStringIsSubstituted()
         {
             var test = "<%4>";
-            var file = new UploadFile(@"c:\a\b.foo");
+            var file = CreateUploadFile(@"c:\a\b.foo");
 
             var variableContent = new VariableContent(test);
 
@@ -88,7 +88,7 @@ namespace Tests
         public void When_NegativeExpansionIndexNotInRange_Then_EmptyStringIsSubstituted()
         {
             var test = "<%-4>";
-            var file = new UploadFile(@"c:\a\b.foo");
+            var file = CreateUploadFile(@"c:\a\b.foo");
 
             var variableContent = new VariableContent(test);
 
@@ -100,7 +100,7 @@ namespace Tests
         {
             const string fileName = @"c:\a\b.foo";
             var test = "<%0>";
-            var file = new UploadFile(fileName);
+            var file = CreateUploadFile(fileName);
 
             var variableContent = new VariableContent(test);
 
@@ -112,7 +112,7 @@ namespace Tests
         {
             var test = "once <%1> upon <%2> a <%3> z <%4>";
             var expected = "once c: upon two a three z four.foo";
-            var file = new UploadFile(@"c:\two\three\four.foo");
+            var file = CreateUploadFile(@"c:\two\three\four.foo");
 
             var variableContent = new VariableContent(test);
 
@@ -123,7 +123,7 @@ namespace Tests
         public void When_NegativeExpansionse_Then_ExpansionsDone()
         {
             var test = "once <%-1> upon <%-2> a <%-3> z <%-4>";
-            var file = new UploadFile(@"c:\three\two\one.foo");
+            var file = CreateUploadFile(@"c:\three\two\one.foo");
             var expected = "once one.foo upon two a three z c:";
 
             var variableContent = new VariableContent(test);
@@ -131,6 +131,6 @@ namespace Tests
             Assert.That(variableContent.ExpandedContent(file), Is.EqualTo(expected));
         }
 
-
+        private UploadFile CreateUploadFile(string path) => new UploadFile(path) { UploadFileName = "Dummy.png" };
     }
 }
