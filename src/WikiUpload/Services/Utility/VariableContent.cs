@@ -26,7 +26,7 @@ namespace WikiUpload
         {
             var pathParts = file.FullPath.Split(Path.DirectorySeparatorChar);
             var fileName = Path.GetFileNameWithoutExtension(file.FullPath);
-            return _filepartRegex.Replace(_content, (match) =>
+            return _filepartRegex.Replace(content, (match) =>
             {
                 var what = match.Groups[1].Value;
                 if (int.TryParse(what, out var index))
