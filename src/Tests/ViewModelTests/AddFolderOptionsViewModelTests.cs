@@ -6,7 +6,7 @@ using System.Windows;
 using WikiUpload;
 using WikiUpload.Properties;
 
-namespace Tests
+namespace Tests.ViewModelTests
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]

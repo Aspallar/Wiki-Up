@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WikiUpload;
 
-namespace Tests
+namespace Tests.MiscellaneousTests
 {
     [TestFixture]
     public class UpdateCheckTests

@@ -125,10 +125,10 @@
   leave the name="Whatever" parts alone, they stay in "english".
   
   -->
-  
+
   <!-- ***************************************************************** -->
   <!-- Window Chromew -->
-    
+
   <data name="AppNameText" xml:space="preserve">
     <value>Wiki-Up</value>
   </data>
@@ -153,10 +153,10 @@
   <data name="AboutTitleText" xml:space="preserve">
     <value>About Wiki-Up</value>
   </data>
-  
+
   <!-- ***************************************************************** -->
   <!-- Login / Logoff -->
-  
+
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>
   </data>
@@ -193,7 +193,7 @@
 
   <!-- ***************************************************************** -->
   <!-- Login Exceptions -->
-  
+
   <data name="LoginExceptionInvalidResponse" xml:space="preserve">
     <value>The server returned an invalid response.</value>
   </data>
@@ -217,8 +217,8 @@
   </data>
 
   <!-- ***************************************************************** -->
-  <!-- Insecure connection dialog -->  
-  
+  <!-- Insecure connection dialog -->
+
   <data name="InsecureConnectionTitleText" xml:space="preserve">
     <value>Insecure Connection</value>
   </data>
@@ -228,27 +228,27 @@
   <data name="ContiuePrompt" xml:space="preserve">
     <value>Are you sure you want to continue?</value>
   </data>
-  
+
   <!-- ***************************************************************** -->
   <!-- Category and Template search page -->
-    
+
   <data name="SearchErrorText" xml:space="preserve">
     <value>Error while probing the wiki.</value>
   </data>
-  
+
   <!-- ***************************************************************** -->
-  <!--Upload page - tabs -->  
-  
+  <!--Upload page - tabs -->
+
   <data name="ContentTabText" xml:space="preserve">
     <value>Content</value>
   </data>
   <data name="UploadTabText" xml:space="preserve">
     <value>Upload</value>
   </data>
-  
+
   <!-- ***************************************************************** -->
-  <!-- Upload Page - Upload Tab -->  
-  
+  <!-- Upload Page - Upload Tab -->
+
   <data name="FilesText" xml:space="preserve">
     <value> Files</value>
   </data>
@@ -299,11 +299,11 @@
   </data>
   <data name="ButtonSaveFilesTooltipText" xml:space="preserve">
     <value>Save the upload list.</value>
-  </data>  
-  
+  </data>
+
   <!-- ***************************************************************** -->
   <!-- Upload Page - Content tab -->
-    
+
   <data name="SummaryLabelText" xml:space="preserve">
     <value>Summary</value>
   </data>
@@ -322,7 +322,7 @@
   <data name="ButtonAddTemplateText" xml:space="preserve">
     <value>Add Template</value>
   </data>
-  
+
   <!-- ***************************************************************** -->
   <!-- General button text -->
 
@@ -365,7 +365,7 @@
 
   <!-- ***************************************************************** -->
   <!-- Upload status messages -->
-  
+
   <data name="UploadMessageAwaitingUpload" xml:space="preserve">
     <value>Awaiting upload.</value>
   </data>
@@ -430,7 +430,7 @@
   <data name="ViewImageErrorMessage" xml:space="preserve">
     <value>Unable to view image.</value>
   </data>
-  
+
   <!-- ***************************************************************** -->
   <!-- About window -->
 
@@ -540,7 +540,7 @@
 
   <!-- ***************************************************************** -->
   <!-- Color theme names -->
-    
+
   <data name="PutpleOverloadText" xml:space="preserve">
     <value>Purple Overload</value>
   </data>
@@ -626,11 +626,11 @@
   <data name="LoginExpiredText" xml:space="preserve">
     <value>Your login credentials have expired.</value>
   </data>
-  
+
   <data name="LoginExpiredSubtext" xml:space="preserve">
     <value>You will need to login again to continue with the upload, click on OK to log in.</value>
   </data>
-  
+
   <data name="ButtonAddFolderText" xml:space="preserve">
     <value>Add Folder</value>
   </data>
@@ -638,7 +638,7 @@
   <data name="ButtonAddFolderTooltipText" xml:space="preserve">
     <value>Add all files in a folder and sub-folders to the upload list.</value>
   </data>
-  
+
   <data name="UnableToAddFiles" xml:space="preserve">
     <value>Unable to add files.</value>
   </data>
@@ -646,15 +646,15 @@
   <data name="IncludeAllFiles" xml:space="preserve">
     <value>All files</value>
   </data>
-  
+
   <data name="IncludeUploadableFiles" xml:space="preserve">
     <value>All uploadable files</value>
   </data>
-  
+
   <data name="IncludeImageFiles" xml:space="preserve">
     <value>All image files</value>
   </data>
- 
+
   <data name="IncludeSubfolders" xml:space="preserve">
     <value>Include sub-folders</value>
   </data>
@@ -666,27 +666,27 @@
   <data name="DoNotRememberPassword" xml:space="preserve">
     <value>Do not remember password</value>
   </data>
-  
+
   <data name="RememberPasswordForWiki" xml:space="preserve">
     <value>Remember password for wiki</value>
   </data>
-  
+
   <data name="RememberPasswordForDomain" xml:space="preserve">
     <value>Remember password for domain</value>
   </data>
-  
+
   <data name="WaitingForRetry" xml:space="preserve">
     <value>Waiting before trying again.</value>
   </data>
-  
+
   <data name="UploadListWatermarkText" xml:space="preserve">
     <value>UPLOAD LIST</value>
   </data>
-  
+
   <data name="UploadedFiles" xml:space="preserve">
     <value>Uploaded Files</value>
   </data>
-  
+
   <data name="ViewUploadedFiles" xml:space="preserve">
     <value>View list of uploaded files</value>
   </data>
@@ -718,7 +718,7 @@
   <data name="SortDescending" xml:space="preserve">
     <value>Sort descending (Ctrl+3)</value>
   </data>
-  
+
   <data name="WindowPlacement" xml:space="preserve">
     <value>Window Placement</value>
   </data>
@@ -730,7 +730,7 @@
   <data name="MainWindow" xml:space="preserve">
     <value>Main Window</value>
   </data>
-  
+
   <data name="UploadedFilesWindow" xml:space="preserve">
     <value>Uploaded Files Window</value>
   </data>
@@ -750,12 +750,12 @@
   <data name="PlainGray" xml:space="preserve">
     <value>Plain Gray</value>
   </data>
-  
+
   <data name="CopyAsPlainList" xml:space="preserve">
     <value>Copy as plain list</value>
   </data>
 
-   <data name="CopyAsWikiTextLinks" xml:space="preserve">
+  <data name="CopyAsWikiTextLinks" xml:space="preserve">
     <value>Copy as wikitext links</value>
   </data>
 
@@ -769,6 +769,53 @@
 
   <data name="FileNamespace" xml:space="preserve">
     <value>File:</value>
+  </data>
+  
+  <!-- Edit upload file name -->
+  
+  <data name="EditUploadFileNamePrompt" xml:space="preserve">
+    <value>Enter the file name to use for upload</value>
+  </data>
+
+
+  <data name="EditUploadFileNameErrorInvalidCharacters" xml:space="preserve">
+    <value>Cannot contain any of {0}</value>
+  </data>
+
+  <data name="EditUploadFileNameErrorIsRelativePath" xml:space="preserve">
+    <value>Cannot be "."  or ".."</value>
+  </data>
+  
+  <data name="EditUploadFileNameErrorWhitespaceAtStart" xml:space="preserve">
+    <value>Cannot start with a space or _</value>
+  </data>
+
+  <data name="EditUploadFileNameErrorWhitespaceAtEnd" xml:space="preserve">
+    <value>Cannot end with a space or _</value>
+  </data>
+
+  <data name="EditUploadFileNameErrorThreeTildes" xml:space="preserve">
+    <value>Cannot contain 3 or more consecutive tildes (~).</value>
+  </data>
+
+  <data name="EditUploadFileNameErrorConsecutiveSpaces" xml:space="preserve">
+    <value>Cannot contain 2 or more consecutive spaces/underscores.</value>
+  </data>
+
+  <data name="EditUploadFileNameErrorUrlEscape" xml:space="preserve">
+    <value>Cannot contain url escape sequence (%nn).</value>
+  </data>
+
+  <data name="EditUploadFileNameErrorTooLong" xml:space="preserve">
+    <value>Too long.</value>
+  </data>
+    
+  <data name="EditUploadFileNameErrorMustHaveExension" xml:space="preserve">
+    <value>Must have an extension e.g ".png"</value>
+  </data>
+    
+  <data name="EditUploadFileNameErrorMustHaveFileName" xml:space="preserve">
+    <value>Must have a file name</value>
   </data>
 
 </root>

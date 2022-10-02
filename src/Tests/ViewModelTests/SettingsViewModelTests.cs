@@ -1,10 +1,11 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
+using System;
 using System.Threading.Tasks;
 using WikiUpload;
 using WikiUpload.Properties;
 
-namespace Tests
+namespace Tests.ViewModelTests
 {
     [TestFixture]
     public class SettingsViewModelTests
@@ -124,6 +125,25 @@ namespace Tests
             _model.ToggleAddImageExtensionPopupCommand.Execute(null);
 
             Assert.That(_model.IsAddingImageExtension, Is.False);
+        }
+
+        [Test]
+        public void When_NewExtensionTextIsInvalid_Then_ArgumentExceptionIsThrown()
+        {
+            Assert.Throws<ArgumentException>(() => _model.NewExtensionText = "<");
+        }
+
+        [Test]
+        public void When_NewExtensionTextIsSetToInvalidValue_Then_ValueIsSet()
+        {
+            const string invalidExtension = ">>>";
+            try
+            {
+                _model.NewExtensionText = invalidExtension;
+            }
+            catch (ArgumentException) { }
+
+            Assert.That(_model.NewExtensionText, Is.EqualTo(invalidExtension));
         }
 
         [Test]

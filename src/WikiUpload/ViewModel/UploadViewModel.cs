@@ -9,8 +9,6 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml;
 using WikiUpload.Properties;
@@ -90,6 +88,10 @@ namespace WikiUpload
             NextSearchCommand = new RelayCommand(async () => await NextSearch());
             StartSearchCommand = new RelayParameterizedCommand (async (from) => await StartSearch((string)from));
             PreviousSearchCommand = new RelayCommand(async () => await PreviousSearch());
+
+            // Edit upload file name
+            EditUploadFileNameCommand = new RelayParameterizedCommand(EditUploadFileName);
+            CloseUploadFileNamePopupCommand = new RelayCommand(() => IsUploadFileNamePopupOpen = false);
         }
         #endregion
 
@@ -268,6 +270,7 @@ namespace WikiUpload
                 {
                     response = await _fileUploader.UpLoadAsync(
                         file.FullPath,
+                        file.UploadFileName,
                         cancelToken,
                         summary,
                         newPageContent);
@@ -660,6 +663,21 @@ namespace WikiUpload
                 _navigatorService.NewUploadPage();
                 _navigatorService.NavigateToLoginPage();
             }
+        }
+
+        #endregion
+
+        #region Edit upload file name
+
+        public bool IsUploadFileNamePopupOpen { get; set;  } = false;
+
+        public ICommand CloseUploadFileNamePopupCommand { get; }
+
+        public ICommand EditUploadFileNameCommand { get; }
+        private void EditUploadFileName(object isVideo)
+        {
+            if (!UploadIsRunning && !(bool)isVideo)
+                IsUploadFileNamePopupOpen = true;
         }
 
         #endregion

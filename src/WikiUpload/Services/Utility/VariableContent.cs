@@ -5,7 +5,7 @@ namespace WikiUpload
 {
     internal class VariableContent
     {
-        private readonly Regex _filepartRegex = new Regex(@"<%(filename|-?\d+)>");
+        private readonly Regex _filepartRegex = new Regex(@"<%(filename|uploadfilename|uploadextension|-?\d+)>");
 
         private readonly string _content;
 
@@ -26,13 +26,17 @@ namespace WikiUpload
         {
             var pathParts = file.FullPath.Split(Path.DirectorySeparatorChar);
             var fileName = Path.GetFileNameWithoutExtension(file.FullPath);
-            return _filepartRegex.Replace(_content, (match) =>
+            return _filepartRegex.Replace(content, (match) =>
             {
                 var what = match.Groups[1].Value;
                 if (int.TryParse(what, out var index))
                     return PathPart(file, pathParts, index);
                 else if (what == "filename")
                     return fileName;
+                else if (what == "uploadfilename")
+                    return Path.GetFileNameWithoutExtension(file.UploadFileName);
+                else if (what == "uploadextension")
+                    return Path.GetExtension(file.UploadFileName);
                 else
                     return match.Value;
             });

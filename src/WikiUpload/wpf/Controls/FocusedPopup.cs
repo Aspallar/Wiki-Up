@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -63,11 +64,34 @@ namespace WikiUpload
                 SetInitialFocus(initialFocus);
         }
 
-        private static void SetInitialFocus(Control initialFocus)
+        private void SetInitialFocus(Control initialFocus)
         {
             initialFocus.Focus();
             if (initialFocus is TextBox tb)
-                tb.SelectAll();
+                SelectText(tb);
+        }
+
+        private void SelectText(TextBox textBox)
+        {
+            var selectPattern = SelectPattern;
+            if (string.IsNullOrEmpty(selectPattern))
+                textBox.SelectAll();
+            else
+                SelectTextUsingPattern(textBox, selectPattern);
+        }
+
+        private static void SelectTextUsingPattern(TextBox textBox, string selectPattern)
+        {
+            var match = Regex.Match(textBox.Text, selectPattern);
+            if (match.Success)
+            {
+                var group = (match.Groups.Count > 1) ? match.Groups[1] : match.Groups[0];
+                textBox.Select(group.Index, group.Length);
+            }
+            else
+            {
+                textBox.SelectAll();
+            }
         }
 
         private void SetExitFocus() => ExitFocus?.Focus();
@@ -116,6 +140,22 @@ namespace WikiUpload
             DependencyProperty.Register(
                 nameof(CloseButton),
                 typeof(Button),
+                typeof(FocusedPopup));
+
+        #endregion
+
+        #region SelectPattern property
+
+        public string SelectPattern
+        {
+            get { return (string)GetValue(SelectPatternProperty); }
+            set { SetValue(SelectPatternProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectPatternProperty =
+            DependencyProperty.Register(
+                nameof(SelectPattern),
+                typeof(string),
                 typeof(FocusedPopup));
 
         #endregion

@@ -16,7 +16,7 @@ function extract_assembly_version {
     if ($version.Length -eq 0 ) {
         throw "Unable to determine version from $assemblyInfoPath"
     }
-    $version.Matches[0].Groups[1]
+    $version.Matches[0].Groups[1].Value
 }
 
 function is_project_root {

@@ -20,7 +20,7 @@ namespace WikiUpload
         }
 
         public static void SetSelection(DependencyObject obj, SelectRange value)
-        {
+        {       
             obj.SetValue(SelectionProperty, value);
         }
 

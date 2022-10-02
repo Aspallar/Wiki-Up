@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using WikiUpload.Properties;
 
@@ -141,8 +142,6 @@ namespace WikiUpload
 
         public bool FollowUploadFile { get; set; }
 
-        public bool IsValidImageFileExtension { get; set; } = true;
-
         public bool IsWindowPlacementPopupOpen { get; set; }
 
         public string NewExtensionText
@@ -153,7 +152,8 @@ namespace WikiUpload
                 if (_newExtensionText != value)
                 {
                     _newExtensionText = value;
-                    IsValidImageFileExtension = _extensionValidater.IsValid(value);
+                    if (!_extensionValidater.IsValid(value))
+                        throw new ArgumentException(Resources.InvalidExtension);
                 }
             }
         }

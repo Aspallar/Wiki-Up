@@ -574,6 +574,105 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot contain 2 or more consecutive spaces/underscores..
+        /// </summary>
+        public static string EditUploadFileNameErrorConsecutiveSpaces {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorConsecutiveSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot contain any of {0}.
+        /// </summary>
+        public static string EditUploadFileNameErrorInvalidCharacters {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorInvalidCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot be &quot;.&quot;  or &quot;..&quot;.
+        /// </summary>
+        public static string EditUploadFileNameErrorIsRelativePath {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorIsRelativePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must have an extension e.g &quot;.png&quot;.
+        /// </summary>
+        public static string EditUploadFileNameErrorMustHaveExension {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorMustHaveExension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must have a file name.
+        /// </summary>
+        public static string EditUploadFileNameErrorMustHaveFileName {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorMustHaveFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot contain 3 or more consecutive tildes (~)..
+        /// </summary>
+        public static string EditUploadFileNameErrorThreeTildes {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorThreeTildes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Too long..
+        /// </summary>
+        public static string EditUploadFileNameErrorTooLong {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot contain url escape sequence (%nn)..
+        /// </summary>
+        public static string EditUploadFileNameErrorUrlEscape {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorUrlEscape", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot end with a space or _.
+        /// </summary>
+        public static string EditUploadFileNameErrorWhitespaceAtEnd {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorWhitespaceAtEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot start with a space or _.
+        /// </summary>
+        public static string EditUploadFileNameErrorWhitespaceAtStart {
+            get {
+                return ResourceManager.GetString("EditUploadFileNameErrorWhitespaceAtStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the file name to use for upload.
+        /// </summary>
+        public static string EditUploadFileNamePrompt {
+            get {
+                return ResourceManager.GetString("EditUploadFileNamePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter file extension.
         /// </summary>
         public static string EnterFileExtension {

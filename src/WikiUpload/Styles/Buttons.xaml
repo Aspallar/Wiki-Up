@@ -207,6 +207,21 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style x:Key="ClickableArea" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentPresenter
+                        Margin="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <!-- Filename Plain button -->
     <Style x:Key="FilenamePlainButton" TargetType="{x:Type Button}" BasedOn="{StaticResource PlainButton}">

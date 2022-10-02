@@ -4,15 +4,12 @@ using System.Windows;
 
 namespace WikiUpload
 {
-    internal class BooleanToVisiblityConverter : BaseValueConverter<BooleanToVisiblityConverter>
+    internal class IntegerToVisibilityConverter : BaseValueConverter<IntegerToVisibilityConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var shoHide = (value is bool v) && v;
-            if (parameter == null)
-                return shoHide ? Visibility.Hidden : Visibility.Visible;
-            else
-                return shoHide ? Visibility.Visible : Visibility.Hidden;
+            var intValue = value as int?;
+            return intValue.HasValue && intValue.Value > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -1,5 +1,6 @@
 ﻿using PropertyChanged;
 using System.ComponentModel;
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -14,7 +15,7 @@ namespace WikiUpload
         private string _fileName;
         private string _folder;
         private bool _isVideo;
-
+        private string _uploadFileNane;
 
         public UploadFile()
         {
@@ -34,12 +35,34 @@ namespace WikiUpload
             set
             {
                 _fullPath = value;
-                _fileName = Path.GetFileName(FullPath); ;
+                _fileName = Path.GetFileName(FullPath);
                 _folder = Path.GetDirectoryName(FullPath);
                 _isVideo = FullPath.StartsWith("https://");
+                UploadFileName = _fileName;
             }
         }
-     
+
+        public string DisplayName
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_uploadFileNane) && _fileName != _uploadFileNane)
+                {
+                    return UploadFileName + " \u21D0 " + _fileName;
+                }
+                else
+                {
+                    return _fileName;
+                }
+            }
+        }
+
+        public string UploadFileName
+        {
+            get => string.IsNullOrEmpty(_uploadFileNane) ? FileName : _uploadFileNane;
+            set => _uploadFileNane = value;
+        }
+
         public UploadFileStatus Status { get; set; }
 
         public string Message { get; set; }
@@ -48,7 +71,7 @@ namespace WikiUpload
         public string FileName => _fileName;
 
         [DoNotNotify]
-        public string Folder =>  _folder;
+        public string Folder => _folder;
 
         [DoNotNotify]
         public bool IsVideo => _isVideo;

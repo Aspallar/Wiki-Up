@@ -11,7 +11,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Aspallar")]
 [assembly: AssemblyProduct("Wiki-Up")]
-[assembly: AssemblyCopyright("Copyright © David Marshall (aka Aspallar) 2019-2021")]
+[assembly: AssemblyCopyright("Copyright © David Marshall (aka Aspallar) 2019-2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -50,8 +50,8 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.13.1.0")]
-[assembly: AssemblyFileVersion("1.13.1.0")]
+[assembly: AssemblyVersion("1.14.0.0")]
+[assembly: AssemblyFileVersion("1.14.0.0")]
 
 [assembly: InternalsVisibleTo("Tests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

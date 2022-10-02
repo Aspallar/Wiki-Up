@@ -41,6 +41,12 @@
     <Reference Include="FakeItEasy, Version=6.0.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <HintPath>..\packages\FakeItEasy.6.2.1\lib\net45\FakeItEasy.dll</HintPath>
     </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.FontAwesome.4.5.0\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.FontAwesome, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.FontAwesome.4.5.0\lib\net47\MahApps.Metro.IconPacks.FontAwesome.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -52,6 +58,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,27 +68,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddFilesFilterBuilderTests.cs" />
-    <Compile Include="AddFolderOptionsViewModelTests.cs" />
-    <Compile Include="FileExtensionsCollectionTests.cs" />
-    <Compile Include="FileFinderTests.cs" />
-    <Compile Include="IngestionControllerResponseTests.cs" />
-    <Compile Include="SiteInfoTestReplies.cs" />
-    <Compile Include="SiteInfoTests.cs" />
-    <Compile Include="SynchonousSynchronizationContext.cs" />
-    <Compile Include="SettingsViewModelTests.cs" />
-    <Compile Include="UpdateCheckTests.cs" />
-    <Compile Include="UploadFileTests.cs" />
-    <Compile Include="AboutBoxViewModelTests.cs" />
-    <Compile Include="UploadListTests.cs" />
-    <Compile Include="UploadResponseTests.cs" />
-    <Compile Include="UploadViewModelTests.cs" />
-    <Compile Include="PasswordManagerTests.cs" />
-    <Compile Include="LoginViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\AddFilesFilterBuilderTests.cs" />
+    <Compile Include="ViewModelTests\AddFolderOptionsViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\FileExtensionsCollectionTests.cs" />
+    <Compile Include="MiscellaneousTests\FileFinderTests.cs" />
+    <Compile Include="MiscellaneousTests\IngestionControllerResponseTests.cs" />
+    <Compile Include="Helpers\SiteInfoTestReplies.cs" />
+    <Compile Include="MiscellaneousTests\SiteInfoTests.cs" />
+    <Compile Include="Helpers\SynchonousSynchronizationContext.cs" />
+    <Compile Include="ViewModelTests\SettingsViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\UpdateCheckTests.cs" />
+    <Compile Include="ViewModelTests\UploadFileTests.cs" />
+    <Compile Include="ViewModelTests\AboutBoxViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\UploadListTests.cs" />
+    <Compile Include="MiscellaneousTests\UploadResponseTests.cs" />
+    <Compile Include="ViewModelTests\UploadViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\PasswordManagerTests.cs" />
+    <Compile Include="ViewModelTests\LoginViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VariableContentTests.cs" />
-    <Compile Include="VariablePageContentTests.cs" />
-    <Compile Include="YoutubeTests.cs" />
+    <Compile Include="ValidationRuleTests\WikiFileTitleValidationRuleTests.cs" />
+    <Compile Include="ValueConverterTests\BooleanToVisiblityConverterTests.cs" />
+    <Compile Include="ValueConverterTests\NotConverterTests.cs" />
+    <Compile Include="ValueConverterTests\RememberPasswordOptionsToIntConverterTests.cs" />
+    <Compile Include="ValueConverterTests\SelectedIndexToTooltipConverterTests.cs" />
+    <Compile Include="ValueConverterTests\UploadFileStatusToKindConverterTests.cs" />
+    <Compile Include="MiscellaneousTests\VariableContentTests.cs" />
+    <Compile Include="MiscellaneousTests\VariablePageContentTests.cs" />
+    <Compile Include="MiscellaneousTests\YoutubeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

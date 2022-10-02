@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using WikiUpload;   
 
-namespace Tests
+namespace Tests.MiscellaneousTests
 {
     [TestFixture]
     public class SiteInfoTests
