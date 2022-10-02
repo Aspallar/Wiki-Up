@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using WikiUpload;
 using WikiUpload.Properties;
 
-namespace Tests
+namespace Tests.ViewModelTests
 {
     [TestFixture]
     public class SettingsViewModelTests

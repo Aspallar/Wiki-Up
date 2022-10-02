@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using WikiUpload;
 
-namespace Tests
+namespace Tests.ViewModelTests
 {
     [TestFixture]
     public class UploadFFileTests

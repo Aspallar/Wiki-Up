@@ -2,7 +2,7 @@
 using System;
 using WikiUpload;
 
-namespace Tests
+namespace Tests.MiscellaneousTests
 {
     [TestFixture]
     public class AddFilesFilterBuilderTests

@@ -5,7 +5,7 @@ using System.Security;
 using System.Threading.Tasks;
 using WikiUpload;
 
-namespace Tests
+namespace Tests.ViewModelTests
 {
     [TestFixture]
     public class LoginViewModelTests

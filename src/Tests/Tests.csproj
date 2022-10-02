@@ -68,23 +68,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddFilesFilterBuilderTests.cs" />
-    <Compile Include="AddFolderOptionsViewModelTests.cs" />
-    <Compile Include="FileExtensionsCollectionTests.cs" />
-    <Compile Include="FileFinderTests.cs" />
-    <Compile Include="IngestionControllerResponseTests.cs" />
-    <Compile Include="SiteInfoTestReplies.cs" />
-    <Compile Include="SiteInfoTests.cs" />
-    <Compile Include="SynchonousSynchronizationContext.cs" />
-    <Compile Include="SettingsViewModelTests.cs" />
-    <Compile Include="UpdateCheckTests.cs" />
-    <Compile Include="UploadFileTests.cs" />
-    <Compile Include="AboutBoxViewModelTests.cs" />
-    <Compile Include="UploadListTests.cs" />
-    <Compile Include="UploadResponseTests.cs" />
-    <Compile Include="UploadViewModelTests.cs" />
-    <Compile Include="PasswordManagerTests.cs" />
-    <Compile Include="LoginViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\AddFilesFilterBuilderTests.cs" />
+    <Compile Include="ViewModelTests\AddFolderOptionsViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\FileExtensionsCollectionTests.cs" />
+    <Compile Include="MiscellaneousTests\FileFinderTests.cs" />
+    <Compile Include="MiscellaneousTests\IngestionControllerResponseTests.cs" />
+    <Compile Include="Helpers\SiteInfoTestReplies.cs" />
+    <Compile Include="MiscellaneousTests\SiteInfoTests.cs" />
+    <Compile Include="Helpers\SynchonousSynchronizationContext.cs" />
+    <Compile Include="ViewModelTests\SettingsViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\UpdateCheckTests.cs" />
+    <Compile Include="ViewModelTests\UploadFileTests.cs" />
+    <Compile Include="ViewModelTests\AboutBoxViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\UploadListTests.cs" />
+    <Compile Include="MiscellaneousTests\UploadResponseTests.cs" />
+    <Compile Include="ViewModelTests\UploadViewModelTests.cs" />
+    <Compile Include="MiscellaneousTests\PasswordManagerTests.cs" />
+    <Compile Include="ViewModelTests\LoginViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationRuleTests\WikiFileTitleValidationRuleTests.cs" />
     <Compile Include="ValueConverterTests\BooleanToVisiblityConverterTests.cs" />
@@ -92,9 +92,9 @@
     <Compile Include="ValueConverterTests\RememberPasswordOptionsToIntConverterTests.cs" />
     <Compile Include="ValueConverterTests\SelectedIndexToTooltipConverterTests.cs" />
     <Compile Include="ValueConverterTests\UploadFileStatusToKindConverterTests.cs" />
-    <Compile Include="VariableContentTests.cs" />
-    <Compile Include="VariablePageContentTests.cs" />
-    <Compile Include="YoutubeTests.cs" />
+    <Compile Include="MiscellaneousTests\VariableContentTests.cs" />
+    <Compile Include="MiscellaneousTests\VariablePageContentTests.cs" />
+    <Compile Include="MiscellaneousTests\YoutubeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

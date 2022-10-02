@@ -11,7 +11,7 @@ using System.Xml;
 using WikiUpload;
 using WikiUpload.Properties;
 
-namespace Tests
+namespace Tests.ViewModelTests
 {
     [TestFixture]
     public class UploadViewModelTests

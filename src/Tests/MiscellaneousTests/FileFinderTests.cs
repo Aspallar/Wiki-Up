@@ -5,7 +5,7 @@ using System.IO;
 using WikiUpload;
 using WikiUpload.Properties;
 
-namespace Tests
+namespace Tests.MiscellaneousTests
 {
     [TestFixture]
     public class FileFinderTests
