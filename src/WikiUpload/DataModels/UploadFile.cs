@@ -46,7 +46,7 @@ namespace WikiUpload
         {
             get
             {
-                if (!string.IsNullOrWhiteSpace(_uploadFileNane) && !_fileName.Equals(UploadFileName, StringComparison.CurrentCultureIgnoreCase))
+                if (!string.IsNullOrEmpty(_uploadFileNane) && _fileName != _uploadFileNane)
                 {
                     return UploadFileName + " \u21D0 " + _fileName;
                 }
@@ -59,7 +59,7 @@ namespace WikiUpload
 
         public string UploadFileName
         {
-            get => string.IsNullOrWhiteSpace(_uploadFileNane) ? FileName : _uploadFileNane;
+            get => string.IsNullOrEmpty(_uploadFileNane) ? FileName : _uploadFileNane;
             set => _uploadFileNane = value;
         }
 

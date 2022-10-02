@@ -57,16 +57,6 @@ namespace Tests
         }
 
         [Test]
-        public void When_UploadFileNameIsWhitespace_Then_UploadFileName_Returns_FileName()
-        {
-            var file = new UploadFile();
-            file.FullPath = @"a:\b\foo.jpg";
-            file.UploadFileName = "     ";
-
-            Assert.That(file.UploadFileName, Is.EqualTo("foo.jpg"));
-        }
-
-        [Test]
         public void When_UploadFileName_IsSameAsFilename_Then_DisplayNameIsFilenameOnly()
         {
             var file = new UploadFile();
@@ -79,7 +69,7 @@ namespace Tests
         [Test]
         public void When_UploadFileName_IsEmpty_Then_DisplayNameIsFilenameOnly()
         {
-            var emptyNames = new string[] { null, "", "  " };
+            var emptyNames = new string[] { null, "" };
             var file = new UploadFile();
             file.FullPath = @"a:\b\foo.jpg";
 
