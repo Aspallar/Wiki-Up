@@ -126,6 +126,7 @@
     </Compile>
     <Compile Include="Services\FileUploader\ISiteInfo.cs" />
     <Compile Include="Services\FileUploader\WikiCasing.cs" />
+    <Compile Include="Services\Utility\IExtensionValidater.cs" />
     <Compile Include="Services\WindowManger\AddFolderOptionsDialogResponse.cs" />
     <Compile Include="Services\WindowManger\MultiplePathsDialogResponse.cs" />
     <Compile Include="Services\WindowManger\PathDialogResponse.cs" />

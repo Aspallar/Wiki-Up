@@ -12,18 +12,19 @@ namespace WikiUpload
         private readonly IAppSettings _appSettings;
         private readonly IWindowManager _windowManager;
         private readonly IUpdateCheck _updateCheck;
+        private readonly IExtensionValidater _extensionValidater;
 
         private string _newExtensionText;
-        private readonly ExtensionValidater _extensionValidater;
 
         public SettingsViewModel(
             IAppSettings appSettings,
             INavigatorService navigatorService,
             IUpdateCheck updateCheck,
             IWindowManager windowManager,
+            IExtensionValidater extensionValidater,
             IHelpers helpers) : base()
         {
-            _extensionValidater = new ExtensionValidater();
+            _extensionValidater = extensionValidater;
             _navigatorService = navigatorService;
             _helpers = helpers;
             _appSettings = appSettings;

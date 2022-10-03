@@ -15,6 +15,7 @@ namespace Tests.ViewModelTests
         private IUpdateCheck _updateCheck;
         private IWindowManager _windowManager;
         private IHelpers _helpers;
+        private IExtensionValidater _extensionValidater;
         private SettingsViewModel _model;
 
         [SetUp]
@@ -25,7 +26,14 @@ namespace Tests.ViewModelTests
             _updateCheck = A.Fake<IUpdateCheck>();
             _windowManager = A.Fake<IWindowManager>();
             _helpers = A.Fake<IHelpers>();
-            _model = new SettingsViewModel(_appSettings, _navigatorService, _updateCheck, _windowManager, _helpers);
+            _extensionValidater = A.Fake<IExtensionValidater>();
+            _model = new SettingsViewModel(
+                _appSettings,
+                _navigatorService,
+                _updateCheck,
+                _windowManager,
+                _extensionValidater,
+                _helpers);
         }
 
         [Test]
@@ -127,16 +135,35 @@ namespace Tests.ViewModelTests
             Assert.That(_model.IsAddingImageExtension, Is.False);
         }
 
+
         [Test]
-        public void When_NewExtensionTextIsInvalid_Then_ArgumentExceptionIsThrown()
+        public void When_ValidImageExtensionIsEntered_Then_ExtensionIsSet()
         {
-            Assert.Throws<ArgumentException>(() => _model.NewExtensionText = "<");
+            const string extensionName = "foovar";
+            A.CallTo(() => _extensionValidater.IsValid(A<string>.Ignored))
+                .Returns(true);
+
+            _model.NewExtensionText = extensionName;
+
+            Assert.That(_model.NewExtensionText, Is.EqualTo(extensionName));
+        }
+
+        [Test]
+        public void When_InvalidImageExtensionIsEntered_Then_ArgumentExceptionIsThrown()
+        {
+            A.CallTo(() => _extensionValidater.IsValid(A<string>.Ignored))
+                .Returns(false);
+
+            Assert.Throws<ArgumentException>(() => _model.NewExtensionText = "foo");
         }
 
         [Test]
         public void When_NewExtensionTextIsSetToInvalidValue_Then_ValueIsSet()
         {
             const string invalidExtension = ">>>";
+            A.CallTo(() => _extensionValidater.IsValid(A<string>.Ignored))
+                .Returns(false);
+
             try
             {
                 _model.NewExtensionText = invalidExtension;

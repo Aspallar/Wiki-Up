@@ -56,6 +56,9 @@ namespace WikiUpload
 
             Bind<IFileFinder>()
                 .To<FileFinder>();
+
+            Bind<IExtensionValidater>()
+                .To<ExtensionValidater>();
         }
     }
 }

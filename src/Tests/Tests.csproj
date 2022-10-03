@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MiscellaneousTests\AddFilesFilterBuilderTests.cs" />
+    <Compile Include="MiscellaneousTests\ExtensionValidaterTests.cs" />
     <Compile Include="ViewModelTests\AddFolderOptionsViewModelTests.cs" />
     <Compile Include="MiscellaneousTests\FileExtensionsCollectionTests.cs" />
     <Compile Include="MiscellaneousTests\FileFinderTests.cs" />
