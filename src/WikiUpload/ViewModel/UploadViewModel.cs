@@ -92,6 +92,7 @@ namespace WikiUpload
             // Edit upload file name
             EditUploadFileNameCommand = new RelayParameterizedCommand(EditUploadFileName);
             CloseUploadFileNamePopupCommand = new RelayCommand(() => IsUploadFileNamePopupOpen = false);
+            AbortUploadFileNameCommand = new RelayParameterizedCommand(AbortUploadFileName);
         }
         #endregion
 
@@ -669,15 +670,32 @@ namespace WikiUpload
 
         #region Edit upload file name
 
+        private string _savedUploadFileName;
+
         public bool IsUploadFileNamePopupOpen { get; set;  } = false;
 
         public ICommand CloseUploadFileNamePopupCommand { get; }
 
         public ICommand EditUploadFileNameCommand { get; }
-        private void EditUploadFileName(object isVideo)
+        private void EditUploadFileName(object uploadFileObject)
         {
-            if (!UploadIsRunning && !(bool)isVideo)
-                IsUploadFileNamePopupOpen = true;
+            if (!UploadIsRunning)
+            {
+                var uploadFile = (UploadFile)uploadFileObject;
+                if (!uploadFile.IsVideo)
+                {
+                    _savedUploadFileName = uploadFile.UploadFileName;
+                    IsUploadFileNamePopupOpen = true;
+                }
+            }
+
+        }
+
+        public ICommand AbortUploadFileNameCommand { get; }
+        private void AbortUploadFileName(object uploadFileObject)
+        {
+            ((UploadFile)uploadFileObject).UploadFileName = _savedUploadFileName;
+            IsUploadFileNamePopupOpen = false;
         }
 
         #endregion

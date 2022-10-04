@@ -48,7 +48,6 @@
                         </TextBox.Text>
                         <TextBox.InputBindings>
                             <KeyBinding Key="Return" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
-                            <KeyBinding Key="Esc" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
                         </TextBox.InputBindings>
                     </TextBox>
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -67,6 +66,12 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
+            <local:FocusedPopup.InputBindings>
+                <KeyBinding
+                    Key="Esc"
+                    Command="{Binding DataContext.AbortUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
+                    CommandParameter="{Binding}" />
+            </local:FocusedPopup.InputBindings>
         </local:FocusedPopup>
 
         <Grid Background="{StaticResource BackGroundColorBrush}">
@@ -139,7 +144,7 @@
                                 <Button
                                     local:PlacePopup.Target="{Binding ElementName=FileRenamePopup}"
                                     Command="{Binding DataContext.EditUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
-                                    CommandParameter="{Binding IsVideo}"
+                                    CommandParameter="{Binding}"
                                     Content="{Binding DisplayName}"
                                     Style="{StaticResource FilenamePlainButton}">
                                     <Button.InputBindings>

@@ -1530,7 +1530,7 @@ namespace Tests.ViewModelTests
         public void When_EditUploadFileNameIsExecutedForFile_Then_EditPopupIsShown()
         {
             _model.UploadIsRunning = false;
-            _model.EditUploadFileNameCommand.Execute(false);
+            _model.EditUploadFileNameCommand.Execute(new UploadFile(@"c:\foo.png"));
 
             Assert.That(_model.IsUploadFileNamePopupOpen, Is.True);
         }
@@ -1539,7 +1539,7 @@ namespace Tests.ViewModelTests
         public void When_EditUploadFileNameIsExecutedForVideo_Then_EditPopupIsNotShown()
         {
             _model.UploadIsRunning = false;
-            _model.EditUploadFileNameCommand.Execute(true);
+            _model.EditUploadFileNameCommand.Execute(new UploadFile("https://foo"));
 
             Assert.That(_model.IsUploadFileNamePopupOpen, Is.False);
         }
@@ -1548,11 +1548,32 @@ namespace Tests.ViewModelTests
         public void When_EditUploadFileNameIsExecutedForFileWhenUploading_Then_EditPopupIsNotShown()
         {
             _model.UploadIsRunning = true;
-            _model.EditUploadFileNameCommand.Execute(false);
+            _model.EditUploadFileNameCommand.Execute(new UploadFile(@"c:\foo.png"));
 
             Assert.That(_model.IsUploadFileNamePopupOpen, Is.False);
         }
 
+        [Test]
+        public void When_CloseUploadFileNamePopupIsExecuted_Then_PopupIsClosed()
+        {
+            _model.IsUploadFileNamePopupOpen = true;
+            _model.CloseUploadFileNamePopupCommand.Execute(null);
+
+            Assert.That(_model.IsUploadFileNamePopupOpen, Is.False);
+        }
+
+        [Test]
+        public void When_AbortUploadFileNamePopupIsExecuted_Then_OriginalUploadFileNameIsRestored()
+        {
+            const string originalName = "foo.jpg";
+            var file = new UploadFile($"c:\\{originalName}");
+            _model.EditUploadFileNameCommand.Execute(file);
+            file.UploadFileName = "bar.jpg";
+
+            _model.AbortUploadFileNameCommand.Execute(file);
+
+            Assert.That(file.UploadFileName, Is.EqualTo(originalName));
+        }
 
         #endregion
     }
