@@ -10,7 +10,7 @@
     xmlns:p="clr-namespace:WikiUpload.Properties"
     d:DataContext="{d:DesignInstance Type=local:UploadViewModel,
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="450"
+    d:DesignHeight="500"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
@@ -19,19 +19,25 @@
             Margin="200"
             d:DataContext="{d:DesignInstance Type=local:UploadFile}"
             DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Mode=Self}}"
-            HorizontalOffset="30"
+            HorizontalOffset="60"
             InitialFocus="{Binding ElementName=UploadFileName}"
             IsOpen="{Binding DataContext.IsUploadFileNamePopupOpen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
             Placement="Relative"
             SelectPattern="(.*)\."
             StaysOpen="False"
             VerticalOffset="28">
-            <Border Style="{StaticResource PopupBorder}">
+            <Border Background="{StaticResource BackGroundColorBrush}" Style="{StaticResource PopupBorder}">
                 <StackPanel>
-                    <TextBlock
-                        Margin="0"
-                        HorizontalAlignment="Center"
-                        Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconFontAwesome
+                            Margin="0 0 12 0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource PrimaryTextBrush}"
+                            Kind="UploadSolid"
+                            Style="{StaticResource FontSizeIcon}" />
+                        <TextBlock Margin="0" Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
+                    </StackPanel>
                     <TextBox
                         x:Name="UploadFileName"
                         Margin="20 12"
