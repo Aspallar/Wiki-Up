@@ -38,7 +38,7 @@ namespace WikiUpload
 
             if (title.EndsWith(" ") || title.EndsWith("_"))
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorWhitespaceAtEnd);
-
+                
             if (title.IndexOf("~~~") != -1)
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorThreeTildes);
 
@@ -48,7 +48,7 @@ namespace WikiUpload
             if (urlEascapeSequence.IsMatch(title))
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorUrlEscape);
 
-            if (Encoding.UTF8.GetByteCount(HttpUtility.UrlEncode(title)) > 255)
+            if (Encoding.UTF8.GetByteCount(HttpUtility.UrlEncode(title)) > 240)
                 return new ValidationResult(false, Resources.EditUploadFileNameErrorTooLong);
 
             var lastPeriodPosition = title.LastIndexOf('.');

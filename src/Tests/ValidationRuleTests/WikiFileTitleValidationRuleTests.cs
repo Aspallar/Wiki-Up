@@ -122,27 +122,29 @@ namespace Tests.ValidationRuleTests
             ValidateAndAssertValidReturn(tests);
         }
 
+        private const int maxFileNameSize= 240;
+
         [Test]
-        public void Name_Cannot_Be_Longer_Than_255_Bytes()
+        public void Name_Cannot_Be_Longer_Than_MaxFileNameSize_Bytes()
         {
-            string test = new string('a', 254) + ".a";
-            System.Diagnostics.Debug.Assert(Encoding.UTF8.GetBytes(test).Length == 256);
+            string test = new string('a', maxFileNameSize - 1) + ".a";
+            System.Diagnostics.Debug.Assert(Encoding.UTF8.GetBytes(test).Length == maxFileNameSize + 1);
             ValidateAndAssertErrorReturn(test, Resources.EditUploadFileNameErrorTooLong);
         }
 
         [Test]
-        public void Name_Cannot_Be_Longer_Than_255_Bytes_Including_Url_Encoding()
+        public void Name_Cannot_Be_Longer_Than_MaxFileNameSize_Bytes_Including_Url_Encoding()
         {
-            string test = new string('&', 84) + "aa.a";
-            System.Diagnostics.Debug.Assert(Encoding.UTF8.GetBytes(HttpUtility.UrlEncode(test)).Length == 256);
+            string test = new string('&', 79) + "aa.a";
+            System.Diagnostics.Debug.Assert(Encoding.UTF8.GetBytes(HttpUtility.UrlEncode(test)).Length == maxFileNameSize + 1);
             ValidateAndAssertErrorReturn(test, Resources.EditUploadFileNameErrorTooLong);
         }
 
         [Test]
-        public void Name_Can_Be_Up_To_255_Bytes_In_Length()
+        public void Name_Can_Be_Up_To_MaxFileNameSize_Bytes_In_Length()
         {
-            string[] tests = { new string('a', 253) + ".a" };
-            System.Diagnostics.Debug.Assert(Encoding.UTF8.GetBytes(tests[0]).Length == 255);
+            string[] tests = { new string('a', maxFileNameSize - 2) + ".a" };
+            System.Diagnostics.Debug.Assert(Encoding.UTF8.GetBytes(tests[0]).Length == maxFileNameSize);
             ValidateAndAssertValidReturn(tests);
         }
 
