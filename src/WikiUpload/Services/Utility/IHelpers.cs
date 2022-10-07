@@ -23,5 +23,6 @@ namespace WikiUpload
         IEnumerable<string> EnumerateFiles(string rootPath, string pattern, SearchOption searchOption);
         bool FileExists(string path);
         void SetClipboardText(string text);
+        bool IsDirectory(string path);
     }
 };

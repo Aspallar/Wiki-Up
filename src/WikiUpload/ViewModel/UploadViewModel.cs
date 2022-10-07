@@ -471,7 +471,6 @@ namespace WikiUpload
 
         public async void OnFileDrop(string[] filepaths, bool controlKeyPressed)
         {
-            // TODO: OnFileDrop fix dropping folders being allowed
             if (!UploadIsRunning && !AddingFiles)
             {
                 AddingFiles = true;
@@ -481,13 +480,22 @@ namespace WikiUpload
                     if (youtubePlaylistId != null)
                         await AddYoutubePlaylistVideos(youtubePlaylistId);
                     else
-                        UploadFiles.AddNewRange(filepaths);
+                        UploadFiles.AddNewRange(FilterFilePaths(filepaths));
                 }
                 else
                 {
-                    await UploadFiles.AddNewRangeAsync(filepaths);
+                    await UploadFiles.AddNewRangeAsync(FilterFilePaths(filepaths));
                 }
                 AddingFiles = false;
+            }
+        }
+
+        private IEnumerable<string> FilterFilePaths(IEnumerable<string> paths)
+        {
+            foreach (var path in paths)
+            {
+                if (!_helpers.IsDirectory(path))
+                    yield return path;
             }
         }
 

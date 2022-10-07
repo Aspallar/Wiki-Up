@@ -71,6 +71,9 @@ namespace Tests.ViewModelTests
             A.CallTo(() => _fileUploader.UpLoadAsync(A<string>._, A<string>._, A<CancellationToken>._, A<string>._, A<string>._))
                 .Returns(_uploadResponse);
 
+            A.CallTo(() => _youtube.ExtractPlaylistId(A<string>.Ignored))
+                .Returns(null);
+
             _model = new UploadViewModel(_fileUploader,
                 _dialogs,
                 _helpers,
@@ -428,6 +431,47 @@ namespace Tests.ViewModelTests
         }
 
         [Test]
+        public void When_FoldersAreDropped_Then_FoldersAreIgnored()
+        {
+            const string folder1 = "folder1";
+            const string folder2 = "folder2";
+            var dropFiles = new string[] { folder1, folder2, "file1"};
+            A.CallTo(() => _helpers.IsDirectory(A<string>.That.StartsWith("folder")))
+                .Returns(true);
+
+            _model.OnFileDrop(dropFiles, false);
+
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(1));
+            Assert.That(_model.UploadFiles.Any(x => x.FullPath == folder1), Is.False);
+            Assert.That(_model.UploadFiles.Any(x => x.FullPath == folder2), Is.False);
+        }
+
+        [Test]
+        public void When_SingleFolderIsDropped_Then_FolderIsIgnored()
+        {
+            const string folder1 = "folder1";
+            var dropFiles = new string[] { folder1 };
+            A.CallTo(() => _helpers.IsDirectory(A<string>.Ignored))
+                .Returns(true);
+
+            _model.OnFileDrop(dropFiles, false);
+
+            Assert.That(_model.UploadFiles.Count, Is.Zero);
+        }
+
+        [Test]
+        public void When_SingleFileIsDropped_Then_FileIsAddedToUploadList()
+        {
+            const string file1 = "foo.jpg";
+            var dropFiles = new string[] { file1 };
+
+            _model.OnFileDrop(dropFiles, false);
+
+            Assert.That(_model.UploadFiles.Count, Is.EqualTo(1));
+            Assert.That(_model.UploadFiles[0].FullPath, Is.EqualTo(file1));
+        }
+
+        [Test]
         public void When_FilesAreDropped_Then_DuplicateFilesAreNotAddedToUploadFiles()
         {
             var file = AddSingleUploadFile();
@@ -444,6 +488,9 @@ namespace Tests.ViewModelTests
         [Test]
         public void When_PlaylistIsDropped_Then_VideosInPlaylistAreAdded()
         {
+            A.CallTo(() => _youtube.ExtractPlaylistId(A<string>.Ignored))
+                .Returns("123");
+
             const string video1 = "one";
             const string video2 = "two";
             A.CallTo(() => _youtube.FetchPlasylistViedeoLinksAsync(A<string>._, A<int>._))
@@ -463,6 +510,9 @@ namespace Tests.ViewModelTests
         [Test]
         public void When_LongPlaylistIsDropped_Then_ErrorMessageIsShown()
         {
+            A.CallTo(() => _youtube.ExtractPlaylistId(A<string>.Ignored))
+                .Returns("123");
+
             A.CallTo(() => _youtube.FetchPlasylistViedeoLinksAsync(A<string>._, A<int>._))
                 .ThrowsAsync(new TooManyVideosException());
 
@@ -480,6 +530,8 @@ namespace Tests.ViewModelTests
         [Test]
         public void When_PlaylistIsDroppedAndThereIsException_Then_ErrorMessageIsShown()
         {
+            A.CallTo(() => _youtube.ExtractPlaylistId(A<string>.Ignored))
+                .Returns("123");
             A.CallTo(() => _youtube.FetchPlasylistViedeoLinksAsync(A<string>._, A<int>._))
                 .ThrowsAsync(new Exception("foobar"));
 
