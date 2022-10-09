@@ -79,14 +79,23 @@ namespace WikiUpload
 
         private void FilesListBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (FilesListBox.SelectedItem != null && (e.Key == Key.F2 || e.Key == Key.Return))
+            if (ShouldProcessFilesListBoxKeyEvent(FilesListBox.SelectedItem, e.Key))
             {
                 var itemContainer = ScrollToUploadFileItem(FilesListBox.SelectedItem);
                 FileRenamePopup.PlacementTarget = itemContainer;
-                FileRenamePopup.ExitFocus = (Control)itemContainer;
+                FileRenamePopup.ExitFocus = itemContainer;
                 FileRenamePopup.IsOpen = true;
             }
         }
+
+        private bool ShouldProcessFilesListBoxKeyEvent(object selectedItem, Key key)
+        {
+            return selectedItem != null
+                && IsEditUploadFileNameKey(key)
+                && !UploadIsRunning();
+        }
+
+        private static bool IsEditUploadFileNameKey(Key key) => key == Key.F2 || key == Key.Return;
 
         private UIElement ScrollToUploadFileItem(object item)
         {
@@ -95,5 +104,7 @@ namespace WikiUpload
             itemContainer.UpdateLayout();
             return itemContainer;
         }
+
+        private bool UploadIsRunning() => ((UploadViewModel)DataContext).UploadIsRunning;
     }
 }
