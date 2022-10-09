@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace WikiUpload
 {
@@ -58,6 +59,41 @@ namespace WikiUpload
                 var data = (UploadFile)menuitem.DataContext;
                 Clipboard.SetText(data.Message);
             }
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.L && Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                if (FilesListBox.SelectedItem != null)
+                {
+                    var itemContainer = ScrollToUploadFileItem(FilesListBox.SelectedItem);
+                    itemContainer.Focus();
+               }
+                else
+                {
+                    FilesListBox.Focus();
+                }
+            }
+        }
+
+        private void FilesListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (FilesListBox.SelectedItem != null && (e.Key == Key.F2 || e.Key == Key.Return))
+            {
+                var itemContainer = ScrollToUploadFileItem(FilesListBox.SelectedItem);
+                FileRenamePopup.PlacementTarget = itemContainer;
+                FileRenamePopup.ExitFocus = (Control)itemContainer;
+                FileRenamePopup.IsOpen = true;
+            }
+        }
+
+        private UIElement ScrollToUploadFileItem(object item)
+        {
+            FilesListBox.ScrollIntoView(item);
+            var itemContainer = (UIElement)FilesListBox.ItemContainerGenerator.ContainerFromItem(item);
+            itemContainer.UpdateLayout();
+            return itemContainer;
         }
     }
 }
