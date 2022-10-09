@@ -64,7 +64,7 @@ namespace WikiUpload
                 SetInitialFocus(initialFocus);
         }
 
-        private void SetInitialFocus(Control initialFocus)
+        private void SetInitialFocus(UIElement initialFocus)
         {
             initialFocus.Focus();
             if (initialFocus is TextBox tb)
@@ -98,32 +98,32 @@ namespace WikiUpload
 
         #region InitiaFocus property
 
-        public Control InitialFocus
+        public UIElement InitialFocus
         {
-            get { return (Control)GetValue(InitialFocusProperty); }
+            get { return (UIElement)GetValue(InitialFocusProperty); }
             set { SetValue(InitialFocusProperty, value); }
         }
 
         public static readonly DependencyProperty InitialFocusProperty =
             DependencyProperty.Register(
                 nameof(InitialFocus),
-                typeof(Control),
+                typeof(UIElement),
                 typeof(FocusedPopup));
 
         #endregion
 
         #region ExitFocus property
 
-        public Control ExitFocus
+        public UIElement ExitFocus
         {
-            get { return (Control)GetValue(ExitFocusProperty); }
+            get { return (UIElement)GetValue(ExitFocusProperty); }
             set { SetValue(ExitFocusProperty, value); }
         }
 
         public static readonly DependencyProperty ExitFocusProperty =
             DependencyProperty.Register(
                 nameof(ExitFocus),
-                typeof(Control),
+                typeof(UIElement),
                 typeof(FocusedPopup));
 
         #endregion
