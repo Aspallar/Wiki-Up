@@ -29,7 +29,7 @@
             VerticalOffset="28">
             <Border
                 Background="{StaticResource BackGroundColorBrush}"
-                BorderThickness="4"
+                BorderThickness="2"
                 Style="{StaticResource PopupBorder}">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
