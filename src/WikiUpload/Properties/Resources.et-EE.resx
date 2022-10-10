@@ -574,4 +574,62 @@
   <data name="UploadListWatermarkText" xml:space="preserve">
     <value>ÜLESLAADIMIS NIMEKIRJ</value>
   </data>
+
+  <!-- Edit upload file name -->
+  
+  <!-- google translation -->
+  <data name="EditUploadFileNamePrompt" xml:space="preserve">
+    <value>Sisestage üleslaadimiseks kasutatava faili nimi</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorInvalidCharacters" xml:space="preserve">
+    <value>Ei tohi sisaldada ühtki {0}</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorIsRelativePath" xml:space="preserve">
+    <value>Ei saa olla "." või ".."</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorWhitespaceAtStart" xml:space="preserve">
+    <value>Ei saa alata tühikuga ega _</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorWhitespaceAtEnd" xml:space="preserve">
+    <value>Ei saa lõppeda tühikuga ega _</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorThreeTildes" xml:space="preserve">
+    <value>Ei tohi sisaldada 3 või enamat järjestikust tildet (~).</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorConsecutiveSpaces" xml:space="preserve">
+    <value>Ei tohi sisaldada 2 või enamat järjestikust tühikut/alajoont.</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorUrlEscape" xml:space="preserve">
+    <value>Ei saa sisaldada URL-i paojärjestust (%nn).</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorTooLong" xml:space="preserve">
+    <value>Liiga kaua.</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorMustHaveExension" xml:space="preserve">
+    <value>Peab olema laiend, nt ".png"</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorMustHaveFileName" xml:space="preserve">
+    <value>Peab olema failinimi</value>
+  </data>
+
 </root>
