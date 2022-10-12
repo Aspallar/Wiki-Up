@@ -118,6 +118,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\ListBoxExtensions.cs" />
     <Compile Include="Native\POINT.cs" />
     <Compile Include="Native\RECT.cs" />
     <Compile Include="Native\WindowPlacement.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="wpf\AttachedProperties\FocusExtension.cs" />
     <Compile Include="wpf\AttachedProperties\ListBoxAttachedProperties.cs" />
     <Compile Include="wpf\Behaviours\AutoComplete.cs" />
+    <Compile Include="wpf\Behaviours\PageKeys.cs" />
     <Compile Include="wpf\Behaviours\SelectRange.cs" />
     <Compile Include="wpf\Behaviours\SelectAndFocus.cs" />
     <Compile Include="wpf\Behaviours\SavedPassword.cs" />

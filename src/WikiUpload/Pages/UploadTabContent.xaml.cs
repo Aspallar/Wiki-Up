@@ -16,11 +16,41 @@ namespace WikiUpload
             Loaded += UploadTabContent_Loaded;
         }
 
+        #region Event Handlers
         private void UploadTabContent_Loaded(object sender, RoutedEventArgs e)
         {
             SetInitialFocus();
             AdjustFoCurrentrCulture();
         }
+
+        private void ErrorContextMenu_CopyToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuitem)
+            {
+                var data = (UploadFile)menuitem.DataContext;
+                Clipboard.SetText(data.Message);
+            }
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (ShouldExecuteSelectFilesListKey(e))
+            {
+                FilesListBox.FocusSelectedOrFirstVisibleItem();
+            }
+        }
+
+        private void FilesListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (ShouldExecuteEdirUploadFileNameKey(FilesListBox.SelectedItem, e.Key))
+            {
+                EditSelectedUploadFileName();
+            }
+
+        }
+        #endregion
+
+        #region Helpers
 
         private void AdjustFoCurrentrCulture()
         {
@@ -52,43 +82,22 @@ namespace WikiUpload
             AddFiles.Focus();
         }
 
-        private void ErrorContextMenu_CopyToClipboard_Click(object sender, RoutedEventArgs e)
+        private bool ShouldExecuteSelectFilesListKey(KeyEventArgs e)
         {
-            if (sender is MenuItem menuitem)
-            {
-                var data = (UploadFile)menuitem.DataContext;
-                Clipboard.SetText(data.Message);
-            }
+            return e.Key == Key.L
+                   && Keyboard.IsKeyDown(Key.LeftCtrl)
+                   && !UploadIsRunning();
         }
 
-        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        private void EditSelectedUploadFileName()
         {
-            if (e.Key == Key.L && Keyboard.IsKeyDown(Key.LeftCtrl))
-            {
-                if (FilesListBox.SelectedItem != null)
-                {
-                    var itemContainer = ScrollToUploadFileItem(FilesListBox.SelectedItem);
-                    itemContainer.Focus();
-               }
-                else
-                {
-                    FilesListBox.Focus();
-                }
-            }
+            var itemContainer = FilesListBox.ScrollToSelectedItem();
+            FileRenamePopup.PlacementTarget = itemContainer;
+            FileRenamePopup.ExitFocus = itemContainer;
+            FileRenamePopup.IsOpen = true;
         }
 
-        private void FilesListBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (ShouldProcessFilesListBoxKeyEvent(FilesListBox.SelectedItem, e.Key))
-            {
-                var itemContainer = ScrollToUploadFileItem(FilesListBox.SelectedItem);
-                FileRenamePopup.PlacementTarget = itemContainer;
-                FileRenamePopup.ExitFocus = itemContainer;
-                FileRenamePopup.IsOpen = true;
-            }
-        }
-
-        private bool ShouldProcessFilesListBoxKeyEvent(object selectedItem, Key key)
+        private bool ShouldExecuteEdirUploadFileNameKey(object selectedItem, Key key)
         {
             return selectedItem != null
                 && IsEditUploadFileNameKey(key)
@@ -97,14 +106,9 @@ namespace WikiUpload
 
         private static bool IsEditUploadFileNameKey(Key key) => key == Key.F2 || key == Key.Return;
 
-        private UIElement ScrollToUploadFileItem(object item)
-        {
-            FilesListBox.ScrollIntoView(item);
-            var itemContainer = (UIElement)FilesListBox.ItemContainerGenerator.ContainerFromItem(item);
-            itemContainer.UpdateLayout();
-            return itemContainer;
-        }
-
         private bool UploadIsRunning() => ((UploadViewModel)DataContext).UploadIsRunning;
+
+        #endregion
+
     }
 }
