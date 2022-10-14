@@ -64,20 +64,20 @@ namespace WikiUpload
         // From: https://stackoverflow.com/a/1517794
         private static bool IsVisibleInUI(FrameworkElement element, FrameworkElement container)
         {
-            Rect bounds = element.TransformToAncestor(container)
+            Rect elemenBounds = element.TransformToAncestor(container)
                 .TransformBounds(new Rect(
                     0.0,
                     0.0,
                     element.ActualWidth,
                     element.ActualHeight));
 
-            var rect = new Rect(
+            var containerRect = new Rect(
                 0.0,
                 0.0,
                 container.ActualWidth,
                 container.ActualHeight);
 
-            return rect.Contains(bounds);
+            return containerRect.Contains(elemenBounds.TopLeft);
         }
 
     }
