@@ -71,13 +71,7 @@ namespace WikiUpload
                     element.ActualWidth,
                     element.ActualHeight));
 
-            var containerRect = new Rect(
-                0.0,
-                0.0,
-                container.ActualWidth,
-                container.ActualHeight);
-
-            return containerRect.Contains(elemenBounds.TopLeft);
+            return elemenBounds.Top >= 0 && elemenBounds.Top < container.ActualHeight;
         }
 
     }
