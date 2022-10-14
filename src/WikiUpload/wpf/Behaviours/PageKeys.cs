@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 
 namespace WikiUpload
 {
@@ -31,9 +30,11 @@ namespace WikiUpload
             if (!(sender is ListBox listBox))
                 return;
 
-            listBox.PreviewKeyDown -= ListBox_PreviewKeyDown;
             if (e.NewValue != null)
                 listBox.PreviewKeyDown += ListBox_PreviewKeyDown;
+            else
+                listBox.PreviewKeyDown -= ListBox_PreviewKeyDown;
+
         }
 
         private static void ListBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -41,7 +42,7 @@ namespace WikiUpload
             if (!(sender is ListBox listBox))
                 return;
 
-            if (listBox.SelectedIndex != -1)
+            if (listBox.SelectedIndex != -1 && Keyboard.IsKeyUp(Key.LeftShift))
             {
                 if (e.Key == Key.PageDown)
                 {
