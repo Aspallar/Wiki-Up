@@ -14,7 +14,13 @@ namespace WikiUpload
         private void DeleteListBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
+            {
+                var previousSelectedIndex = SelectedIndex;
                 DeleteSelectedCommand?.Execute(SelectedItems);
+                if (previousSelectedIndex < Items.Count)
+                    SelectedIndex = previousSelectedIndex;
+                this.FocusSelectedOrFirstVisibleItem();
+            }
         }
 
         public ICommand DeleteSelectedCommand
