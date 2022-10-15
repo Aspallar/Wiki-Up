@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -38,6 +39,10 @@ namespace WikiUpload
             {
                 FilesListBox.FocusSelectedOrFirstVisibleItem();
             }
+            else if (ShouldExevuteUploadFilesKey(e))
+            {
+                StartUpload.Focus();
+            }
         }
 
         private void FilesListBox_KeyDown(object sender, KeyEventArgs e)
@@ -48,6 +53,11 @@ namespace WikiUpload
             }
 
         }
+        private void StopUpload_Click(object sender, RoutedEventArgs e)
+        {
+            StartUpload.Focus();
+        }
+
         #endregion
 
         #region Helpers
@@ -81,6 +91,10 @@ namespace WikiUpload
         {
             AddFiles.Focus();
         }
+
+        private bool ShouldExevuteUploadFilesKey(KeyEventArgs e)
+            => e.Key == Key.U && Keyboard.IsKeyDown(Key.LeftCtrl);
+
 
         private bool ShouldExecuteSelectFilesListKey(KeyEventArgs e)
         {
