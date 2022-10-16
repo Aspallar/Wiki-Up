@@ -39,7 +39,7 @@ namespace WikiUpload
             {
                 FilesListBox.FocusSelectedOrFirstVisibleItem();
             }
-            else if (ShouldExevuteUploadFilesKey(e))
+            else if (ShouldExecuteUploadFilesKey(e))
             {
                 StartUpload.Focus();
             }
@@ -47,12 +47,19 @@ namespace WikiUpload
 
         private void FilesListBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (ShouldExecuteEdirUploadFileNameKey(FilesListBox.SelectedItem, e.Key))
+            if (ShouldProcessFileListKey())
             {
-                EditSelectedUploadFileName();
+                if (IsEditUploadFileNameKey(e.Key))
+                {
+                    EditSelectedUploadFileName();
+                }
+                else if (IsShowFileKey(e.Key))
+                {
+                    ShowSelectedFile();
+                }
             }
-
         }
+
         private void StopUpload_Click(object sender, RoutedEventArgs e)
         {
             StartUpload.Focus();
@@ -92,7 +99,7 @@ namespace WikiUpload
             AddFiles.Focus();
         }
 
-        private bool ShouldExevuteUploadFilesKey(KeyEventArgs e)
+        private bool ShouldExecuteUploadFilesKey(KeyEventArgs e)
             => e.Key == Key.U && Keyboard.IsKeyDown(Key.LeftCtrl);
 
 
@@ -111,14 +118,20 @@ namespace WikiUpload
             FileRenamePopup.IsOpen = true;
         }
 
-        private bool ShouldExecuteEdirUploadFileNameKey(object selectedItem, Key key)
+        private void ShowSelectedFile()
         {
-            return selectedItem != null
-                && IsEditUploadFileNameKey(key)
-                && !UploadIsRunning();
+            var selectedItem = (UploadFile)FilesListBox.SelectedItem;
+            ((UploadViewModel)DataContext).ShowFileCommand.Execute(selectedItem.FullPath);
         }
 
-        private static bool IsEditUploadFileNameKey(Key key) => key == Key.F2 || key == Key.Return;
+        private bool ShouldProcessFileListKey()
+            => FilesListBox.SelectedIndex != -1  && !UploadIsRunning();
+
+
+        private static bool IsEditUploadFileNameKey(Key key)
+            => key == Key.F2 || key == Key.Return;
+
+        private bool IsShowFileKey(Key key) => key == Key.F3;
 
         private bool UploadIsRunning() => ((UploadViewModel)DataContext).UploadIsRunning;
 
