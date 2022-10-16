@@ -765,6 +765,66 @@
   
   <data name="FileNamespace" xml:space="preserve">
     <value>Datei:</value>
-  </data>  
+  </data>
+
+  <!-- Edit upload file name -->
   
+
+  <!-- google translation -->
+  <data name="EditUploadFileNamePrompt" xml:space="preserve">
+    <value>Geben Sie den für den Upload zu verwendenden Dateinamen ein</value>
+  </data>
+
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorInvalidCharacters" xml:space="preserve">
+    <value>Darf keines von {0} enthalten</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorIsRelativePath" xml:space="preserve">
+    <value>Kann nicht sein "." oder ".."</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorWhitespaceAtStart" xml:space="preserve">
+    <value>Kann nicht mit einem Leerzeichen oder _ beginnen</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorWhitespaceAtEnd" xml:space="preserve">
+    <value>Darf nicht mit einem Leerzeichen oder _ enden</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorThreeTildes" xml:space="preserve">
+    <value>Darf nicht 3 oder mehr aufeinanderfolgende Tilden (~) enthalten.</value>
+  </data>
+
+  <!-- google translation --> 
+  <data name="EditUploadFileNameErrorConsecutiveSpaces" xml:space="preserve">
+    <value>Darf nicht 2 oder mehr aufeinanderfolgende Leerzeichen/Unterstriche enthalten.</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorUrlEscape" xml:space="preserve">
+    <value>Darf keine URL-Escape-Sequenz (%nn) enthalten.</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorTooLong" xml:space="preserve">
+    <value>Zu lang.</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorMustHaveExension" xml:space="preserve">
+    <value>Muss eine Erweiterung haben, z. B. ".png"</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="EditUploadFileNameErrorMustHaveFileName" xml:space="preserve">
+    <value>Muss einen Dateinamen haben</value>
+  </data>
+
+
 </root>

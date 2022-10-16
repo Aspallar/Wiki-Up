@@ -41,6 +41,8 @@ namespace WikiUpload
                 return;
 
             var popup = GetTarget(button);
+            if (popup is FocusedPopup focusedPopup)
+                focusedPopup.ExitFocus = null;
             if (popup.StaysOpen)
                 popup.IsOpen = false;
             popup.PlacementTarget = button;

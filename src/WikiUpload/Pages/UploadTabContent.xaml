@@ -10,8 +10,9 @@
     xmlns:p="clr-namespace:WikiUpload.Properties"
     d:DataContext="{d:DesignInstance Type=local:UploadViewModel,
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="450"
+    d:DesignHeight="500"
     d:DesignWidth="800"
+    KeyDown="UserControl_KeyDown"
     mc:Ignorable="d">
     <Grid>
         <local:FocusedPopup
@@ -19,19 +20,28 @@
             Margin="200"
             d:DataContext="{d:DesignInstance Type=local:UploadFile}"
             DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Mode=Self}}"
-            HorizontalOffset="30"
+            HorizontalOffset="60"
             InitialFocus="{Binding ElementName=UploadFileName}"
             IsOpen="{Binding DataContext.IsUploadFileNamePopupOpen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
             Placement="Relative"
             SelectPattern="(.*)\."
             StaysOpen="False"
             VerticalOffset="28">
-            <Border Style="{StaticResource PopupBorder}">
+            <Border
+                Background="{StaticResource BackGroundColorBrush}"
+                BorderThickness="2"
+                Style="{StaticResource PopupBorder}">
                 <StackPanel>
-                    <TextBlock
-                        Margin="0"
-                        HorizontalAlignment="Center"
-                        Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconFontAwesome
+                            Margin="0 0 12 0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource PrimaryTextBrush}"
+                            Kind="UploadSolid"
+                            Style="{StaticResource FontSizeIcon}" />
+                        <TextBlock Margin="0" Text="{x:Static p:Resources.EditUploadFileNamePrompt}" />
+                    </StackPanel>
                     <TextBox
                         x:Name="UploadFileName"
                         Margin="20 12"
@@ -48,7 +58,6 @@
                         </TextBox.Text>
                         <TextBox.InputBindings>
                             <KeyBinding Key="Return" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
-                            <KeyBinding Key="Esc" Command="{Binding DataContext.CloseUploadFileNamePopupCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}" />
                         </TextBox.InputBindings>
                     </TextBox>
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -67,6 +76,12 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
+            <local:FocusedPopup.InputBindings>
+                <KeyBinding
+                    Key="Esc"
+                    Command="{Binding DataContext.AbortUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
+                    CommandParameter="{Binding}" />
+            </local:FocusedPopup.InputBindings>
         </local:FocusedPopup>
 
         <Grid Background="{StaticResource BackGroundColorBrush}">
@@ -99,14 +114,16 @@
                 x:Name="FilesListBox"
                 Margin="10"
                 local:DropFileTargetProperty.Value="{Binding}"
+                local:PageKeys.Enabled="True"
                 local:ViewedItemProperty.Value="{Binding ViewedFile}"
                 AllowDrop="True"
                 Background="Transparent"
                 BorderBrush="{StaticResource ButtonColorBrush}"
                 BorderThickness="1"
                 DeleteSelectedCommand="{Binding RemoveFilesCommand}"
-                Focusable="False"
+                Focusable="True"
                 ItemsSource="{Binding UploadFiles}"
+                KeyDown="FilesListBox_KeyDown"
                 SelectionMode="Extended"
                 Style="{StaticResource ItemHighlight}">
                 <ListBox.ItemTemplate>
@@ -139,7 +156,7 @@
                                 <Button
                                     local:PlacePopup.Target="{Binding ElementName=FileRenamePopup}"
                                     Command="{Binding DataContext.EditUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
-                                    CommandParameter="{Binding IsVideo}"
+                                    CommandParameter="{Binding}"
                                     Content="{Binding DisplayName}"
                                     Style="{StaticResource FilenamePlainButton}">
                                     <Button.InputBindings>
@@ -277,8 +294,10 @@
                     Command="{Binding CancelCommand}"
                     Content="{x:Static p:Resources.ButtonStopUploadText}"
                     IsEnabled="{Binding UploadIsRunning}"
+                    Click="StopUpload_Click"
                     ToolTip="{x:Static p:Resources.ButtonStopUploadTooltipText}" />
                 <Button
+                    x:Name="StartUpload"
                     Margin="0"
                     local:IsBusyProperty.Value="{Binding UploadIsRunning}"
                     Command="{Binding UploadCommand}"

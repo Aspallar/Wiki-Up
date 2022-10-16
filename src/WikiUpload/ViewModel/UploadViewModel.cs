@@ -92,6 +92,7 @@ namespace WikiUpload
             // Edit upload file name
             EditUploadFileNameCommand = new RelayParameterizedCommand(EditUploadFileName);
             CloseUploadFileNamePopupCommand = new RelayCommand(() => IsUploadFileNamePopupOpen = false);
+            AbortUploadFileNameCommand = new RelayParameterizedCommand(AbortUploadFileName);
         }
         #endregion
 
@@ -470,7 +471,6 @@ namespace WikiUpload
 
         public async void OnFileDrop(string[] filepaths, bool controlKeyPressed)
         {
-            // TODO: OnFileDrop fix dropping folders being allowed
             if (!UploadIsRunning && !AddingFiles)
             {
                 AddingFiles = true;
@@ -480,13 +480,22 @@ namespace WikiUpload
                     if (youtubePlaylistId != null)
                         await AddYoutubePlaylistVideos(youtubePlaylistId);
                     else
-                        UploadFiles.AddNewRange(filepaths);
+                        UploadFiles.AddNewRange(FilterFilePaths(filepaths));
                 }
                 else
                 {
-                    await UploadFiles.AddNewRangeAsync(filepaths);
+                    await UploadFiles.AddNewRangeAsync(FilterFilePaths(filepaths));
                 }
                 AddingFiles = false;
+            }
+        }
+
+        private IEnumerable<string> FilterFilePaths(IEnumerable<string> paths)
+        {
+            foreach (var path in paths)
+            {
+                if (!_helpers.IsDirectory(path))
+                    yield return path;
             }
         }
 
@@ -669,15 +678,32 @@ namespace WikiUpload
 
         #region Edit upload file name
 
+        private string _savedUploadFileName;
+
         public bool IsUploadFileNamePopupOpen { get; set;  } = false;
 
         public ICommand CloseUploadFileNamePopupCommand { get; }
 
         public ICommand EditUploadFileNameCommand { get; }
-        private void EditUploadFileName(object isVideo)
+        private void EditUploadFileName(object uploadFileObject)
         {
-            if (!UploadIsRunning && !(bool)isVideo)
-                IsUploadFileNamePopupOpen = true;
+            if (!UploadIsRunning)
+            {
+                var uploadFile = (UploadFile)uploadFileObject;
+                if (!uploadFile.IsVideo)
+                {
+                    _savedUploadFileName = uploadFile.UploadFileName;
+                    IsUploadFileNamePopupOpen = true;
+                }
+            }
+
+        }
+
+        public ICommand AbortUploadFileNameCommand { get; }
+        private void AbortUploadFileName(object uploadFileObject)
+        {
+            ((UploadFile)uploadFileObject).UploadFileName = _savedUploadFileName;
+            IsUploadFileNamePopupOpen = false;
         }
 
         #endregion
