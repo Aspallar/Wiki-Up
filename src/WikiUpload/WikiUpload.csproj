@@ -131,6 +131,7 @@
     <Compile Include="Services\WindowManger\AddFolderOptionsDialogResponse.cs" />
     <Compile Include="Services\WindowManger\MultiplePathsDialogResponse.cs" />
     <Compile Include="Services\WindowManger\PathDialogResponse.cs" />
+    <Compile Include="ViewModel\IUploadFileCommands.cs" />
     <Compile Include="ViewModel\SortingOptions.cs" />
     <Compile Include="ViewModel\UploadedFilesViewModel.cs" />
     <Compile Include="Window\UploadedWindow.xaml.cs">
