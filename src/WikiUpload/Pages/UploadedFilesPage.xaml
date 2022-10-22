@@ -1,54 +1,71 @@
-﻿<Page x:Class="WikiUpload.Pages.UploadedFilesPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:p="clr-namespace:WikiUpload.Properties"
-      xmlns:local="clr-namespace:WikiUpload"
-      xmlns:system="clr-namespace:System;assembly=mscorlib"
-      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      FocusManager.FocusedElement="{Binding ElementName=CopyToClipboard}"
-      DataContext="{Binding Path=UploadViewModel.UploadedFilesViewModel, Source={StaticResource ServiceLocator}}"
-      d:DataContext="{d:DesignInstance Type=local:UploadedFilesViewModel,  IsDesignTimeCreatable=False}"
-      
-      Title="UploadedFilesPage">
+﻿<Page
+    x:Class="WikiUpload.Pages.UploadedFilesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:WikiUpload"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:WikiUpload.Properties"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    Title="UploadedFilesPage"
+    d:DataContext="{d:DesignInstance Type=local:UploadedFilesViewModel,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    DataContext="{Binding Path=UploadViewModel.UploadedFilesViewModel, Source={StaticResource ServiceLocator}}"
+    FocusManager.FocusedElement="{Binding ElementName=CopyToClipboard}"
+    mc:Ignorable="d">
 
     <Page.InputBindings>
-        <KeyBinding Key="C" Modifiers="Ctrl"
-                    Command="{Binding CopyToClipboardCommand}"
-                    CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"/>
-        <KeyBinding Key="Z" Modifiers="Ctrl"
-                    Command="{Binding ClearSelectionCommand}"/>
-        <KeyBinding Key="D1" Modifiers="Ctrl"
-                    Command="{Binding SortOrderCommand}"
-                    CommandParameter="{x:Static local:SortingOptions.None}"/>
-        <KeyBinding Key="D2" Modifiers="Ctrl"
-                    Command="{Binding SortOrderCommand}"
-                    CommandParameter="{x:Static local:SortingOptions.Ascending}"/>
-        <KeyBinding Key="D3" Modifiers="Ctrl"
-                    Command="{Binding SortOrderCommand}"
-                    CommandParameter="{x:Static local:SortingOptions.Descending}"/>
+        <KeyBinding
+            Key="C"
+            Command="{Binding CopyToClipboardCommand}"
+            CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="Z"
+            Command="{Binding ClearSelectionCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D1"
+            Command="{Binding SortOrderCommand}"
+            CommandParameter="{x:Static local:SortingOptions.None}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D2"
+            Command="{Binding SortOrderCommand}"
+            CommandParameter="{x:Static local:SortingOptions.Ascending}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="D3"
+            Command="{Binding SortOrderCommand}"
+            CommandParameter="{x:Static local:SortingOptions.Descending}"
+            Modifiers="Ctrl" />
     </Page.InputBindings>
 
     <DockPanel Background="{StaticResource BackGroundColorBrush}">
         <Border DockPanel.Dock="Top">
-            <StackPanel Orientation="Horizontal" Margin="0 2 0 0" HorizontalAlignment="Left" >
+            <StackPanel
+                Margin="0 2 0 0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
                 <StackPanel.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                        <Setter Property="Margin" Value="0"/>
-                        <Setter Property="Padding" Value="14"/>
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="Padding" Value="14" />
                     </Style>
                     <system:Double x:Key="IconSize">32</system:Double>
                     <Style TargetType="iconPacks:PackIconFontAwesome">
-                        <Setter Property="Width" Value="{StaticResource IconSize}"/>
-                        <Setter Property="Height" Value="{StaticResource IconSize}"/>
+                        <Setter Property="Width" Value="{StaticResource IconSize}" />
+                        <Setter Property="Height" Value="{StaticResource IconSize}" />
                     </Style>
                     <Storyboard x:Key="SlideDown">
-                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                             From="-48" To="0"
-                             Duration="0:0:0.25" />
+                        <DoubleAnimation
+                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                            From="-48"
+                            To="0"
+                            Duration="0:0:0.25" />
                     </Storyboard>
                 </StackPanel.Resources>
                 <StackPanel.Triggers>
@@ -63,176 +80,176 @@
                 </StackPanel.RenderTransform>
 
                 <Grid>
-                    <Button x:Name="CopyToClipboard"
-                            ToolTip="{x:Static p:Resources.CopyToClipboard}"
-                            Command="{Binding CopyToClipboardCommand}">
-                        <iconPacks:PackIconFontAwesome Kind="ClipboardListSolid"/>
+                    <Button
+                        x:Name="CopyToClipboard"
+                        Command="{Binding CopyToClipboardCommand}"
+                        ToolTip="{x:Static p:Resources.CopyToClipboard}">
+                        <iconPacks:PackIconFontAwesome Kind="ClipboardListSolid" />
                     </Button>
-                    <local:FocusedPopup x:Name="ChooseCopyTypePopup"
-                            IsOpen="{Binding IsChooseCopyTypePopupOpen}"
-                            StaysOpen="False"
-                            PopupAnimation="Scroll"
-                            Placement="Bottom"         
-                            AllowsTransparency="True"
-                            InitialFocus="{Binding ElementName=CopyAsPlainList}"
-                            ExitFocus="{Binding ElementName=CopyToClipboard}">
-                        
-                        <Border Style="{StaticResource PopupBorder}" >
+                    <local:FocusedPopup
+                        x:Name="ChooseCopyTypePopup"
+                        AllowsTransparency="True"
+                        ExitFocus="{Binding ElementName=CopyToClipboard}"
+                        InitialFocus="{Binding ElementName=CopyAsPlainList}"
+                        IsOpen="{Binding IsChooseCopyTypePopupOpen}"
+                        Placement="Bottom"
+                        PopupAnimation="Scroll"
+                        StaysOpen="False">
+
+                        <Border Style="{StaticResource PopupBorder}">
                             <StackPanel>
                                 <StackPanel.Resources>
-                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                                         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
                                         <Setter Property="Padding" Value="6" />
-                                        <Setter Property="Margin" Value="0 0 0 6"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                        <Setter Property="CommandParameter" Value="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"/>
+                                        <Setter Property="Margin" Value="0 0 0 6" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                        <Setter Property="CommandParameter" Value="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}" />
                                     </Style>
-                                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                                        <Setter Property="Margin" Value="10 0 0 0"/>
+                                    <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="10 0 0 0" />
                                     </Style>
-                                    <Style TargetType="iconPacks:PackIconFontAwesome" BasedOn="{StaticResource FontSizeIcon}">
+                                    <Style BasedOn="{StaticResource FontSizeIcon}" TargetType="iconPacks:PackIconFontAwesome">
                                         <Setter Property="Foreground" Value="{StaticResource HighlightTextCBrush}" />
                                         <Setter Property="VerticalAlignment" Value="Center" />
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button x:Name="CopyAsPlainList"
-                                        Command="{Binding CopyTextToClipboardCommand}">
+                                <Button x:Name="CopyAsPlainList" Command="{Binding CopyTextToClipboardCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="FileRegular"  />
-                                        <TextBlock Text="{x:Static p:Resources.CopyAsPlainList}"/>
+                                        <iconPacks:PackIconFontAwesome Kind="FileRegular" />
+                                        <TextBlock Text="{x:Static p:Resources.CopyAsPlainList}" />
                                     </StackPanel>
                                 </Button>
                                 <Button Command="{Binding CopyFileToClipboardCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="FileAltRegular"/>
+                                        <iconPacks:PackIconFontAwesome Kind="FileAltRegular" />
                                         <TextBlock>
-                                            <Run Text="{x:Static p:Resources.CopyAs}"/>
-                                            <Run Text="{x:Static p:Resources.FileNamespace}" Foreground="{StaticResource HighlightTextCBrush}"/>
-                                            <Run Text="{x:Static p:Resources.ListText}"/>
+                                            <Run Text="{x:Static p:Resources.CopyAs}" />
+                                            <Run Foreground="{StaticResource HighlightTextCBrush}" Text="{x:Static p:Resources.FileNamespace}" />
+                                            <Run Text="{x:Static p:Resources.ListText}" />
                                         </TextBlock>
                                     </StackPanel>
                                 </Button>
                                 <Button Margin="0" Command="{Binding CopyWikilinkToClipboardCommand}">
                                     <StackPanel Orientation="Horizontal">
                                         <iconPacks:PackIconFontAwesome Kind="LinkSolid" />
-                                        <TextBlock Text="{x:Static p:Resources.CopyAsWikiTextLinks}"/>
+                                        <TextBlock Text="{x:Static p:Resources.CopyAsWikiTextLinks}" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
                         </Border>
                     </local:FocusedPopup>
-                    <local:TimedPopup IsOpen="{Binding IsCopiedPopupOpen}"
-                            StaysOpen="True"
-                            PopupAnimation="Fade"
-                            Placement="Bottom"   
-                            AllowsTransparency="True">
+                    <local:TimedPopup
+                        AllowsTransparency="True"
+                        IsOpen="{Binding IsCopiedPopupOpen}"
+                        Placement="Bottom"
+                        PopupAnimation="Fade"
+                        StaysOpen="True">
                         <Border Style="{StaticResource PopupBorder}">
                             <StackPanel Orientation="Horizontal">
-                                <iconPacks:PackIconFontAwesome Kind="CheckSolid"
-                                           Width="36" Height="36"
-                                           VerticalAlignment="Center"
-                                           Foreground="Green"/>
-                                <TextBlock Text="{x:Static p:Resources.CopiedToClipboard}"
-                                           VerticalAlignment="Center"
-                                           FontSize="{StaticResource FontSizeRegular}"
-                                           Margin="20 0 0 0"/>
+                                <iconPacks:PackIconFontAwesome
+                                    Width="36"
+                                    Height="36"
+                                    VerticalAlignment="Center"
+                                    Foreground="Green"
+                                    Kind="CheckSolid" />
+                                <TextBlock
+                                    Margin="20 0 0 0"
+                                    VerticalAlignment="Center"
+                                    FontSize="{StaticResource FontSizeRegular}"
+                                    Text="{x:Static p:Resources.CopiedToClipboard}" />
                             </StackPanel>
                         </Border>
                     </local:TimedPopup>
                 </Grid>
-                <Button ToolTip="{x:Static p:Resources.ClearSelection}"
-                        Command="{Binding ClearSelectionCommand}">
-                    <iconPacks:PackIconFontAwesome Kind="TimesCircleRegular"/>
+                <Button Command="{Binding ClearSelectionCommand}" ToolTip="{x:Static p:Resources.ClearSelection}">
+                    <iconPacks:PackIconFontAwesome Kind="TimesCircleRegular" />
                 </Button>
                 <Grid>
-                    <Button x:Name="TrashButton"
-                            ToolTip="{Binding ElementName=UploadedFilesListBox,
-                                      Path=SelectedIndex, 
-                                      Converter={local:SelectedIndexToTooltipConverter}}"
-                            Command="{Binding RemoveFilesCommand}"
-                            CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}">
-                        <iconPacks:PackIconFontAwesome Kind="TrashAltRegular"/>
+                    <Button
+                        x:Name="TrashButton"
+                        Command="{Binding RemoveFilesCommand}"
+                        CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"
+                        ToolTip="{Binding ElementName=UploadedFilesListBox, Path=SelectedIndex, Converter={local:SelectedIndexToTooltipConverter}}">
+                        <iconPacks:PackIconFontAwesome Kind="TrashAltRegular" />
                     </Button>
-                    <local:FocusedPopup x:Name="ComfirmRemoveAll"
-                            IsOpen="{Binding IsConfirmRemoveAllPopupOpen}"
-                            StaysOpen="False"
-                            PopupAnimation="Scroll"
-                            Placement="Bottom"         
-                            AllowsTransparency="True"
-                            CloseButton="{Binding ElementName=NoRemoveAll}"
-                            InitialFocus="{Binding ElementName=YesRemoveAll}"
-                            ExitFocus="{Binding ElementName=TrashButton}">
+                    <local:FocusedPopup
+                        x:Name="ComfirmRemoveAll"
+                        AllowsTransparency="True"
+                        CloseButton="{Binding ElementName=NoRemoveAll}"
+                        ExitFocus="{Binding ElementName=TrashButton}"
+                        InitialFocus="{Binding ElementName=YesRemoveAll}"
+                        IsOpen="{Binding IsConfirmRemoveAllPopupOpen}"
+                        Placement="Bottom"
+                        PopupAnimation="Scroll"
+                        StaysOpen="False">
                         <Border Style="{StaticResource PopupBorder}">
                             <StackPanel>
-                                <TextBlock Text="{x:Static p:Resources.RemoveAllFilesConfirmation}"
-                                           FontSize="{StaticResource FontSizeRegular}"
-                                           Margin="0 0 0 4"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock
+                                    Margin="0 0 0 4"
+                                    FontSize="{StaticResource FontSizeRegular}"
+                                    Text="{x:Static p:Resources.RemoveAllFilesConfirmation}" />
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                     <StackPanel.Resources>
-                                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                                            <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
-                                            <Setter Property="Padding" Value="20 5"/>
-                                            <Setter Property="Margin" Value="0"/>
+                                        <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                                            <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+                                            <Setter Property="Padding" Value="20 5" />
+                                            <Setter Property="Margin" Value="0" />
                                         </Style>
                                     </StackPanel.Resources>
-                                    <Button x:Name="YesRemoveAll"
-                                            Content="{x:Static p:Resources.ButtonYesText}"
-                                            Margin="0 0 10 0"
-                                            Command="{Binding RemoveAllFilesCommand}"/>
-                                    <Button x:Name="NoRemoveAll" Content="{x:Static p:Resources.ButtonNoText}"/>
+                                    <Button
+                                        x:Name="YesRemoveAll"
+                                        Margin="0 0 10 0"
+                                        Command="{Binding RemoveAllFilesCommand}"
+                                        Content="{x:Static p:Resources.ButtonYesText}" />
+                                    <Button x:Name="NoRemoveAll" Content="{x:Static p:Resources.ButtonNoText}" />
                                 </StackPanel>
                             </StackPanel>
                         </Border>
                     </local:FocusedPopup>
                 </Grid>
-                <Button ToolTip="{x:Static p:Resources.NoSorting}"
-                        Command="{Binding SortOrderCommand}"
-                        CommandParameter="{x:Static local:SortingOptions.None}"
-                        local:FocusExtension.IsFocused="{Binding IsUnsortedFocused}">                        
-                    <iconPacks:PackIconFontAwesome Kind="RandomSolid"
-                        Foreground="{Binding SortingOption,
-                            Converter={local:SortOrderToColorConverter},
-                            ConverterParameter={x:Static local:SortingOptions.None}}"/>
+                <Button
+                    local:FocusExtension.IsFocused="{Binding IsUnsortedFocused}"
+                    Command="{Binding SortOrderCommand}"
+                    CommandParameter="{x:Static local:SortingOptions.None}"
+                    ToolTip="{x:Static p:Resources.NoSorting}">
+                    <iconPacks:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.None}}" Kind="RandomSolid" />
                 </Button>
-                <Button ToolTip="{x:Static p:Resources.SortAscending}"
-                        Command="{Binding SortOrderCommand}"
-                        CommandParameter="{x:Static local:SortingOptions.Ascending}"
-                        local:FocusExtension.IsFocused="{Binding IsAcsendingFocused}">
-                    <iconPacks:PackIconFontAwesome Kind="SortAlphaDownSolid"
-                        Foreground="{Binding SortingOption,
-                            Converter={local:SortOrderToColorConverter},
-                            ConverterParameter={x:Static local:SortingOptions.Ascending}}"/>
+                <Button
+                    local:FocusExtension.IsFocused="{Binding IsAcsendingFocused}"
+                    Command="{Binding SortOrderCommand}"
+                    CommandParameter="{x:Static local:SortingOptions.Ascending}"
+                    ToolTip="{x:Static p:Resources.SortAscending}">
+                    <iconPacks:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.Ascending}}" Kind="SortAlphaDownSolid" />
                 </Button>
-                <Button ToolTip="{x:Static p:Resources.SortDescending}"
-                        Command="{Binding SortOrderCommand}"
-                        CommandParameter="{x:Static local:SortingOptions.Descending}"
-                        local:FocusExtension.IsFocused="{Binding IsDescendingFocused}">                        
-                    <iconPacks:PackIconFontAwesome Kind="SortAlphaDownAltSolid"
-                        Foreground="{Binding SortingOption,
-                            Converter={local:SortOrderToColorConverter},
-                            ConverterParameter={x:Static local:SortingOptions.Descending}}"/>
+                <Button
+                    local:FocusExtension.IsFocused="{Binding IsDescendingFocused}"
+                    Command="{Binding SortOrderCommand}"
+                    CommandParameter="{x:Static local:SortingOptions.Descending}"
+                    ToolTip="{x:Static p:Resources.SortDescending}">
+                    <iconPacks:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.Descending}}" Kind="SortAlphaDownAltSolid" />
                 </Button>
             </StackPanel>
         </Border>
 
         <Border BorderThickness="4">
-            <local:DeleteListBox x:Name="UploadedFilesListBox"
-                    FontSize="{StaticResource FontSizeRegular}"
-                    ItemsSource="{Binding UploadedFilesView}"
-                    SelectedIndex="{Binding UploadedFileSelectedIndex}"
-                    DeleteSelectedCommand="{Binding RemoveSelectedFilesCommand}"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    SelectionMode="Extended"
-                    Style="{StaticResource ItemHighlight}">
+            <local:DeleteListBox
+                x:Name="UploadedFilesListBox"
+                Background="Transparent"
+                BorderThickness="0"
+                DeleteSelectedCommand="{Binding RemoveSelectedFilesCommand}"
+                FontSize="{StaticResource FontSizeRegular}"
+                ItemsSource="{Binding UploadedFilesView}"
+                SelectedIndex="{Binding UploadedFileSelectedIndex}"
+                SelectionMode="Extended"
+                Style="{StaticResource ItemHighlight}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Button Style="{StaticResource FilenamePlainButton}"
-                                Content="{Binding UploadFileName, Mode=OneTime}"
-                                Command="{Binding
-                                    DataContext.LaunchFilePageCommand,
-                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
-                                CommandParameter="{Binding}"/>
+                        <Button
+                            Command="{Binding DataContext.LaunchFilePageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+                            CommandParameter="{Binding}"
+                            Content="{Binding UploadFileName, Mode=OneTime}"
+                            Style="{StaticResource FilenamePlainButton}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </local:DeleteListBox>
