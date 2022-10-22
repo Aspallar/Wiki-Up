@@ -168,7 +168,6 @@ namespace WikiUpload
             set { SetValue(CloseOnEscapeProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CloseOnEscape.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CloseOnEscapeProperty =
             DependencyProperty.Register(
                 nameof(CloseOnEscape),
