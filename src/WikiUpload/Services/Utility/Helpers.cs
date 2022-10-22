@@ -57,5 +57,7 @@ namespace WikiUpload
 
         public string CopyrightText { get; private set; }
         public string VersionText { get; private set; }
+
+        public void ActivateMainWindow() => Application.Current.MainWindow.Activate();
     }
 }

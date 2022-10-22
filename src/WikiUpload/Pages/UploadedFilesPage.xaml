@@ -42,6 +42,14 @@
             Command="{Binding SortOrderCommand}"
             CommandParameter="{x:Static local:SortingOptions.Descending}"
             Modifiers="Ctrl" />
+        <KeyBinding
+            Key="M"
+            Command="{Binding ActivateMainWindowCommand}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="Tab"
+            Command="{Binding ActivateMainWindowCommand}"
+            Modifiers="Ctrl" />
     </Page.InputBindings>
 
     <DockPanel Background="{StaticResource BackGroundColorBrush}">
