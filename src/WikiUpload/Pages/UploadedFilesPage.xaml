@@ -260,6 +260,12 @@
                             Style="{StaticResource FilenamePlainButton}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                <ListBox.InputBindings>
+                    <KeyBinding
+                        Key="Return"
+                        Command="{Binding DataContext.LaunchFilePageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page, AncestorLevel=1}}"
+                        CommandParameter="{Binding Path=SelectedItem, ElementName=UploadedFilesListBox}" />
+                </ListBox.InputBindings>
             </local:DeleteListBox>
         </Border>
 

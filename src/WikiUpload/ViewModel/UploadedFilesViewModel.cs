@@ -55,8 +55,11 @@ namespace WikiUpload
 
         private void LaunchFilePage(UploadFile file)
         {
-            var url = _fileUploader.FileUrl(file.UploadFileName);
-            _helpers.LaunchProcess(url);
+            if (file != null)
+            {
+                var url = _fileUploader.FileUrl(file.UploadFileName);
+                _helpers.LaunchProcess(url);
+            }
         }
 
         public ICommand RemoveFilesCommand { get; }
