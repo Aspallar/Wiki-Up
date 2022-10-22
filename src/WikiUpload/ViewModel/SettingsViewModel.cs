@@ -91,7 +91,12 @@ namespace WikiUpload
 
         private void CancelSettings()
         {
-            _navigatorService.LeaveSettingsPage();
+            if (IsWindowPlacementPopupOpen)
+                IsWindowPlacementPopupOpen = false;
+            else if (IsAddingImageExtension)
+                IsAddingImageExtension = false;
+            else
+                _navigatorService.LeaveSettingsPage();
         }
 
         private async void CheckForUpdatesNow()

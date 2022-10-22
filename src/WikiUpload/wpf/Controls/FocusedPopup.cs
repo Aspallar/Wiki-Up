@@ -53,7 +53,7 @@ namespace WikiUpload
 
         private void Popup_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
+            if (e.Key == Key.Escape && CloseOnEscape)
                 IsOpen = false;
         }
 
@@ -157,6 +157,24 @@ namespace WikiUpload
                 nameof(SelectPattern),
                 typeof(string),
                 typeof(FocusedPopup));
+
+        #endregion
+
+        #region CloseOnEscape property
+
+        public bool CloseOnEscape
+        {
+            get { return (bool)GetValue(CloseOnEscapeProperty); }
+            set { SetValue(CloseOnEscapeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CloseOnEscape.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CloseOnEscapeProperty =
+            DependencyProperty.Register(
+                nameof(CloseOnEscape),
+                typeof(bool),
+                typeof(FocusedPopup),
+                new PropertyMetadata(true));
 
         #endregion
 
