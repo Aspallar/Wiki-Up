@@ -270,9 +270,32 @@
                     Foreground="{StaticResource PrimaryLightBrush}">
                     - Charlie Drake
                 </TextBlock>
+            </StackPanel>
+            <StackPanel Opacity="0">
+                <StackPanel.Resources>
+                    <Storyboard x:Key="FaseIn">
+                        <DoubleAnimation
+                            BeginTime="0:0:1"
+                            Storyboard.TargetProperty="Opacity"
+                            From="0"
+                            To="1"
+                            Duration="0:0:2.5">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseIn"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                    </Storyboard>
+                </StackPanel.Resources>
+                <StackPanel.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard Storyboard="{StaticResource FaseIn}" />
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </StackPanel.Triggers>
                 <TextBox Margin="20 20 20 0" Style="{StaticResource ReadOnlyText}" Foreground="{StaticResource HighlightTextCBrush}">
-                    Russia's disgusting invasion of Ukraine is an act of pure unmitigated evil. 
-                    The people and organizations that support it are no more than a filthy stain on God's creation.
+                    Russia's invasion of Ukraine is an unmitigated act of pure evil. 
+                    The people and organizations that support it are a stain on God's creation.
                 </TextBox>
                 <TextBlock
                     Margin="50 0 0 0"
