@@ -8,6 +8,8 @@
     xmlns:p="clr-namespace:WikiUpload.Properties"
     Title="{x:Static p:Resources.AboutTitleText}"
     Width="680"
+    d:DataContext="{d:DesignInstance Type=local:AboutBoxViewModel,
+                                     IsDesignTimeCreatable=False}"
     x:ClassModifier="internal"
     AllowsTransparency="True"
     FocusManager.FocusedElement="{Binding ElementName=OkButton}"
@@ -240,7 +242,7 @@
                     - Charles Dickens
                 </TextBlock>
             </StackPanel>
-            <StackPanel>
+            <!--<StackPanel>
                 <StackPanel.Resources>
                     <Storyboard x:Key="SlideLeft">
                         <DoubleAnimation
@@ -270,18 +272,18 @@
                     Foreground="{StaticResource PrimaryLightBrush}">
                     - Charlie Drake
                 </TextBlock>
-            </StackPanel>
+            </StackPanel>-->
             <StackPanel Opacity="0">
                 <StackPanel.Resources>
                     <Storyboard x:Key="FaseIn">
                         <DoubleAnimation
-                            BeginTime="0:0:1"
+                            BeginTime="0:0:.6"
                             Storyboard.TargetProperty="Opacity"
                             From="0"
                             To="1"
                             Duration="0:0:2.5">
                             <DoubleAnimation.EasingFunction>
-                                <CircleEase EasingMode="EaseIn"/>
+                                <CircleEase EasingMode="EaseIn" />
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
                     </Storyboard>
@@ -293,16 +295,30 @@
                         </EventTrigger.Actions>
                     </EventTrigger>
                 </StackPanel.Triggers>
-                <TextBox Margin="20 20 20 0" Style="{StaticResource ReadOnlyText}" Foreground="{StaticResource HighlightTextCBrush}">
-                    Russia's invasion of Ukraine is an unmitigated act of pure evil. 
-                    The people and organizations that support it are a stain on God's creation.
-                </TextBox>
-                <TextBlock
-                    Margin="50 0 0 0"
-                    FontSize="{StaticResource FontSizeRegular}"
-                    Foreground="{StaticResource PrimaryTextBrush}">
-                    - #StandWithUkraine
-                </TextBlock>
+                <Grid Margin="5 20 5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Image SnapsToDevicePixels="True" Source="/Images/Other/ukraine-flag.png" />
+                    <StackPanel Grid.Column="1">
+                        <TextBox
+                            Grid.Column="1"
+                            Foreground="{StaticResource HighlightTextCBrush}"
+                            Style="{StaticResource ReadOnlyText}">
+                            Russia's invasion of Ukraine is an unmitigated act of pure evil.
+                            The people and organizations that support it are a stain on God's creation.
+                        </TextBox>
+                        <TextBlock FontSize="{StaticResource FontSizeRegular}">
+                            <Hyperlink
+                                Command="{Binding LaunchWebSiteCommand}"
+                                CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
+                                NavigateUri="https://www.google.com/search?q=StandWithUkraine">
+                                <Run Text="#StandWithUkraine" />
+                            </Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
             </StackPanel>
         </StackPanel>
 
