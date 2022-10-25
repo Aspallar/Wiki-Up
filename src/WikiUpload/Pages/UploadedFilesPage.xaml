@@ -243,6 +243,7 @@
         <Border BorderThickness="4">
             <local:DeleteListBox
                 x:Name="UploadedFilesListBox"
+                local:PageKeys.KeysEnabled="True"
                 Background="Transparent"
                 BorderThickness="0"
                 DeleteSelectedCommand="{Binding RemoveSelectedFilesCommand}"

@@ -114,7 +114,7 @@
                 x:Name="FilesListBox"
                 Margin="10"
                 local:DropFileTargetProperty.Value="{Binding}"
-                local:PageKeys.Enabled="True"
+                local:PageKeys.KeysEnabled="True"
                 local:ViewedItemProperty.Value="{Binding ViewedFile}"
                 AllowDrop="True"
                 Background="Transparent"
