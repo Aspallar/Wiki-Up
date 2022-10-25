@@ -126,7 +126,7 @@
             ResizeBorderThickness="{Binding ResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
 
-    <!--  window content start here  -->
+    <!--  window content starts here  -->
     <StackPanel Margin="0">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -242,40 +242,9 @@
                     - Charles Dickens
                 </TextBlock>
             </StackPanel>
-            <!--<StackPanel>
-                <StackPanel.Resources>
-                    <Storyboard x:Key="SlideLeft">
-                        <DoubleAnimation
-                            BeginTime="0:0:.9"
-                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                            From="500"
-                            To="0"
-                            Duration="0:0:.5" />
-                    </Storyboard>
-                </StackPanel.Resources>
-                <StackPanel.Triggers>
-                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard Storyboard="{StaticResource SlideLeft}" />
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </StackPanel.Triggers>
-                <StackPanel.RenderTransform>
-                    <TranslateTransform X="1000" />
-                </StackPanel.RenderTransform>
-                <TextBox Margin="20 20 20 0" Style="{StaticResource ReadOnlyText}">
-                    “Allo my darlings”
-                </TextBox>
-                <TextBlock
-                    Margin="50 0 0 0"
-                    FontSize="{StaticResource FontSizeRegular}"
-                    Foreground="{StaticResource PrimaryLightBrush}">
-                    - Charlie Drake
-                </TextBlock>
-            </StackPanel>-->
             <StackPanel Opacity="0">
                 <StackPanel.Resources>
-                    <Storyboard x:Key="FaseIn">
+                    <Storyboard x:Key="FadeIn">
                         <DoubleAnimation
                             BeginTime="0:0:.6"
                             Storyboard.TargetProperty="Opacity"
@@ -291,34 +260,39 @@
                 <StackPanel.Triggers>
                     <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                         <EventTrigger.Actions>
-                            <BeginStoryboard Storyboard="{StaticResource FaseIn}" />
+                            <BeginStoryboard Storyboard="{StaticResource FadeIn}" />
                         </EventTrigger.Actions>
                     </EventTrigger>
                 </StackPanel.Triggers>
-                <Grid Margin="5 20 5 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-                    <Image SnapsToDevicePixels="True" Source="/Images/Other/ukraine-flag.png" />
-                    <StackPanel Grid.Column="1">
-                        <TextBox
-                            Grid.Column="1"
-                            Foreground="{StaticResource HighlightTextCBrush}"
-                            Style="{StaticResource ReadOnlyText}">
-                            Russia's invasion of Ukraine is an unmitigated act of pure evil.
-                            The people and organizations that support it are a stain on God's creation.
-                        </TextBox>
-                        <TextBlock FontSize="{StaticResource FontSizeRegular}">
-                            <Hyperlink
-                                Command="{Binding LaunchWebSiteCommand}"
-                                CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
-                                NavigateUri="https://www.google.com/search?q=StandWithUkraine">
-                                <Run Text="#StandWithUkraine" />
-                            </Hyperlink>
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
+                <Border
+                    Margin="5 20 5 0"
+                    Padding="0 10 0 0"
+                    BorderBrush="{StaticResource PrimaryLightBrush}"
+                    BorderThickness="0 4 0 0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Grid.Column="0"
+                            SnapsToDevicePixels="True"
+                            Source="/Images/Other/ukraine-flag.png" />
+                        <StackPanel Grid.Column="1">
+                            <TextBox Foreground="{StaticResource HighlightTextCBrush}" Style="{StaticResource ReadOnlyText}">
+                                Russia's invasion of Ukraine is an unmitigated act of pure evil. Please help to oppose evil.
+                            </TextBox>
+                            <TextBlock FontSize="{StaticResource FontSizeRegular}">
+                                <Hyperlink
+                                    Command="{Binding LaunchWebSiteCommand}"
+                                    CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
+                                    NavigateUri="https://www.google.com/search?q=StandWithUkraine">
+                                    <Run Text="#StandWithUkraine" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
             </StackPanel>
         </StackPanel>
 
