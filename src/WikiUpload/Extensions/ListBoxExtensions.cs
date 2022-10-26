@@ -30,7 +30,7 @@ namespace WikiUpload
         {
             for (int index = 0; index < listBox.Items.Count; index++)
             {
-                if (IsVisibleInUI((ListBoxItem)listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[index]), listBox))
+                if (IsVisibleInUI(GetItemContainer(listBox, index), listBox))
                     return index;
             }
             return -1;
@@ -38,13 +38,14 @@ namespace WikiUpload
 
         public static int GetViewedItemCount(this ListBox listBox)
         {
-            int index = GetFirstVisibleItemIndex(listBox);
+            var index = GetFirstVisibleItemIndex(listBox);
 
             if (index++ == -1)
                 return 0;
 
-            int count = 1;
-            while (index < listBox.Items.Count && IsVisibleInUI((ListBoxItem)listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[index]), listBox))
+            var count = 1;
+            while (index < listBox.Items.Count
+                && IsVisibleInUI(GetItemContainer(listBox, index), listBox))
             {
                 ++count;
                 ++index;
@@ -53,10 +54,10 @@ namespace WikiUpload
             return count;
         }
 
-        public static UIElement ScrollToSelectedItem(this ListBox listBox)
+        public static ListBoxItem ScrollToSelectedItem(this ListBox listBox)
         {
             listBox.ScrollIntoView(listBox.SelectedItem);
-            var itemContainer = (UIElement)listBox.ItemContainerGenerator.ContainerFromItem(listBox.SelectedItem);
+            var itemContainer = GetItemContainer(listBox, listBox.SelectedIndex);
             itemContainer.UpdateLayout();
             return itemContainer;
         }
@@ -73,6 +74,9 @@ namespace WikiUpload
 
             return elemenBounds.Top >= 0 && elemenBounds.Top < container.ActualHeight;
         }
+
+        private static ListBoxItem GetItemContainer(ListBox listBox, int index)
+            => (ListBoxItem)listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[index]);
 
     }
 }
