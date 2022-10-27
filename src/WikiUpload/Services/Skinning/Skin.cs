@@ -10,5 +10,6 @@
         Rakdos = 5,
         MidnightLights = 6,
         PlainGray = 7,
+        Psi = 8,
     }
 }

@@ -8,7 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/Images.xaml"/>
-                <!--<ResourceDictionary Source="Styles/Themes/MidnightLights.xaml"/>-->
+                <!--<ResourceDictionary Source="Styles/Themes/Psi.xaml"/>-->
                 <local:SkinResourceDictionary
                     PurpleHazeSource="Styles\Themes\PurpleHaze.xaml" 
                     PurpleOverloadSource="Styles\Themes\PurpleOverload.xaml" 
@@ -17,7 +17,8 @@
                     SolarizedSource="Styles\Themes\Solarized.xaml"
                     RakdosSource="Styles\Themes\Rakdos.xaml"
                     MidnightLightsSource="Styles\Themes\MidnightLights.xaml"
-                    PlainGray="Styles\Themes\PlainGray.xaml"/>
+                    PlainGraySource="Styles\Themes\PlainGray.xaml"
+                    PsiSource="Styles\Themes\Psi.xaml"/>
                 <ResourceDictionary Source="Styles/Fonts.xaml"/>
                 <ResourceDictionary Source="Styles/Icons.xaml"/>
                 <ResourceDictionary Source="Styles/Buttons.xaml"/>
