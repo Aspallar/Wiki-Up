@@ -8,6 +8,7 @@
 
     <!-- base colors (from material desigb) -->
     <Color x:Key="PrimaryColor">#073642</Color>
+    <Color x:Key="ListBoxSelectedColor">#073642</Color>
     <Color x:Key="PrimaryLightColor">#586e75</Color>
     <Color x:Key="PrimaryDarkColor">#002b36</Color>
     <Color x:Key="DisabledColor">Gray</Color>

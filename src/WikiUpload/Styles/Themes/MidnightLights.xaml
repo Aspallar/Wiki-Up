@@ -5,6 +5,7 @@
 
     <!-- base colors -->
     <Color x:Key="PrimaryColor">#253279</Color>
+    <Color x:Key="ListBoxSelectedColor">#253279</Color>
     <Color x:Key="PrimaryLightColor">#3446aa</Color>
     <Color x:Key="PrimaryDarkColor">#090C1D</Color>
     <Color x:Key="DisabledColor">Gray</Color>
