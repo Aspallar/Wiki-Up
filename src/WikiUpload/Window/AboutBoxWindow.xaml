@@ -280,7 +280,7 @@
                             Source="/Images/Other/ukraine-flag.png" />
                         <StackPanel Grid.Column="1">
                             <TextBox Foreground="{StaticResource HighlightTextCBrush}" Style="{StaticResource ReadOnlyText}">
-                                Russia's invasion of Ukraine is an unmitigated act of pure evil. Please help to oppose evil.
+                                Russia's invasion of Ukraine is an unmitigated act of pure evil. Please help to oppose this evil war.
                             </TextBox>
                             <TextBlock FontSize="{StaticResource FontSizeRegular}">
                                 <Hyperlink
