@@ -1,96 +1,109 @@
-﻿<Window x:Class="WikiUpload.AboutBoxWindow"
-        x:ClassModifier="internal"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WikiUpload"
-        xmlns:p="clr-namespace:WikiUpload.Properties"
-        mc:Ignorable="d"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        WindowStartupLocation="CenterOwner"
-        FocusManager.FocusedElement="{Binding ElementName=OkButton}"
-        Icon="{StaticResource LogoImage}"
-        ResizeMode="NoResize"
-        SizeToContent="Height"
-        Title="{x:Static p:Resources.AboutTitleText}" Width="680">
+﻿<Window
+    x:Class="WikiUpload.AboutBoxWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WikiUpload"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:WikiUpload.Properties"
+    Title="{x:Static p:Resources.AboutTitleText}"
+    Width="680"
+    d:DataContext="{d:DesignInstance Type=local:AboutBoxViewModel,
+                                     IsDesignTimeCreatable=False}"
+    x:ClassModifier="internal"
+    AllowsTransparency="True"
+    FocusManager.FocusedElement="{Binding ElementName=OkButton}"
+    Icon="{StaticResource LogoImage}"
+    ResizeMode="NoResize"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None"
+    mc:Ignorable="d">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:AboutBoxWindow}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
-                        
-                        <!-- Outer border -->
+
+                        <!--  Outer border  -->
                         <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
 
-                            <!-- Main window outline -->
+                            <!--  Main window outline  -->
                             <Grid>
 
-                                <!-- Opacity mask for corners on grid -->
-                                <Border x:Name="Container"
-                                        Background="{StaticResource PrimaryDarkBrush}"
-                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
+                                <!--  Opacity mask for corners on grid  -->
+                                <Border
+                                    x:Name="Container"
+                                    Background="{StaticResource PrimaryDarkBrush}"
+                                    CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
 
-                                <!-- Window border and drop shadow -->
-                                <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
-                                        Background="{StaticResource PrimaryDarkBrush}" 
-                                        BorderThickness="1"
-                                        BorderBrush="{StaticResource PrimaryLightBrush}">
+                                <!--  Window border and drop shadow  -->
+                                <Border
+                                    Background="{StaticResource PrimaryDarkBrush}"
+                                    BorderBrush="{StaticResource PrimaryLightBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}">
                                     <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2" />
+                                        <DropShadowEffect Opacity="0.2" ShadowDepth="0" />
                                     </Border.Effect>
                                 </Border>
 
-                                <!-- The window content -->
+                                <!--  The window content  -->
                                 <Grid>
 
                                     <Grid.RowDefinitions>
 
-                                        <!-- Title Bar -->
+                                        <!--  Title Bar  -->
                                         <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}" />
-                                        <!-- Window Content -->
+                                        <!--  Window Content  -->
                                         <RowDefinition Height="*" />
 
                                     </Grid.RowDefinitions>
 
-                                    <!-- Title Bar -->
-                                    <Grid Grid.Column="0" Panel.ZIndex="1" Background="{StaticResource PrimaryBrush}">
+                                    <!--  Title Bar  -->
+                                    <Grid
+                                        Grid.Column="0"
+                                        Panel.ZIndex="1"
+                                        Background="{StaticResource PrimaryBrush}">
 
                                         <Grid.ColumnDefinitions>
-                                            <!-- Icon -->
+                                            <!--  Icon  -->
                                             <ColumnDefinition Width="Auto" />
-                                            <!-- Title -->
+                                            <!--  Title  -->
                                             <ColumnDefinition Width="*" />
-                                            <!-- Windows Button -->
+                                            <!--  Windows Button  -->
                                             <ColumnDefinition Width="Auto" />
 
                                         </Grid.ColumnDefinitions>
 
-                                        <!-- Icon -->
-                                        <Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
+                                        <!--  Icon  -->
+                                        <Button Command="{Binding MenuCommand}" Style="{StaticResource SystemIconButton}">
                                             <Image Source="{StaticResource LogoImage}" />
                                         </Button>
 
-                                        <!-- Title -->
-                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
+                                        <!--  Title  -->
+                                        <Viewbox
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="3"
+                                            Margin="5">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Style="{StaticResource HeaderText}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='About'}" />
                                             </StackPanel>
                                         </Viewbox>
 
-                                        <!-- Window Buttons -->
+                                        <!--  Window Buttons  -->
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                            <Button Command="{Binding CloseCommand}"
-                                                    Style="{StaticResource WindowCloseButton}"
-                                                    ToolTip="{x:Static p:Resources.CloseText}"
-                                                    Content="X" />
+                                            <Button
+                                                Command="{Binding CloseCommand}"
+                                                Content="X"
+                                                Style="{StaticResource WindowCloseButton}"
+                                                ToolTip="{x:Static p:Resources.CloseText}" />
                                         </StackPanel>
 
                                     </Grid>
 
-                                    <!-- Page Content -->
+                                    <!--  Page Content  -->
                                     <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
@@ -107,27 +120,35 @@
 
     <WindowChrome.WindowChrome>
         <WindowChrome
-            ResizeBorderThickness="{Binding ResizeBorderThickness}"
             CaptionHeight="{Binding TitleHeight}"
             CornerRadius="0"
-            GlassFrameThickness="0"/>
+            GlassFrameThickness="0"
+            ResizeBorderThickness="{Binding ResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
 
-    <!-- window content start here -->
+    <!--  window content starts here  -->
     <StackPanel Margin="0">
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Column="0" Source="{StaticResource LogoImage}" Width="64" Height="64"
-                       RenderTransformOrigin="0.5, 0.5" VerticalAlignment="Top" Margin="0 10 0 0">
+            <Image
+                Grid.Column="0"
+                Width="64"
+                Height="64"
+                Margin="0 10 0 0"
+                VerticalAlignment="Top"
+                RenderTransformOrigin="0.5, 0.5"
+                Source="{StaticResource LogoImage}">
                 <Image.Resources>
                     <Storyboard x:Key="SlideUp">
-                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                             From="600" To="0"
-                             Duration="0:0:1" />
+                        <DoubleAnimation
+                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                            From="600"
+                            To="0"
+                            Duration="0:0:1" />
                     </Storyboard>
                 </Image.Resources>
                 <Image.Triggers>
@@ -143,31 +164,42 @@
             </Image>
 
             <StackPanel Grid.Column="1" Margin="0 20 0 0">
-                <TextBlock Foreground="{StaticResource PrimaryTextBrush}" Text="{x:Static p:Resources.AboutApplicationNameText}"
-                           FontSize="{StaticResource FontSizeLarge}" FontWeight="Bold" />
-                <TextBlock Foreground="{StaticResource PrimaryTextBrush}" Text="{Binding VersionText}"
-                           FontSize="{StaticResource FontSizeRegular}"/>
-                <TextBlock FontSize="{StaticResource FontSizeRegular}">           
-                    <Hyperlink NavigateUri="https://github.com/Aspallar/Wiki-Up"
-                               Command="{Binding LaunchWebSiteCommand}"
-                               CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}">
-                        <Run Text="{x:Static p:Resources.WebsiteText}"/>
+                <TextBlock
+                    FontSize="{StaticResource FontSizeLarge}"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource PrimaryTextBrush}"
+                    Text="{x:Static p:Resources.AboutApplicationNameText}" />
+                <TextBlock
+                    FontSize="{StaticResource FontSizeRegular}"
+                    Foreground="{StaticResource PrimaryTextBrush}"
+                    Text="{Binding VersionText}" />
+                <TextBlock FontSize="{StaticResource FontSizeRegular}">
+                    <Hyperlink
+                        Command="{Binding LaunchWebSiteCommand}"
+                        CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
+                        NavigateUri="https://github.com/Aspallar/Wiki-Up">
+                        <Run Text="{x:Static p:Resources.WebsiteText}" />
                     </Hyperlink>
                 </TextBlock>
-                <TextBlock Foreground="{StaticResource PrimaryTextBrush}" Text="{Binding CopyrightText}" FontSize="{StaticResource FontSizeRegular}" />
-                <TextBlock Foreground="{StaticResource PrimaryTextBrush}"  FontSize="{StaticResource FontSizeRegular}">
-                    <Run Text="{x:Static p:Resources.GermanTrsnslationText}"/>
-                    <Hyperlink NavigateUri="https://twitter.com/HolyMTG"
-                               Command="{Binding LaunchWebSiteCommand}"
-                               CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}">
+                <TextBlock
+                    FontSize="{StaticResource FontSizeRegular}"
+                    Foreground="{StaticResource PrimaryTextBrush}"
+                    Text="{Binding CopyrightText}" />
+                <TextBlock FontSize="{StaticResource FontSizeRegular}" Foreground="{StaticResource PrimaryTextBrush}">
+                    <Run Text="{x:Static p:Resources.GermanTrsnslationText}" />
+                    <Hyperlink
+                        Command="{Binding LaunchWebSiteCommand}"
+                        CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
+                        NavigateUri="https://twitter.com/HolyMTG">
                         Holy
                     </Hyperlink>
                 </TextBlock>
-                <TextBlock Foreground="{StaticResource PrimaryTextBrush}"  FontSize="{StaticResource FontSizeRegular}">
-                    <Run Text="{x:Static p:Resources.FrenchTrsnslationText}"/>
-                    <Hyperlink NavigateUri="https://leagueoflegends.fandom.com/wiki/User:Tylobic"
-                               Command="{Binding LaunchWebSiteCommand}"
-                               CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}">
+                <TextBlock FontSize="{StaticResource FontSizeRegular}" Foreground="{StaticResource PrimaryTextBrush}">
+                    <Run Text="{x:Static p:Resources.FrenchTrsnslationText}" />
+                    <Hyperlink
+                        Command="{Binding LaunchWebSiteCommand}"
+                        CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
+                        NavigateUri="https://leagueoflegends.fandom.com/wiki/User:Tylobic">
                         Tylobic
                     </Hyperlink>
                 </TextBlock>
@@ -179,10 +211,12 @@
             <StackPanel>
                 <StackPanel.Resources>
                     <Storyboard x:Key="SlideLeft">
-                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                             From="600" To="0"
-                             BeginTime="0:0:.5"
-                             Duration="0:0:.5" />
+                        <DoubleAnimation
+                            BeginTime="0:0:.5"
+                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                            From="600"
+                            To="0"
+                            Duration="0:0:.5" />
                     </Storyboard>
                 </StackPanel.Resources>
                 <StackPanel.Triggers>
@@ -193,46 +227,82 @@
                     </EventTrigger>
                 </StackPanel.Triggers>
                 <StackPanel.RenderTransform>
-                    <TranslateTransform X="1000"/>
+                    <TranslateTransform X="1000" />
                 </StackPanel.RenderTransform>
-                <TextBox Style="{StaticResource ReadOnlyText}"  Margin="20 20 20 0">
+                <TextBox Margin="20 20 20 0" Style="{StaticResource ReadOnlyText}">
                     “That was a memorable day to me, for it made great changes in me. But it is the same with any life.
                     Imagine one selected day struck out of it, and think how different its course would have been.
                     Pause you who read this, and think for a moment of the long chain of iron or gold, of thorns or flowers,
                     that would never have bound you, but for the formation of the first link on one memorable day.”
                 </TextBox>
-                <TextBlock Foreground="{StaticResource PrimaryLightBrush}" Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charles Dickens</TextBlock>
+                <TextBlock
+                    Margin="50 0 0 0"
+                    FontSize="{StaticResource FontSizeRegular}"
+                    Foreground="{StaticResource PrimaryLightBrush}">
+                    - Charles Dickens
+                </TextBlock>
             </StackPanel>
-            <StackPanel>
+            <StackPanel Opacity="0">
                 <StackPanel.Resources>
-                    <Storyboard x:Key="SlideLeft">
-                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                             From="500" To="0"
-                             BeginTime="0:0:.9"
-                             Duration="0:0:.5" />
+                    <Storyboard x:Key="FadeIn">
+                        <DoubleAnimation
+                            BeginTime="0:0:.6"
+                            Storyboard.TargetProperty="Opacity"
+                            From="0"
+                            To="1"
+                            Duration="0:0:2.5">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseIn" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
                     </Storyboard>
                 </StackPanel.Resources>
                 <StackPanel.Triggers>
                     <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                         <EventTrigger.Actions>
-                            <BeginStoryboard Storyboard="{StaticResource SlideLeft}" />
+                            <BeginStoryboard Storyboard="{StaticResource FadeIn}" />
                         </EventTrigger.Actions>
                     </EventTrigger>
                 </StackPanel.Triggers>
-                <StackPanel.RenderTransform>
-                    <TranslateTransform X="1000"/>
-                </StackPanel.RenderTransform>
-                <TextBox Style="{StaticResource ReadOnlyText}" Margin="20 20 20 0">
-                    “Allo my darlings”
-                </TextBox>
-                <TextBlock Foreground="{StaticResource PrimaryLightBrush}" Margin="50 0 0 0" FontSize="{StaticResource FontSizeRegular}">- Charlie Drake</TextBlock>
+                <Border
+                    Margin="5 20 5 0"
+                    Padding="0 10 0 0"
+                    BorderBrush="{StaticResource PrimaryLightBrush}"
+                    BorderThickness="0 4 0 0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Grid.Column="0"
+                            SnapsToDevicePixels="True"
+                            Source="/Images/Other/ukraine-flag.png" />
+                        <StackPanel Grid.Column="1">
+                            <TextBox Foreground="{StaticResource HighlightTextCBrush}" Style="{StaticResource ReadOnlyText}">
+                                Russia's invasion of Ukraine is an unmitigated act of pure evil. Please help to oppose this evil war.
+                            </TextBox>
+                            <TextBlock FontSize="{StaticResource FontSizeRegular}">
+                                <Hyperlink
+                                    Command="{Binding LaunchWebSiteCommand}"
+                                    CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
+                                    NavigateUri="https://www.google.com/search?q=StandWithUkraine">
+                                    <Run Text="#StandWithUkraine" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
             </StackPanel>
         </StackPanel>
 
-        <Button x:Name="OkButton"
-                Content="{x:Static p:Resources.ButtonOkText}" 
-                HorizontalAlignment="Center" Margin="20" MinWidth="200"
-                IsCancel="True"/>
+        <Button
+            x:Name="OkButton"
+            MinWidth="200"
+            Margin="20"
+            HorizontalAlignment="Center"
+            Content="{x:Static p:Resources.ButtonOkText}"
+            IsCancel="True" />
 
     </StackPanel>
 

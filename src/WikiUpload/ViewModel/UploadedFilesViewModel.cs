@@ -32,6 +32,8 @@ namespace WikiUpload
             CopyTextToClipboardCommand = new RelayParameterizedCommand((selectedItems) => CopyTextToClipboard((IList)selectedItems));
             CopyFileToClipboardCommand = new RelayParameterizedCommand((selectedItems) => CopyFileToClipboard((IList)selectedItems));
             CopyWikilinkToClipboardCommand = new RelayParameterizedCommand((selectedItems) => CopyWikilinkToClipboard((IList)selectedItems));
+
+            ActivateMainWindowCommand = new RelayCommand(() => _helpers.ActivateMainWindow());
         }
 
         public int UploadedFileSelectedIndex { get; set; }
@@ -46,13 +48,18 @@ namespace WikiUpload
         public bool IsChooseCopyTypePopupOpen { get; set; }
 
         public ICommand ClearSelectionCommand { get; }
+        
+        public ICommand ActivateMainWindowCommand { get; }
 
         public ICommand LaunchFilePageCommand { get; }
 
         private void LaunchFilePage(UploadFile file)
         {
-            var url = _fileUploader.FileUrl(file.UploadFileName);
-            _helpers.LaunchProcess(url);
+            if (file != null)
+            {
+                var url = _fileUploader.FileUrl(file.UploadFileName);
+                _helpers.LaunchProcess(url);
+            }
         }
 
         public ICommand RemoveFilesCommand { get; }

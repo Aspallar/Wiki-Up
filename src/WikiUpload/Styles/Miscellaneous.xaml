@@ -24,10 +24,10 @@
         <Style.Resources>
             <!-- Background of selected item when focused -->
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                                 Color="{StaticResource PrimaryColor}" />
+                                 Color="{StaticResource ListBoxSelectedColor}" />
             <!-- Background of selected item when not focused -->
             <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
-                                 Color="{StaticResource PrimaryColor}" />
+                                 Color="{StaticResource ListBoxSelectedColor}" />
         </Style.Resources>
     </Style>
 

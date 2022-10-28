@@ -5,6 +5,7 @@
 
     <!-- base colors -->
     <Color x:Key="PrimaryColor">#253279</Color>
+    <Color x:Key="ListBoxSelectedColor">#253279</Color>
     <Color x:Key="PrimaryLightColor">#3446aa</Color>
     <Color x:Key="PrimaryDarkColor">#090C1D</Color>
     <Color x:Key="DisabledColor">Gray</Color>
@@ -78,6 +79,7 @@
     <SolidColorBrush x:Key="ToggleOnForegroundBrush" Color="{StaticResource ToggleOnForegroundColor}"/>
 
     <ImageBrush x:Key="BackgroundImageBrush" Opacity="0.6" Stretch="Fill" ImageSource="/Images/Backgrounds/bg.jpg" />
+    <SolidColorBrush x:Key="UploadListFilenameBrush" Color="{StaticResource PrimaryTextColor}" />
 
 </ResourceDictionary>
 

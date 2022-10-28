@@ -155,6 +155,7 @@
                                         FontSize="{StaticResource FontSizeRegular}" />
                                     <local:FocusedPopup
                                         AllowsTransparency="True"
+                                        CloseOnEscape="False"
                                         ExitFocus="{Binding ElementName=ConfigureWindowPlacement}"
                                         InitialFocus="{Binding ElementName=WindowPlacementFocus}"
                                         IsOpen="{Binding IsWindowPlacementPopupOpen}"
@@ -274,6 +275,7 @@
                                             Style="{StaticResource FontSizeIcon}" />
                                         <local:FocusedPopup
                                             AllowsTransparency="True"
+                                            CloseOnEscape="False"
                                             ExitFocus="{Binding ElementName=AddExtension}"
                                             InitialFocus="{Binding ElementName=ImageExtension}"
                                             IsOpen="{Binding IsAddingImageExtension}"

@@ -114,7 +114,7 @@
                 x:Name="FilesListBox"
                 Margin="10"
                 local:DropFileTargetProperty.Value="{Binding}"
-                local:PageKeys.Enabled="True"
+                local:PageKeys.KeysEnabled="True"
                 local:ViewedItemProperty.Value="{Binding ViewedFile}"
                 AllowDrop="True"
                 Background="Transparent"
@@ -158,6 +158,7 @@
                                     Command="{Binding DataContext.EditUploadFileNameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl, AncestorLevel=1}}"
                                     CommandParameter="{Binding}"
                                     Content="{Binding DisplayName}"
+                                    Foreground="{StaticResource UploadListFilenameBrush}"
                                     Style="{StaticResource FilenamePlainButton}">
                                     <Button.InputBindings>
                                         <MouseBinding
@@ -291,10 +292,10 @@
 
                 <Button
                     x:Name="StopUpload"
+                    Click="StopUpload_Click"
                     Command="{Binding CancelCommand}"
                     Content="{x:Static p:Resources.ButtonStopUploadText}"
                     IsEnabled="{Binding UploadIsRunning}"
-                    Click="StopUpload_Click"
                     ToolTip="{x:Static p:Resources.ButtonStopUploadTooltipText}" />
                 <Button
                     x:Name="StartUpload"

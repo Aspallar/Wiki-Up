@@ -24,5 +24,6 @@ namespace WikiUpload
         bool FileExists(string path);
         void SetClipboardText(string text);
         bool IsDirectory(string path);
+        void ActivateMainWindow();
     }
 };

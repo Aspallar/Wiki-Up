@@ -8,6 +8,7 @@
 
     <!-- base colors (from material desigb) -->
     <Color x:Key="PrimaryColor">#3D424B</Color>
+    <Color x:Key="ListBoxSelectedColor">#3D424B</Color>
     <Color x:Key="PrimaryLightColor">#70757E</Color>
     <Color x:Key="PrimaryDarkColor">#2B2F36</Color>
     <Color x:Key="DisabledColor">Gray</Color>
@@ -80,6 +81,7 @@
     <SolidColorBrush x:Key="ToggleOnForegroundBrush" Color="{StaticResource ToggleOnForegroundColor}"/>
 
     <SolidColorBrush Color="#2B2F36" x:Key="BackgroundImageBrush"/>
+    <SolidColorBrush x:Key="UploadListFilenameBrush" Color="{StaticResource PrimaryTextColor}" />
 
 </ResourceDictionary>
 

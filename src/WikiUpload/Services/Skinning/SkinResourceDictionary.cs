@@ -33,8 +33,10 @@ namespace WikiUpload
         public Uri RakdosSource { get; set; }
 
         public Uri MidnightLightsSource { get; set; }
-        
-        public Uri PlainGray { get; set; }
+
+        public Uri PlainGraySource { get; set; }
+
+        public Uri PsiSource { get; set; }
 
         private Uri AppSkinResource()
         {
@@ -63,7 +65,10 @@ namespace WikiUpload
                     thisSource = MidnightLightsSource;
                     break;
                 case Skin.PlainGray:
-                    thisSource = PlainGray;
+                    thisSource = PlainGraySource;
+                    break;
+                case Skin.Psi:
+                    thisSource = PsiSource;
                     break;
             }
             return thisSource;

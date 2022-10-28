@@ -6,21 +6,22 @@ namespace WikiUpload
 {
     internal class DeleteListBox : ListBox
     {
-        public DeleteListBox() : base()
-        {
-            KeyDown += DeleteListBox_KeyDown;
-        }
+        public DeleteListBox() : base() { }
 
-        private void DeleteListBox_KeyDown(object sender, KeyEventArgs e)
+        protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
-            {
-                var previousSelectedIndex = SelectedIndex;
-                DeleteSelectedCommand?.Execute(SelectedItems);
-                if (previousSelectedIndex < Items.Count)
-                    SelectedIndex = previousSelectedIndex;
-                this.FocusSelectedOrFirstVisibleItem();
-            }
+                ExecuteDeleteSelectedCommand();
+            base.OnKeyDown(e);
+        }
+
+        private void ExecuteDeleteSelectedCommand()
+        {
+            var previousSelectedIndex = SelectedIndex;
+            DeleteSelectedCommand?.Execute(SelectedItems);
+            if (previousSelectedIndex < Items.Count)
+                SelectedIndex = previousSelectedIndex;
+            this.FocusSelectedOrFirstVisibleItem();
         }
 
         public ICommand DeleteSelectedCommand

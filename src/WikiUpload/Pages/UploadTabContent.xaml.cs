@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -115,18 +114,17 @@ namespace WikiUpload
             var itemContainer = FilesListBox.ScrollToSelectedItem();
             FileRenamePopup.PlacementTarget = itemContainer;
             FileRenamePopup.ExitFocus = itemContainer;
-            FileRenamePopup.IsOpen = true;
+            ((IUploadFileCommands)DataContext).EditUploadFileNameCommand.Execute(FilesListBox.SelectedItem);
         }
 
         private void ShowSelectedFile()
         {
             var selectedItem = (UploadFile)FilesListBox.SelectedItem;
-            ((UploadViewModel)DataContext).ShowFileCommand.Execute(selectedItem.FullPath);
+            ((IUploadFileCommands)DataContext).ShowFileCommand.Execute(selectedItem.FullPath);
         }
 
         private bool ShouldProcessFileListKey()
             => FilesListBox.SelectedIndex != -1  && !UploadIsRunning();
-
 
         private static bool IsEditUploadFileNameKey(Key key)
             => key == Key.F2 || key == Key.Return;

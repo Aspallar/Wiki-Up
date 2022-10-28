@@ -6,23 +6,23 @@ namespace WikiUpload
 {
     internal static class PageKeys
     {
-        public static readonly DependencyProperty EnabledProperty =
+        public static readonly DependencyProperty KeysEnabledProperty =
             DependencyProperty.RegisterAttached
             (
-                "Enabled",
+                "KeysEnabled",
                 typeof(bool),
                 typeof(ListBox),
                 new UIPropertyMetadata(false, OnEnabledChanged)
             );
 
-        public static bool GetEnabled(DependencyObject obj)
+        public static bool GetKeysEnabled(DependencyObject obj)
         {
-            return (bool)obj.GetValue(EnabledProperty);
+            return (bool)obj.GetValue(KeysEnabledProperty);
         }
 
-        public static void SetEnabled(DependencyObject obj, bool value)
+        public static void SetKeysEnabled(DependencyObject obj, bool value)
         {
-            obj.SetValue(EnabledProperty, value);
+            obj.SetValue(KeysEnabledProperty, value);
         }
 
         private static void OnEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)

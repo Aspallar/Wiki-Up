@@ -9,52 +9,27 @@ namespace WikiUpload
 {
     internal class FocusedPopup : Popup
     {
-        public FocusedPopup() : base()
-        {
-            KeyDown += Popup_KeyDown;
-            Loaded += Popup_Loaded;
-            Unloaded += Popup_Unloaded; ;
-        }
+        public FocusedPopup() : base() { }
 
-        private void Popup_Loaded(object sender, RoutedEventArgs e)
+        protected override void OnKeyDown(KeyEventArgs e)
         {
-            var closeButton = CloseButton;
-            if (closeButton != null)
-                closeButton.Click += CloseButton_Click;
-        }
-
-        private void Popup_Unloaded(object sender, RoutedEventArgs e)
-        {
-            KeyDown -= Popup_KeyDown;
-            Loaded -= Popup_Loaded;
-            Unloaded -= Popup_Unloaded;
-
-            var closeButton = CloseButton;
-            if (closeButton != null)
-                closeButton.Click -= CloseButton_Click;
+            if (e.Key == Key.Escape && CloseOnEscape)
+                IsOpen = false;
+            base.OnKeyDown(e);
         }
 
         protected override void OnOpened(EventArgs e)
         {
             base.OnOpened(e);
+            AddCloseClickHandler();
             SetInitialFocus();
         }
 
         protected override void OnClosed(EventArgs e)
         {
+            RemoveCloseClickHandler();
             base.OnClosed(e);
             SetExitFocus();
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            IsOpen = false;
-        }
-
-        private void Popup_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-                IsOpen = false;
         }
 
         private void SetInitialFocus()
@@ -95,6 +70,22 @@ namespace WikiUpload
         }
 
         private void SetExitFocus() => ExitFocus?.Focus();
+
+        private void AddCloseClickHandler()
+        {
+            var closeButton = CloseButton;
+            if (closeButton != null)
+                closeButton.Click += CloseButton_Click;
+        }
+
+        private void RemoveCloseClickHandler()
+        {
+            var closeButton = CloseButton;
+            if (closeButton != null)
+                closeButton.Click -= CloseButton_Click;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e) => IsOpen = false;
 
         #region InitiaFocus property
 
@@ -157,6 +148,23 @@ namespace WikiUpload
                 nameof(SelectPattern),
                 typeof(string),
                 typeof(FocusedPopup));
+
+        #endregion
+
+        #region CloseOnEscape property
+
+        public bool CloseOnEscape
+        {
+            get { return (bool)GetValue(CloseOnEscapeProperty); }
+            set { SetValue(CloseOnEscapeProperty, value); }
+        }
+
+        public static readonly DependencyProperty CloseOnEscapeProperty =
+            DependencyProperty.Register(
+                nameof(CloseOnEscape),
+                typeof(bool),
+                typeof(FocusedPopup),
+                new PropertyMetadata(true));
 
         #endregion
 
