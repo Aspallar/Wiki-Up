@@ -15,7 +15,7 @@
     <Color x:Key="SecondaryTextColor">#000000</Color>
 
     <!--  highlighted text color (not selection highlight)  -->
-    <Color x:Key="HighlightTextColor">White</Color>
+    <Color x:Key="HighlightTextColor">LightGreen</Color>
 
     <!--  Listbox selected itemscolor  -->
     <Color x:Key="ListBoxSelectedColor">#0e2d30</Color>
@@ -46,7 +46,7 @@
 
     <!--  upload status icon colors  -->
     <Color x:Key="UploadStatusWaitingColor">Gray</Color>
-    <Color x:Key="UploadStatusUploadingColor">Green</Color>
+    <Color x:Key="UploadStatusUploadingColor">#02F702</Color>
     <Color x:Key="UploadStatusErrorColor">#cc0000</Color>
 
     <SolidColorBrush x:Key="UploadStatusWaitingBrush" Color="{StaticResource UploadStatusWaitingColor}" />
@@ -71,7 +71,7 @@
     <!--  Watermark Colors  -->
     <Color x:Key="WatermarkColor">#202020</Color>
     <SolidColorBrush x:Key="WatermarkBrush" Color="{StaticResource WatermarkColor}" />
-    <Color x:Key="WatermarkLightColor">#606060</Color>
+    <Color x:Key="WatermarkLightColor">#609060</Color>
     <SolidColorBrush x:Key="WatermarkLightBrush" Color="{StaticResource WatermarkLightColor}" />
 
     <!--  misc  -->
@@ -85,10 +85,10 @@
     <ImageBrush
         x:Key="BackgroundImageBrush"
         ImageSource="/Images/Backgrounds/bg.jpg"
-        Opacity="0.4"
-        Stretch="Fill" />
-
-    <SolidColorBrush x:Key="UploadListFilenameBrush" Color="{StaticResource PrimaryTextColor}" />
+        Opacity=".4"
+        Stretch="Fill">
+    </ImageBrush>
+    
+     <SolidColorBrush x:Key="UploadListFilenameBrush" Color="#02F702" />
 
 </ResourceDictionary>
-
