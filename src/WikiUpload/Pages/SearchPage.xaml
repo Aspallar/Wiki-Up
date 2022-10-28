@@ -74,7 +74,7 @@
                     FontSize="{StaticResource FontSizeSmall}">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconFontAwesome Margin="0 0 6 0" Kind="PlusCircleSolid" />
-                        <TextBlock Text="{x:Static p:Resources.ButtonAddText}" />
+                        <TextBlock Foreground="{StaticResource ButtonTextBrush}" Text="{x:Static p:Resources.ButtonAddText}" />
                     </StackPanel>
                 </Button>
                 <Button
@@ -85,7 +85,7 @@
                     FontSize="{StaticResource FontSizeSmall}">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconFontAwesome Margin="0 0 6 0" Kind="SearchSolid" />
-                        <TextBlock Text="{x:Static p:Resources.ButtonFindText}" />
+                        <TextBlock Foreground="{StaticResource ButtonTextBrush}" Text="{x:Static p:Resources.ButtonFindText}" />
                     </StackPanel>
                 </Button>
 
