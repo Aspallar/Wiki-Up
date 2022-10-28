@@ -290,8 +290,8 @@
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\UploadViewModel.cs" />
     <Compile Include="ViewModel\WindowViewModel.cs" />
-    <Compile Include="Window\AddFolderWinsow.xaml.cs">
-      <DependentUpon>AddFolderWinsow.xaml</DependentUpon>
+    <Compile Include="Window\AddFolderWindow.xaml.cs">
+      <DependentUpon>AddFolderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\NewVersionWindow.xaml.cs">
       <DependentUpon>NewVersionWindow.xaml</DependentUpon>
@@ -434,7 +434,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window\AddFolderWinsow.xaml">
+    <Page Include="Window\AddFolderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

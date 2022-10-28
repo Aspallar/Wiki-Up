@@ -1,0 +1,223 @@
+﻿<Window
+    x:Class="WikiUpload.AddFolderWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:WikiUpload"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:WikiUpload.Properties"
+    Title="{x:Static p:Resources.ButtonAddFolderText}"
+    Width="800"
+    x:ClassModifier="internal"
+    AllowsTransparency="True"
+    FocusManager.FocusedElement="{Binding ElementName=AddButton}"
+    Icon="{StaticResource LogoImage}"
+    ResizeMode="NoResize"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:AddFolderWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+
+                        <!--  Outer border  -->
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+
+                            <!--  Main window outline  -->
+                            <Grid>
+
+                                <!--  Opacity mask for corners on grid  -->
+                                <Border
+                                    x:Name="Container"
+                                    Background="{StaticResource PrimaryDarkBrush}"
+                                    CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
+
+                                <!--  Window border and dropshadown  -->
+                                <Border
+                                    Background="{StaticResource PrimaryDarkBrush}"
+                                    BorderBrush="{StaticResource PrimaryLightBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}">
+                                    <Border.Effect>
+                                        <DropShadowEffect Opacity="0.2" ShadowDepth="0" />
+                                    </Border.Effect>
+                                </Border>
+
+                                <!--  The window content  -->
+                                <Grid>
+
+                                    <Grid.RowDefinitions>
+
+                                        <!--  Title Bar  -->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}" />
+                                        <!--  Window Content  -->
+                                        <RowDefinition Height="*" />
+
+                                    </Grid.RowDefinitions>
+
+                                    <!--  Title Bar  -->
+                                    <Grid
+                                        Grid.Column="0"
+                                        Panel.ZIndex="1"
+                                        Background="{StaticResource PrimaryBrush}">
+
+                                        <Grid.ColumnDefinitions>
+                                            <!--  Icon  -->
+                                            <ColumnDefinition Width="Auto" />
+                                            <!--  Title  -->
+                                            <ColumnDefinition Width="*" />
+                                            <!--  Windows Button  -->
+                                            <ColumnDefinition Width="Auto" />
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--  Title  -->
+                                        <Viewbox
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="3"
+                                            Margin="10 2"
+                                            HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" />
+                                            </StackPanel>
+                                        </Viewbox>
+
+                                        <!--  Window Buttons  -->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <Button
+                                                Command="{Binding CloseCommand}"
+                                                Content="X"
+                                                Style="{StaticResource WindowCloseButton}"
+                                                ToolTip="{x:Static p:Resources.CloseText}" />
+                                        </StackPanel>
+
+                                    </Grid>
+
+                                    <!--  Page Content  -->
+                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
+                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                    </Border>
+
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            ResizeBorderThickness="{Binding ResizeBorderThickness}" />
+    </WindowChrome.WindowChrome>
+
+    <!--  window content starts here  -->
+    <Border BorderThickness="20 10 20 20">
+        <Grid>
+            <Grid.Resources>
+                <Thickness
+                    x:Key="SeparatorMargin"
+                    Bottom="8"
+                    Left="0"
+                    Right="0"
+                    Top="8" />
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconFontAwesome
+                        Width="42"
+                        Height="42"
+                        Margin="0 0 15 0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{StaticResource PrimaryTextBrush}"
+                        Kind="FolderPlusSolid" />
+                    <TextBox
+                        Margin="{StaticResource SeparatorMargin}"
+                        Foreground="{StaticResource ButtonTextBrush}"
+                        Style="{StaticResource ReadOnlyText}"
+                        Text="{Binding FolderPath}" />
+                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="{StaticResource SeparatorMargin}"
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Text="{x:Static p:Resources.IncludeSubfolders}" />
+                    <ToggleSwitch:HorizontalToggleSwitch
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="{StaticResource SeparatorMargin}"
+                        HorizontalAlignment="Left"
+                        IsChecked="{Binding IncludeSubfolders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="{StaticResource SeparatorMargin}"
+                        Padding="0 0 30 0"
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Text="{x:Static p:Resources.IncludeFilesOfType}" />
+                    <ComboBox
+                        x:Name="IncludeFileOfType"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="280"
+                        Margin="{StaticResource SeparatorMargin}"
+                        HorizontalAlignment="Left"
+                        ItemsSource="{Binding FileTypes}"
+                        SelectedIndex="{Binding SelectedFileTypeIndex}">
+                        <ComboBox.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource PrimaryColor}" />
+                        </ComboBox.Resources>
+                    </ComboBox>
+
+                </Grid>
+
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="1"
+                Margin="0 20 0 0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="AddButton"
+                    Margin="0 0 20 0"
+                    Click="Add_Click"
+                    Content="{x:Static p:Resources.ButtonAddText}" />
+                <Button
+                    Margin="0"
+                    Content="{x:Static p:Resources.ButtonCancelText}"
+                    IsCancel="True" />
+            </StackPanel>
+
+        </Grid>
+
+    </Border>
+
+</Window>
