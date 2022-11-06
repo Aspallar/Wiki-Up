@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -8,10 +7,12 @@ namespace WikiUpload
 {
     internal class PasswordStore : IPasswordStore
     {
+        private readonly IHelpers _helpers;
         private readonly string _fileName;
 
-        public PasswordStore()
+        public PasswordStore(IHelpers helpers)
         {
+            _helpers = helpers;
             _fileName = DetermineFileName();
         }
 
@@ -43,12 +44,8 @@ namespace WikiUpload
             return passwords;
         }
 
-        private static string DetermineFileName()
-        {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            var folder = Path.GetDirectoryName(config.FilePath);
-            return folder + @"\0ED8B7F4-7A81-4DC1-812F-9F120F60E8E2.xml";
-        }
+        public const string StoreName = @"\0ED8B7F4-7A81-4DC1-812F-9F120F60E8E2.xml";
+        private string DetermineFileName() => _helpers.GetUserSettingsFolderName() + StoreName;
 
     }
 }

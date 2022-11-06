@@ -150,5 +150,10 @@ namespace WikiUpload.Properties
         {
             Settings.Default.Save();
         }
+
+        public void Reload()
+        {
+            Settings.Default.Reload();
+        }
     }
 }

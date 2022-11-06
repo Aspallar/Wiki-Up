@@ -22,6 +22,7 @@ namespace WikiUpload.Properties
         bool MainWindowPlacementEnabled { get; set; }
 
         void AddMostRecentlyUsedSite(string site);
+        void Reload();
         void RestoreConfigurationDefaults();
         void Save();
     }

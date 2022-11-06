@@ -43,6 +43,9 @@
   <PropertyGroup>
     <ApplicationIcon>Images\Logo\navigate-up-icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>WikiUpload.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AngleSharp, Version=0.14.0.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
       <HintPath>..\packages\AngleSharp.0.14.0\lib\net472\AngleSharp.dll</HintPath>
@@ -131,6 +134,7 @@
     <Compile Include="Services\WindowManger\AddFolderOptionsDialogResponse.cs" />
     <Compile Include="Services\WindowManger\MultiplePathsDialogResponse.cs" />
     <Compile Include="Services\WindowManger\PathDialogResponse.cs" />
+    <Compile Include="Utility\ConfigurationUpgrade.cs" />
     <Compile Include="ViewModel\IUploadFileCommands.cs" />
     <Compile Include="ViewModel\SortingOptions.cs" />
     <Compile Include="ViewModel\UploadedFilesViewModel.cs" />

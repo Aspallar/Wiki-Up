@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -30,9 +31,21 @@ namespace WikiUpload
             // TODO: when ported to .net5 use EnumerationOptions IgnoreInaccessible 
             => Directory.EnumerateFiles(rootPath, pattern, searchOption);
 
+        public IEnumerable<string> EnumerateDirectories(string path)
+            => Directory.EnumerateDirectories(path);
+
         public bool IsDirectory(string path) => File.GetAttributes(path).HasFlag(FileAttributes.Directory);
 
+        public bool DirectoryExists(string path)
+            => Directory.Exists(path);
+
+        public void CreateDirectory(string path)
+            => Directory.CreateDirectory(path);
+
         public bool FileExists(string path) => File.Exists(path);
+
+        public void CopyFile(string sourcePath, string destinationPath)
+            => File.Copy(sourcePath, destinationPath);
 
         public void SetClipboardText(string text) => Clipboard.SetText(text);
 
@@ -55,9 +68,18 @@ namespace WikiUpload
             }
         }
 
-        public string CopyrightText { get; private set; }
-        public string VersionText { get; private set; }
-
         public void ActivateMainWindow() => Application.Current.MainWindow.Activate();
+
+        private static string userSettingsPath;
+        public string GetUserSettingsFolderName()
+        {
+            if (userSettingsPath == null)
+            {
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                userSettingsPath = Path.GetDirectoryName(config.FilePath);
+            }
+            return userSettingsPath;
+        }
+
     }
 }

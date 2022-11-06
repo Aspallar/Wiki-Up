@@ -25,5 +25,10 @@ namespace WikiUpload
         void SetClipboardText(string text);
         bool IsDirectory(string path);
         void ActivateMainWindow();
+        string GetUserSettingsFolderName();
+        IEnumerable<string> EnumerateDirectories(string path);
+        void CopyFile(string sourcePath, string destinationPath);
+        bool DirectoryExists(string path);
+        void CreateDirectory(string path);
     }
 };
