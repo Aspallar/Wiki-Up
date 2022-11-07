@@ -9,7 +9,7 @@ namespace WikiUpload
         {
             Owner = Application.Current.MainWindow;
             InitializeComponent();
-            
+
             var viewModel = App.ServiceLocator.ErrorMessageViewModel(this);
             viewModel.ErrorMessage = errorMessage;
             viewModel.SubMessage = subMessage;
@@ -17,7 +17,7 @@ namespace WikiUpload
 
             DataContext = viewModel;
 
-            Loaded += (s, e) =>  SystemSounds.Beep.Play();
+            Loaded += (s, e) => SystemSounds.Beep.Play();
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
