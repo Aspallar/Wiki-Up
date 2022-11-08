@@ -54,7 +54,7 @@ namespace WikiUpload
             _fileFinder = fileFinder;
             _wikiSearchFactory = wikiSearchFactory;
 
-            UploadedFilesViewModel = new UploadedFilesViewModel(_fileUploader, _helpers);
+            UploadedFilesViewModel = new UploadedFilesViewModel(_fileUploader, _helpers, _dialogs, _uploadFileSerializer);
 
             UploadFiles = new UploadList(_helpers);
             ResetViewModel();
@@ -288,6 +288,7 @@ namespace WikiUpload
                 if (result == ResponseCodes.Success)
                 {
                     UploadFiles.Remove(file);
+                    file.SetDefault();
                     UploadedFilesViewModel.UploadedFiles.Add(file);
                 }
                 else if (result == ResponseCodes.Warning)

@@ -237,6 +237,54 @@
                     ToolTip="{x:Static p:Resources.SortDescending}">
                     <iconPacks:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.Descending}}" Kind="SortAlphaDownAltSolid" />
                 </Button>
+                <Grid>
+                    <Button Command="{Binding SaveLoadCommand}" ToolTip="{x:Static p:Resources.SortDescending}">
+                        <iconPacks:PackIconFontAwesome Kind="SaveRegular" />
+                    </Button>
+                    <local:FocusedPopup
+                        x:Name="SaveOrLoad"
+                        AllowsTransparency="True"
+                        InitialFocus="{Binding ElementName=SaveUploadedFiles}"
+                        IsOpen="{Binding IsSaveLoadPopupOpen}"
+                        Placement="Bottom"
+                        PopupAnimation="Scroll"
+                        StaysOpen="False">
+                        <Border Style="{StaticResource PopupBorder}">
+                            <StackPanel>
+                                <StackPanel.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                                        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+                                        <Setter Property="Padding" Value="6" />
+                                        <Setter Property="Margin" Value="0 0 0 6" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                        <Setter Property="CommandParameter" Value="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}" />
+                                        <Setter Property="MinWidth" Value="140" />
+                                    </Style>
+                                    <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="16 0 0 0" />
+                                    </Style>
+                                    <Style BasedOn="{StaticResource FontSizeIcon}" TargetType="iconPacks:PackIconFontAwesome">
+                                        <Setter Property="Foreground" Value="{StaticResource HighlightTextCBrush}" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </StackPanel.Resources>
+                                <Button Name="SaveUploadedFiles" Command="{Binding SaveUploadedFilesCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconFontAwesome Kind="FileImportSolid" />
+                                        <TextBlock Text="{x:Static p:Resources.ButtonSaveText}" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Margin="0" Command="{Binding LoadUploadedFilesCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconFontAwesome Kind="FileExportSolid" />
+                                        <TextBlock Text="{x:Static p:Resources.ButtonLoadText}" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </local:FocusedPopup>
+                </Grid>
+
             </StackPanel>
         </Border>
 

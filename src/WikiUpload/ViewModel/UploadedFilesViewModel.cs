@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using System.Windows.Input;
+using WikiUpload.Properties;
 
 namespace WikiUpload
 {
@@ -12,11 +14,15 @@ namespace WikiUpload
     {
         private readonly IFileUploader _fileUploader;
         private readonly IHelpers _helpers;
+        private readonly IDialogManager _dialogManager;
+        private readonly IUploadListSerializer _uploadFileSerializer;
 
-        public UploadedFilesViewModel(IFileUploader fileUploader, IHelpers helpers)
+        public UploadedFilesViewModel(IFileUploader fileUploader, IHelpers helpers, IDialogManager dialogManager, IUploadListSerializer uploadFileSerializer)
         {
             _fileUploader = fileUploader;
             _helpers = helpers;
+            _dialogManager = dialogManager;
+            _uploadFileSerializer = uploadFileSerializer;
 
             UploadedFileSelectedIndex = -1;
             UploadedFiles = new UploadList(_helpers);
@@ -34,10 +40,14 @@ namespace WikiUpload
             CopyWikilinkToClipboardCommand = new RelayParameterizedCommand((selectedItems) => CopyWikilinkToClipboard((IList)selectedItems));
 
             ActivateMainWindowCommand = new RelayCommand(() => _helpers.ActivateMainWindow());
+
+            SaveLoadCommand = new RelayCommand(SaveLoad);
+            SaveUploadedFilesCommand = new RelayCommand(SaveUploadedFiles);
+            LoadUploadedFilesCommand = new RelayCommand(LoadUploadedFiles);
         }
 
         public int UploadedFileSelectedIndex { get; set; }
-        public UploadList UploadedFiles { get; }
+        public UploadList UploadedFiles { get; private set; }
         public ICollectionView UploadedFilesView { get; }
         public SortingOptions SortingOption { get; set; }
         public bool IsConfirmRemoveAllPopupOpen { get; set; }
@@ -46,19 +56,58 @@ namespace WikiUpload
         public bool IsAcsendingFocused { get; set; }
         public bool IsDescendingFocused { get; set; }
         public bool IsChooseCopyTypePopupOpen { get; set; }
+        public bool IsSaveLoadPopupOpen { get; set; }
 
         public ICommand ClearSelectionCommand { get; }
         
         public ICommand ActivateMainWindowCommand { get; }
 
         public ICommand LaunchFilePageCommand { get; }
-
         private void LaunchFilePage(UploadFile file)
         {
             if (file != null)
             {
                 var url = _fileUploader.FileUrl(file.UploadFileName);
                 _helpers.LaunchProcess(url);
+            }
+        }
+
+        public ICommand SaveLoadCommand { get; }
+        private void SaveLoad() => IsSaveLoadPopupOpen = true;
+
+        public ICommand SaveUploadedFilesCommand { get; }
+        private void SaveUploadedFiles()
+        {
+            var result = _dialogManager.SaveUploadListDialog();
+            if (result.Ok)
+            {
+                try
+                {
+                    _uploadFileSerializer.Serialize(result.Path, UploadedFiles);
+                }
+                catch (Exception ex)
+                {
+                    _dialogManager.ErrorMessage(Resources.CantSaveUploadListMessage, ex);
+                }
+            }
+        }
+
+        public ICommand LoadUploadedFilesCommand { get; }
+        private void LoadUploadedFiles()
+        {
+            var result = _dialogManager.LoadUploadListDialog();
+            if (result.Ok)
+            {
+                try
+                {
+                    var files = _uploadFileSerializer.Deserialize(result.Path);
+                    UploadedFiles.Clear();
+                    UploadedFiles.AddRange(files);
+                }
+                catch (Exception ex)
+                {
+                    _dialogManager.ErrorMessage(Resources.CantReadUploadListMessage, ex);
+                }
             }
         }
 
