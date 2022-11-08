@@ -16,7 +16,7 @@ Initially written for use on the now dead Fandom [Magic Arena](https://magicaren
 * in the assets section download the **WikiUpInstaller.msi** file for the desired language.
 * Run the downloaded installer by double clicking on it or right click and choose install.
 
-Alternatively you can install Wiki-Up manually by downloading the WikiUp zip file and extracting its contents.
+Alternatively you can install Wiki-Up manually by downloading the WikiUp zip file and extracting its contents. Note that you do not need to download the zip file if you are using one of the msi installers.
 
 ### Logging In
 
