@@ -25,7 +25,7 @@ namespace WikiUpload
         {
             var parent = Path.GetDirectoryName(folderPath);
             var previousVersion = GetPreviousVersion(parent, folderPath);
-            var minVersion = new Version("1.16.0.0");
+            var minVersion = new Version(1,16,0,0);
             if (previousVersion != null && previousVersion >= minVersion)
             {
                 var srcPath = parent + "\\" + previousVersion.ToString() + "\\";
