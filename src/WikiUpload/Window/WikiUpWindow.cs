@@ -67,7 +67,9 @@ namespace WikiUpload
             catch
             {
                 // ignored
+#if DEBUG
                 throw;
+#endif
             }
         }
 
