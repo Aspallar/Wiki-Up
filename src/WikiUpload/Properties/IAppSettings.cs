@@ -20,7 +20,8 @@ namespace WikiUpload.Properties
         string ContentFileExtension { get; }
         bool UploadedWindowPlacementEnabled { get; set; }
         bool MainWindowPlacementEnabled { get; set; }
-
+        bool InitialAddToWatchlist { get; set; }
+        bool InitialIgnoreWarnings { get; set; }
         void AddMostRecentlyUsedSite(string site);
         void Reload();
         void RestoreConfigurationDefaults();

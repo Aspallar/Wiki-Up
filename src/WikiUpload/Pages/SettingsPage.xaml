@@ -144,26 +144,79 @@
                                     FontSize="{StaticResource FontSizeRegular}"
                                     FontWeight="Bold"
                                     Foreground="{StaticResource PrimaryTextBrush}"
-                                    Text="{x:Static p:Resources.WindowPlacement}" />
+                                    Text="{x:Static p:Resources.StartupOptions}" />
                                 <StackPanel Orientation="Horizontal">
                                     <Button
-                                        x:Name="ConfigureWindowPlacement"
+                                        x:Name="ConfigureStartupOptions"
                                         Margin="0 4 0 0"
                                         Padding="20 2"
-                                        Command="{Binding ToggleWindowPlacementPopupCommand}"
+                                        Command="{Binding ToggleStartupOptionsPopupCommand}"
                                         Content="{x:Static p:Resources.Configure}"
                                         FontSize="{StaticResource FontSizeRegular}" />
                                     <local:FocusedPopup
                                         AllowsTransparency="True"
                                         CloseOnEscape="False"
-                                        ExitFocus="{Binding ElementName=ConfigureWindowPlacement}"
-                                        InitialFocus="{Binding ElementName=WindowPlacementFocus}"
-                                        IsOpen="{Binding IsWindowPlacementPopupOpen}"
+                                        ExitFocus="{Binding ElementName=ConfigureStartupOptions}"
+                                        InitialFocus="{Binding ElementName=IgnoreWarningsSwitch}"
+                                        IsOpen="{Binding IsStartupOptionsPopupOpen}"
                                         Placement="Relative"
                                         PopupAnimation="Scroll"
                                         StaysOpen="False">
                                         <Border Style="{StaticResource PopupBorder}">
                                             <StackPanel>
+                                                <TextBlock
+                                                    Margin="{StaticResource SeparatorMargin}"
+                                                    FontSize="{StaticResource FontSizeRegular}"
+                                                    FontWeight="Bold"
+                                                    Foreground="{StaticResource PrimaryTextBrush}"
+                                                    Text="{x:Static p:Resources.InitialValues}" />
+                                                <TextBlock
+                                                    Margin="0 0 0 10"
+                                                    FontSize="{StaticResource FontSizeRegular}"
+                                                    Text="{x:Static p:Resources.InitialValuesSubtext}" />
+
+                                                <Grid HorizontalAlignment="Center">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+
+                                                    <TextBlock
+                                                        Grid.Column="0"
+                                                        FontSize="{StaticResource FontSizeRegular}"
+                                                        Text="{x:Static p:Resources.IgnoreWarningsLabelText}"
+                                                        ToolTip="{x:Static p:Resources.IgnoreWarningsTooltipText}" />
+                                                    <ToggleSwitch:HorizontalToggleSwitch
+                                                        x:Name="IgnoreWarningsSwitch"
+                                                        VerticalAlignment="Center"
+                                                        Grid.Column="1"
+                                                        IsChecked="{Binding InitialIgnoreWarnings, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                                                    <TextBlock
+                                                        Margin="0 20 0 0"
+                                                        Padding="0 0 30 0"
+                                                        FontSize="{StaticResource FontSizeRegular}"
+                                                        Grid.Row="1"
+                                                        Grid.Column="0"
+                                                        Text="{x:Static p:Resources.AddToWatchlistLabelText}"
+                                                        ToolTip="{x:Static p:Resources.AddToWatchlistTooltipText}" />
+                                                    <ToggleSwitch:HorizontalToggleSwitch
+                                                        Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        Margin="0 20 0 0"
+                                                        IsChecked="{Binding InitialAddToWatchList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                                </Grid>
+
+                                                <TextBlock
+                                                    Margin="0 30 0 0"
+                                                    FontSize="{StaticResource FontSizeRegular}"
+                                                    FontWeight="Bold"
+                                                    Foreground="{StaticResource PrimaryTextBrush}"
+                                                    Text="{x:Static p:Resources.WindowPlacement}" />
                                                 <TextBlock
                                                     Margin="0 0 0 20"
                                                     FontSize="{StaticResource FontSizeRegular}"
@@ -194,7 +247,6 @@
                                                         Padding="0 0 30 0"
                                                         Text="{x:Static p:Resources.UploadedFilesWindow}" />
                                                     <ToggleSwitch:HorizontalToggleSwitch
-                                                        x:Name="WindowPlacementFocus"
                                                         Grid.Row="0"
                                                         Grid.Column="1"
                                                         Margin="0 0 0 20"

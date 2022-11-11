@@ -813,9 +813,21 @@
   <data name="EditUploadFileNameErrorMustHaveExension" xml:space="preserve">
     <value>Must have an extension e.g ".png"</value>
   </data>
-    
+
   <data name="EditUploadFileNameErrorMustHaveFileName" xml:space="preserve">
     <value>Must have a file name</value>
+  </data>
+
+  <data name="StartupOptions" xml:space="preserve">
+    <value>Start Up Options</value>
+  </data>
+
+  <data name="InitialValues" xml:space="preserve">
+    <value>Initial Values</value>
+  </data>
+
+  <data name="InitialValuesSubtext" xml:space="preserve">
+    <value>Initial values for upload options</value>
   </data>
 
 </root>

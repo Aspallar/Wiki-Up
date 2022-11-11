@@ -43,7 +43,7 @@ namespace WikiUpload
             RemoveImageExtensionCommand = new RelayParameterizedCommand(item => ImageFileExtensions.Remove((string)item));
             ToggleAddImageExtensionPopupCommand = new RelayCommand(() => IsAddingImageExtension = !IsAddingImageExtension);
             AddImageEtensionCommand = new RelayCommand(AddImageExtension);
-            ToggleWindowPlacementPopupCommand = new RelayCommand(() => IsWindowPlacementPopupOpen = !IsWindowPlacementPopupOpen);
+            ToggleStartupOptionsPopupCommand = new RelayCommand(() => IsStartupOptionsPopupOpen = !IsStartupOptionsPopupOpen);
         }
 
         private void AddImageExtension()
@@ -65,6 +65,8 @@ namespace WikiUpload
             MainWindowPlacementEnabled = _appSettings.MainWindowPlacementEnabled;
             UploadedWindowPlacementEnabled = _appSettings.UploadedWindowPlacementEnabled;
             ImageFileExtensions = new FileExensionsCollection(_appSettings.ImageExtensions);
+            InitialIgnoreWarnings = _appSettings.InitialIgnoreWarnings;
+            InitialAddToWatchList = _appSettings.InitialAddToWatchlist;
         }
 
         private void RestoreDefaults()
@@ -81,6 +83,8 @@ namespace WikiUpload
             _appSettings.FollowUploadFile = FollowUploadFile;
             _appSettings.MainWindowPlacementEnabled = MainWindowPlacementEnabled;
             _appSettings.UploadedWindowPlacementEnabled = UploadedWindowPlacementEnabled;
+            _appSettings.InitialAddToWatchlist = InitialAddToWatchList;
+            _appSettings.InitialIgnoreWarnings = InitialIgnoreWarnings;
             if (SelectedColorTheme != null)
                 _appSettings.Theme = SelectedColorTheme.Id;
             if (SelectedLanguage != null)
@@ -91,8 +95,8 @@ namespace WikiUpload
 
         private void CancelSettings()
         {
-            if (IsWindowPlacementPopupOpen)
-                IsWindowPlacementPopupOpen = false;
+            if (IsStartupOptionsPopupOpen)
+                IsStartupOptionsPopupOpen = false;
             else if (IsAddingImageExtension)
                 IsAddingImageExtension = false;
             else
@@ -118,7 +122,7 @@ namespace WikiUpload
         public ICommand RemoveImageExtensionCommand { get; }
         public ICommand ToggleAddImageExtensionPopupCommand { get; }
         public ICommand AddImageEtensionCommand { get; }
-        public ICommand ToggleWindowPlacementPopupCommand { get; }
+        public ICommand ToggleStartupOptionsPopupCommand { get; }
 
         public ApplicationLanguages Languages { get; } = new ApplicationLanguages();
 
@@ -140,6 +144,10 @@ namespace WikiUpload
 
         public bool UploadedWindowPlacementEnabled { get; set; }
 
+        public bool InitialAddToWatchList { get; set; }
+
+        public bool InitialIgnoreWarnings { get; set; }
+
         public bool MainWindowPlacementEnabled { get; set; }
 
         public FileExensionsCollection ImageFileExtensions { get; set; }
@@ -148,7 +156,7 @@ namespace WikiUpload
 
         public bool FollowUploadFile { get; set; }
 
-        public bool IsWindowPlacementPopupOpen { get; set; }
+        public bool IsStartupOptionsPopupOpen { get; set; }
 
         public string NewExtensionText
         {

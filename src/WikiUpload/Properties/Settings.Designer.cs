@@ -265,5 +265,29 @@ namespace WikiUpload.Properties {
                 this["FirstRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InitialAddToWatchlist {
+            get {
+                return ((bool)(this["InitialAddToWatchlist"]));
+            }
+            set {
+                this["InitialAddToWatchlist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InitialIgnoreWarnings {
+            get {
+                return ((bool)(this["InitialIgnoreWarnings"]));
+            }
+            set {
+                this["InitialIgnoreWarnings"] = value;
+            }
+        }
     }
 }

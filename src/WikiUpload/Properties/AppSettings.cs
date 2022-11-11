@@ -74,6 +74,18 @@ namespace WikiUpload.Properties
             set => Settings.Default.Theme = (int)value;
         }
 
+        public bool InitialAddToWatchlist
+        {
+            get => Settings.Default.InitialAddToWatchlist;
+            set => Settings.Default.InitialAddToWatchlist = value;
+        }
+
+        public bool InitialIgnoreWarnings
+        {
+            get => Settings.Default.InitialIgnoreWarnings;
+            set => Settings.Default.InitialIgnoreWarnings = value;
+        }
+
         public bool MainWindowPlacementEnabled
         {
             get => Settings.Default.MainWindowPlacementEnabled;

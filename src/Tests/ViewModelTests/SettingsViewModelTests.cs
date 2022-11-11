@@ -76,6 +76,8 @@ namespace Tests.ViewModelTests
             _model.CheckForUpdates = true;
             _model.MainWindowPlacementEnabled = true;
             _model.UploadedWindowPlacementEnabled = true;
+            _model.InitialIgnoreWarnings = true;
+            _model.InitialAddToWatchList = true;
 
             _model.CancelSettingsCommand.Execute(null);
 
@@ -92,6 +94,10 @@ namespace Tests.ViewModelTests
             A.CallToSet(() => _appSettings.UploadedWindowPlacementEnabled).To(() => _model.UploadedWindowPlacementEnabled)
                 .MustNotHaveHappened();
             A.CallToSet(() => _appSettings.MainWindowPlacementEnabled).To(() => _model.MainWindowPlacementEnabled)
+                .MustNotHaveHappened();
+            A.CallToSet(() => _appSettings.InitialAddToWatchlist).To(() => _model.InitialAddToWatchList)
+                .MustNotHaveHappened();
+            A.CallToSet(() => _appSettings.InitialIgnoreWarnings).To(() => _model.InitialIgnoreWarnings)
                 .MustNotHaveHappened();
             A.CallTo(() => _appSettings.Save())
                 .MustNotHaveHappened();
@@ -174,23 +180,23 @@ namespace Tests.ViewModelTests
         }
 
         [Test]
-        public void When_ToggleWindowPlacementPopupCommandExecutedWithPopupClosed_Then_PopupIsOpened()
+        public void When_ToggleStartupOptionsPopupCommandExecutedWithPopupClosed_Then_PopupIsOpened()
         {
-            _model.IsWindowPlacementPopupOpen = false;
+            _model.IsStartupOptionsPopupOpen = false;
 
-            _model.ToggleWindowPlacementPopupCommand.Execute(null);
+            _model.ToggleStartupOptionsPopupCommand.Execute(null);
 
-            Assert.That(_model.IsWindowPlacementPopupOpen, Is.True);
+            Assert.That(_model.IsStartupOptionsPopupOpen, Is.True);
         }
 
         [Test]
-        public void When_ToggleWindowPlacementPopupCommandIsExecutedWithPopupOpen_Then_PopupIsClosed()
+        public void When_ToggleStartupOptionsPopupCommandIsExecutedWithPopupOpen_Then_PopupIsClosed()
         {
-            _model.IsWindowPlacementPopupOpen = true;
+            _model.IsStartupOptionsPopupOpen = true;
 
-            _model.ToggleWindowPlacementPopupCommand.Execute(null);
+            _model.ToggleStartupOptionsPopupCommand.Execute(null);
 
-            Assert.That(_model.IsWindowPlacementPopupOpen, Is.False);
+            Assert.That(_model.IsStartupOptionsPopupOpen, Is.False);
         }
 
         [Test]

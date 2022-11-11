@@ -663,6 +663,8 @@ namespace WikiUpload
             UploadedFilesViewModel.UploadedFiles.Clear();
             _templateSearch = _wikiSearchFactory.CreateTemplateSearch(_fileUploader);
             _categorySearch = _wikiSearchFactory.CreateCategorySearch(_fileUploader);
+            ForceUpload = _appSettings.InitialIgnoreWarnings;
+            IncludeInWatchlist = _appSettings.InitialAddToWatchlist;
         }
 
         public void LoginAgain()

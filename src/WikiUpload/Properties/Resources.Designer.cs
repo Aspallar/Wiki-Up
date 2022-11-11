@@ -835,6 +835,24 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initial Values.
+        /// </summary>
+        public static string InitialValues {
+            get {
+                return ResourceManager.GetString("InitialValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial values for upload options.
+        /// </summary>
+        public static string InitialValuesSubtext {
+            get {
+                return ResourceManager.GetString("InitialValuesSubtext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Http connections are not secure. Signing in using http will result in your user name and password being sent in unencrypted plain text..
         /// </summary>
         public static string InsecureConnectionMessage {
@@ -1290,6 +1308,15 @@ namespace WikiUpload.Properties {
         public static string SortDescending {
             get {
                 return ResourceManager.GetString("SortDescending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Up Options.
+        /// </summary>
+        public static string StartupOptions {
+            get {
+                return ResourceManager.GetString("StartupOptions", resourceCulture);
             }
         }
         
