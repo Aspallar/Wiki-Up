@@ -31,6 +31,7 @@ namespace WikiUpload
         private bool _useErrorLang;
         private ISiteInfo _siteInfo;
         private readonly Regex _isFandomDomainMatch = new Regex(@"^https://.+?\.fandom.com/", RegexOptions.IgnoreCase);
+        private bool _isLoggedIn = false;
 
         public string Site { get; private set; }
 
@@ -42,7 +43,7 @@ namespace WikiUpload
 
         public ISiteInfo SiteInfo => _siteInfo;
 
-        public bool IsLoggedIn { get; private set; }
+        public bool IsLoggedIn => _isLoggedIn;
 
         public IReadOnlyPermittedFiles PermittedFiles
             => _permittedFiles;
@@ -76,7 +77,7 @@ namespace WikiUpload
         {
             _client.Dispose();
             _permittedFiles.Clear();
-            IsLoggedIn = false;
+            _isLoggedIn = false;
             CreateClient();
         }
 
@@ -172,7 +173,7 @@ namespace WikiUpload
                 var useErrorLangVersion = new Version("1.29.0.0");
                 _useErrorLang = siteInfo.MediaWikiVersion >= useErrorLangVersion;
                 _siteInfo = siteInfo;
-                IsLoggedIn = true;
+                _isLoggedIn = true;
 
                 return true;
             }
