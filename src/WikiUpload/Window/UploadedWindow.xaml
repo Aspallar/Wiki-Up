@@ -15,7 +15,7 @@
         Icon="{StaticResource LogoImage}"
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeight}"
-        Height="630" Width="320">
+        Height="630" Width="463">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:UploadedWindow}">

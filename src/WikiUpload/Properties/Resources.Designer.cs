@@ -1240,6 +1240,15 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save or Load.
+        /// </summary>
+        public static string SaveLoadTooltip {
+            get {
+                return ResourceManager.GetString("SaveLoadTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save Settings.
         /// </summary>
         public static string SaveSettingsText {
@@ -1272,6 +1281,15 @@ namespace WikiUpload.Properties {
         public static string SignIn {
             get {
                 return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must sign in first.
+        /// </summary>
+        public static string SignInFirst {
+            get {
+                return ResourceManager.GetString("SignInFirst", resourceCulture);
             }
         }
         

@@ -57,6 +57,7 @@ namespace WikiUpload
         public bool IsDescendingFocused { get; set; }
         public bool IsChooseCopyTypePopupOpen { get; set; }
         public bool IsSaveLoadPopupOpen { get; set; }
+        public bool IsMustSignInPopupOpen { get; set; }
 
         public ICommand ClearSelectionCommand { get; }
         
@@ -73,7 +74,13 @@ namespace WikiUpload
         }
 
         public ICommand SaveLoadCommand { get; }
-        private void SaveLoad() => IsSaveLoadPopupOpen = true;
+        private void SaveLoad()
+        {
+            if (_fileUploader.IsLoggedIn)
+                IsSaveLoadPopupOpen = true;
+            else
+                IsMustSignInPopupOpen = true;
+        }
 
         public ICommand SaveUploadedFilesCommand { get; }
         private void SaveUploadedFiles()

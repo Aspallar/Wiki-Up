@@ -12,7 +12,7 @@
     d:DataContext="{d:DesignInstance Type=local:UploadedFilesViewModel,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignWidth="424"
     DataContext="{Binding Path=UploadViewModel.UploadedFilesViewModel, Source={StaticResource ServiceLocator}}"
     FocusManager.FocusedElement="{Binding ElementName=CopyToClipboard}"
     mc:Ignorable="d">
@@ -238,9 +238,32 @@
                     <iconPacks:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.Descending}}" Kind="SortAlphaDownAltSolid" />
                 </Button>
                 <Grid>
-                    <Button Command="{Binding SaveLoadCommand}" ToolTip="{x:Static p:Resources.SortDescending}">
+                    <Button Command="{Binding SaveLoadCommand}" ToolTip="{x:Static p:Resources.SaveLoadTooltip}">
                         <iconPacks:PackIconFontAwesome Kind="SaveRegular" />
                     </Button>
+                    <local:TimedPopup
+                        AllowsTransparency="True"
+                        IsOpen="{Binding IsMustSignInPopupOpen}"
+                        Placement="Bottom"
+                        PopupAnimation="Fade"
+                        StaysOpen="True"
+                        Duration="2000">
+                        <Border Style="{StaticResource PopupBorder}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome
+                                    Width="36"
+                                    Height="36"
+                                    VerticalAlignment="Center"
+                                    Foreground="{StaticResource ErrorColorBrush}"
+                                    Kind="BanSolid" />
+                                <TextBlock
+                                    Margin="20 0 0 0"
+                                    VerticalAlignment="Center"
+                                    FontSize="{StaticResource FontSizeRegular}"
+                                    Text="{x:Static p:Resources.SignInFirst}" />
+                            </StackPanel>
+                        </Border>
+                    </local:TimedPopup>
                     <local:FocusedPopup
                         x:Name="SaveOrLoad"
                         AllowsTransparency="True"

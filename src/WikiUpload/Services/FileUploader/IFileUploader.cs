@@ -12,6 +12,7 @@ namespace WikiUpload
         bool IncludeInWatchList { get; set; }
         bool IgnoreWarnings { get; set; }
         ISiteInfo SiteInfo { get; }
+        bool IsLoggedIn { get; set; }
         void Dispose();
         Task<bool> LoginAsync(string site, string username, SecureString password, bool allFilesPermitted = false);
         void LogOff();

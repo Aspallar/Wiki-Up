@@ -830,4 +830,12 @@
     <value>Initial values for upload options</value>
   </data>
 
+  <data name="SignInFirst" xml:space="preserve">
+    <value>You must sign in first</value>
+  </data>
+
+  <data name="SaveLoadTooltip" xml:space="preserve">
+    <value>Save or Load</value>
+  </data>
+
 </root>

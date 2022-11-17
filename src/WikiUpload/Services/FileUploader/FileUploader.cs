@@ -42,6 +42,8 @@ namespace WikiUpload
 
         public ISiteInfo SiteInfo => _siteInfo;
 
+        public bool IsLoggedIn { get; private set; }
+
         public IReadOnlyPermittedFiles PermittedFiles
             => _permittedFiles;
 
@@ -74,6 +76,7 @@ namespace WikiUpload
         {
             _client.Dispose();
             _permittedFiles.Clear();
+            IsLoggedIn = false;
             CreateClient();
         }
 
@@ -169,6 +172,7 @@ namespace WikiUpload
                 var useErrorLangVersion = new Version("1.29.0.0");
                 _useErrorLang = siteInfo.MediaWikiVersion >= useErrorLangVersion;
                 _siteInfo = siteInfo;
+                IsLoggedIn = true;
 
                 return true;
             }
