@@ -8,7 +8,7 @@ namespace WikiUpload
 {
     internal class ConfigurationUpgrade
     {
-        private IHelpers _helpers;
+        private readonly IHelpers _helpers;
 
         public ConfigurationUpgrade(IHelpers helpers)
         {
