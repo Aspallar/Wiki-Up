@@ -125,6 +125,9 @@
     <Compile Include="Native\POINT.cs" />
     <Compile Include="Native\RECT.cs" />
     <Compile Include="Native\WindowPlacement.cs" />
+    <Compile Include="Pages\SecrionHeader.xaml.cs">
+      <DependentUpon>SecrionHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\UploadedFilesPage.xaml.cs">
       <DependentUpon>UploadedFilesPage.xaml</DependentUpon>
     </Compile>
@@ -241,6 +244,7 @@
     <Compile Include="wpf\Controls\TimedPopup.cs" />
     <Compile Include="wpf\ValidationRules\WikiFileTitleValidationRule.cs" />
     <Compile Include="wpf\ValueConverters\BaseMulriValueConverter.cs" />
+    <Compile Include="wpf\ValueConverters\StringToVisiblityConverter.cs" />
     <Compile Include="wpf\ValueConverters\IntegerToVisibilityConverter.cs" />
     <Compile Include="wpf\ValueConverters\SelectedIndexToTooltipConverter.cs" />
     <Compile Include="wpf\ValueConverters\SortOrderToColorConverter.cs" />
@@ -313,6 +317,10 @@
     <Page Include="Pages\SearchPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\SecrionHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>

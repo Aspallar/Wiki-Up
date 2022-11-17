@@ -164,16 +164,10 @@
                                         StaysOpen="False">
                                         <Border Style="{StaticResource PopupBorder}">
                                             <StackPanel>
-                                                <TextBlock
-                                                    Margin="{StaticResource SeparatorMargin}"
-                                                    FontSize="{StaticResource FontSizeRegular}"
-                                                    FontWeight="Bold"
-                                                    Foreground="{StaticResource PrimaryTextBrush}"
+                                                <local:SecrionHeader
+                                                    IconKind="CogSolid"
+                                                    Subtext="{x:Static p:Resources.InitialValuesSubtext}"
                                                     Text="{x:Static p:Resources.InitialValues}" />
-                                                <TextBlock
-                                                    Margin="0 0 0 10"
-                                                    FontSize="{StaticResource FontSizeRegular}"
-                                                    Text="{x:Static p:Resources.InitialValuesSubtext}" />
 
                                                 <Grid HorizontalAlignment="Center">
                                                     <Grid.ColumnDefinitions>
@@ -210,17 +204,11 @@
                                                         Margin="0 20 0 0"
                                                         IsChecked="{Binding InitialAddToWatchList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                                                 </Grid>
-
-                                                <TextBlock
-                                                    Margin="0 30 0 0"
-                                                    FontSize="{StaticResource FontSizeRegular}"
-                                                    FontWeight="Bold"
-                                                    Foreground="{StaticResource PrimaryTextBrush}"
+                                                <local:SecrionHeader
+                                                    Margin="0 20 0 0"
+                                                    IconKind="WindowMaximizeRegular"
+                                                    Subtext="{x:Static p:Resources.RememberLastWindowPosition}"
                                                     Text="{x:Static p:Resources.WindowPlacement}" />
-                                                <TextBlock
-                                                    Margin="0 0 0 20"
-                                                    FontSize="{StaticResource FontSizeRegular}"
-                                                    Text="{x:Static p:Resources.RememberLastWindowPosition}" />
                                                 <Grid Margin="0 0 0 20" HorizontalAlignment="Center">
                                                     <Grid.Resources>
                                                         <Style TargetType="TextBlock">

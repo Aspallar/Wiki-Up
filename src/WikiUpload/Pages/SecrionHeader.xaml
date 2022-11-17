@@ -1,0 +1,35 @@
+﻿<UserControl
+    x:Class="WikiUpload.SecrionHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:WikiUpload"
+    d:DataContext="{d:DesignInstance Type=local:SecrionHeader}"
+    d:DesignHeight="30"
+    d:DesignWidth="200"
+    x:ClassModifier="internal"
+    mc:Ignorable="d">
+    <StackPanel Margin="0 0 0 10">
+        <StackPanel Orientation="Horizontal">
+            <iconPacks:PackIconFontAwesome
+                Width="28"
+                Height="28"
+                Margin="0 0 10 0"
+                VerticalAlignment="Center"
+                Foreground="{StaticResource HighlightTextCBrush}"
+                Kind="{Binding IconKind}" />
+            <TextBlock
+                FontSize="{StaticResource FontSizeRegular}"
+                FontWeight="Bold"
+                Foreground="{StaticResource PrimaryTextBrush}"
+                Text="{Binding Text}" />
+        </StackPanel>
+        <TextBlock
+            FontSize="{StaticResource FontSizeRegular}"
+            Foreground="{StaticResource PrimaryTextBrush}"
+            Text="{Binding Subtext}"
+            Visibility="{Binding Text, RelativeSource={RelativeSource Mode=Self}, Converter={local:StringToVisiblityConverter}}" />
+    </StackPanel>
+</UserControl>
