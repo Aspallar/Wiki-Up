@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
                     xmlns:local="clr-namespace:WikiUpload">
 
-    <Style x:Key="FontSizeIcon" TargetType="{x:Type iconPacks:PackIconFontAwesome}">
+    <Style x:Key="FontSizeIcon" TargetType="{x:Type icons:PackIconFontAwesome}">
         <Setter Property="Height" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=FontSize}"/>
         <Setter Property="Width" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=FontSize}"/>
     </Style>
 
-    <Style x:Key="SpinningIcon" TargetType="{x:Type iconPacks:PackIconFontAwesome}"
+    <Style x:Key="SpinningIcon" TargetType="{x:Type icons:PackIconFontAwesome}"
            BasedOn="{StaticResource FontSizeIcon}">
 
         <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />

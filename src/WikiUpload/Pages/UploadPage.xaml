@@ -4,7 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:WikiUpload"
       xmlns:p="clr-namespace:WikiUpload.Properties"
       DataContext="{Binding Path=UploadViewModel, Source={StaticResource ServiceLocator}}"
@@ -31,7 +31,7 @@
                 <TabItem FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <iconPacks:PackIconFontAwesome Kind="UploadSolid" VerticalAlignment="Center"
+                            <icons:PackIconFontAwesome Kind="UploadSolid" VerticalAlignment="Center"
                                 Foreground="{StaticResource PrimaryTextBrush}"/>
                             <TextBlock Text="{x:Static p:Resources.UploadTabText}" 
                                 Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>
@@ -44,7 +44,7 @@
                 <TabItem FontFamily="{StaticResource MainFont}" FontSize="{StaticResource FontSizeRegular}">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <iconPacks:PackIconFontAwesome Kind="FileAltSolid" VerticalAlignment="Center"
+                            <icons:PackIconFontAwesome Kind="FileAltSolid" VerticalAlignment="Center"
                                 Foreground="{StaticResource PrimaryTextBrush}"/>
                             <TextBlock Text="{x:Static p:Resources.ContentTabText}"
                                 Margin="6 0 0 0" Foreground="{StaticResource PrimaryTextBrush}"/>

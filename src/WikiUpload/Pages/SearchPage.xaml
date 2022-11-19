@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:WikiUpload"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:WikiUpload.Properties"
@@ -39,13 +39,13 @@
 
             <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <Grid Margin="5 5 0 0" VerticalAlignment="Center">
-                    <iconPacks:PackIconFontAwesome
+                    <icons:PackIconFontAwesome
                         FontSize="{StaticResource FontSizeRegular}"
                         Foreground="{StaticResource PrimaryLightBrush}"
                         Kind="GemRegular"
                         Style="{StaticResource FontSizeIcon}"
                         Visibility="{Binding SearchFetchInProgress, Converter={local:BooleanToVisiblityConverter}}" />
-                    <iconPacks:PackIconFontAwesome
+                    <icons:PackIconFontAwesome
                         FontSize="{StaticResource FontSizeRegular}"
                         Foreground="{StaticResource PrimaryLightBrush}"
                         Kind="SpinnerSolid"
@@ -73,7 +73,7 @@
                     CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
                     FontSize="{StaticResource FontSizeSmall}">
                     <StackPanel Orientation="Horizontal">
-                        <iconPacks:PackIconFontAwesome Margin="0 0 6 0" Kind="PlusCircleSolid" />
+                        <icons:PackIconFontAwesome Margin="0 0 6 0" Kind="PlusCircleSolid" />
                         <TextBlock Foreground="{StaticResource ButtonTextBrush}" Text="{x:Static p:Resources.ButtonAddText}" />
                     </StackPanel>
                 </Button>
@@ -84,7 +84,7 @@
                     CommandParameter="{Binding ElementName=CategoryText, Path=Text}"
                     FontSize="{StaticResource FontSizeSmall}">
                     <StackPanel Orientation="Horizontal">
-                        <iconPacks:PackIconFontAwesome Margin="0 0 6 0" Kind="SearchSolid" />
+                        <icons:PackIconFontAwesome Margin="0 0 6 0" Kind="SearchSolid" />
                         <TextBlock Foreground="{StaticResource ButtonTextBrush}" Text="{x:Static p:Resources.ButtonFindText}" />
                     </StackPanel>
                 </Button>
@@ -93,13 +93,13 @@
                     Command="{Binding PreviousSearchCommand}"
                     IsEnabled="{Binding Path=CurrentSearch.HasPrevious, Mode=OneWay}"
                     ToolTip="{x:Static p:Resources.ButtonPreviousText}">
-                    <iconPacks:PackIconFontAwesome Kind="CaretLeftSolid" />
+                    <icons:PackIconFontAwesome Kind="CaretLeftSolid" />
                 </Button>
                 <Button
                     Command="{Binding NextSearchCommand}"
                     IsEnabled="{Binding Path=CurrentSearch.HasNext, Mode=OneWay}"
                     ToolTip="{x:Static p:Resources.ButtonNextText}">
-                    <iconPacks:PackIconFontAwesome Kind="CaretRightSolid" />
+                    <icons:PackIconFontAwesome Kind="CaretRightSolid" />
                 </Button>
             </StackPanel>
             <Button
@@ -146,7 +146,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <iconPacks:PackIconFontAwesome
+                <icons:PackIconFontAwesome
                     Grid.Column="0"
                     Width="64"
                     Height="64"

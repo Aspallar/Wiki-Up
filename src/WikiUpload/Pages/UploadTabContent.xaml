@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:WikiUpload"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:WikiUpload.Properties"
@@ -33,7 +33,7 @@
                 Style="{StaticResource PopupBorder}">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <iconPacks:PackIconFontAwesome
+                        <icons:PackIconFontAwesome
                             Margin="0 0 12 0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -61,7 +61,7 @@
                         </TextBox.InputBindings>
                     </TextBox>
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <iconPacks:PackIconFontAwesome
+                        <icons:PackIconFontAwesome
                             Margin="10 0 10 0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -96,7 +96,7 @@
                 VerticalAlignment="Center"
                 Style="{StaticResource VisibilityFadeIn}"
                 Visibility="{Binding ElementName=FilesListBox, Path=HasItems, Converter={local:BooleanToVisiblityConverter}}">
-                <iconPacks:PackIconFontAwesome
+                <icons:PackIconFontAwesome
                     Width="200"
                     Height="200"
                     HorizontalAlignment="Center"
@@ -131,26 +131,26 @@
 
                         <StackPanel Margin="0 0 0 5" Orientation="Horizontal">
                             <Grid>
-                                <iconPacks:PackIconFontAwesome
+                                <icons:PackIconFontAwesome
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     FontSize="{StaticResource FontSizeLarge}"
                                     Foreground="{Binding Status, Converter={local:UploadFileStatusToColorConverter}}"
                                     Kind="CircleSolid"
                                     Style="{StaticResource FontSizeIcon}" />
-                                <iconPacks:PackIconFontAwesome
+                                <icons:PackIconFontAwesome
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     FontSize="{StaticResource FontSizeRegular}"
                                     Foreground="{StaticResource SecondaryTextBrush}"
                                     Style="{Binding Status, Converter={local:UploadStatusToStyleConverter}}">
-                                    <iconPacks:PackIconFontAwesome.Kind>
+                                    <icons:PackIconFontAwesome.Kind>
                                         <MultiBinding Converter="{local:UploadFileStatusToKindConverter}">
                                             <Binding Path="Status" />
                                             <Binding Path="IsVideo" />
                                         </MultiBinding>
-                                    </iconPacks:PackIconFontAwesome.Kind>
-                                </iconPacks:PackIconFontAwesome>
+                                    </icons:PackIconFontAwesome.Kind>
+                                </icons:PackIconFontAwesome>
                             </Grid>
                             <StackPanel Margin="5 0 0 0">
                                 <Button

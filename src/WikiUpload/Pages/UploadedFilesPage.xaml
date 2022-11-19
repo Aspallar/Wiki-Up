@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:WikiUpload"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:WikiUpload.Properties"
@@ -64,7 +64,7 @@
                         <Setter Property="Padding" Value="14" />
                     </Style>
                     <system:Double x:Key="IconSize">32</system:Double>
-                    <Style TargetType="iconPacks:PackIconFontAwesome">
+                    <Style TargetType="icons:PackIconFontAwesome">
                         <Setter Property="Width" Value="{StaticResource IconSize}" />
                         <Setter Property="Height" Value="{StaticResource IconSize}" />
                     </Style>
@@ -92,7 +92,7 @@
                         x:Name="CopyToClipboard"
                         Command="{Binding CopyToClipboardCommand}"
                         ToolTip="{x:Static p:Resources.CopyToClipboard}">
-                        <iconPacks:PackIconFontAwesome Kind="ClipboardListSolid" />
+                        <icons:PackIconFontAwesome Kind="ClipboardListSolid" />
                     </Button>
                     <local:FocusedPopup
                         x:Name="ChooseCopyTypePopup"
@@ -117,20 +117,20 @@
                                     <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
                                         <Setter Property="Margin" Value="10 0 0 0" />
                                     </Style>
-                                    <Style BasedOn="{StaticResource FontSizeIcon}" TargetType="iconPacks:PackIconFontAwesome">
+                                    <Style BasedOn="{StaticResource FontSizeIcon}" TargetType="icons:PackIconFontAwesome">
                                         <Setter Property="Foreground" Value="{StaticResource HighlightTextCBrush}" />
                                         <Setter Property="VerticalAlignment" Value="Center" />
                                     </Style>
                                 </StackPanel.Resources>
                                 <Button x:Name="CopyAsPlainList" Command="{Binding CopyTextToClipboardCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="FileRegular" />
+                                        <icons:PackIconFontAwesome Kind="FileRegular" />
                                         <TextBlock Text="{x:Static p:Resources.CopyAsPlainList}" />
                                     </StackPanel>
                                 </Button>
                                 <Button Command="{Binding CopyFileToClipboardCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="FileAltRegular" />
+                                        <icons:PackIconFontAwesome Kind="FileAltRegular" />
                                         <TextBlock>
                                             <Run Text="{x:Static p:Resources.CopyAs}" />
                                             <Run Foreground="{StaticResource HighlightTextCBrush}" Text="{x:Static p:Resources.FileNamespace}" />
@@ -140,7 +140,7 @@
                                 </Button>
                                 <Button Margin="0" Command="{Binding CopyWikilinkToClipboardCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="LinkSolid" />
+                                        <icons:PackIconFontAwesome Kind="LinkSolid" />
                                         <TextBlock Text="{x:Static p:Resources.CopyAsWikiTextLinks}" />
                                     </StackPanel>
                                 </Button>
@@ -155,7 +155,7 @@
                         StaysOpen="True">
                         <Border Style="{StaticResource PopupBorder}">
                             <StackPanel Orientation="Horizontal">
-                                <iconPacks:PackIconFontAwesome
+                                <icons:PackIconFontAwesome
                                     Width="36"
                                     Height="36"
                                     VerticalAlignment="Center"
@@ -171,7 +171,7 @@
                     </local:TimedPopup>
                 </Grid>
                 <Button Command="{Binding ClearSelectionCommand}" ToolTip="{x:Static p:Resources.ClearSelection}">
-                    <iconPacks:PackIconFontAwesome Kind="TimesCircleRegular" />
+                    <icons:PackIconFontAwesome Kind="TimesCircleRegular" />
                 </Button>
                 <Grid>
                     <Button
@@ -179,7 +179,7 @@
                         Command="{Binding RemoveFilesCommand}"
                         CommandParameter="{Binding ElementName=UploadedFilesListBox, Path=SelectedItems}"
                         ToolTip="{Binding ElementName=UploadedFilesListBox, Path=SelectedIndex, Converter={local:SelectedIndexToTooltipConverter}}">
-                        <iconPacks:PackIconFontAwesome Kind="TrashAltRegular" />
+                        <icons:PackIconFontAwesome Kind="TrashAltRegular" />
                     </Button>
                     <local:FocusedPopup
                         x:Name="ComfirmRemoveAll"
@@ -221,25 +221,25 @@
                     Command="{Binding SortOrderCommand}"
                     CommandParameter="{x:Static local:SortingOptions.None}"
                     ToolTip="{x:Static p:Resources.NoSorting}">
-                    <iconPacks:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.None}}" Kind="RandomSolid" />
+                    <icons:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.None}}" Kind="RandomSolid" />
                 </Button>
                 <Button
                     local:FocusExtension.IsFocused="{Binding IsAcsendingFocused}"
                     Command="{Binding SortOrderCommand}"
                     CommandParameter="{x:Static local:SortingOptions.Ascending}"
                     ToolTip="{x:Static p:Resources.SortAscending}">
-                    <iconPacks:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.Ascending}}" Kind="SortAlphaDownSolid" />
+                    <icons:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.Ascending}}" Kind="SortAlphaDownSolid" />
                 </Button>
                 <Button
                     local:FocusExtension.IsFocused="{Binding IsDescendingFocused}"
                     Command="{Binding SortOrderCommand}"
                     CommandParameter="{x:Static local:SortingOptions.Descending}"
                     ToolTip="{x:Static p:Resources.SortDescending}">
-                    <iconPacks:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.Descending}}" Kind="SortAlphaDownAltSolid" />
+                    <icons:PackIconFontAwesome Foreground="{Binding SortingOption, Converter={local:SortOrderToColorConverter}, ConverterParameter={x:Static local:SortingOptions.Descending}}" Kind="SortAlphaDownAltSolid" />
                 </Button>
                 <Grid>
                     <Button Command="{Binding SaveLoadCommand}" ToolTip="{x:Static p:Resources.SaveLoadTooltip}">
-                        <iconPacks:PackIconFontAwesome Kind="SaveRegular" />
+                        <icons:PackIconFontAwesome Kind="SaveRegular" />
                     </Button>
                     <local:TimedPopup
                         AllowsTransparency="True"
@@ -250,7 +250,7 @@
                         Duration="2000">
                         <Border Style="{StaticResource PopupBorder}">
                             <StackPanel Orientation="Horizontal">
-                                <iconPacks:PackIconFontAwesome
+                                <icons:PackIconFontAwesome
                                     Width="36"
                                     Height="36"
                                     VerticalAlignment="Center"
@@ -286,20 +286,20 @@
                                     <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
                                         <Setter Property="Margin" Value="16 0 0 0" />
                                     </Style>
-                                    <Style BasedOn="{StaticResource FontSizeIcon}" TargetType="iconPacks:PackIconFontAwesome">
+                                    <Style BasedOn="{StaticResource FontSizeIcon}" TargetType="icons:PackIconFontAwesome">
                                         <Setter Property="Foreground" Value="{StaticResource HighlightTextCBrush}" />
                                         <Setter Property="VerticalAlignment" Value="Center" />
                                     </Style>
                                 </StackPanel.Resources>
                                 <Button Name="SaveUploadedFiles" Command="{Binding SaveUploadedFilesCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="FileImportSolid" />
+                                        <icons:PackIconFontAwesome Kind="FileImportSolid" />
                                         <TextBlock Text="{x:Static p:Resources.ButtonSaveText}" />
                                     </StackPanel>
                                 </Button>
                                 <Button Margin="0" Command="{Binding LoadUploadedFilesCommand}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome Kind="FileExportSolid" />
+                                        <icons:PackIconFontAwesome Kind="FileExportSolid" />
                                         <TextBlock Text="{x:Static p:Resources.ButtonLoadText}" />
                                     </StackPanel>
                                 </Button>

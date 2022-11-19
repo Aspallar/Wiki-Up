@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
                     xmlns:local="clr-namespace:WikiUpload">
 
 
@@ -164,7 +164,7 @@
                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <iconPacks:PackIconFontAwesome Kind="SpinnerSolid"
+                            <icons:PackIconFontAwesome Kind="SpinnerSolid"
                                     Style="{StaticResource SpinningIcon}"
                                     Visibility="{TemplateBinding local:IsBusyProperty.Value, Converter={local:BooleanToVisiblityConverter}, ConverterParameter=True}"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 

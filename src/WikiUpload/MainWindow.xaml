@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WikiUpload"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:p = "clr-namespace:WikiUpload.Properties"
         mc:Ignorable="d"
         WindowStyle="None"
@@ -97,21 +97,21 @@
                                             <Button Command="{Binding AboutCommand}"
                                                     Style="{StaticResource WindowTitleButton}"
                                                     ToolTip="{x:Static p:Resources.AboutMenuItemText}" >
-                                                <iconPacks:PackIconFontAwesome Kind="YinYangSolid"
+                                                <icons:PackIconFontAwesome Kind="YinYangSolid"
                                                             Foreground="{StaticResource PrimaryTextBrush}"
                                                             Width="16" Height="16" />
                                             </Button>
                                             <Button Command="{Binding ShowUploadedFilesCommand}"
                                                     Style="{StaticResource WindowTitleButton}"
                                                     ToolTip="{x:Static p:Resources.ViewUploadedFiles}" >
-                                                <iconPacks:PackIconFontAwesome Kind="FileRegular"
+                                                <icons:PackIconFontAwesome Kind="FileRegular"
                                                             Foreground="{StaticResource PrimaryTextBrush}"
                                                             Width="16" Height="16" />
                                             </Button>
                                             <Button Command="{Binding SettingsCommand}"
                                                     Style="{StaticResource WindowTitleButton}"
                                                     ToolTip="{x:Static p:Resources.SettingsText}" >
-                                                <iconPacks:PackIconFontAwesome Kind="CogSolid"
+                                                <icons:PackIconFontAwesome Kind="CogSolid"
                                                             Foreground="{StaticResource PrimaryTextBrush}"
                                                             Width="16" Height="16" />
                                             </Button>

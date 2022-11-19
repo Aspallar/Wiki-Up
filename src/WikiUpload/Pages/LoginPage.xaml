@@ -4,7 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:WikiUpload"
       xmlns:p = "clr-namespace:WikiUpload.Properties"
       mc:Ignorable="d" 
@@ -37,7 +37,7 @@
                             BorderBrush="Blue">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
-                                <iconPacks:PackIconFontAwesome Kind="SignInAltSolid"
+                                <icons:PackIconFontAwesome Kind="SignInAltSolid"
                                     FontSize="{StaticResource FontSizeLarge}"
                                     Foreground="{StaticResource ButtonColorBrush}"
                                     VerticalAlignment="Center"

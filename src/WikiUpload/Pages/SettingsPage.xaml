@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:WikiUpload"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:WikiUpload.Properties"
@@ -42,7 +42,7 @@
                 Margin="5 0 0 0"
                 DockPanel.Dock="Top"
                 Orientation="Horizontal">
-                <iconPacks:PackIconFontAwesome
+                <icons:PackIconFontAwesome
                     VerticalAlignment="Center"
                     FontSize="{StaticResource FontSizeLarge}"
                     Foreground="{StaticResource PrimaryLightBrush}"
@@ -309,7 +309,7 @@
                                     FontSize="{StaticResource FontSizeLarge}"
                                     ToolTip="{x:Static p:Resources.NewImageExtension}">
                                     <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconFontAwesome
+                                        <icons:PackIconFontAwesome
                                             Foreground="{StaticResource PrimaryLightBrush}"
                                             Kind="PlusCircleSolid"
                                             Style="{StaticResource FontSizeIcon}" />
@@ -407,7 +407,7 @@
                                         Content="{x:Static p:Resources.CheckNowText}"
                                         FontSize="{StaticResource FontSizeSmall}"
                                         Style="{StaticResource BusyButton}" />
-                                    <iconPacks:PackIconFontAwesome
+                                    <icons:PackIconFontAwesome
                                         Margin="10 0 0 0"
                                         VerticalAlignment="Center"
                                         FontSize="{StaticResource FontSizeLarge}"
