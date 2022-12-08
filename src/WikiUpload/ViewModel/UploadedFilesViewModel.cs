@@ -217,7 +217,7 @@ namespace WikiUpload
         }
 
         private IEnumerable<string> GetWikiFilenames(IEnumerable<UploadFile> files)
-            => files.Select(x => _fileUploader.ServerFilename(x.FileName));
+            => files.Select(x => _fileUploader.ServerFilename(x.UploadFileName));
 
         public ICommand SortOrderCommand { get; }
         private void SortOrder(SortingOptions sortOption)
