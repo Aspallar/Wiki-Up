@@ -16,8 +16,8 @@ namespace WikiUpload
                 }
                 else
                 {
-                    var inbalidTypeName = sender.GetType().Name;
-                    throw new NotSupportedException($"{nameof(ViewedItemProperty)} may only be attached to a ListBox not a {inbalidTypeName}");
+                    var invalidTypeName = sender.GetType().Name;
+                    throw new NotSupportedException($"{nameof(ViewedItemProperty)} may only be attached to a ListBox not a {invalidTypeName}");
                 }
             }
         }
