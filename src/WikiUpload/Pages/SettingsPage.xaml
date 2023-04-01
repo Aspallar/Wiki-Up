@@ -59,10 +59,14 @@
                 MaxWidth="{StaticResource SettingsPaneMaxwidth}"
                 Background="{StaticResource PrimaryDarkBrush}"
                 DockPanel.Dock="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="121*"/>
+                    <ColumnDefinition Width="679*"/>
+                </Grid.ColumnDefinitions>
                 <StackPanel
-                    Margin="{StaticResource BorderMargin}"
+                    Margin="0,0,20,0"
                     HorizontalAlignment="Right"
-                    Orientation="Horizontal">
+                    Orientation="Horizontal" Grid.Column="1">
                     <Button
                         Command="{Binding RestoreDefaultsCommand}"
                         Content="{x:Static p:Resources.RestoreDefaultsText}"

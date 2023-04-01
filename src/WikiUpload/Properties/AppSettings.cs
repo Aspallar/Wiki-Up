@@ -114,6 +114,8 @@ namespace WikiUpload.Properties
 
         public int RateLimitedBackoffPeriod => Settings.Default.RateLimitedBackoffPeriod * 1000;
 
+        public bool DontAddToSumarry => Settings.Default.DontAddToSummary;
+
         public void AddMostRecentlyUsedSite(string site)
         {
             Settings.Default.AddMostRecentlyUsedSite(site);

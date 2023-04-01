@@ -129,7 +129,7 @@ namespace WikiUpload
                 {
                     var cancelToken = _cancelSource.Token;
                     var filesToUpload = new List<UploadFile>(UploadFiles);
-                    var variableSummary = new VariableContent(AddAppName(UploadSummary));
+                    var variableSummary = new VariableContent(MaybeAddAppName(UploadSummary));
                     var variablePageContent = new VariablePageContent(_appSettings.ContentFileExtension, PageContent, _helpers);
                     _fileUploader.IncludeInWatchList = IncludeInWatchlist;
                     _fileUploader.IgnoreWarnings = ForceUpload;
@@ -345,6 +345,9 @@ namespace WikiUpload
             await _fileUploader.RefreshTokenAsync();
             _editTokenRefreshed = true;
         }
+
+        private string MaybeAddAppName(string uploadSummary) 
+            => _appSettings.DontAddToSumarry ? "" : AddAppName(uploadSummary);
 
         private string AddAppName(string uploadSummary)
         {
