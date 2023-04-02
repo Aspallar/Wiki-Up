@@ -45,6 +45,7 @@ namespace Tests.ViewModelTests
             _model.CheckForUpdates = true;
             _model.MainWindowPlacementEnabled = true;
             _model.UploadedWindowPlacementEnabled = true;
+            _model.AllowPromotion = true;
 
             _model.SaveSettingsCommand.Execute(null);
 
@@ -62,6 +63,8 @@ namespace Tests.ViewModelTests
                 .MustHaveHappened(1, Times.Exactly);
             A.CallToSet(()=>_appSettings.MainWindowPlacementEnabled).To(() => _model.MainWindowPlacementEnabled)
                 .MustHaveHappened(1, Times.Exactly);
+            A.CallToSet(()=>_appSettings.DontAddToSumarry).To(() => !_model.AllowPromotion)
+                .MustHaveHappened(1, Times.Exactly);
 
             A.CallTo(()=>_appSettings.Save())
                 .MustHaveHappened(1, Times.Exactly);
@@ -78,6 +81,7 @@ namespace Tests.ViewModelTests
             _model.UploadedWindowPlacementEnabled = true;
             _model.InitialIgnoreWarnings = true;
             _model.InitialAddToWatchList = true;
+            _model.AllowPromotion = false;
 
             _model.CancelSettingsCommand.Execute(null);
 
@@ -99,6 +103,9 @@ namespace Tests.ViewModelTests
                 .MustNotHaveHappened();
             A.CallToSet(() => _appSettings.InitialIgnoreWarnings).To(() => _model.InitialIgnoreWarnings)
                 .MustNotHaveHappened();
+            A.CallToSet(() => _appSettings.DontAddToSumarry).To(() => !_model.AllowPromotion)
+                .MustNotHaveHappened();
+
             A.CallTo(() => _appSettings.Save())
                 .MustNotHaveHappened();
         }
@@ -197,6 +204,25 @@ namespace Tests.ViewModelTests
             _model.ToggleStartupOptionsPopupCommand.Execute(null);
 
             Assert.That(_model.IsStartupOptionsPopupOpen, Is.False);
+        }
+        [Test]
+        public void When_TogglePromotionPopupCommandExecutedWithPopupClosed_Then_PopupIsOpened()
+        {
+            _model.IsPromotionPopupOpen = false;
+
+            _model.TogglePromotionPopupCommand.Execute(null);
+
+            Assert.That(_model.IsPromotionPopupOpen, Is.True);
+        }
+
+        [Test]
+        public void When_TogglePromotionPopupCommandIsExecutedWithPopupOpen_Then_PopupIsClosed()
+        {
+            _model.IsPromotionPopupOpen = true;
+
+            _model.TogglePromotionPopupCommand.Execute(null);
+
+            Assert.That(_model.IsPromotionPopupOpen, Is.False);
         }
 
         [Test]

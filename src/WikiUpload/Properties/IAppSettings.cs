@@ -22,7 +22,7 @@ namespace WikiUpload.Properties
         bool MainWindowPlacementEnabled { get; set; }
         bool InitialAddToWatchlist { get; set; }
         bool InitialIgnoreWarnings { get; set; }
-        bool DontAddToSumarry { get; }
+        bool DontAddToSumarry { get; set; }
 
         void AddMostRecentlyUsedSite(string site);
         void Reload();

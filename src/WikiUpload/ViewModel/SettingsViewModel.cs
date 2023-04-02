@@ -44,6 +44,7 @@ namespace WikiUpload
             ToggleAddImageExtensionPopupCommand = new RelayCommand(() => IsAddingImageExtension = !IsAddingImageExtension);
             AddImageEtensionCommand = new RelayCommand(AddImageExtension);
             ToggleStartupOptionsPopupCommand = new RelayCommand(() => IsStartupOptionsPopupOpen = !IsStartupOptionsPopupOpen);
+            TogglePromotionPopupCommand = new RelayCommand(() => IsPromotionPopupOpen = !IsPromotionPopupOpen);
         }
 
         private void AddImageExtension()
@@ -67,6 +68,7 @@ namespace WikiUpload
             ImageFileExtensions = new FileExensionsCollection(_appSettings.ImageExtensions);
             InitialIgnoreWarnings = _appSettings.InitialIgnoreWarnings;
             InitialAddToWatchList = _appSettings.InitialAddToWatchlist;
+            AllowPromotion = !_appSettings.DontAddToSumarry;
         }
 
         private void RestoreDefaults()
@@ -85,6 +87,7 @@ namespace WikiUpload
             _appSettings.UploadedWindowPlacementEnabled = UploadedWindowPlacementEnabled;
             _appSettings.InitialAddToWatchlist = InitialAddToWatchList;
             _appSettings.InitialIgnoreWarnings = InitialIgnoreWarnings;
+            _appSettings.DontAddToSumarry = !AllowPromotion;
             if (SelectedColorTheme != null)
                 _appSettings.Theme = SelectedColorTheme.Id;
             if (SelectedLanguage != null)
@@ -123,6 +126,7 @@ namespace WikiUpload
         public ICommand ToggleAddImageExtensionPopupCommand { get; }
         public ICommand AddImageEtensionCommand { get; }
         public ICommand ToggleStartupOptionsPopupCommand { get; }
+        public ICommand TogglePromotionPopupCommand { get; }
 
         public ApplicationLanguages Languages { get; } = new ApplicationLanguages();
 
@@ -135,6 +139,8 @@ namespace WikiUpload
         public ColorTheme SelectedColorTheme { get; set; }
 
         public bool CheckForUpdates { get; set; }
+
+        public bool AllowPromotion { get; set; }
 
         public string CheckUpdateMessage { get; set; }
 
@@ -157,6 +163,8 @@ namespace WikiUpload
         public bool FollowUploadFile { get; set; }
 
         public bool IsStartupOptionsPopupOpen { get; set; }
+
+        public bool IsPromotionPopupOpen { get; set; }
 
         public string NewExtensionText
         {

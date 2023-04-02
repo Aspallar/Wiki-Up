@@ -114,7 +114,12 @@ namespace WikiUpload.Properties
 
         public int RateLimitedBackoffPeriod => Settings.Default.RateLimitedBackoffPeriod * 1000;
 
-        public bool DontAddToSumarry => Settings.Default.DontAddToSummary;
+        public bool DontAddToSumarry
+        {
+            get => Settings.Default.DontAddToSummary;
+            set => Settings.Default.DontAddToSummary = value;
+        }
+
 
         public void AddMostRecentlyUsedSite(string site)
         {
@@ -152,6 +157,11 @@ namespace WikiUpload.Properties
                     case nameof(Settings.Default.ContentFileExtension):
                         attribute = DefaultValueAttribute(property);
                         ContentFileExtension = attribute.Value;
+                        break;
+
+                    case nameof(Settings.Default.DontAddToSummary):
+                        attribute = DefaultValueAttribute(property);
+                        DontAddToSumarry = bool.Parse(attribute.Value);
                         break;
                 }
             }

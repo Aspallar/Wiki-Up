@@ -60,13 +60,14 @@
                 Background="{StaticResource PrimaryDarkBrush}"
                 DockPanel.Dock="Bottom">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="121*"/>
-                    <ColumnDefinition Width="679*"/>
+                    <ColumnDefinition Width="121*" />
+                    <ColumnDefinition Width="679*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel
-                    Margin="0,0,20,0"
+                    Grid.Column="1"
+                    Margin="0 0 20 0"
                     HorizontalAlignment="Right"
-                    Orientation="Horizontal" Grid.Column="1">
+                    Orientation="Horizontal">
                     <Button
                         Command="{Binding RestoreDefaultsCommand}"
                         Content="{x:Static p:Resources.RestoreDefaultsText}"
@@ -143,29 +144,26 @@
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="2">
-                                <TextBlock
-                                    Margin="{StaticResource SeparatorMargin}"
-                                    FontSize="{StaticResource FontSizeRegular}"
-                                    FontWeight="Bold"
-                                    Foreground="{StaticResource PrimaryTextBrush}"
-                                    Text="{x:Static p:Resources.StartupOptions}" />
-                                <StackPanel Orientation="Horizontal">
+                                <Grid>
                                     <Button
                                         x:Name="ConfigureStartupOptions"
                                         Margin="0 4 0 0"
                                         Padding="20 2"
                                         Command="{Binding ToggleStartupOptionsPopupCommand}"
-                                        Content="{x:Static p:Resources.Configure}"
+                                        Content="{x:Static p:Resources.StartupOptions}"
                                         FontSize="{StaticResource FontSizeRegular}" />
+
                                     <local:FocusedPopup
                                         AllowsTransparency="True"
                                         CloseOnEscape="False"
                                         ExitFocus="{Binding ElementName=ConfigureStartupOptions}"
+                                        HorizontalOffset="-20"
                                         InitialFocus="{Binding ElementName=IgnoreWarningsSwitch}"
                                         IsOpen="{Binding IsStartupOptionsPopupOpen}"
                                         Placement="Relative"
                                         PopupAnimation="Scroll"
-                                        StaysOpen="False">
+                                        StaysOpen="False"
+                                        VerticalOffset="30">
                                         <Border Style="{StaticResource PopupBorder}">
                                             <StackPanel>
                                                 <local:SecrionHeader
@@ -251,7 +249,44 @@
                                             </StackPanel>
                                         </Border>
                                     </local:FocusedPopup>
-                                </StackPanel>
+                                </Grid>
+                                <Grid>
+                                    <Button
+                                        Margin="0 4 0 0"
+                                        Padding="20 2"
+                                        Command="{Binding TogglePromotionPopupCommand}"
+                                        Content="Promotion"
+                                        FontSize="{StaticResource FontSizeRegular}" />
+                                    <local:FocusedPopup
+                                        AllowsTransparency="True"
+                                        CloseOnEscape="False"
+                                        ExitFocus="{Binding ElementName=ConfigureStartupOptions}"
+                                        HorizontalOffset="-20"
+                                        InitialFocus="{Binding ElementName=IgnoreWarningsSwitch}"
+                                        IsOpen="{Binding IsPromotionPopupOpen}"
+                                        Placement="Relative"
+                                        PopupAnimation="Scroll"
+                                        StaysOpen="False"
+                                        VerticalOffset="30">
+                                        <Border Style="{StaticResource PopupBorder}" MaxWidth="500">
+                                            <StackPanel>
+                                                <TextBlock
+                                                    TextWrapping="Wrap"
+                                                    Grid.Column="0"
+                                                    FontSize="{StaticResource FontSizeRegular}"
+                                                    ToolTip="{x:Static p:Resources.IgnoreWarningsTooltipText}">
+                                                    Allow Wiki-Up to promote itself by adding "Uploaded by Wiki-Up"
+                                                    to the upload summary
+                                                </TextBlock>
+                                                <ToggleSwitch:HorizontalToggleSwitch
+                                                    Margin="0 10 0 0"
+                                                    HorizontalAlignment="Left"
+                                                    IsChecked="{Binding AllowPromotion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </local:FocusedPopup>
+
+                                </Grid>
                             </StackPanel>
                         </Grid>
 
