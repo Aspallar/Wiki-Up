@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Configuration;
+using System.Linq;
+using System.Reflection;
 
 namespace WikiUpload.Properties
 {
@@ -128,56 +130,32 @@ namespace WikiUpload.Properties
 
         public void RestoreConfigurationDefaults()
         {
-            DefaultSettingValueAttribute attribute;
-            var properties = typeof(Settings).GetProperties();
-            foreach (var property in properties)
+            foreach (var property in GetConfigurationProperties())
+                property.SetValue(Settings.Default, property.GetDefaultValue());
+        }
+
+        private static IEnumerable<PropertyInfo> GetConfigurationProperties()
+        {
+            string[] configPropertyNames =
             {
-                switch(property.Name)
-                {
-                    case nameof(Settings.Default.UploadDelay):
-                        attribute = DefaultValueAttribute(property);
-                        UploadDelay = int.Parse(attribute.Value);
-                        break;
-
-                    case nameof(Settings.Default.CheckForUpdates):
-                        attribute = DefaultValueAttribute(property);
-                        CheckForUpdates = bool.Parse(attribute.Value);
-                        break;
-
-                    case nameof(Settings.Default.ImageExtensions):
-                        attribute = DefaultValueAttribute(property);
-                        ImageExtensions = attribute.Value;
-                        break;
-
-                    case nameof(Settings.Default.FollowUploadFile):
-                        attribute = DefaultValueAttribute(property);
-                        FollowUploadFile = bool.Parse(attribute.Value);
-                        break;
-
-                    case nameof(Settings.Default.ContentFileExtension):
-                        attribute = DefaultValueAttribute(property);
-                        ContentFileExtension = attribute.Value;
-                        break;
-
-                    case nameof(Settings.Default.DontAddToSummary):
-                        attribute = DefaultValueAttribute(property);
-                        DontAddToSumarry = bool.Parse(attribute.Value);
-                        break;
-                }
-            }
+                nameof(Settings.Default.UploadDelay),
+                nameof(Settings.Default.DontAddToSummary),
+                nameof(Settings.Default.CheckForUpdates),
+                nameof(Settings.Default.FollowUploadFile),
+                nameof(Settings.Default.ImageExtensions),
+                nameof(Settings.Default.ContentFileExtension),
+                nameof(Settings.Default.MainWindowPlacementEnabled),
+                nameof(Settings.Default.UploadedWindowPlacementEnabled),
+                nameof(Settings.Default.InitialAddToWatchlist),
+                nameof(Settings.Default.InitialIgnoreWarnings),
+            };
+            return typeof(Settings)
+                .GetProperties()
+                .Where(prop => configPropertyNames.Contains(prop.Name));
         }
 
-        private static DefaultSettingValueAttribute DefaultValueAttribute(System.Reflection.PropertyInfo property)
-            => (DefaultSettingValueAttribute)property.GetCustomAttributes(typeof(DefaultSettingValueAttribute), false)[0];
+        public void Save() => Settings.Default.Save();
 
-        public void Save()
-        {
-            Settings.Default.Save();
-        }
-
-        public void Reload()
-        {
-            Settings.Default.Reload();
-        }
+        public void Reload() => Settings.Default.Reload();
     }
 }
