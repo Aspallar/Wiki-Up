@@ -306,15 +306,8 @@ namespace WikiUpload
                 {
                     if (response.Errors.IsTokenError)
                     {
-                        if (_editTokenRefreshed)
-                        {
-                            throw new NoEditTokenException();
-                        }
-                        else
-                        {
-                            await RefreshEditToken();
-                            continue;
-                        }
+                        await TokenError();
+                        continue;
                     }
                     else if (response.Errors.IsMutsBeLoggedInError)
                     {
@@ -337,6 +330,18 @@ namespace WikiUpload
                     file.SetError(UploadMessages.UnkownServerResponse);
                 }
                 return;
+            }
+        }
+
+        private async Task TokenError()
+        {
+            if (_editTokenRefreshed)
+            {
+                throw new NoEditTokenException();
+            }
+            else
+            {
+                await RefreshEditToken();
             }
         }
 
