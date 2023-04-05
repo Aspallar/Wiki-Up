@@ -252,6 +252,7 @@
                                 </Grid>
                                 <Grid>
                                     <Button
+                                        x:Name="PromotionButton"
                                         Margin="0 4 0 0"
                                         Padding="20 2"
                                         Command="{Binding TogglePromotionPopupCommand}"
@@ -260,7 +261,7 @@
                                     <local:FocusedPopup
                                         AllowsTransparency="True"
                                         CloseOnEscape="False"
-                                        ExitFocus="{Binding ElementName=ConfigureStartupOptions}"
+                                        ExitFocus="{Binding ElementName=PromotionButton}"
                                         HorizontalOffset="-20"
                                         InitialFocus="{Binding ElementName=PromotionSwitch}"
                                         IsOpen="{Binding IsPromotionPopupOpen}"
@@ -269,21 +270,37 @@
                                         StaysOpen="False"
                                         VerticalOffset="30">
                                         <Border Style="{StaticResource PopupBorder}" MaxWidth="500">
-                                            <StackPanel>
-                                                <TextBlock
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <icons:PackIconFontAwesome
+                                                    Margin="0 0 16 0"
+                                                    Grid.Column="0"
+                                                    VerticalAlignment="Top"
+                                                    Width="50"
+                                                    Height="50"
+                                                    Foreground="{StaticResource PrimaryLightBrush}"
+                                                    Kind="UserFriendsSolid"/>
+
+                                                <StackPanel Grid.Column="1">
+                                                    <TextBlock
                                                     TextWrapping="Wrap"
                                                     Grid.Column="0"
                                                     FontSize="{StaticResource FontSizeRegular}"
                                                     ToolTip="{x:Static p:Resources.IgnoreWarningsTooltipText}">
                                                     Allow Wiki-Up to promote itself by adding "Uploaded by Wiki-Up"
                                                     to the upload summary
-                                                </TextBlock>
-                                                <ToggleSwitch:HorizontalToggleSwitch
+                                                    </TextBlock>
+                                                    <ToggleSwitch:HorizontalToggleSwitch
                                                     x:Name="PromotionSwitch"
                                                     Margin="0 10 0 0"
                                                     HorizontalAlignment="Left"
                                                     IsChecked="{Binding AllowPromotion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                            </StackPanel>
+                                                </StackPanel>
+
+                                            </Grid>
                                         </Border>
                                     </local:FocusedPopup>
 
