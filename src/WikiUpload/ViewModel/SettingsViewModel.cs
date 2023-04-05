@@ -47,6 +47,12 @@ namespace WikiUpload
             TogglePromotionPopupCommand = new RelayCommand(() => IsPromotionPopupOpen = !IsPromotionPopupOpen);
         }
 
+        public ICommand RemoveImageExtensionCommand { get; }
+        public ICommand ToggleAddImageExtensionPopupCommand { get; }
+        public ICommand ToggleStartupOptionsPopupCommand { get; }
+        public ICommand TogglePromotionPopupCommand { get; }
+
+        public ICommand AddImageEtensionCommand { get; }
         private void AddImageExtension()
         {
             IsAddingImageExtension = false;
@@ -71,12 +77,14 @@ namespace WikiUpload
             AllowPromotion = !_appSettings.DontAddToSumarry;
         }
 
+        public ICommand RestoreDefaultsCommand { get; }
         private void RestoreDefaults()
         {
             _appSettings.RestoreConfigurationDefaults();
             SetPropeertiesFromAppSettings();
         }
 
+        public ICommand SaveSettingsCommand { get; }
         private void SaveSettings()
         {
             _appSettings.UploadDelay = Delay;
@@ -96,6 +104,7 @@ namespace WikiUpload
             _navigatorService.LeaveSettingsPage();
         }
 
+        public ICommand CancelSettingsCommand { get; }
         private void CancelSettings()
         {
             if (IsStartupOptionsPopupOpen)
@@ -106,6 +115,7 @@ namespace WikiUpload
                 _navigatorService.LeaveSettingsPage();
         }
 
+        public ICommand CheckForUpdatesNowCommand { get; }
         private async void CheckForUpdatesNow()
         {
             UpdateCheckIsRunning = true;
@@ -118,15 +128,6 @@ namespace WikiUpload
                 CheckUpdateMessage = Resources.UpToDateText;
         }
 
-        public ICommand CancelSettingsCommand { get; }
-        public ICommand SaveSettingsCommand { get; }
-        public ICommand CheckForUpdatesNowCommand { get; }
-        public ICommand RestoreDefaultsCommand { get; }
-        public ICommand RemoveImageExtensionCommand { get; }
-        public ICommand ToggleAddImageExtensionPopupCommand { get; }
-        public ICommand AddImageEtensionCommand { get; }
-        public ICommand ToggleStartupOptionsPopupCommand { get; }
-        public ICommand TogglePromotionPopupCommand { get; }
 
         public ApplicationLanguages Languages { get; } = new ApplicationLanguages();
 
