@@ -837,5 +837,13 @@
   <data name="SaveLoadTooltip" xml:space="preserve">
     <value>Save or Load</value>
   </data>
+  
+  <data name="Promotion" xml:space="preserve">
+    <value>Promotion</value>
+  </data>
+
+  <data name="PromotionDescription" xml:space="preserve">
+    <value>Allow Wiki-Up to promote itself by adding "Uploaded by Wiki-Up"to the upload summary.</value>
+  </data>
 
 </root>

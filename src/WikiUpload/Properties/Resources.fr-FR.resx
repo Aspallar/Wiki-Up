@@ -829,4 +829,39 @@
     <value>Doit avoir un nom de fichier.</value>
   </data>
 
+  <!-- google translation -->
+  <data name="StartupOptions" xml:space="preserve">
+    <value>Options de démarrage</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="InitialValues" xml:space="preserve">
+    <value>Valeurs initiales</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="InitialValuesSubtext" xml:space="preserve">
+    <value>Valeurs initiales des options de téléchargement</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="SignInFirst" xml:space="preserve">
+    <value>Vous devez d'abord vous connecter</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="SaveLoadTooltip" xml:space="preserve">
+    <value>Enregistrer ou charger</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="Promotion" xml:space="preserve">
+    <value>Publicité</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="PromotionDescription" xml:space="preserve">
+    <value>Autorisez Wiki-Up à s'annoncer en ajoutant "Téléchargé par Wiki-Up" au résumé du téléchargement.</value>
+  </data>
+
 </root>

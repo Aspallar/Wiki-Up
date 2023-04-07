@@ -133,8 +133,8 @@
       <DependentUpon>UploadedFilesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\FileUploader\ISiteInfo.cs" />

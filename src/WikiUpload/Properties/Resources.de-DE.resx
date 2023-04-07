@@ -826,5 +826,40 @@
     <value>Muss einen Dateinamen haben</value>
   </data>
 
+  <!-- google translation -->
+  <data name="StartupOptions" xml:space="preserve">
+    <value>Startoptionen</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="InitialValues" xml:space="preserve">
+    <value>Anfangswerte</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="InitialValuesSubtext" xml:space="preserve">
+    <value>Anfangswerte für Upload-Optionen</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="SignInFirst" xml:space="preserve">
+    <value>You must sign in firsSie müssen sich zuerst anmelden</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="SaveLoadTooltip" xml:space="preserve">
+    <value>Speichern/Laden</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="Promotion" xml:space="preserve">
+    <value>Werbung</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="PromotionDescription" xml:space="preserve">
+    <value>Erlauben Sie Wiki-Up, für sich selbst zu werben, indem Sie "Uploaded by Wiki-Up" zur Upload-Zusammenfassung hinzufügen.</value>
+  </data>
+
 
 </root>

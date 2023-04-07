@@ -1132,6 +1132,24 @@ namespace WikiUpload.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Promotion.
+        /// </summary>
+        public static string Promotion {
+            get {
+                return ResourceManager.GetString("Promotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow Wiki-Up to promote itself by adding &quot;Uploaded by Wiki-Up&quot;to the upload summary..
+        /// </summary>
+        public static string PromotionDescription {
+            get {
+                return ResourceManager.GetString("PromotionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Purple Haze.
         /// </summary>
         public static string PutpleHazeText {

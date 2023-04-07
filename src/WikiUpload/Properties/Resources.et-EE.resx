@@ -632,4 +632,39 @@
     <value>Peab olema failinimi</value>
   </data>
 
+  <!-- google translation -->
+  <data name="StartupOptions" xml:space="preserve">
+    <value>Käivitusvalikud</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="InitialValues" xml:space="preserve">
+    <value>Algväärtused</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="InitialValuesSubtext" xml:space="preserve">
+    <value>Üleslaadimisvalikute algväärtused</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="SignInFirst" xml:space="preserve">
+    <value>Esmalt peate sisse logima</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="SaveLoadTooltip" xml:space="preserve">
+    <value>Salvesta/laadi</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="Promotion" xml:space="preserve">
+    <value>Reklaam</value>
+  </data>
+
+  <!-- google translation -->
+  <data name="PromotionDescription" xml:space="preserve">
+    <value>Lubage Wiki-Upil end reklaamida, lisades üleslaadimise kokkuvõttesse "Wiki-Upi poolt üles laaditud".</value>
+  </data>
+
 </root>
