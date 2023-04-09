@@ -352,7 +352,7 @@ namespace WikiUpload
         }
 
         private string MaybeAddAppName(string uploadSummary) 
-            => _appSettings.DontAddToSumarry ? "" : AddAppName(uploadSummary);
+            => _appSettings.DontAddToSumarry ? uploadSummary : AddAppName(uploadSummary);
 
         private string AddAppName(string uploadSummary)
         {
