@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.IO;
 
 namespace WikiUpload
@@ -15,7 +17,7 @@ namespace WikiUpload
         }
 
         public bool IsPermitted(string fileName)
-            => _extensions.Count == 0 || _extensions.Contains(Path.GetExtension(fileName));
+            => _extensions.Count == 0 || _extensions.Contains(Path.GetExtension(fileName), StringComparer.OrdinalIgnoreCase);
 
         public string[] GetExtensions()
         {

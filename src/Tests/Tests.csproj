@@ -71,6 +71,7 @@
     <Compile Include="MiscellaneousTests\AddFilesFilterBuilderTests.cs" />
     <Compile Include="MiscellaneousTests\ConfigurationUpgradeTests.cs" />
     <Compile Include="MiscellaneousTests\ExtensionValidaterTests.cs" />
+    <Compile Include="MiscellaneousTests\PermittedFilesTests.cs" />
     <Compile Include="ViewModelTests\AddFolderOptionsViewModelTests.cs" />
     <Compile Include="MiscellaneousTests\FileExtensionsCollectionTests.cs" />
     <Compile Include="MiscellaneousTests\FileFinderTests.cs" />
