@@ -11,7 +11,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Aspallar")]
 [assembly: AssemblyProduct("Wiki-Up")]
-[assembly: AssemblyCopyright("Copyright © David Marshall (aka Aspallar) 2019-2022")]
+[assembly: AssemblyCopyright("Copyright © David Marshall (aka Aspallar) 2019-2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
