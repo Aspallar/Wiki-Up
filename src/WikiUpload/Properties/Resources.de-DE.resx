@@ -770,95 +770,77 @@
   <!-- Edit upload file name -->
   
 
-  <!-- google translation -->
   <data name="EditUploadFileNamePrompt" xml:space="preserve">
-    <value>Geben Sie den für den Upload zu verwendenden Dateinamen ein</value>
+    <value>Bitte geben Sie den Dateinamen für den Upload ein</value>
   </data>
 
 
-  <!-- google translation -->
   <data name="EditUploadFileNameErrorInvalidCharacters" xml:space="preserve">
-    <value>Darf keines von {0} enthalten</value>
+    <value>Darf keines der Zeichen {0} enthalten</value>
   </data>
 
-  <!-- google translation -->
   <data name="EditUploadFileNameErrorIsRelativePath" xml:space="preserve">
-    <value>Kann nicht sein "." oder ".."</value>
+    <value>Darf weder "." noch ".." enthalten</value>
   </data>
 
-  <!-- google translation -->
   <data name="EditUploadFileNameErrorWhitespaceAtStart" xml:space="preserve">
-    <value>Kann nicht mit einem Leerzeichen oder _ beginnen</value>
+    <value>Darf nicht mit einem Leerzeichen oder _ beginnen</value>
   </data>
 
-  <!-- google translation -->
   <data name="EditUploadFileNameErrorWhitespaceAtEnd" xml:space="preserve">
     <value>Darf nicht mit einem Leerzeichen oder _ enden</value>
   </data>
 
-  <!-- google translation -->
   <data name="EditUploadFileNameErrorThreeTildes" xml:space="preserve">
-    <value>Darf nicht 3 oder mehr aufeinanderfolgende Tilden (~) enthalten.</value>
+    <value>Darf keine 3 oder mehr aufeinanderfolgende Tilden (~) enthalten.</value>
   </data>
 
-  <!-- google translation --> 
   <data name="EditUploadFileNameErrorConsecutiveSpaces" xml:space="preserve">
-    <value>Darf nicht 2 oder mehr aufeinanderfolgende Leerzeichen/Unterstriche enthalten.</value>
+    <value>Darf keine 2 oder mehr aufeinanderfolgende Leerzeichen/Unterstriche enthalten.</value>
   </data>
 
-  <!-- google translation -->
   <data name="EditUploadFileNameErrorUrlEscape" xml:space="preserve">
     <value>Darf keine URL-Escape-Sequenz (%nn) enthalten.</value>
   </data>
 
-  <!-- google translation -->
   <data name="EditUploadFileNameErrorTooLong" xml:space="preserve">
     <value>Zu lang.</value>
   </data>
 
-  <!-- google translation -->
   <data name="EditUploadFileNameErrorMustHaveExension" xml:space="preserve">
     <value>Muss eine Erweiterung haben, z. B. ".png"</value>
   </data>
 
-  <!-- google translation -->
   <data name="EditUploadFileNameErrorMustHaveFileName" xml:space="preserve">
     <value>Muss einen Dateinamen haben</value>
   </data>
 
-  <!-- google translation -->
   <data name="StartupOptions" xml:space="preserve">
     <value>Startoptionen</value>
   </data>
 
-  <!-- google translation -->
   <data name="InitialValues" xml:space="preserve">
     <value>Anfangswerte</value>
   </data>
 
-  <!-- google translation -->
   <data name="InitialValuesSubtext" xml:space="preserve">
     <value>Anfangswerte für Upload-Optionen</value>
   </data>
 
-  <!-- google translation -->
   <data name="SignInFirst" xml:space="preserve">
-    <value>You must sign in firsSie müssen sich zuerst anmelden</value>
+    <value>Sie müssen sich zuerst anmelden</value>
   </data>
 
-  <!-- google translation -->
   <data name="SaveLoadTooltip" xml:space="preserve">
     <value>Speichern/Laden</value>
   </data>
 
-  <!-- google translation -->
   <data name="Promotion" xml:space="preserve">
     <value>Werbung</value>
   </data>
 
-  <!-- google translation -->
   <data name="PromotionDescription" xml:space="preserve">
-    <value>Erlauben Sie Wiki-Up, für sich selbst zu werben, indem Sie "Uploaded by Wiki-Up" zur Upload-Zusammenfassung hinzufügen.</value>
+    <value>Erlauben Sie Wiki-Up, sich selbst zu bewerben, indem Sie "Uploaded by Wiki-Up" zur Upload-Zusammenfassung hinzufügen.</value>
   </data>
 
 
