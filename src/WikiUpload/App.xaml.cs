@@ -35,7 +35,6 @@ namespace WikiUpload
             base.OnStartup(e);
 
             ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             GetCommandLineArguments(e.Args, out var timeout);
             Timewout = timeout;
